@@ -1,0 +1,12 @@
+{
+  "extends": ["next/core-web-vitals", "prettier"],
+  "plugins": ["prettier"],
+  "rules": {
+    "indent": ["error", 2, { "SwitchCase": 1 }], // 들여쓰기 2칸만 허용
+    "no-var": "error", // var 키워드 사용 금지
+    "require-await": "error", // async 함수 내부에 await 키워드가 없으면 오류 발생
+    "eqeqeq": "warn", // ==, != 대신에 ===, !== 사용
+    "no-unused-vars": "warn", // 호출되지 않은 변수도 사용 가능하게 설정
+    "no-console": "warn" // console.log를 사용하면 경고함(console.log() 있는 채로 커밋 방지)
+  }
+}

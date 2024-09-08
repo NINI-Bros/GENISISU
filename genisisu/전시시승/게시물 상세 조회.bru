@@ -1,0 +1,44 @@
+meta {
+  name: 게시물 상세 조회
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{URL}}/posts/{{_id}}
+  body: json
+  auth: none
+}
+
+body:json {
+  
+  {
+    "ok": 5,
+    "item": {
+      "_id": 1,
+      "type": "qna",
+      "product_id": 1,
+      "seller_id": 2,
+      "user": {
+        "_id": 4,
+        "name": "대따 큰 도마도"
+      },
+      "title": "크기가 얼만만한가요?",
+      "content": "아이가 마음 다섯살인데 가지고 놀기 적당한 크기인가요?",
+      "replies": [
+        {
+          "_id": 3,
+          "user": {
+            "_id": 2,
+            "name": "네오"
+          },
+          "content": "높이 60cm 입니다.",
+          "createdAt": "2024.04.09 14:08:10",
+          "updatedAt": "2024.04.10 03:08:10"
+        }
+      ],
+      "createdAt": "2024.04.08 21:08:10",
+      "updatedAt": "2024.04.08 21:08:10"
+    }
+  }
+}
