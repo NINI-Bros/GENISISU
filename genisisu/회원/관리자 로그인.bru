@@ -1,0 +1,18 @@
+meta {
+  name: 관리자 로그인
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{URL}}/users/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "email": "hyundia-morgans@market.com",
+      "password": "11111111"
+  }
+}
