@@ -5,7 +5,7 @@ import { Cart, Option, Product } from '@/types/product';
 import { useModelStore } from '@/zustand/useModel';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import { ReactNode, useRef, useState } from 'react';
 
 interface HorizontalLayoutProps {
   params: {
@@ -33,17 +33,88 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
   
   const defaultData = modelOptionData[0];
   const defaultItems = defaultData.items || [];
-  const defaultGroupName = defaultData.topText;
-  const defaultItemName = defaultItems[0].name;
-  const defaultItemImage = defaultItems[0].image ? SERVER + defaultItems[0].image.path : '';
-  const defaultItemDescription = defaultItems[0].description || '';
+  let defaultGroupName = defaultData.topText;
+  let defaultItemName = defaultGroupName + '-' + defaultItems[0].name;
+  let defaultItemImage = defaultItems[0].image ? SERVER + defaultItems[0].image.path : '';
+  let defaultItemDescription = defaultItems[0].description || '';
+  let selectedItems:{name: string, price: number}[] = [];
+  let defaultItemPrice = 0;
+  if (storedValue.option?.[optionName]) {
+    const storedOption = storedValue.option[optionName];
+    defaultItemName = storedOption.name;
+    defaultGroupName = defaultItemName.split('-')[0];
+    defaultItemImage = storedOption.detailImage;
+    defaultItemDescription = storedOption.description || defaultItemDescription;
+    selectedItems = storedOption.selectedItems || selectedItems;
+    defaultItemPrice = storedOption.price;
+  }
+
   const defaultMapData = {
     group: defaultGroupName,
-    item : defaultGroupName + defaultItemName,
-    price : 0
+    item : defaultItemName,
+    price : defaultItemPrice
   };
   const clickedOptionRef = useRef<Map<string, string | number>>(new Map(Object.entries(defaultMapData)));
-  const checkOptionRef = useRef<Set<string>>(new Set());
+  const checkOptionRef = useRef<Set<{name:string, price: number}>>(new Set(selectedItems));
+  
+  const isGroupActive = (option: string) =>
+  clickedOptionRef.current.get('group') === option ? 'text-white' : 'text-[#666666]';
+
+  const isItemActive = (item: string) => clickedOptionRef.current.get('item') === item ? 'text-white' : 'text-[#666666]';
+
+  const list = modelOptionData.map((optionGroup, i) => {
+    const groupName = optionGroup.topText;
+    const price = optionGroup.price;
+    const groupItems = optionGroup.items || [];
+    const groupImage = groupItems[0]?.image?.path ? SERVER + groupItems[0].image.path : defaultItemImage;
+    const firstItem = groupItems[0]?.name;
+    const firstItemText = groupItems[0].description || '';
+    const matchedItems = [...checkOptionRef.current].filter(item => item.name === groupName);
+    const checkIcon = matchedItems.length > 0 ? '/images/check_activate.svg' : '/images/check_deactivate.svg';
+    // const checkIcon = checkOptionRef.current.has(groupName) ? '/images/check_activate.svg' : '/images/check_deactivate.svg';
+    const textItems = groupItems.length > 1 ? groupItems : [];
+    return (
+      <tr 
+        key={groupName + i}
+        className={`flex flex-col items-left text-[18px] gap-x-[86px] border-t-[1px] border-[#a4a4a4] py-[15px] pl-[15px]`}
+      >
+        <td 
+          onClick={() => handleOptionClick(groupName, firstItem, groupImage, firstItemText, price)}
+          className={`font-Hyundai-sans flex gap-x-3 items-center font-bold ${isGroupActive(groupName)} `}
+        >
+          <figure 
+            onClick={() => handleOptionCheck(groupName, price)}
+            className='w-[30px] h-[30px] relative hover:cursor-pointer'>
+            <Image src={checkIcon} fill sizes='100%' alt='check icon' />
+          </figure>
+          <span className='hover:cursor-pointer'>{groupName}</span>
+        </td>
+        <td className="font-Hyundai-sans text-[16px] text-[#666666] px-11">
+          + {price.toLocaleString('ko-KR')} 원
+        </td>
+        <td className={`font-Hyundai-sans mt-2`}>
+          <ul className='list-disc px-[60px] text-[16px]'>
+            {textItems.map((item, j) => {
+              const itemImage = item.image?.path ? SERVER + item.image.path : '';
+              const itemName = item.name;
+              const itemText = item.description || '';
+              const itemPrice = item.price || 0;
+              return (
+                <li 
+                  key={item.name + j}
+                  onClick={() => handleOptionClick(groupName, itemName, itemImage, itemText, itemPrice)}
+                  className={`${isItemActive(groupName + '-' + itemName)} hover:cursor-pointer`}
+                >
+                  {item.name}
+                </li>
+              );
+            })}
+          </ul>
+        </td>
+      </tr>
+    );
+  });
+
   const [optionState, setOptionState] = useState<{
     node: ReactNode;
     prevPrice: number;
@@ -51,7 +122,7 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
     imageSource: string;
     optionText: string;
   }>({
-    node: null,
+    node: list,
     prevPrice: storedValue.price,
     newPrice: storedValue.price,
     imageSource: defaultItemImage,
@@ -84,11 +155,17 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
     optionPrice: number,
   ) => {
     let newPrice = 0;
-    if (checkOptionRef.current.has(optionGroup)) {
-      checkOptionRef.current.delete(optionGroup);
+    const matchedGroupArray = [...checkOptionRef.current].filter(option => option.name === optionGroup);
+    if (matchedGroupArray.length > 0) {
+      const newRef = [...checkOptionRef.current].filter(option => option.name !== optionGroup);
+      checkOptionRef.current.clear();
+      newRef.map(option => checkOptionRef.current.add(option));
       newPrice = optionPrice === 0 ? storedValue.price : storedValue.price - optionPrice;
     } else {
-      checkOptionRef.current.add(optionGroup);
+      checkOptionRef.current.add({
+        name: optionGroup,
+        price: optionPrice
+      });
       newPrice = optionPrice === 0 ? storedValue.price : storedValue.price + optionPrice;
     }
     setOptionState((preState) => ({
@@ -99,59 +176,6 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
     }));
   };
 
-  const isOptionActive = (option: string) =>
-  clickedOptionRef.current.has(option) ? 'text-white' : 'text-[#666666]';
-
-  const list = modelOptionData.map((optionGroup, i) => {
-    const groupName = optionGroup.topText;
-    const price = optionGroup.price;
-    const groupItems = optionGroup.items || [];
-    const groupImage = groupItems[0]?.image?.path ? SERVER + groupItems[0].image.path : defaultItemImage;
-    const firstItem = groupItems[0]?.name;
-    const firstItemText = groupItems[0].description || '';
-    const checkIcon = checkOptionRef.current.has(groupName) ? '/images/check_activate.svg' : '/images/check_deactivate.svg';
-    const textItems = groupItems.length > 1 ? groupItems : [];
-    return (
-      <tr 
-        key={groupName + i}
-        className={`flex flex-col items-left text-[18px] gap-x-[86px] border-t-[1px] border-[#a4a4a4] py-[15px] pl-[15px]`}
-      >
-        <td 
-          onClick={() => handleOptionClick(groupName, firstItem, groupImage, firstItemText, price)}
-          className={`font-Hyundai-sans flex gap-x-3 items-center font-bold ${isOptionActive(groupName)} `}
-        >
-          <figure 
-            onClick={() => handleOptionCheck(groupName, price)}
-            className='w-[30px] h-[30px] relative hover:cursor-pointer'>
-            <Image src={checkIcon} fill sizes='100%' alt='check icon' />
-          </figure>
-          <span className='hover:cursor-pointer'>{groupName}</span>
-        </td>
-        <td className="font-Hyundai-sans text-[16px] text-[#666666] px-11">
-          + {price.toLocaleString('ko-KR')} 원
-        </td>
-        <td className={`font-Hyundai-sans mt-2`}>
-          <ul className='list-disc px-[60px] text-[16px]'>
-            {textItems.map((item, j) => {
-              const itemImage = item.image?.path ? SERVER + item.image.path : '';
-              const itemName = item.name;
-              const itemText = item.description || '';
-              const itemPrice = item.price || 0;
-              return (
-                <li 
-                  key={item.name + j}
-                  onClick={() => handleOptionClick(groupName, itemName, itemImage, itemText, itemPrice)}
-                  className={`${isOptionActive(groupName + '-' + itemName)} hover:cursor-pointer`}
-                >
-                  {item.name}
-                </li>
-              );
-            })}
-          </ul>
-        </td>
-      </tr>
-    );
-  });
 
   const { steps } = useModelStore();
   const currentStep = steps.indexOf(optionName);
@@ -169,17 +193,13 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
         [optionName]: {
           name: clickedOptionRef.current!.get('item') as string,
           price: clickedOptionRef.current!.get('price') as number,
+          detailImage: optionState.imageSource,
+          description: optionState.optionText,
+          selectedItems: [...checkOptionRef.current]
         }
       }
     });
   };
-
-  useEffect(() => {
-    setOptionState((prevState) => ({
-      ...prevState,
-      node: list,
-    }));
-  }, []);
 
   const text = optionState.optionText;
   const regex = /※.*/g;
@@ -219,12 +239,12 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
         <div className="grid grid-cols-[60px_60px] grid-rows-[50px] gap-x-[20px] absolute top-[620px] left-[80px]">
             <button className='bg-black border-[0.5px] border-white w-full h-full' onClick={(e) => clickButton(e, 'prev')}>
               <figure className='relative w-full h-[75%]'>
-                <Image className='absolute top-0 left-0' src="/images/btn_prev.png" alt="버튼 좌측 이미지" fill style={{objectFit:"contain"}}/>
+                <Image className='absolute top-0 left-0' src="/images/btn_prev.png" alt="버튼 좌측 이미지" fill sizes='100%' style={{objectFit:"contain"}}/>
               </figure>
             </button>
             <button className='bg-white w-full h-full' onClick={clickButton}>
               <figure className='relative w-full h-[75%]'>
-                <Image className='absolute top-0 left-0' src="/images/btn_next_b.png" alt="버튼 좌측 이미지" fill style={{objectFit:"contain"}}/>
+                <Image className='absolute top-0 left-0' src="/images/btn_next_b.png" alt="버튼 좌측 이미지" fill sizes='100%' style={{objectFit:"contain"}}/>
               </figure>
             </button>
         </div>
