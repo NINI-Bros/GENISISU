@@ -50,7 +50,7 @@ export default function Section1Index({ modelIndex, modelData, imageArray }: Sec
       {/* 이미지 영역 */}
       <div></div>
       <article className="w-[80%] grid grid-cols-1 grid-rows-[minmax(300px,_500px)_80px] justify-items-center mt-[80px] gap-y-[20px]">
-        <figure className="w-full max-h-[500px] min-h-[300px] aspect-[2/1] overflow-hidden col-span-3 self-center">
+        <figure className="relative w-full h-auto max-h-[500px] min-h-[300px] aspect-[2/1] overflow-hidden col-span-3 self-center">
           {modelData && <ImageViewer images={imageArray} />}
           {/* <img src="/images/detail/defaultCar.png" className="object-cover h-[100%] scale-150 " alt="" /> */}
         </figure>
@@ -62,7 +62,6 @@ export default function Section1Index({ modelIndex, modelData, imageArray }: Sec
             <span className="text-[20px] text-white"> 원</span>
           </h3>
           <div className="flex gap-x-[20px] mt-[0px] col-span-2">
-            {/* <button className="w-[320px] h-[70px]">시승신청</button> */}
             <Link
               href={{ pathname: '/info', query: { model: modelName } }}
               className="w-[150px] h-[37px] font-thin border-2 border-white flex items-center justify-center"
@@ -72,9 +71,6 @@ export default function Section1Index({ modelIndex, modelData, imageArray }: Sec
             <button className='mainBtn w-[150px] h-[37px] font-thin border-2 border-white bg-white text-black text-[16px]' style={{fontFamily:"Pretendard"}} onClick={clickNext}>
               다음
             </button>
-            {/* <Button color="black" bgColor="white" size="custom" onClick={clickNext}>
-              다음
-            </Button> */}
           </div>
         </div>
         

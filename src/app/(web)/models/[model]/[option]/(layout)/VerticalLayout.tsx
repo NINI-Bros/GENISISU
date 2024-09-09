@@ -5,7 +5,7 @@ import { Cart, Option, OptionItem, Product } from '@/types/product';
 import { useModelStore } from '@/zustand/useModel';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import { ReactNode, useRef, useState } from 'react';
 
 interface VerticalLayoutProps {
   params: {
@@ -32,9 +32,11 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
   });
 
   const defaultMapData = {
-    item: modelOptionData[0].topText,
-    price: modelOptionData[0].price
+    item: storedValue.option?.[optionName]?.name || modelOptionData[0].topText,
+    price: storedValue.option?.[optionName]?.price || modelOptionData[0].price
   };
+  let defaultImage = SERVER + modelOptionData[0].image?.path || '';
+  defaultImage = storedValue.option?.[optionName]?.detailImage || defaultImage;
   const clickedOptionRef = useRef<Map<string, string | number>>(new Map(Object.entries(defaultMapData)));
 
   const handleOptionClick = (optionName: string, optionIndex: number, optionPrice: number) => {
@@ -76,7 +78,6 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
     });
   };
 
-  const defaultImage = SERVER + modelOptionData[0].image?.path || '';
   const [optionState, setOptionState] = useState<{
     node: ReactNode;
     prevPrice: number;
@@ -106,6 +107,7 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
         [optionName]: {
           name: clickedOptionRef.current!.get('item') as string,
           price: clickedOptionRef.current!.get('price') as number,
+          detailImage: optionState.imageSource
         }
       }
     });
