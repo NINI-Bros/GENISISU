@@ -4,14 +4,20 @@
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { signOut, useSession } from 'next-auth/react';
 
 export default function Header({ isMain }: { isMain: string }) {
   // export default async function Header({ isMain }: {isMain:string}) {
   // const session = await auth();
   // console.log('session', session);
+  const route = useRouter();
+  const { data:session, status } =  useSession();
+  const handleSignOut = () => {
+    signOut({ callbackUrl: '/' });
+
+  }
 
   const modelRef = useRef(null)
-  const route = useRouter();
   const [modelOn, setModelOn] = useState(true)
   const handleSiteMapOpen = (e: React.MouseEvent<HTMLElement>) : void => {
     e.preventDefault();
@@ -108,12 +114,18 @@ export default function Header({ isMain }: { isMain: string }) {
         </li>
         <li>
           <ul>
-            <li>
-              <Link href="/login">로그인</Link>
-            </li>
-            <li>
-              <Link href="/signup">회원가입</Link>
-            </li>
+          
+             
+                <li>
+                  <Link href="/login">로그인</Link>
+                </li>
+                <li>
+                  <Link href="/signup">회원가입</Link>
+                </li>
+                <li className='cursor-pointer' onClick={handleSignOut}>로그아웃</li>
+             
+        
+            
             <li>
               <Link href="#" onClick={(e) => handleSiteMapOpen(e)}>
                 <img src="/images/menu_ham.png" alt="" />
