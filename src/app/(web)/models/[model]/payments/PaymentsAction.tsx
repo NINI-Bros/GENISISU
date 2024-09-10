@@ -488,11 +488,11 @@ export default function PaymentsAction (
                     <th className="text-right">배송지역</th>
                     <td className="w-full">
                       <div className="grid grid-cols-2 gap-[10px] auto-rows-[40px] text-white font-normal">
-                        <input type="text" id="postCode" placeholder="우편번호" className="bg-transparent border-b-[1px] border-gray-400"/>
+                        <input type="text" id="postCode" placeholder="우편번호" className="bg-transparent border-b-[1px] border-gray-400" defaultValue=""/>
                         <Button onClick={handleClickSearchAddr} className="w-[150px] bg-white hover:bg-transparent text-black hover:text-white transition-all justify-self-end">우편번호 찾기</Button>
-                        <input type="text" id="postAddr" placeholder="주소" className="col-span-2 bg-transparent border-b-[1px] border-gray-400" value={addrTax.detailAddr}/>
-                        <input type="text" id="postDetailAddr" placeholder="상세주소" className="bg-transparent border-b-[1px] border-gray-400"/>
-                        <input type="text" id="postExtraAddr" placeholder="참고 항목" className="bg-transparent border-b-[1px] border-gray-400"/>
+                        <input type="text" id="postAddr" placeholder="주소" className="col-span-2 bg-transparent border-b-[1px] border-gray-400" defaultValue={addrTax.detailAddr}/>
+                        <input type="text" id="postDetailAddr" placeholder="상세주소" className="bg-transparent border-b-[1px] border-gray-400" defaultValue=""/>
+                        <input type="text" id="postExtraAddr" placeholder="참고 항목" className="bg-transparent border-b-[1px] border-gray-400" defaultValue=""/>
                       </div>
                     </td>
                   </tr>
@@ -521,7 +521,7 @@ export default function PaymentsAction (
             <article className="border-t-[1px] border-[#a4a4a4]">
               <div className="flex justify-between items-center mt-[20px]">
                 <h3 className="text-[25px] font-bold">등록비용</h3>
-                <select name="" id="" className="text-black w-[120px] h-[50px]" onChange={handleValueChange} defaultValue="normal" >
+                <select name="" id="" className="text-black w-[120px] h-[50px]" onChange={handleValueChange} defaultValue={tax.selValue} >
                   <option value="normal">일반인</option>
                   <option value="disabled" >장애인</option>
                 </select>
