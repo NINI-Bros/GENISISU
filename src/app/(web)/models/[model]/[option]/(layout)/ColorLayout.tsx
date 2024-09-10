@@ -6,7 +6,6 @@ import { useModelStore } from '@/zustand/useModel';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ReactNode, useEffect, useRef, useState } from 'react';
-import { text } from 'stream/consumers';
 
 interface ColorLayoutProps {
   params: {
@@ -27,9 +26,6 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
   const initialPrice = modelData?.price || 0;
   const modelOptionData = optionData[0].extra.option[optionName][modelName];
 
-  // console.log(modelOptionData);
-  // console.log(modelOptionData.length);
-
   const [storedValue, setValue] = useLocalStorage<Cart>('cart', {
     model: modelName,
     price: initialPrice,
@@ -37,16 +33,23 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
 
   const defaultData = modelOptionData[0];
   const defaultItems = defaultData.items || [];
-  const defaultGroupName = defaultData.topText;
-  const defaultItemName = defaultItems[0].name;
-  const defaultItemImage = defaultItems[0].images ? SERVER + defaultItems[0].images[1].path : '';
-  const defaultItemChipImage = defaultItems[0].images ? SERVER + defaultItems[0].images[0].path : '';
+  let defaultGroupName = defaultData.topText;
+  let defaultItemName = defaultItems[0].name;
+  let defaultItemImage = defaultItems[0].images ? SERVER + defaultItems[0].images[1].path : '';
+  let defaultItemChipImage = defaultItems[0].images ? SERVER + defaultItems[0].images[0].path : '';
+  const defaultItemPrice = storedValue.option?.[optionName]?.price || 0;
+  if (storedValue.option?.[optionName]) {
+    const storedNameArr = storedValue.option[optionName].name.split('-');
+    [defaultGroupName, defaultItemName] = storedNameArr;
+    defaultItemImage = storedValue.option[optionName].detailImage;
+    defaultItemChipImage = storedValue.option[optionName].image || '';
+  }
 
   const clickedOptionRef = useRef<Set<string>>(new Set([defaultGroupName, defaultGroupName + defaultItemName]));
   const defaultMapData = {
     group: defaultGroupName,
     item: defaultItemName,
-    price: 0,
+    price: defaultItemPrice,
     image: defaultItemChipImage
   }
   const textOptionRef = useRef<Map<string, string | number>>(new Map(Object.entries(defaultMapData)));
@@ -156,27 +159,21 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
     e.preventDefault();
     const step = direction === 'prev' ? prevStep : nextStep;
     router.push(`/models/${params.model}/${step}`);
-    const temp = `${textOptionRef.current!.get('group')}-${textOptionRef.current!.get('item')}`
+    const currentItem = `${textOptionRef.current!.get('group')}-${textOptionRef.current!.get('item')}`
     setValue({
       model: modelName,
       price: optionState.newPrice,
       option: {
         ...storedValue.option,
         [optionName]: {
-          name: temp,
+          name: currentItem,
           price: textOptionRef.current!.get('price') as number,
           image: textOptionRef.current!.get('image') as string,
+          detailImage: optionState.imageSource
         }
       }
     });
   };
-
-  useEffect(() => {
-    setOptionState((prevState) => ({
-      ...prevState,
-      node: list,
-    }));
-  }, []);
 
   return (
     <>

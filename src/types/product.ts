@@ -140,7 +140,10 @@ export interface Cart {
     [optionName: string]: {
       name: string;
       price: number;
+      detailImage: string;
       image?: string;
+      description?: string;
+      selectedItems?: { name: string; price: number }[];
     };
   };
 }
