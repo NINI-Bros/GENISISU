@@ -8,13 +8,17 @@ export default function ListItem({ item, params }: { item: Post; params: { board
   const route = useRouter();
   const { data:session, status } =  useSession();
 
+  console.log("타입확인::",session?.user?.type)
+  console.log("게시판확인::",params.boards)
+
   const handleDetailView = (e:React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    if (session?.user?.type === 'admin') {
-      route.push(`/${item.type}/${item._id}`)
-    } else {
-      alert("관리자 권한이 필요합니다")
-    }
+      if (session?.user?.type !== 'admin' && params.boards === 'info') {
+        alert("관리자 권한이 필요합니다")
+      } else {
+        route.push(`/${item.type}/${item._id}`)
+      }
+    
   }
 
   return (
