@@ -67,7 +67,13 @@ export default function PaymentsAction (
   const optionGarnish = optionData[4].garnish[`${storedValue.model}`] // 내장 가니쉬
   const optionWheel = optionData[5].wheel[`${storedValue.model}`] // 휠 & 타이어
   const optionAdd = optionData[6].add[`${storedValue.model}`] // 선택 옵션
+  const optionAddSelect = storedValue.option?.add?.selectedItems
   // --- 기본옵션 끝
+
+  const localAddOptions = () => {
+
+  }
+  
 
   const title = storedValue.model && storedValue.model?.split('-').join(' ').toUpperCase();
   const price = Number(storedValue.price);
@@ -306,7 +312,7 @@ export default function PaymentsAction (
                 </figure>
                 <span>{option?.[0].items?.[0].name}</span>
               </td>
-              <td className="text-right"><span className="w-[50px] mr-[10px]">(기본)</span>{option && option?.[0].items?.[0].price?.toLocaleString()}원</td>
+              <td className="text-right"><span className="w-[50px] mr-[10px]">(기본)</span>{option && option?.[0].items?.[0].price?.toLocaleString() + "원"}</td>
             </>
           )
         } else if (storedValue.option?.[type] !== undefined){
@@ -341,7 +347,7 @@ export default function PaymentsAction (
                 </figure>
                 <span>{option?.[0].items?.[0].name}</span>
               </td>
-              <td className="text-right"><span className="w-[50px] mr-[10px]">(기본)</span>{option && option?.[0].items?.[0].price?.toLocaleString()}원</td>
+              <td className="text-right"><span className="w-[50px] mr-[10px]">(기본)</span>{option && option?.[0].items?.[0].price?.toLocaleString() + "원"}</td>
             </>
           )
         } else if (storedValue.option?.[type] !== undefined){
@@ -363,33 +369,55 @@ export default function PaymentsAction (
           return null
         }
         break;
-      default :
-        if (storedValue.option?.[type] === undefined || storedValue.option?.[type].name === option[0].topText ) {
+      case "add" :
+        if (storedValue.option?.[type] === undefined || optionAddSelect?.length === 0) {
           return(
-            <>
-              <td className="text-left">{type === "add" ? "-" : option?.[0].topText}</td>
-              <td className="text-right">
-                <span className="w-[50px] mr-[10px]">{type === "add" ? "" : "(기본)"}</span>
-                <span className="optionsPrice">
-                  {type === "add" ? "-" : option?.[0].price.toLocaleString() + "원"}
-                </span>
-              </td>
-            </>
+            <td>
+              <div className="text-right">(선택한 옵션이 없습니다)</div>  
+            </td>
           ) 
-        } else if (storedValue.option?.[type] !== undefined){
+        } else {
           return(
             <>
-              <td className="text-left">{type === "add" || type === "garnish" ? storedValue.option?.[type].name?.split("-")[1] : storedValue.option?.[type].name}</td>
-              <td className="text-right">
-                <span className="optionsPrice">
-                  {storedValue.option?.[type].price.toLocaleString()}
-                </span>원
-              </td>
+              {optionAddSelect?.map((items,index) => (
+                  <td key={"add_" + index} className="flex justify-between col-start-2">
+                    <div className="text-left">{items?.name}</div>
+                    <div className="text-right">
+                      <span className="optionsPrice">{items?.price.toLocaleString() + "원"}</span>
+                    </div>
+                  </td>  
+                ))}
             </>
           )
-        } else {
-          return null
         }
+        break;
+      default :
+      if (storedValue.option?.[type] === undefined || storedValue.option?.[type].name === option[0].topText ) {
+        return(
+          <>
+            <td className="text-left">{option?.[0].topText}</td>
+            <td className="text-right">
+              <span className="w-[50px] mr-[10px]">(기본)</span>
+              <span className="optionsPrice">
+                {option?.[0].price.toLocaleString() + "원"}
+              </span>
+            </td>
+          </>
+        ) 
+      } else if (storedValue.option?.[type] !== undefined){
+        return(
+          <>
+            <td className="text-left">{type === "garnish" ? storedValue.option?.[type].name?.split("-")[1] : storedValue.option?.[type].name}</td>
+            <td className="text-right">
+              <span className="optionsPrice">
+                {storedValue.option?.[type].price.toLocaleString()}
+              </span>원
+            </td>
+          </>
+        )
+      } else {
+        return null
+      }
     }
 
   }
@@ -459,7 +487,7 @@ export default function PaymentsAction (
                             <th className="text-left mr-[15px] rounded-[10px] font-normal">휠 & 타이어</th>
                             <OptionView type="wheel" option={optionWheel}/>
                           </tr>
-                          <tr className="grid grid-cols-[100px_4fr_minmax(100px,auto)] gap-x-[5px]">
+                          <tr className="grid grid-cols-[100px_4fr] gap-x-[5px] gap-y-[10px]">
                             <th className="text-left mr-[15px] rounded-[10px] font-normal">선택 옵션</th>
                             <OptionView type="add" option={optionAdd}/>
                           </tr>
