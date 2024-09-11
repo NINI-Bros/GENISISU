@@ -50,7 +50,7 @@ export default function Section1Index({ modelIndex, modelData, imageArray }: Sec
       {/* 이미지 영역 */}
       <div></div>
       <article className="w-[80%] grid grid-cols-1 grid-rows-[minmax(300px,_500px)_80px] justify-items-center mt-[80px] gap-y-[20px]">
-        <figure className="relative w-full h-auto max-h-[500px] min-h-[300px] aspect-[2/1] overflow-hidden col-span-3 self-center">
+        <figure className="relative w-auto h-auto max-h-[500px] min-h-[300px] aspect-[2/1] overflow-hidden col-span-3 self-center">
           {modelData && <ImageViewer images={imageArray} />}
           {/* <img src="/images/detail/defaultCar.png" className="object-cover h-[100%] scale-150 " alt="" /> */}
         </figure>
