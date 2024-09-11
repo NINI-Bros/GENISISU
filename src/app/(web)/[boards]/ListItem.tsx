@@ -7,10 +7,6 @@ import { useRouter } from 'next/navigation';
 export default function ListItem({ item, params }: { item: Post; params: { boards: string } }) {
   const route = useRouter();
   const { data:session, status } =  useSession();
-
-  console.log("타입확인::",session?.user?.type)
-  console.log("게시판확인::",params.boards)
-
   const handleDetailView = (e:React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
       if (session?.user?.type !== 'admin' && params.boards === 'info') {
