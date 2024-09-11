@@ -154,24 +154,24 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
     optionGroup: string,
     optionPrice: number,
   ) => {
-    let newPrice = 0;
+    let newPrice = optionState.newPrice;
     const matchedGroupArray = [...checkOptionRef.current].filter(option => option.name === optionGroup);
     if (matchedGroupArray.length > 0) {
       const newRef = [...checkOptionRef.current].filter(option => option.name !== optionGroup);
       checkOptionRef.current.clear();
       newRef.map(option => checkOptionRef.current.add(option));
-      newPrice = optionPrice === 0 ? storedValue.price : storedValue.price - optionPrice;
+      newPrice = optionPrice === 0 ? newPrice : newPrice - optionPrice;
     } else {
       checkOptionRef.current.add({
         name: optionGroup,
         price: optionPrice
       });
-      newPrice = optionPrice === 0 ? storedValue.price : storedValue.price + optionPrice;
+      newPrice = optionPrice === 0 ? newPrice : newPrice + optionPrice;
     }
-    setOptionState((preState) => ({
-      ...preState,
+    setOptionState((prevState) => ({
+      ...prevState,
       node: list,
-      prevPrice: preState.newPrice,
+      prevPrice: prevState.newPrice,
       newPrice: newPrice,
     }));
   };
