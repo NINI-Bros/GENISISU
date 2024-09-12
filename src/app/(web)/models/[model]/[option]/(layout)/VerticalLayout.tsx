@@ -3,6 +3,7 @@
 import useLocalStorage from '@/hook/useLocalStorage';
 import { Cart, Option, OptionItem, Product } from '@/types/product';
 import { useModelStore } from '@/zustand/useModel';
+import { useSelectState, useSelectUpdate } from '@/zustand/useSelectStore';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ReactNode, useRef, useState } from 'react';
@@ -20,6 +21,8 @@ const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
 // 1번레이아웃_중앙 정렬 옵션
 export default function VerticalLayout({ params, modelData, optionData }: VerticalLayoutProps) {
+  const cartItem = useSelectState();
+  const updateCartItem = useSelectUpdate();
   const router = useRouter();
   const optionName = params.option;
   const modelName = modelData?.name || '';
@@ -39,17 +42,34 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
   defaultImage = storedValue.option?.[optionName]?.detailImage || defaultImage;
   const clickedOptionRef = useRef<Map<string, string | number>>(new Map(Object.entries(defaultMapData)));
 
-  const handleOptionClick = (optionName: string, optionIndex: number, optionPrice: number) => {
+  const handleOptionClick = (optionItem: string, optionIndex: number, optionPrice: number) => {
     clickedOptionRef.current.clear();
-    clickedOptionRef.current.set('item', optionName);
+    clickedOptionRef.current.set('item', optionItem);
     clickedOptionRef.current.set('price', optionPrice);
     const newImage = SERVER + modelOptionData[optionIndex].image?.path;
-    const newPrice = optionPrice === 0 ? storedValue.price : storedValue.price + optionPrice;
+    let newPrice = 0;
+    if (storedValue.option?.[optionName]) { // 해당 옵션을 선택한 적 있는 경우
+      const basePrice = storedValue.price - storedValue.option[optionName].price;
+      newPrice = basePrice + optionPrice; 
+    } else { // 해당 옵션을 선택한 적 없는 경우
+      newPrice = storedValue.price + optionPrice;
+    }
     setOptionState({
       node: generateOptionButton(),
       prevPrice: optionState.newPrice,
       newPrice: newPrice,
       imageSource: newImage,
+    });
+    updateCartItem({
+      model: modelName,
+      price: newPrice,
+      option: {
+        [optionName]: {
+          name: optionItem,
+          price: optionPrice,
+          detailImage: newImage
+        }
+      }
     });
   };
 
@@ -147,7 +167,7 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
         <article className="w-full absolute bottom-[120px] flex items-end z-10 justify-center ">
           <div className="absolute right-12">
             <aside className="font-Hyundai-sans border-[1px] border-[#666666] flex flex-col justify-center px-[30px] pt-[10px]">
-              <p className="text-[15px] text-[#a4a4a4]">예상가격</p>
+              <p className="text-[15px] text-[#a4a4a4]">예상 가격</p>
               <span className="text-[30px] font-bold mt-[-10px]">
                 {optionState.newPrice.toLocaleString('ko-KR')}
                 <span className="text-[20px] align-middle"> 원</span>

@@ -19,7 +19,6 @@ export function generateMetadata() {
 
 export default async function ListPage() {
   const data = await fetchVehicles();
-  // console.log(data);
   const productCard = data.map((model, index) => <ModelCard key={index} model={model} />);
   return (
     <main className="bg-black pt-40 pl-28 pr-28">

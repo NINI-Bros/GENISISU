@@ -3,6 +3,7 @@
 import useLocalStorage from '@/hook/useLocalStorage';
 import { Cart, Option, Product } from '@/types/product';
 import { useModelStore } from '@/zustand/useModel';
+import { useSelectStore } from '@/zustand/useSelectStore';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ReactNode, useRef, useState } from 'react';
@@ -16,10 +17,19 @@ interface HorizontalLayoutProps {
   optionData: Option[];
 }
 
+interface OptionEventParams {
+    optionGroup: string,
+    optionItem: string,
+    optionImage: string,
+    optionText: string,
+    optionPrice: number
+}
+
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
 // 3번레이아웃_기본 default 옵션 사진 가로
 export default function HorizontalLayout({ params, modelData, optionData }: HorizontalLayoutProps) {
+  const [selectItem, updateCartItem] = useSelectStore((state) => [state.selectItem, state.updateSelectItem]);
   const router = useRouter();
   const optionName = params.option;
   const modelName = modelData?.name || '';
@@ -73,17 +83,24 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
     const checkIcon = matchedItems.length > 0 ? '/images/check_activate.svg' : '/images/check_deactivate.svg';
     // const checkIcon = checkOptionRef.current.has(groupName) ? '/images/check_activate.svg' : '/images/check_deactivate.svg';
     const textItems = groupItems.length > 1 ? groupItems : [];
+    let optionEventParams = {
+      optionGroup: groupName,
+      optionItem: firstItem,
+      optionImage: groupImage,
+      optionText: firstItemText,
+      optionPrice: price
+    }
     return (
       <tr 
         key={groupName + i}
         className={`flex flex-col items-left text-[18px] gap-x-[86px] border-t-[1px] border-[#a4a4a4] py-[15px] pl-[15px]`}
       >
         <td 
-          onClick={() => handleOptionClick(groupName, firstItem, groupImage, firstItemText, price)}
+          onClick={() => handleOptionClick(optionEventParams)}
           className={`font-Hyundai-sans flex gap-x-3 items-center font-bold ${isGroupActive(groupName)} `}
         >
           <figure 
-            onClick={() => handleOptionCheck(groupName, price)}
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleOptionCheck(e, optionEventParams)}
             className='w-[30px] h-[30px] relative hover:cursor-pointer'>
             <Image src={checkIcon} fill sizes='100%' alt='check icon' />
           </figure>
@@ -95,14 +112,18 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
         <td className={`font-Hyundai-sans mt-2`}>
           <ul className='list-disc px-[60px] text-[16px]'>
             {textItems.map((item, j) => {
-              const itemImage = item.image?.path ? SERVER + item.image.path : '';
               const itemName = item.name;
-              const itemText = item.description || '';
-              const itemPrice = item.price || 0;
+              let optionEventParams = {
+                optionGroup: groupName,
+                optionItem: itemName,
+                optionImage: item.image?.path ? SERVER + item.image.path : '',
+                optionText: item.description || '',
+                optionPrice: item.price || 0
+              }
               return (
                 <li 
                   key={item.name + j}
-                  onClick={() => handleOptionClick(groupName, itemName, itemImage, itemText, itemPrice)}
+                  onClick={() => handleOptionClick(optionEventParams)}
                   className={`${isItemActive(groupName + '-' + itemName)} hover:cursor-pointer`}
                 >
                   {item.name}
@@ -129,12 +150,13 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
     optionText: defaultItemDescription,
   });
 
-  const handleOptionClick = (
-    optionGroup: string,
-    optionItem: string,
-    optionImage: string,
-    optionText: string,
-    optionPrice: number
+  const handleOptionClick = ({
+    optionGroup,
+    optionItem,
+    optionImage,
+    optionText,
+    optionPrice
+  }: OptionEventParams
   ) => {
     clickedOptionRef.current.clear();
     clickedOptionRef.current.set('group', optionGroup);
@@ -148,12 +170,34 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
       imageSource: newImage,
       optionText: optionText
     }));
+    
+    updateCartItem({
+      model: modelName,
+      price: optionState.newPrice,
+      option: {
+        [optionName]: {
+          name: optionGroup + '-' + optionItem,
+          price: optionPrice,
+          detailImage: newImage,
+          description: optionText,
+          selectedItems: [...checkOptionRef.current]
+        }
+      }
+    });
   };
 
   const handleOptionCheck = (
-    optionGroup: string,
-    optionPrice: number,
+    event: React.MouseEvent,
+    {
+      optionGroup,
+      optionItem,
+      optionImage,
+      optionText,
+      optionPrice
+    } : OptionEventParams
   ) => {
+    event.stopPropagation();
+    handleOptionClick({optionGroup, optionItem, optionImage, optionText, optionPrice});
     let newPrice = optionState.newPrice;
     const matchedGroupArray = [...checkOptionRef.current].filter(option => option.name === optionGroup);
     if (matchedGroupArray.length > 0) {
@@ -174,8 +218,20 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
       prevPrice: prevState.newPrice,
       newPrice: newPrice,
     }));
+    updateCartItem({
+      model: modelName,
+      price: newPrice,
+      option: {
+        [optionName]: {
+          name: clickedOptionRef.current!.get('item') as string,
+          price: clickedOptionRef.current!.get('price') as number,
+          detailImage: optionState.imageSource,
+          description: optionState.optionText,
+          selectedItems: [...checkOptionRef.current]
+        }
+      }
+    });
   };
-
 
   const { steps } = useModelStore();
   const currentStep = steps.indexOf(optionName);
@@ -253,7 +309,7 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
 
           <div className="absolute right-12">
             <aside className="font-Hyundai-sans border-[1px] border-[#666666] flex flex-col justify-center px-[30px] pt-[10px]">
-              <p className="text-[15px] text-[#a4a4a4]">예상가격</p>
+              <p className="text-[15px] text-[#a4a4a4]">예상 가격</p>
               <span className="text-[30px] font-bold mt-[-10px]">
                 {optionState.newPrice.toLocaleString('ko-KR')}
                 <span className="text-[20px] align-middle"> 원</span>

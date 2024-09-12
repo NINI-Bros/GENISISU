@@ -34,8 +34,4 @@ export const useModelStore = create<ModelStore>((set) => ({
     'add',
     'payments',
   ],
-  // addItem: (item) => set((state) => ({ items: [...state.items, item] })),
-  // removeItem: (index) => set((state) => ({
-  //   items: state.items.filter((_, i) => i !== index)
-  // })),
 }));
