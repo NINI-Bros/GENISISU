@@ -70,11 +70,6 @@ export default function PaymentsAction (
   const optionAddSelect = storedValue.option?.add?.selectedItems
   // --- 기본옵션 끝
 
-  const localAddOptions = () => {
-
-  }
-  
-
   const title = storedValue.model && storedValue.model?.split('-').join(' ').toUpperCase();
   const price = Number(storedValue.price);
   const originMatch = vehicleInfo.filter(item => item.name === storedValue.model)[0]
