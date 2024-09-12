@@ -2,7 +2,7 @@ import { ApiRes, MultiItem, Pagination, Post, SingleItem } from '@/types';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 const DELAY = process.env.NEXT_PUBLIC_DELAY;
-const CLIENT = process.env.NEXT_PUBLIC_POST_CLIENT_ID;
+const CLIENT = process.env.NEXT_PUBLIC_CLIENT_ID;
 const LIMIT = "10"
 
 // 게시물 목록 전체 조회
