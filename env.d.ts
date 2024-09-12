@@ -4,6 +4,7 @@ declare namespace NodeJS {
     NEXT_PUBLIC_DELAY: string;
     NEXT_PUBLIC_LIMIT: string;
     NEXT_CLIENT_ID: string;
+    NEXT_PUBLIC_POST_CLIENT_ID: string;
     DB_SERVER: string;
     DB_NAME: string;
     NEXT_PUBLIC_PORTONE_STOREID: string;
