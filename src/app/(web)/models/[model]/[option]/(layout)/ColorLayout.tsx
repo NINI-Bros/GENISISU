@@ -3,6 +3,7 @@
 import useLocalStorage from '@/hook/useLocalStorage';
 import { Cart, Option, OptionDetail, OptionItem, Product } from '@/types/product';
 import { useModelStore } from '@/zustand/useModel';
+import { useSelectUpdate } from '@/zustand/useSelectStore';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ReactNode, useRef, useState } from 'react';
@@ -20,6 +21,7 @@ const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
 // 2번레이아웃_컬러칩 옵션
 export default function ColorLayout({ params, modelData, optionData }: ColorLayoutProps) {
+  const updateCartItem = useSelectUpdate();
   const router = useRouter();
   const optionName = params.option;
   const modelName = modelData?.name || '';
@@ -79,8 +81,13 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
     clickedOptionRef.current.add(optionGroup);
     clickedOptionRef.current.add(optionGroup + optionItem);
     const newImage = optionVehicleImage;
-    // 로컬스토리지 기준값: storedValue.price
-    const newPrice = optionPrice === 0 ? storedValue.price : storedValue.price + optionPrice;
+    let newPrice = 0;
+    if (storedValue.option?.[optionName]) { // 해당 옵션을 선택한 적 있는 경우
+      const basePrice = storedValue.price - storedValue.option[optionName].price;
+      newPrice = basePrice + optionPrice; 
+    } else { // 해당 옵션을 선택한 적 없는 경우
+      newPrice = storedValue.price + optionPrice;
+    }
     textOptionRef.current.set('group', optionGroup);
     textOptionRef.current.set('item', optionItem);
     textOptionRef.current.set('price', optionPrice);
@@ -92,6 +99,18 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
       newPrice: newPrice,
       imageSource: newImage,
       optionText: textOptionRef.current.get('item') as string || '',
+    });
+    updateCartItem({
+      model: modelName,
+      price: newPrice,
+      option: {
+        [optionName]: {
+          name: optionGroup + '-' + optionItem,
+          price: optionPrice,
+          detailImage: newImage,
+          image: optionColorChipImage
+        }
+      }
     });
   };
 
@@ -212,7 +231,7 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
               <p className="text-[15px] text-[#a4a4a4]">예상 가격</p>
               <span className="text-[30px] font-bold mt-[-10px]">
                 {optionState.newPrice.toLocaleString('ko-KR')}
-                <span className="text-[20px]">원</span>
+                <span className="text-[20px] align-middle"> 원</span>
               </span>
             </aside>
           </div>

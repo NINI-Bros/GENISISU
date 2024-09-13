@@ -4,7 +4,7 @@ import { Option, OptionExterior, Product } from '@/types/product';
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 const LIMIT = process.env.NEXT_PUBLIC_LIMIT;
 const DELAY = process.env.NEXT_PUBLIC_DELAY;
-const CLIENT = process.env.NEXT_CLIENT_ID;
+const CLIENT = process.env.NEXT_PUBLIC_CLIENT_ID;
 
 export async function fetchProducts(): Promise<Product[]> {
   const params = new URLSearchParams();
@@ -47,11 +47,10 @@ export async function fetchVehicles(): Promise<Product[]> {
   });
   const resJson: ApiRes<MultiItem<Product>> = await res.json();
   if (!resJson.ok) {
-    throw new Error('상품 목록 조회 실패');
+    throw new Error('차량 목록 조회 실패');
   }
   return resJson.item;
 }
-
 
 export async function fetchOptions(): Promise<Option[]> {
   const params = new URLSearchParams();

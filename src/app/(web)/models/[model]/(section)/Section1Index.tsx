@@ -7,8 +7,8 @@ import { useModelStore } from '@/zustand/useModel';
 import { useRouter } from 'next/navigation';
 import useLocalStorage from '@/hook/useLocalStorage';
 import extractTitle from '@/data/extractTitle';
-import Button from '@/components/Button';
 import { useEffect } from 'react';
+import { useSelectReset, useSelectState } from '@/zustand/useSelectStore';
 
 interface Section1IndexProps {
   modelIndex: string;
@@ -17,6 +17,7 @@ interface Section1IndexProps {
 }
 
 export default function Section1Index({ modelIndex, modelData, imageArray }: Section1IndexProps) {
+  const resetCartItem = useSelectReset();
   const { steps } = useModelStore();
   const initialValue = {
     model: modelData?.name || '',
@@ -25,7 +26,8 @@ export default function Section1Index({ modelIndex, modelData, imageArray }: Sec
   const [storedValue, setValue] = useLocalStorage<Cart>('cart', 
     initialValue
   );
-  useEffect(() => {
+  useEffect(() => { // 초기화 안하려면 제거
+    resetCartItem();
     window.localStorage.setItem('cart', JSON.stringify(initialValue));
   }, []);
   const router = useRouter();
