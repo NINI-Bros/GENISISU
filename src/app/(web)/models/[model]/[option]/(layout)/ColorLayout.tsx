@@ -3,7 +3,7 @@
 import useLocalStorage from '@/hook/useLocalStorage';
 import { Cart, Option, OptionDetail, OptionItem, Product } from '@/types/product';
 import { useModelStore } from '@/zustand/useModel';
-import { useSelectState, useSelectUpdate } from '@/zustand/useSelectStore';
+import { useSelectUpdate } from '@/zustand/useSelectStore';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ReactNode, useRef, useState } from 'react';
@@ -21,7 +21,6 @@ const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
 // 2번레이아웃_컬러칩 옵션
 export default function ColorLayout({ params, modelData, optionData }: ColorLayoutProps) {
-  const cartItem = useSelectState();
   const updateCartItem = useSelectUpdate();
   const router = useRouter();
   const optionName = params.option;
@@ -106,7 +105,7 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
       price: newPrice,
       option: {
         [optionName]: {
-          name: optionGroup + optionItem,
+          name: optionGroup + '-' + optionItem,
           price: optionPrice,
           detailImage: newImage,
           image: optionColorChipImage

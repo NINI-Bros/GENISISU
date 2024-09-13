@@ -3,7 +3,7 @@
 import useLocalStorage from '@/hook/useLocalStorage';
 import { Cart, Option, OptionItem, Product } from '@/types/product';
 import { useModelStore } from '@/zustand/useModel';
-import { useSelectState, useSelectUpdate } from '@/zustand/useSelectStore';
+import { useSelectUpdate } from '@/zustand/useSelectStore';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ReactNode, useRef, useState } from 'react';
@@ -21,14 +21,12 @@ const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
 // 1번레이아웃_중앙 정렬 옵션
 export default function VerticalLayout({ params, modelData, optionData }: VerticalLayoutProps) {
-  const cartItem = useSelectState();
   const updateCartItem = useSelectUpdate();
   const router = useRouter();
   const optionName = params.option;
   const modelName = modelData?.name || '';
   const initialPrice = modelData?.price || 0;
   const modelOptionData = optionData[0].extra.option[optionName][modelName];
-
   const [storedValue, setValue] = useLocalStorage<Cart>('cart', {
     model: modelName,
     price: initialPrice

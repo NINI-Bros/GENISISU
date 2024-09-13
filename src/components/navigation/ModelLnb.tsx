@@ -30,20 +30,16 @@ type OptionKey = keyof typeof optionList;
 
 export default function ModelLnb({ params }: { params: { model: string } }) {
   const cartItem = useSelectState();
-  // console.log(selectItem);
   const resetCartItem = useSelectReset();
   const router = useRouter();
   const pathname = usePathname();
   const [isReset, setIsReset] = useState<boolean>(false);
-
   const { items: modelList } = useModelStore();
   const modelName = modelList[Number(params.model) - 1];
-
   const [storedValue, setValue] = useLocalStorage<Cart>('cart', {
     model: modelName,
     price: 0
   });
-  console.log(storedValue);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,7 +54,7 @@ export default function ModelLnb({ params }: { params: { model: string } }) {
 
   const isActive = (path: string) => (pathname === path ? 'text-white' : '');
   const handleClick = (path: string) => {
-    if (path === '') { // 모델 상세 페이지라화, (store와 storage 초기화)
+    if (path === '') { // 모델 상세 페이지라면, (store와 storage 초기화)
       resetCartItem();
       setIsReset((prevState) => !prevState);
     } else { // 모델 상세 페이지가 아니라면,
@@ -66,8 +62,8 @@ export default function ModelLnb({ params }: { params: { model: string } }) {
         model: modelName,
         price: cartItem.price === 0 ? storedValue.price : cartItem.price,
         option: {
-          ...cartItem.option, // 현재 옵션 페이지 선택 항목 추가
-          ...storedValue.option
+          ...storedValue.option,
+          ...cartItem.option // 현재 옵션 페이지 선택 항목 추가 (덮어 쓰기)
         }
       });
     }

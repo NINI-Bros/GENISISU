@@ -3,7 +3,7 @@
 import useLocalStorage from '@/hook/useLocalStorage';
 import { Cart, Option, Product } from '@/types/product';
 import { useModelStore } from '@/zustand/useModel';
-import { useSelectStore } from '@/zustand/useSelectStore';
+import { useSelectUpdate } from '@/zustand/useSelectStore';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ReactNode, useRef, useState } from 'react';
@@ -29,7 +29,7 @@ const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
 // 3번레이아웃_기본 default 옵션 사진 가로
 export default function HorizontalLayout({ params, modelData, optionData }: HorizontalLayoutProps) {
-  const [selectItem, updateCartItem] = useSelectStore((state) => [state.selectItem, state.updateSelectItem]);
+  const updateCartItem = useSelectUpdate();
   const router = useRouter();
   const optionName = params.option;
   const modelName = modelData?.name || '';
@@ -81,7 +81,6 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
     const firstItemText = groupItems[0].description || '';
     const matchedItems = [...checkOptionRef.current].filter(item => item.name === groupName);
     const checkIcon = matchedItems.length > 0 ? '/images/check_activate.svg' : '/images/check_deactivate.svg';
-    // const checkIcon = checkOptionRef.current.has(groupName) ? '/images/check_activate.svg' : '/images/check_deactivate.svg';
     const textItems = groupItems.length > 1 ? groupItems : [];
     let optionEventParams = {
       optionGroup: groupName,

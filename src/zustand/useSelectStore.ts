@@ -1,6 +1,5 @@
 import { Cart, CartOption } from '@/types/product';
 import { create } from 'zustand';
-// import { createJSONStorage, persist } from 'zustand/middleware';
 
 export interface SelectStore {
   selectItem: Cart;
@@ -8,23 +7,11 @@ export interface SelectStore {
   resetSelectItem: () => void;
 }
 
-export const useSelectStore = create<SelectStore>(
-  (set) => ({
-    selectItem: { model: '', price: 0 },
-    updateSelectItem: (selectItem) => set({ selectItem }),
-    resetSelectItem: () => set({ selectItem: { model: '', price: 0 } }),
-  })
-  // persist<SelectStore>(
-  //   (set) => ({
-  //     selectItem: {} as CartOption,
-  //     updateSelectItem: (newSelectItem: CartOption) => set({ selectItem: newSelectItem }),
-  //   }),
-  //   {
-  //     name: 'cart',
-  //     storage: createJSONStorage(() => localStorage),
-  //   }
-  // )
-);
+export const useSelectStore = create<SelectStore>((set) => ({
+  selectItem: { model: '', price: 0 },
+  updateSelectItem: (selectItem) => set({ selectItem }),
+  resetSelectItem: () => set({ selectItem: { model: '', price: 0 } }),
+}));
 
 // 사용할 필드를 셀렉터로 추척
 export const useSelectState = () => useSelectStore((state) => state.selectItem);
