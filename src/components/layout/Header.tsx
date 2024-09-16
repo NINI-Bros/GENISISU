@@ -5,67 +5,30 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
+import Sitemap from './Sitemap';
 
 export default function Header({ isMain }: { isMain: string }) {
   // export default async function Header({ isMain }: {isMain:string}) {
   // const session = await auth();
   // console.log('session', session);
-  const route = useRouter();
   const { data:session, status } =  useSession();
-  const handleSignOut = () => {
-    signOut({ callbackUrl: '/' });
-
-  }
-
-  const modelRef = useRef(null)
   const [modelOn, setModelOn] = useState(true)
-  const handleSiteMapOpen = (e: React.MouseEvent<HTMLElement>) : void => {
-    e.preventDefault();
-    setModelOn(!modelOn)
-  }
-  const handleCloseBtn = () => {
-    setModelOn(!modelOn)
-  }
+  const [mobileState, setMobileState] = useState({
+    mobileView: false,
+    thisWidth:0
+  })
 
-  const handleSitemapClick = (e: React.MouseEvent<HTMLElement>,index:number) : void => {
-    e.preventDefault();
-    if (index < 13) {
-      route.push(`/models/${index}`)
-    } else if (index === 13) {
-      alert('아직 개발중이에요')
-    } else if (index > 13) {
-      switch(index) {
-        case 14:
-          route.push('/info')
-          break;
-        case 15:
-          route.push('/qna')
-          break;
-        case 16:
-          route.push('/notice')
-          break;
-        case 17:
-          route.push('/info/drive')
-          break;
-        case 18:
-          route.push('https://github.com/redcontroller')
-          break;
-        case 19:
-          route.push('https://github.com/sylee0102')
-          break;
-        case 20:
-        route.push('https://github.com/ryungom')
-        break;
-        default:
-          route.push('#')
-      }
-    }
-    
-    setModelOn(!modelOn)
-  }
+  // console.log("모바일 상태 확인",mobileState.mobileView)
 
   useEffect(()=>{
+    setMobileState(prev => {return{...prev, thisWidth: window.innerWidth}})
     const htmlBody = document.querySelector('body') as HTMLBodyElement
+    const handleResize = () => {
+      setMobileState(prev => {return{...prev, thisWidth: window.innerWidth}})
+    }
+    window.addEventListener('resize',handleResize)
+
+    // sitemap 호출
     if (!modelOn) {
       const scrollY = window.scrollY;
       document.body.style.top = `-${scrollY}px`;
@@ -77,119 +40,96 @@ export default function Header({ isMain }: { isMain: string }) {
       document.body.style.position = '';
       htmlBody.classList.toggle('modalOn')
       window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    }
+
+    if (mobileState.thisWidth > 1366) {
+      setMobileState(prev => {return{...prev, mobileView:false}})
+    } else if (mobileState.thisWidth < 1366) {
+      setMobileState(prev => {return{...prev, mobileView:true}})
 
     }
-  },[modelOn])
+
+  
+    // event listener를 달아줬을 경우 항상 clean-up을 실행해줘야 함. 상태가 업데이트 될때마다 계속 useEffct를 실행시키므로 
+    return (
+     window.removeEventListener('resize',handleResize)
+    )
+
+  },[modelOn, mobileState.thisWidth, mobileState.mobileView])
+
+  const handleChangeSitemapState = (bl : boolean) => {
+    setModelOn(!bl)
+  }
+
+  const handleSignOut = () => {
+    signOut({ callbackUrl: '/' });
+  }
+  const handleSiteMapOpen = (e: React.MouseEvent<HTMLElement>) : void => {
+    e.preventDefault();
+    setModelOn(!modelOn)
+  }
 
   return (
     <header className={isMain}>
-    
-      <ul className="gnb">
-        <li>
-          <ul>
-            <li>
-              <h1 className="gnb_logo">
-                <a href="/">
-                  <img src="/images/genisisu_logo_w.png" alt={'타이틀이미지'} />
-                </a>
-              </h1>
-            </li>
-            <li>
-              <Link href="/models">모델</Link>
-            </li>
-            <li>
-              <Link href="/info">전시시승</Link>
+      {!mobileState.mobileView 
+        ? 
+        <ul className="gnb gnb_web">
+          <li>
+            <ul>
+              <li>
+                <h1 className="gnb_logo">
+                  <a href="/">
+                    <img src="/images/genisisu_logo_w.png" alt={'타이틀이미지'} />
+                  </a>
+                </h1>
+              </li>
+              <li>
+                <Link href="/models">모델</Link>
+              </li>
+              <li>
+                <Link href="/info">전시시승</Link>
 
-            </li>
-            <li>
-              <Link href="/qna">고객지원</Link>
-            </li>
-            <li>
-              <Link href="/notice">공지사항</Link>
-            </li>
-            <li>
-              <Link href="#none">제니시수</Link>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <ul>
-          
-             
-                <li>
-                  <Link href="/login">로그인</Link>
-                </li>
-                <li>
-                  <Link href="/signup">회원가입</Link>
-                </li>
-                <li className='cursor-pointer' onClick={handleSignOut}>로그아웃</li>
-             
-        
+              </li>
+              <li>
+                <Link href="/qna">고객지원</Link>
+              </li>
+              <li>
+                <Link href="/notice">공지사항</Link>
+              </li>
+              <li>
+                <Link href="#none">제니시수</Link>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <ul>
             
-            <li>
-              <Link href="#" onClick={(e) => handleSiteMapOpen(e)}>
-                <img src="/images/menu_ham.png" alt="" />
-              </Link>
-            </li>
-          </ul>
-        </li>
-        
-      </ul>
+              
+                  <li>
+                    <Link href="/login">로그인</Link>
+                  </li>
+                  <li>
+                    <Link href="/signup">회원가입</Link>
+                  </li>
+                  <li className='cursor-pointer' onClick={handleSignOut}>로그아웃</li>
+              
+          
+              
+              <li>
+                <Link href="#" onClick={(e) => handleSiteMapOpen(e)}>
+                  <img src="/images/menu_ham.png" alt="" />
+                </Link>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        : ""
+      }
 
 
-      <div className={["modal", modelOn ? "" : "on"].join(" ")} ref={modelRef}>
-        <section>
-          <h2>SITE MAP</h2>
+      {/* 사이트맵 컴포넌트 */}
+      <Sitemap modalState={modelOn} modalToggleFn={setModelOn}/>
 
-          <div className="siteItemWrap">
-            <article>
-              <h3>모델</h3>
-              <div>
-                <Link href='#' onClick={(e) => handleSitemapClick(e,1)}>G90 BLACK</Link>
-                <Link href='#' onClick={(e) => handleSitemapClick(e,2)}>G90 LONG WHEEL BASE</Link>
-                <Link href='#' onClick={(e) => handleSitemapClick(e,3)}>G90</Link>
-                <Link href='#' onClick={(e) => handleSitemapClick(e,4)}>G80</Link>
-                <Link href='#' onClick={(e) => handleSitemapClick(e,5)}>G80 ELECTRIFIED</Link>
-                <Link href='#' onClick={(e) => handleSitemapClick(e,6)}>G70</Link>
-                <Link href='#' onClick={(e) => handleSitemapClick(e,7)}>G70 SHOOTING BREAK</Link>
-                <Link href='#' onClick={(e) => handleSitemapClick(e,8)}>GV80</Link>
-                <Link href='#' onClick={(e) => handleSitemapClick(e,9)}>GV80 COUPE</Link>
-                <Link href='#' onClick={(e) => handleSitemapClick(e,10)}>GV70</Link>
-                <Link href='#' onClick={(e) => handleSitemapClick(e,11)}>GV70 ELECTRIFIED</Link>
-                <Link href='#' onClick={(e) => handleSitemapClick(e,12)}>GV60</Link>
-                <Link href='#' onClick={(e) => handleSitemapClick(e,13)}>NEOLUN CONCEPT</Link>
-              </div>
-            </article>
-
-            <article>
-              <h3>게시판</h3>
-              <div>
-                <Link href='#' onClick={(e) => handleSitemapClick(e,14)}>전시시승</Link>
-                <Link href='#' onClick={(e) => handleSitemapClick(e,15)}>고객지원</Link>
-                <Link href='#' onClick={(e) => handleSitemapClick(e,16)}>공지사항</Link>
-                <Link href='#' onClick={(e) => handleSitemapClick(e,17)} className="row-start-2">전시시승 신청</Link>
-                
-              </div>
-            </article>
-
-            <article>
-              <h3>제니시수</h3>
-              <div>
-                <Link href='#' onClick={(e) => handleSitemapClick(e,18)}>김모건</Link>
-                <Link href='#' onClick={(e) => handleSitemapClick(e,19)}>이수연</Link>
-                <Link href='#' onClick={(e) => handleSitemapClick(e,20)}>류재준</Link>
-
-              </div>
-            </article>
-          </div>
-
-        
-        </section>
-        <div className="closeBtn" onClick={handleCloseBtn}>
-          <div className='cl-line'></div>
-          <div className='cl-line'></div>
-        </div>
-      </div>
   </header>
   );
 }

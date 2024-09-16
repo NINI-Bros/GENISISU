@@ -4,21 +4,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper/modules';
-const SERVER : string = process.env.NEXT_PUBLIC_API_SERVER;
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 export default function Event2 ( {data} : {data:Product[]}) {
+  const SERVER : string = process.env.NEXT_PUBLIC_API_SERVER;
   const router = useRouter();
   const regex = /gv?\d{2}/g; // 정규표현식
   const [index, setIndex] = useState(0);
   const imageData = data.map((image) => (
     <SwiperSlide key={image.name}>
       <figure className="relative max-w-[1200px] h-[500px]">
-        <Image src={SERVER + (image.mainImages[2].path)} fill alt="G70 car" style={{objectFit:'contain'}} className="absolute top-0 left-0" />
+        <Image src={SERVER + (image.mainImages[2].path)} fill sizes="100%" alt="G70 car" style={{objectFit:'contain'}} className="absolute top-0 left-0" />
       </figure>
     </SwiperSlide>
 
@@ -58,7 +58,7 @@ export default function Event2 ( {data} : {data:Product[]}) {
               clickable: true,
             }}
             navigation={true}
-            onSlideChange={(swiper) => setIndex(swiper.activeIndex)}
+            onSlideChange={(swiper : SwiperProps) => setIndex(swiper.activeIndex)}
             >
                 {data && imageData}
                 
@@ -67,10 +67,9 @@ export default function Event2 ( {data} : {data:Product[]}) {
         </section>
         
         <div className="ev2_bg">
-          <Link href="#" className="mainBtn" 
-          onClick={(e) => {
-            e.preventDefault();
-            handleModelClick();
+          <Link href="#" className="mainBtn" onClick={(e) => {
+              e.preventDefault();
+              handleModelClick();
             }}>VIEW MORE</Link>
         </div>
       </section>
