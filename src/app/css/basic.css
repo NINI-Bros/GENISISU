@@ -75,7 +75,6 @@ body {
   position: relative;
   font-family: 'Pretendard';
   background: #000;
-  max-width: 1920px;
   width: 100vw;
   margin: 0px auto;
   overflow-x:hidden;
@@ -686,23 +685,22 @@ main.mainPage section#event5 .bgImg {
 
 /* footer */
 footer {
-  background: #000;
   height: 310px;
   position: relative;
-  padding: 60px 160px;
+  padding: 60px 100px;
   box-sizing: border-box;
   color: #999;
-  display: flex;
-  gap: 140px;
+  display: grid;
+  grid-template-columns: minmax(auto,284px) 2fr minmax(260px,1fr);
+  column-gap:100px;
 }
-footer aside {
-  width: 284px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+footer figure {
+  position:relative;
+  aspect-ratio: 3.422 / 1;
+  align-self: center;
 }
-footer aside img {
-  width: 100%;
+footer figure img {
+  position:absolute;
   object-fit: contain;
 }
 
@@ -710,6 +708,7 @@ footer > ul {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  row-gap:20px;
 }
 footer > ul > li {
   display: flex;
@@ -717,9 +716,10 @@ footer > ul > li {
 }
 footer > ul > li > ul {
   display: flex;
+  flex-wrap: wrap;
 }
 footer .f_github ul {
-  gap: 15px;
+  column-gap: 15px;
 }
 footer .f_github ul li a {
   font-size: 18px;
@@ -733,7 +733,14 @@ footer .f_github ul li:last-child:after {
   content: '';
 }
 footer .f_skill ul {
-  gap: 14px;
+  column-gap: 14px;
+}
+footer .f_skill ul li {
+  display:flex;
+  column-gap:3px;
+}
+footer .f_skill ul li:before {
+  content:'#';
 }
 
 footer h4 {
@@ -748,11 +755,12 @@ footer .f_copy span {
   font: 100 14px/1 'Hyundai Sans Head Office';
 }
 
-footer button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 160px;
+footer aside {
+  width: 100%;
+  align-self: center;
+  text-align: end;
+}
+footer aside button {
   background: #232323;
   border: none;
   color: #999;
