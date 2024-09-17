@@ -97,7 +97,7 @@ export default function Header({ isMain }: { isMain: string }) {
                 <Link href="/notice">공지사항</Link>
               </li>
               <li>
-                <Link href="#none">제니시수</Link>
+                <Link href="/none">제니시수</Link>
               </li>
             </ul>
           </li>
