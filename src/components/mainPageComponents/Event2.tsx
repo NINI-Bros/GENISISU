@@ -17,8 +17,8 @@ export default function Event2 ( {data} : {data:Product[]}) {
   const [index, setIndex] = useState(0);
   const imageData = data.map((image) => (
     <SwiperSlide key={image.name}>
-      <figure className="relative max-w-[1200px] h-[500px]">
-        <Image src={SERVER + (image.mainImages[2].path)} fill sizes="100%" alt="G70 car" style={{objectFit:'contain'}} className="absolute top-0 left-0" />
+      <figure>
+        <Image src={SERVER + (image.mainImages[2].path)} fill sizes="100%" alt={"모델명: " + image.name}/>
       </figure>
     </SwiperSlide>
 
@@ -41,30 +41,25 @@ export default function Event2 ( {data} : {data:Product[]}) {
       router.push(`/models/${index + 1}`)
     }
   }
-
   return(
     <section id="event2">
-        <article>
+        <article className="ev2_tit">
           <h2>{title} </h2>
           <h3>{subTitle || "STANDARD"}</h3>
         </article>
-        <section>
-          <div className="ev2_wrap">
+        <article className="ev2_models">
+          <div className="ev2_slide_wrap">
             <Swiper 
             modules={[Navigation]} 
             spaceBetween={100} 
             slidesPerView={1} 
-            pagination={{
-              clickable: true,
-            }}
+            pagination={{clickable: true}}
             navigation={true}
-            onSlideChange={(swiper : SwiperProps) => setIndex(swiper.activeIndex)}
-            >
-                {data && imageData}
-                
+            onSlideChange={(swiper : SwiperProps) => setIndex(swiper.activeIndex)}>
+              {data && imageData}  
             </Swiper>
           </div>
-        </section>
+        </article>
         
         <div className="ev2_bg">
           <Link href="#" className="mainBtn" onClick={(e) => {
