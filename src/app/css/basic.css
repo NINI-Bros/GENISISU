@@ -685,13 +685,14 @@ main.mainPage section#event5 .bgImg {
 
 /* footer */
 footer {
-  height: 310px;
+  background:#000;
   position: relative;
   padding: 60px 100px;
   box-sizing: border-box;
   color: #999;
   display: grid;
   grid-template-columns: minmax(auto,284px) 2fr minmax(260px,1fr);
+  grid-auto-rows: minmax(190px, auto);
   column-gap:100px;
 }
 footer figure {
