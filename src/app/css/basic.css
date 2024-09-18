@@ -473,7 +473,7 @@ main.mainPage section#event3 {
 }
 main.mainPage section#event3 article {
   position: absolute;
-  top: 30%;
+  top: 50%;
   transform: translateY(-50%);
   right: 160px;
   display: flex;
