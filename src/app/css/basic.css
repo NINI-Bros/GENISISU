@@ -78,6 +78,8 @@ body {
   width: 100vw;
   margin: 0px auto;
   overflow-x:hidden;
+  display: grid;
+  grid-template-rows: 100px minmax(calc(100vh - 410px),auto) 310px;
 }
 body.otherPage header::after {
   opacity: 100%;
@@ -251,6 +253,12 @@ header .modal .closeBtn .cl-line:last-child {
   transform: rotate(-45deg);
 }
 
+.childrenWrap {
+  grid-row: 2 / 3;
+  height: 100%;
+  display: flex;
+}
+
 .main_pagenation {
   position: fixed;
   z-index: 999;
@@ -307,7 +315,7 @@ header .modal .closeBtn .cl-line:last-child {
 /* main - 첫번째 박스 */
 main {
   width: 100vw;
-  margin-top: 100px;
+  
 }
 main.mainPage {
   margin-top: 0px;
@@ -681,7 +689,6 @@ main.mainPage section#event5 .bgImg {
 /* footer */
 footer {
   background:#000;
-  position: relative;
   padding: 60px 100px;
   box-sizing: border-box;
   color: #999;
@@ -689,6 +696,7 @@ footer {
   grid-template-columns: minmax(auto,284px) 2fr minmax(260px,1fr);
   grid-auto-rows: minmax(190px, auto);
   column-gap:100px;
+  grid-row: 3 / -1;
 }
 footer figure {
   position:relative;
@@ -696,7 +704,7 @@ footer figure {
   align-self: center;
 }
 footer figure img {
-  position:absolute;
+  
   object-fit: contain;
 }
 
