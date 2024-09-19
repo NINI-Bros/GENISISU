@@ -118,7 +118,7 @@ const ModelColor: React.FC<ModelColorProps> = ({ exterior }) => {
         </ul>
         <ul className="text-[24px] text-[#666666] flex flex-col gap-y-[10px]">{colorState.node}</ul>
       </nav>
-      <figure className="absolute aspect-[16/9] w-[1900px] min-w-[1300px] right-[-200px] bottom-[-150px] z-10">
+      <figure className="absolute aspect-[16/9] w-[1900px] min-w-[1300px] left-[50%] translate-x-[-50%] bottom-[-100px] z-10">
         {colorState.imageSource !== '' ? (
           <Image className="w-full absolute" fill sizes="100%" style={{objectFit:"contain"}} src={colorState.imageSource} alt="" />
         ) : null}
