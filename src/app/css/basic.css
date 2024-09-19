@@ -404,10 +404,12 @@ main.mainPage section#event2 {
   color: #fff;
 }
 main.mainPage section#event2 .ev2_tit {
+  width:100vw;
+  height:280px;
   font-family: 'Hyundai Sans Head Office';
   position:absolute;
   left: 200px;
-  top: 20%;
+  top: 20%;  
 }
 main.mainPage section#event2 .ev2_tit h2 {
   font-weight: 500;
@@ -416,18 +418,16 @@ main.mainPage section#event2 .ev2_tit h2 {
 main.mainPage section#event2 .ev2_tit h3 {
   font-weight: 100;
   font-size: 50px;
-  margin-top: -6%;
-  margin-left: 3%;
-  text-wrap: nowrap;
+  margin-top: -60px;
+  margin-left: 5px;
 }
 main.mainPage section#event2 > .ev2_models {
   display: grid;
-  grid-template-columns: 500px 1fr;
+  grid-template-columns: minmax(550px,1fr) 2fr;
   grid-auto-rows:minmax(auto,500px);
-  column-gap:50px;
   position: absolute;
-  right: 100px;
-  bottom: 5%;
+  right: 50px;
+  bottom: 100px;
   align-items: center;
 }
 main.mainPage section#event2 > .ev2_models .ev2_slide_wrap {
@@ -500,23 +500,18 @@ main.mainPage section#event4 {
   color: #fff;
 }
 main.mainPage section#event4 > article {
-  width: 1300px;
-  height: 70vh;
-  padding: 0 10%;
+  width: 80vw;
+  height: 100vh;
   position: absolute;
-  top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   overflow: hidden;
   z-index: 20;
+  display: flex;
+  align-items: center;
 }
 main.mainPage section#event4 .ev4_slide {
-  display: flex;
   width: 100%;
-  overflow: hidden;
-  position: absolute;
-  left: 0;
-  transition: cubic-bezier(0.17, 0.67, 0.83, 0.67), 0.5s;
 }
 main.mainPage section#event4 .ev4_wrap {
   display: grid;
