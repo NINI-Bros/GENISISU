@@ -40,7 +40,7 @@ export default function ModelGnb ({params}: { params: { model: string }}) {
 
   
   return(
-      <nav className="flex items-end absolute top-[40px] left-[80px] z-20 w-full h-[70px] overflow-hidden" >
+      <nav className="flex items-end absolute top-[40px] left-[80px] z-20 w-[calc(100vw-_100px)] h-[70px] overflow-hidden" >
         <button className="grid col-auto font-Hyundai-sans w-[330px] h-full pt-[8px] px-[10px] gap-x-[3rem] bg-black absolute top-0 left-0 z-30" onClick={handleButtonClick}>
           <span className="col-start-1 text-[13px] self-end text-left ">GENISISUYEON</span>
           <span className="col-start-1 text-[22px] self-start text-left font-black">{modelName}</span>
