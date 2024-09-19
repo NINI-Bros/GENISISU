@@ -267,7 +267,7 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
       <section className="h-screen relative grid grid-cols-[500px_auto] gap-x-[4rem]">
 
         {/* 옵션명 */}
-        <article className="col-start-2 grid grid-cols-2 justify-center items-top max-w-[90vw] mt-[200px] mr-[50px]">
+        <article className="col-start-2 grid grid-cols-2 justify-center items-top max-w-[90vw] mt-[120px] mr-[100px]">
 
           <div className="flex flex-col mr-[40px]">
             {/* <figure className="w-[650px] h-[325px] relative"> */}
@@ -285,7 +285,7 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
             </h4>
           </div>
 
-          <article className="w-full h-[670px] overflow-scroll border-t-[1px] border-b-[1px]  border-[#a4a4a4]">
+          <article className="w-full h-[550px] overflow-scroll border-t-[1px] border-b-[1px]  border-[#a4a4a4]">
             <table className="w-full">
               <tbody>
                 {list}
@@ -310,17 +310,13 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
         </div>
         
         {/* 예상가격 */}
-        <article className="w-full absolute bottom-[120px] flex items-end z-10 justify-center ">
-          <div className="absolute right-12">
-            <aside className="font-Hyundai-sans border-[1px] border-[#666666] flex flex-col justify-center px-[30px] pt-[10px]">
-              <p className="text-[15px] text-[#a4a4a4]">예상 가격</p>
-              <span className="text-[30px] font-bold mt-[-10px]">
-                {optionState.newPrice.toLocaleString('ko-KR')}
-                <span className="text-[20px] align-middle"> 원</span>
-              </span>
-            </aside>
-          </div>
-        </article>
+        <aside className="fixed right-[100px] top-[calc(100vh_-120px)] bg-black font-Hyundai-sans border-[1px] border-[#666666] flex flex-col justify-center px-[37px] pt-[10px] self-end">
+          <p className="text-[15px] text-[#a4a4a4]">예상 가격</p>
+          <span className="text-[30px] font-bold mt-[-10px]">
+            {optionState.newPrice.toLocaleString('ko-KR')}
+            <span className="text-[20px] align-middle"> 원</span>
+          </span>
+        </aside>
 
       </section>
     </>

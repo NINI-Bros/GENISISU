@@ -133,15 +133,14 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
 
   return (
     <>
-      <section className="h-screen grid grid-cols-[500px_auto] gap-x-[4rem]">
-
+      <section className="h-screen grid grid-cols-[400px_auto_270px] gap-x-[4rem] pr-[3rem] relative items-center">
         {/* 옵션명 */}
-        <article className="w-[80%] col-start-2 flex flex-col items-center mt-[50px] ">
-          <figure className="max-h-full min-h-[400px] w-full aspect-[2/1] relative ">
+        <article className="w-full col-start-2 flex flex-col gap-y-[30px] items-center mt-[-80px]">
+          <figure className="aspect-[2/1] w-full max-h-[500px] relative ">
             <Image src={optionState.imageSource} fill sizes='100%' priority className='absolute top-0 left-0' style={{objectFit:"contain"}} alt="" />
           </figure>
-          <h4 className="justify-self-center text-[16px] mt-[20px]">상기 이미지는 차량의 대표 이미지로 적용되어 있습니다.</h4>
-          <article className="w-full h-[200px] overflow-scroll mt-[50px]">
+          <h4 className="justify-self-center text-[16px]">상기 이미지는 차량의 대표 이미지로 적용되어 있습니다.</h4>
+          <article className="w-full max-h-[180px] overflow-scroll">
             <table className="w-full">
               <tbody>
                 {/* 옵션 항목 렌더링 */}
@@ -166,17 +165,13 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
         </div>
 
         {/* 예상가격 */}
-        <article className="w-full absolute bottom-[120px] flex items-end z-10 justify-center ">
-          <div className="absolute right-12">
-            <aside className="font-Hyundai-sans border-[1px] border-[#666666] flex flex-col justify-center px-[30px] pt-[10px]">
-              <p className="text-[15px] text-[#a4a4a4]">예상 가격</p>
-              <span className="text-[30px] font-bold mt-[-10px]">
-                {optionState.newPrice.toLocaleString('ko-KR')}
-                <span className="text-[20px] align-middle"> 원</span>
-              </span>
-            </aside>
-          </div>
-        </article>
+        <aside className="fixed right-[100px] top-[calc(100vh_-120px)] bg-black font-Hyundai-sans border-[1px] border-[#666666] flex flex-col justify-center px-[37px] pt-[10px] self-end">
+          <p className="text-[15px] text-[#a4a4a4]">예상 가격</p>
+          <span className="text-[30px] font-bold mt-[-10px]">
+            {optionState.newPrice.toLocaleString('ko-KR')}
+            <span className="text-[20px] align-middle"> 원</span>
+          </span>
+        </aside>
 
       </section>
     </>
