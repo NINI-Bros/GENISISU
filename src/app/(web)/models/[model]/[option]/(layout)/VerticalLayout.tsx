@@ -83,9 +83,9 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
         <tr
           key={topText + index}
           onClick={() => handleOptionClick(topText, index, price)}
-          className={`flex items-center text-[30px] ${isOptionActive(topText)} gap-x-[86px] border-t-[1px] ${isBolder} border-[#a4a4a4] py-[15px] pl-[15px] cursor-pointer`}
+          className={`grid grid-cols-[250px_1fr] auto-rows-[66px] items-center text-[30px] ${isOptionActive(topText)} gap-x-[30px] border-t-[1px] ${isBolder} border-[#a4a4a4] pl-[15px] cursor-pointer`}
         >
-          <td className="font-Hyundai-sans text-[22px]">
+          <td className="font-Hyundai-sans text-[22px] break-keep">
             {topText}
           </td>
           <td className="font-Hyundai-sans text-[22px]" data-value="">
@@ -140,7 +140,7 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
           <figure className="max-h-full min-h-[400px] w-full aspect-[2/1] relative ">
             <Image src={optionState.imageSource} fill sizes='100%' priority className='absolute top-0 left-0' style={{objectFit:"contain"}} alt="" />
           </figure>
-          <h4 className="justify-self-center text-[16px]">상기 이미지는 차량의 대표 이미지로 적용되어 있습니다.</h4>
+          <h4 className="justify-self-center text-[16px] mt-[20px]">상기 이미지는 차량의 대표 이미지로 적용되어 있습니다.</h4>
           <article className="w-full h-[200px] overflow-scroll mt-[50px]">
             <table className="w-full">
               <tbody>
