@@ -8,7 +8,10 @@ interface VehicleInfo {
   price:number,
 }
 
-export default async function Payments () {
+export default async function Payments ({params}:{params: {
+  model: string;
+  option: string;
+};}) {
 
   const vehicleOriginData = await fetchProducts();
   const data = await fetchOptions();
@@ -36,6 +39,11 @@ export default async function Payments () {
 
   // OptionExterior 타입지정하고 exterior도 넘겨줘야함 총 3개 넘겨줘야함
   return(
-    <PaymentsAction vehicleInfo={vehicleInfo} optionData={optionData} exteriorData={exteriorData}/>
+    <PaymentsAction 
+      vehicleInfo={vehicleInfo} 
+      optionData={optionData} 
+      exteriorData={exteriorData}
+      params={params}
+      />
   )
 }
