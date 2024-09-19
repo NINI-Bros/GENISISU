@@ -134,13 +134,14 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
   return (
     <>
       <section className="h-screen grid grid-cols-[500px_auto] gap-x-[4rem]">
-        <div></div>
-        <article className="w-[80%] grid grid-cols-[auto] grid-rows-[minmax(auto,_500px)_50px_200px] items-center ">
-          <figure className="max-h-[500px] aspect-[2/1] relative ">
-            <Image src={optionState.imageSource} fill sizes='100%' priority className='absolute top-0 left-[0%]' style={{objectFit:"contain"}} alt="" />
+
+        {/* 옵션명 */}
+        <article className="w-[80%] col-start-2 flex flex-col items-center mt-[50px] ">
+          <figure className="max-h-full min-h-[400px] w-full aspect-[2/1] relative ">
+            <Image src={optionState.imageSource} fill sizes='100%' priority className='absolute top-0 left-0' style={{objectFit:"contain"}} alt="" />
           </figure>
           <h4 className="justify-self-center text-[16px]">상기 이미지는 차량의 대표 이미지로 적용되어 있습니다.</h4>
-          <article className="h-full overflow-scroll">
+          <article className="w-full h-[200px] overflow-scroll mt-[50px]">
             <table className="w-full">
               <tbody>
                 {/* 옵션 항목 렌더링 */}
@@ -149,6 +150,8 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
             </table>
           </article>
         </article>
+
+        {/* 화살표 이동 버튼 */}
         <div className="grid grid-cols-[60px_60px] grid-rows-[50px] gap-x-[20px] absolute top-[620px] left-[80px]">
           <button className='bg-black border-[0.5px] border-white w-full h-full' onClick={(e) => clickButton(e, 'prev')}>
             <figure className='relative w-full h-[75%]'>
@@ -160,8 +163,9 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
               <Image className='absolute top-0 left-0' fill sizes='100%' src="/images/btn_next_b.png" alt="버튼 좌측 이미지" style={{objectFit:"contain"}}/>
             </figure>
           </button>
-      </div>
+        </div>
 
+        {/* 예상가격 */}
         <article className="w-full absolute bottom-[120px] flex items-end z-10 justify-center ">
           <div className="absolute right-12">
             <aside className="font-Hyundai-sans border-[1px] border-[#666666] flex flex-col justify-center px-[30px] pt-[10px]">
@@ -173,6 +177,7 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
             </aside>
           </div>
         </article>
+
       </section>
     </>
   );
