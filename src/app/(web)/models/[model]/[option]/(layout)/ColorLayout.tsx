@@ -193,10 +193,10 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
 
   return (
     <>
-      <section className="h-screen relative grid grid-cols-[500px_auto] gap-x-[4rem] pt-[80px]">
+      <section className="h-full relative grid grid-cols-[500px_auto] gap-x-[4rem] box-border">
 
         {/* 옵션명 */}
-        <article className="col-start-2 flex flex-col items-center w-full pr-[50px]">
+        <article className="col-start-2 flex flex-col items-center w-full pt-[80px] pr-[50px]">
           <figure className="w-full max-w-[960px] aspect-[2.4/1] relative">
             <Image
               src={optionState.imageSource}
@@ -212,6 +212,19 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
           <div className="tableWrap mt-[50px] w-full">
             {list}
           </div>
+
+          {/* 예상가격 */}
+          <article className="w-full bottom-[0px] flex items-end z-10 justify-end mt-[20px]">
+            <div className="bg-black">
+              <aside className="font-Hyundai-sans border-[1px] border-[#666666] flex flex-col justify-center px-[30px] pt-[10px]">
+                <p className="text-[15px] text-[#a4a4a4]">예상 가격</p>
+                <span className="text-[30px] font-bold mt-[-10px]">
+                  {optionState.newPrice.toLocaleString('ko-KR')}
+                  <span className="text-[20px] align-middle"> 원</span>
+                </span>
+              </aside>
+            </div>
+          </article>
         </article>
 
         {/* 화살표 이동 버튼 */}
@@ -228,18 +241,7 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
             </button>
         </div>
 
-        {/* 예상가격 */}
-        <article className="w-full absolute left-0 bottom-[120px] flex items-end z-10 justify-center ">
-          <div className="absolute right-12">
-            <aside className="font-Hyundai-sans border-[1px] border-[#666666] flex flex-col justify-center px-[30px] pt-[10px]">
-              <p className="text-[15px] text-[#a4a4a4]">예상 가격</p>
-              <span className="text-[30px] font-bold mt-[-10px]">
-                {optionState.newPrice.toLocaleString('ko-KR')}
-                <span className="text-[20px] align-middle"> 원</span>
-              </span>
-            </aside>
-          </div>
-        </article>
+
 
       </section>
     </>
