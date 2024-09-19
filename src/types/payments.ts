@@ -25,4 +25,8 @@ export interface PaymentsActionProps {
   vehicleInfo : {name:string, image:string, price:number,}[],
   optionData : {[item: string]: ModelOption;}[],
   exteriorData : OptionExterior;
+  params: {
+    model: string;
+    option: string;
+  };
 }

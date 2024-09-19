@@ -33,7 +33,7 @@ export default function ModelCard({ model }: { model: Product }) {
   return (
     <li className="grid grid-cols-2 gap-y-1 justify-center px-6 py-8 bg-item-background">
       {!model.mainImages ? (
-        <Image src={sampleImage} width={500} height={500} alt="" className="col-span-full" />
+        <Image src={sampleImage} width={500} height={500} alt="" priority className="col-span-full" />
       ) : (
         <Image
           src={SERVER + model.mainImages[0].path}
@@ -41,6 +41,7 @@ export default function ModelCard({ model }: { model: Product }) {
           height={500}
           alt=""
           className="col-span-full"
+          priority
         />
       )}
       <div className="col-span-full flex items-end gap-x-2 mb-4">

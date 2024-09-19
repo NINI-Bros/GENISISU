@@ -264,14 +264,18 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
 
   return (
     <>
-      <section className="h-screen relative">
-        <article className="flex absolute justify-center items-top w-[1440px] right-[50px] top-[200px]">
+      <section className="h-screen relative grid grid-cols-[500px_auto] gap-x-[4rem]">
+
+        {/* 옵션명 */}
+        <article className="col-start-2 grid grid-cols-2 justify-center items-top max-w-[90vw] mt-[200px] mr-[50px]">
 
           <div className="flex flex-col mr-[40px]">
-            <figure className="w-[650px] h-[325px] relative">
-              <Image src={optionState.imageSource} fill sizes='100%' className="w-full" alt="" />
+            {/* <figure className="w-[650px] h-[325px] relative"> */}
+            <figure className="aspect-[16/9] relative">
+              <Image src={optionState.imageSource} priority fill sizes='100%' className="absolute w-full" style={{objectFit:"contain"}} alt="" />
             </figure>
-            <h4 className="w-[650px] mb-[20px] self-center mt-[20px] text-[16px]">
+            {/* <h4 className="w-[650px] mb-[20px] self-center mt-[20px] text-[16px]"> */}
+            <h4 className="w-full mb-[20px] self-center mt-[20px] text-[16px]">
               <pre className='font-Hyundai-sans whitespace-pre-wrap'>
                 {mainText}
               </pre>
@@ -281,7 +285,7 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
             </h4>
           </div>
 
-          <article className="w-[600px] h-[670px] overflow-scroll border-t-[1px] border-b-[1px]  border-[#a4a4a4]">
+          <article className="w-full h-[670px] overflow-scroll border-t-[1px] border-b-[1px]  border-[#a4a4a4]">
             <table className="w-full">
               <tbody>
                 {list}
@@ -291,21 +295,22 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
 
         </article>
 
+        {/* 화살표 이동 버튼 */}
         <div className="grid grid-cols-[60px_60px] grid-rows-[50px] gap-x-[20px] absolute top-[620px] left-[80px]">
-            <button className='bg-black border-[0.5px] border-white w-full h-full' onClick={(e) => clickButton(e, 'prev')}>
-              <figure className='relative w-full h-[75%]'>
-                <Image className='absolute top-0 left-0' src="/images/btn_prev.png" alt="버튼 좌측 이미지" fill sizes='100%' style={{objectFit:"contain"}}/>
-              </figure>
-            </button>
-            <button className='bg-white w-full h-full' onClick={clickButton}>
-              <figure className='relative w-full h-[75%]'>
-                <Image className='absolute top-0 left-0' src="/images/btn_next_b.png" alt="버튼 좌측 이미지" fill sizes='100%' style={{objectFit:"contain"}}/>
-              </figure>
-            </button>
+          <button className='bg-black border-[0.5px] border-white w-full h-full' onClick={(e) => clickButton(e, 'prev')}>
+            <figure className='relative w-full h-[75%]'>
+              <Image className='absolute top-0 left-0' src="/images/btn_prev.png" alt="버튼 좌측 이미지" fill sizes='100%' style={{objectFit:"contain"}}/>
+            </figure>
+          </button>
+          <button className='bg-white w-full h-full' onClick={clickButton}>
+            <figure className='relative w-full h-[75%]'>
+              <Image className='absolute top-0 left-0' src="/images/btn_next_b.png" alt="버튼 좌측 이미지" fill sizes='100%' style={{objectFit:"contain"}}/>
+            </figure>
+          </button>
         </div>
         
+        {/* 예상가격 */}
         <article className="w-full absolute bottom-[120px] flex items-end z-10 justify-center ">
-
           <div className="absolute right-12">
             <aside className="font-Hyundai-sans border-[1px] border-[#666666] flex flex-col justify-center px-[30px] pt-[10px]">
               <p className="text-[15px] text-[#a4a4a4]">예상 가격</p>
@@ -316,6 +321,7 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
             </aside>
           </div>
         </article>
+
       </section>
     </>
   );
