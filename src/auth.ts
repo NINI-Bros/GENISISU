@@ -1,42 +1,39 @@
-import NextAuth from 'next-auth';
+import NextAuth, { CredentialsSignin } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import github from 'next-auth/providers/github';
 import google from 'next-auth/providers/google';
+import { UserLoginForm } from './types';
+import { login } from './data/actions/userAction';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
-const CLIENT = process.env.NEXT_CLIENT_ID;
 
 // OAuth2.0
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  trustHost: true, // 배포 시 필요
   providers: [
     CredentialsProvider({
+      credentials: {
+        email: {},
+        password: {},
+      },
       // email/password 로그인
       async authorize(credentials) {
         // 사용자가 입력한 정보를 이용해서 로그인 처리
-        const res = await fetch(`${SERVER}/users/login`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'client-Id': CLIENT,
-          },
-          body: JSON.stringify(credentials),
-        });
+        const resJson = await login(credentials as UserLoginForm);
 
-        const resJson = await res.json();
         if (resJson.ok) {
           const user = resJson.item;
-          console.log(user);
           return {
-            id: user._id,
+            id: String(user._id),
             name: user.name,
             email: user.email,
             type: user.type,
-            image: user.profileImage && SERVER + user.profileImage,
-            accessToken: user.token.accessToken,
-            refreshToken: user.token.refreshToken,
+            image: user.image && SERVER + user.image,
+            accessToken: user.token!.accessToken,
+            refreshToken: user.token!.refreshToken,
           };
         } else {
-          return null;
+          throw new CredentialsSignin(resJson.message, { cause: resJson });
         }
       },
     }),

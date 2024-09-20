@@ -36,16 +36,16 @@ export default function Header({ isMain }: { isMain: string }) {
     } else if (index > 13) {
       switch(index) {
         case 14:
-          route.push('/info')
+          route.push('/drive')
           break;
         case 15:
           route.push('/qna')
           break;
         case 16:
-          route.push('/notice')
+          route.push('/info')
           break;
         case 17:
-          route.push('/info/drive')
+          route.push('/drive/new')
           break;
         case 18:
           route.push('https://github.com/redcontroller')
@@ -98,14 +98,14 @@ export default function Header({ isMain }: { isMain: string }) {
               <Link href="/models">모델</Link>
             </li>
             <li>
-              <Link href="/info">전시시승</Link>
+              <Link href="/drive">전시시승</Link>
 
             </li>
             <li>
               <Link href="/qna">고객지원</Link>
             </li>
             <li>
-              <Link href="/notice">공지사항</Link>
+              <Link href="/info">공지사항</Link>
             </li>
             <li>
               <Link href="#none">제니시수</Link>

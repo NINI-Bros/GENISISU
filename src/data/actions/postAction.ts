@@ -1,24 +1,24 @@
 'use server';
 
-import { ApiRes, CoreRes, SingleItem, Post, PostComment } from '@/types/index';
+import { ApiRes, CoreRes, SingleItem, Post, PostComment, PostForm } from '@/types/index';
 import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
-const CLIENT = process.env.NEXT_CLIENT_ID;
+const CLIENT = process.env.NEXT_PUBLIC_CLIENT_ID;
 
 // 게시물 등록
-export async function addPost(formData: FormData): Promise<ApiRes<SingleItem<Post>>> {
-  const boardName = formData.get('boardName') as string;
+export async function addPost(postData: PostForm): Promise<ApiRes<SingleItem<Post>>> {
   const session = await auth();
-  const postData = {
-    type: boardName,
-    title: formData.get('title'),
+  const data = {
+    type: postData.boardName,
+    title:
+      postData.boardName === 'drive' ? postData.title + ' 차량 시승 신청합니다.' : postData.title,
     extra: {
-      name: formData.get('name') as string,
+      name: postData.name,
     },
-    phone: formData.get('phone') as string,
-    content: formData.get('content') as string,
+    phone: postData.phone,
+    content: postData.content,
   };
 
   try {
@@ -29,7 +29,7 @@ export async function addPost(formData: FormData): Promise<ApiRes<SingleItem<Pos
         Authorization: `Bearer ${session?.accessToken}`,
         'client-Id': CLIENT,
       },
-      body: JSON.stringify(postData),
+      body: JSON.stringify(data),
     });
 
     if (!res.ok) {
@@ -37,47 +37,13 @@ export async function addPost(formData: FormData): Promise<ApiRes<SingleItem<Pos
     }
 
     const response = await res.json();
-    redirect(`/${boardName}`);
+    redirect(`/${postData.boardName}`);
     return response;
   } catch (err) {
     console.error('Error adding post:', err);
     throw err;
   }
 }
-// export async function addPost(formData: FormData): Promise<ApiRes<SingleItem<Post>>> {
-//   const boardName = formData.get('boardName');
-//   const session = await auth();
-//   const postData = {
-//     type: boardName,
-//     // title: formData.get('title'),
-//     extra: {
-//       name: formData.get('name'),
-//     },
-//     phone: formData.get('phone'),
-//     // address: formData.get('address'),
-//     content: formData.get('content'),
-//   };
-
-//   try {
-//     const res = await fetch(`${SERVER}/posts`, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Authorization: `Bearer ${session?.accessToken}`,
-//         'client-Id': CLIENT,
-//       },
-//       body: JSON.stringify(postData),
-//     });
-//     const response = res.json();
-//     console.log('res@@@@@@@@@@', response);
-//   } catch (err) {
-//     console.error(err);
-//   }
-//   return response;
-//   // console.log('하이루', boardName);
-//   // redirect(`/${boardName}`);
-//   // redirect(`/${boards}`);
-// }
 
 // 게시물 수정
 export async function updatePost(formData: FormData): Promise<ApiRes<SingleItem<Post>>> {
@@ -157,7 +123,7 @@ export async function addComment(formData: FormData): Promise<SingleItem<PostCom
 // (formData: FormData): Promise<ApiResWithValidation<SingleItem<UserData>, UserForm>>
 
 export async function deleteComment(formData: FormData): Promise<CoreRes> {
-  console.log(formData);
+  // console.log(formData);
   const boardName = formData.get('boardName');
   const postId = formData.get('postId');
   const commentId = formData.get('commentId');

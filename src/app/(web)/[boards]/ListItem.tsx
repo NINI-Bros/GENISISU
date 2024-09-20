@@ -10,7 +10,7 @@ export default function ListItem({ item, params }: { item: Post; params: { board
   const handleDetailView = (e:React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
       if (session?.user?.type !== 'admin' && params.boards === 'info') {
-        alert("관리자 권한이 필요합니다")
+        alert("관리자 권한이 필요합니다.")
       } else {
         route.push(`/${item.type}/${item._id}`)
       }
@@ -23,7 +23,6 @@ export default function ListItem({ item, params }: { item: Post; params: { board
       <td className="p-2 truncate indent-4">
         <Link href="#" onClick={e => handleDetailView(e)} className="cursor-pointer">
           {item.title}
-          {params.boards === 'info' ? ' 차량 시승 신청 합니다.' : ''}
         </Link>
       </td>
       {/* <td className="p-2 text-center truncate">{item.user.name}</td> */}

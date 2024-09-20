@@ -1,63 +1,63 @@
+'use client';
+
 import Link from 'next/link';
 import Submit from '../Submit';
 import { addPost } from '@/data/actions/postAction';
+import { fetchVehicles } from '@/data/fetch/productFetch';
+import Input from './Input';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { PostForm } from '@/types';
 
 
 export default function AddBoard({ params, isMain }: { params: { boards: string }, isMain: boolean }) {
-  const setIsmain = (isMain:boolean) => isMain ? 'text-white' : 'text-black'
+  const setIsmain = (isMain:boolean) => isMain ? 'text-white' : 'text-black';
+  const { register, handleSubmit, formState: { errors, isLoading, isSubmitted }, setError } = useForm<PostForm>();
+  
+  const [modelNames, setModelNames] = useState<string[]>([
+    'G90 BLACK',
+    'G90 LONG WHEEL BASE',
+    'G90'
+  ]);
 
+  const post = async (postData: PostForm) => {
+    // 프로그래밍 방식으로 서버액션 호출
+    // 게시글 작성 시 리턴값 없음
+    const resData = await addPost(postData);
+    if(!resData) {
+      alert(`게시글이 작성되었습니다.`);
+      // router.push(`/${params.boards}`);
+    } else if (!resData.ok) { // API 서버의 에러 메시지 처리
+      alert(resData.message);
+    }
+  }
+
+  useEffect(() => {
+    const fetch = async () => {
+      const res = await fetchVehicles();
+      const models = res.map(vehicle => vehicle.name.split('-').join(' ').toUpperCase());
+      setModelNames(models);
+    };
+    fetch();
+  }, []);
 
   return (
     <section className="mb-24 p-4">
-      <form action={addPost}>
+      <form>
         <input type="hidden" name="boardName" value={params.boards} />
 
         <div className="ev5_new_wrap">
-          {params.boards === 'qna' && (
-            <div className="flex gap-16">
-              <div className="flex-1 my-4 mb-10">
-                <label className="block text-xl mb-2" htmlFor="title">
-                  TITLE
-                </label>
-                <input
-                  id="title"
-                  type="text"
-                  placeholder="제목을 남겨주세요"
-                  className="w-full p-5 border border-gray-300  dark:bg-gray-100"
-                  name="title"
-                />
-              </div>
-            </div>
-          )}
           <div className="flex gap-16">
-            <div className="flex-1 my-4 mb-10">
-              <label className="block text-xl mb-2" htmlFor="name">
-                NAME
-              </label>
-              <input
-                id="name"
-                type="text"
-                placeholder="성함을 남겨주세요"
-                className="w-full p-5 border border-gray-300 bg-transparent"
-                name="name"
-              />
-            </div>
-
-            <div className="flex-1 my-4 mb-10">
-              <label className="block text-xl mb-2" htmlFor="phone">
-                PHONE
-              </label>
-              <input
-                id="phone"
-                type="text"
-                placeholder="연락처를 남겨주세요"
-                className="w-full p-5 border border-gray-300 bg-transparent"
-                name="phone"
-              />
-            </div>
+            {(params.boards === 'qna' || params.boards === 'info') && (
+              <Input id='title' placeholder='제목을 남겨주세요' />
+            )}
+          </div>
+          <div className="flex gap-16">
+            <Input id='name' placeholder='성함을 남겨주세요' />
+            <Input id='phone' placeholder='연락처를 남겨주세요' />
           </div>
 
-          {params.boards === 'info' && (
+          {params.boards === 'drive' && (
             <div className="flex gap-16">
               <div className="flex-1 my-4 mb-10">
                 <label className="block text-xl mb-2" htmlFor="model">
@@ -73,19 +73,9 @@ export default function AddBoard({ params, isMain }: { params: { boards: string 
                   <option value="model" disabled hidden>
                     시승체험을 원하는 모델을 선택해주세요
                   </option>
-                  <option value="G90 BLACK">G90 BLACK</option>
-                  <option value="G90 Long Wheel Base">G90 Long Wheel Base</option>
-                  <option value="G90">G90</option>
-                  <option value="G80">G80</option>
-                  <option value="G80 Electrrified">G80 Electrrified</option>
-                  <option value="G70">G70</option>
-                  <option value="G70 Shooting Brake">G70 Shooting Brake</option>
-                  <option value="GV80">GV80</option>
-                  <option value="GV80 COUPE">GV80 COUPE</option>
-                  <option value="GV70">GV70</option>
-                  <option value="GV70 Electrified">GV70 Electrified</option>
-                  <option value="GV60">GV60</option>
-                  <option value="NEOLUN Concept">NEOLUN Concept</option>
+                  {modelNames.map((name) => 
+                    <option key={name} value={`${name}`}>{name}</option>
+                  )}
                 </select>
               </div>
 
@@ -135,11 +125,11 @@ export default function AddBoard({ params, isMain }: { params: { boards: string 
                 href={`/${params.boards}`}
                 className={`mainBtn kr text-black border-[#aaa] hover:text-white hover:bg-black`}>취소
               </Link>
-              <Submit className={`mainBtn kr ${setIsmain(isMain)} border-[#aaa] hover:border-[transparent] hover:bg-black hover:text-white`}>등록</Submit>
+              <Submit 
+                onClick={handleSubmit(post)}
+                className={`mainBtn kr ${setIsmain(isMain)} font-bold border-[#aaa] hover:border-[transparent] hover:bg-black hover:text-white`}>등록</Submit>
             </>
             }
-            
-           
             
           </div>
         </div>

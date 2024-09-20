@@ -2,11 +2,11 @@ import { Metadata } from "next";
 import LoginForm from "./LoginForm";
 
 export const metadata: Metadata = {
-  title: '로그인 - 멋사컴',
+  title: '로그인 - 제니시수',
   openGraph: {
-    title: '로그인 - 멋사컴',
+    title: '로그인 - 제니시수',
     description: '로그인 페이지',
-    url: '/user/login'
+    url: '/login'
   }
 }
   

@@ -47,7 +47,7 @@ const Button: React.FC<ButtonProps> = ({
     <button
       type={type}
       className={`${btnColor[bgColor]} ${btnSize[size]} ${textColor[color]}`}
-      style={{ fontFamily: 'Hyundai-sans' }}
+      style={{ fontFamily: 'Pretendard' }}
       {...rest}
     >
       {children}

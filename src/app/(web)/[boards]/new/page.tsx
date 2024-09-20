@@ -1,4 +1,4 @@
-import AddBoard from '../../../../components/drive/AddBoard';
+import AddBoard from "@/components/drive/AddBoard";
 
 export default function drive({ params }: { params: { boards: string } }) {
   let title = '';
