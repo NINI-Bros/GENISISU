@@ -23,16 +23,16 @@ export default function Sitemap ({modalState, modalToggleFn} : {
     } else if (index > 13) {
       switch(index) {
         case 14:
-          route.push('/info')
+          route.push('/drive')
           break;
         case 15:
           route.push('/qna')
           break;
         case 16:
-          route.push('/notice')
+          route.push('/info')
           break;
         case 17:
-          route.push('/info/drive')
+          route.push('/drive/new')
           break;
         case 18:
           route.push('https://github.com/redcontroller')
