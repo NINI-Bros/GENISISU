@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState } from "react";
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -36,7 +36,7 @@ export default function Event4 () {
           disableOnInteraction: false,
         }}
         ref={swiperRef}
-        onSlideChange={(swiper) => setIndex(swiper.activeIndex)}
+        onSlideChange={(swiper : SwiperProps) => setIndex(swiper.activeIndex)}
         >
           <SwiperSlide className="ev4_wrap">
             <article>

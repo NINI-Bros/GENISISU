@@ -28,7 +28,7 @@ export default function Section6Spec({ spec }: { spec: Spec }) {
   // console.log(list);
 
   return (
-    <section className="bg-white text-black px-[160px] py-[200px] box-border flex flex-col items-center gap-y-[270px]">
+    <section className="bg-white text-black py-[200px] box-border flex flex-col items-center gap-y-[270px]">
       <article className="flex flex-col items-center">
         <h2 className="text-[50px]">제품 엔진 스펙</h2>
         <table>
@@ -88,11 +88,18 @@ export default function Section6Spec({ spec }: { spec: Spec }) {
       </article>
       <article className="flex flex-col items-center">
         <h2 className="text-[50px] mb-[120px]">제품 외장 스펙</h2>
-        <div className="flex">
+        <div className="grid grid-cols-[repeat(3,400px)] auto-rows-auto">
           {/* 엔진 갯수가 추가될때마다 img 태그 복사해서 경로붙여넣어주세요 */}
-          <img src={SERVER + spec.images[0].path} alt="" />
-          <img src={SERVER + spec.images[1].path} alt="" />
-          <img src={SERVER + spec.images[2].path} alt="" />
+          <figure className="relative aspect-[1/1]">
+            <Image src={SERVER + spec.images[0].path} alt="" fill sizes="100%" style={{objectFit:"contain"}}/>
+          </figure>
+          <figure className="relative aspect-[1/1]">
+            <Image src={SERVER + spec.images[1].path} alt="" fill sizes="100%" style={{objectFit:"contain"}}/>
+          </figure>
+          <figure className="relative aspect-[1/1]">
+            <Image src={SERVER + spec.images[2].path} alt="" fill sizes="100%" style={{objectFit:"contain"}}/>
+          </figure>
+          
         </div>
       </article>
     </section>

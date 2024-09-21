@@ -1,0 +1,76 @@
+@media screen and (max-width: 1366px) {
+  header {
+    background:blue;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 100vw;
+    height: 100px;
+    font-weight: 300;
+    font-size: 20px;
+    color: #bbb;
+  }
+  header::after {
+    display: block;
+    content: '';
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 100%;
+  }
+  header.mainHd::after {
+    opacity: 60%;
+  }
+  
+  header .gnb_logo {
+    width: 200px;
+  }
+  header .gnb_logo a img {
+    width: 100%;
+    object-fit: cover;
+  }
+
+  header .gnb {
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left:50%;
+    padding: 0 5rem;
+    display: none;
+    justify-content: space-between;
+    width: 100vw;
+  }
+  header .gnb > li > ul {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: 80px;
+  }
+  header .gnb > li:nth-child(2) {
+    align-content: end;
+    font-size: 16px;
+    justify-self: end;
+  }
+  header .gnb > li:nth-child(2) ul {
+    gap: 10px;
+  }
+  header .gnb > li:nth-child(2) > ul > li:first-child::after {
+    content: '|';
+    font-size: 10px;
+    padding-left: 10px;
+  }
+  header .gnb > li:nth-child(2) > ul > li:last-child {
+    padding-left: 80px;
+  }
+  header .smBtn {
+    justify-self: center;
+    min-width:30px;
+  }
+  
+  
+}

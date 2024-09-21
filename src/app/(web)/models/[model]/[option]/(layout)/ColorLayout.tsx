@@ -144,24 +144,21 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
   const list = modelOptionData.map((optionGroup) => {
     const groupName = optionGroup.topText;
     const refItem = textOptionRef.current.get('item') || '';
-    const itemName = textOptionRef.current.get('group') === groupName ? refItem : '';
+    const itemName = textOptionRef.current.get('group') === groupName ? refItem : '(색상을 선택해주세요)';
     const optionData = generateOptionButton(optionGroup);
     return (
-      <table
-        key={groupName}
-        className='mb-8'
-      >
+      <table key={groupName} className='mb-8 w-full'>
         <tbody>
           {/* 그룹 타이틀 */}
           <tr>
             <td className={`pl-[15px] text-[22px] ${isOptionActive(groupName)}`}>{groupName}</td>
           </tr>
           {/* 옵션 텍스트 */}
-          <tr className="flex items-center text-[18px] gap-x-[86px] border-t-[1px] border-[#a4a4a4] pt-[30px] pl-[15px]">
-            <td className={`font-Hyundai-sans ${isOptionActive(groupName + itemName)}`}>{itemName}</td>
-            <td>
+          <tr className="grid grid-cols-[250px_1fr] auto-rows-[minmax(60px,_auto)] items-center text-[18px] gap-x-[86px] border-t-[1px] border-[#a4a4a4] pt-[30px] pl-[15px]">
+            <td className={`font-Hyundai-sans ${isOptionActive(groupName + itemName)} col-start-1 break-keep`}>{itemName}</td>
+            <td className=' col-start-2'>
               {/* 옵션 버튼 생성 */}
-              <ul className="flex gap-x-[20px]">{optionData}</ul>
+              <ul className="flex gap-[20px] flex-wrap">{optionData}</ul>
             </td>
           </tr>
         </tbody>
@@ -196,46 +193,50 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
 
   return (
     <>
-      <section className="h-screen relative flex flex-col-reverse">
-        <article className="flex flex-col absolute items-center w-[1440px] right-[50px] top-[50px]">
-          <figure className="w-[960px] h-[400px] relative">
+      <section className="min-h-screen relative grid grid-cols-[400px_auto_270px] gap-x-[4rem] pr-[3rem] box-border items-center">
+
+        {/* 옵션명 */}
+        <article className="col-start-2 flex flex-col items-center w-full py-[80px]">
+          <figure className="w-full max-h-[500px] aspect-[2.4/1] relative">
             <Image
               src={optionState.imageSource}
               fill
               sizes="100%"
               alt=""
-              className="absolute top-0 left-0"
+              className="absolute"
+              style={{objectFit:"contain"}}
               priority
             />
           </figure>
-          <h4 className='text-[16px]'>상기 이미지는 차량의 대표 이미지로 적용되어 있습니다.</h4>
-          {list}
-        </article>
-
-        <div className="grid grid-cols-[60px_60px] grid-rows-[50px] gap-x-[20px] absolute top-[620px] left-[80px]">
-            <button className='bg-black border-[0.5px] border-white w-full h-full' onClick={(e) => clickButton(e, 'prev')}>
-              <figure className='relative w-full h-[75%]'>
-                <Image className='absolute top-0 left-0' fill sizes='100%' src="/images/btn_prev.png" alt="버튼 좌측 이미지" style={{objectFit:"contain"}}/>
-              </figure>
-            </button>
-            <button className='bg-white w-full h-full' onClick={clickButton}>
-              <figure className='relative w-full h-[75%]'>
-                <Image className='absolute top-0 left-0' fill sizes='100%' src="/images/btn_next_b.png" alt="버튼 좌측 이미지" style={{objectFit:"contain"}}/>
-              </figure>
-            </button>
-        </div>
-
-        <article className="w-full absolute left-0 bottom-[120px] flex items-end z-10 justify-center ">
-          <div className="absolute right-12">
-            <aside className="font-Hyundai-sans border-[1px] border-[#666666] flex flex-col justify-center px-[30px] pt-[10px]">
-              <p className="text-[15px] text-[#a4a4a4]">예상 가격</p>
-              <span className="text-[30px] font-bold mt-[-10px]">
-                {optionState.newPrice.toLocaleString('ko-KR')}
-                <span className="text-[20px] align-middle"> 원</span>
-              </span>
-            </aside>
+          <h4 className='text-[16px] mt-[20px]'>상기 이미지는 차량의 대표 이미지로 적용되어 있습니다.</h4>
+          <div className="tableWrap mt-[50px] w-full">
+            {list}
           </div>
         </article>
+
+        {/* 화살표 이동 버튼 */}
+        <div className="grid grid-cols-[60px_60px] grid-rows-[50px] gap-x-[20px] absolute top-[620px] left-[80px]">
+          <button className='bg-black border-[0.5px] border-white w-full h-full' onClick={(e) => clickButton(e, 'prev')}>
+            <figure className='relative w-full h-[75%]'>
+              <Image className='absolute top-0 left-0' fill sizes='100%' src="/images/btn_prev.png" alt="버튼 좌측 이미지" style={{objectFit:"contain"}}/>
+            </figure>
+          </button>
+          <button className='bg-white w-full h-full' onClick={clickButton}>
+            <figure className='relative w-full h-[75%]'>
+              <Image className='absolute top-0 left-0' fill sizes='100%' src="/images/btn_next_b.png" alt="버튼 좌측 이미지" style={{objectFit:"contain"}}/>
+            </figure>
+          </button>
+        </div>
+
+       {/* 예상가격 */}
+       <aside className="fixed right-[100px] top-[calc(100vh_-120px)] bg-black font-Hyundai-sans border-[1px] border-[#666666] flex flex-col justify-center px-[37px] pt-[10px] self-end">
+          <p className="text-[15px] text-[#a4a4a4]">예상 가격</p>
+          <span className="text-[30px] font-bold mt-[-10px]">
+            {optionState.newPrice.toLocaleString('ko-KR')}
+            <span className="text-[20px] align-middle"> 원</span>
+          </span>
+        </aside>
+
       </section>
     </>
   );

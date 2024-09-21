@@ -70,14 +70,16 @@ a.mainBtn {
   background: #fff !important;
 }
 /* 다른페이지가 붙을경우 헤딩 변경 */
+
 body {
   position: relative;
   font-family: 'Pretendard';
   background: #000;
-  max-width: 1920px;
   width: 100vw;
   margin: 0px auto;
   overflow-x:hidden;
+  display: grid;
+  grid-template-rows: 100px minmax(calc(100vh - 410px),auto) 310px;
 }
 body.otherPage header::after {
   opacity: 100%;
@@ -119,14 +121,13 @@ header .gnb_logo a img {
 }
 header .gnb {
   position: absolute;
-  transform: translateY(-50%);
+  transform: translate(-50%,-50%);
   top: 50%;
-  /* right: 160px; */
-  left: 80px;
-  display: grid;
-  grid-template-columns: 3fr 1fr;
+  left:50%;
+  padding: 0 5rem;
+  display: flex;
+  justify-content: space-between;
   width: 100vw;
-  /* max-width: 70%; */
 }
 header .gnb > li > ul {
   display: flex;
@@ -137,6 +138,7 @@ header .gnb > li > ul {
 header .gnb > li:nth-child(2) {
   align-content: end;
   font-size: 16px;
+  justify-self: end;
 }
 header .gnb > li:nth-child(2) ul {
   gap: 10px;
@@ -251,6 +253,12 @@ header .modal .closeBtn .cl-line:last-child {
   transform: rotate(-45deg);
 }
 
+.childrenWrap {
+  grid-row: 2 / 3;
+  height: 100%;
+  display: flex;
+}
+
 .main_pagenation {
   position: fixed;
   z-index: 999;
@@ -307,7 +315,7 @@ header .modal .closeBtn .cl-line:last-child {
 /* main - 첫번째 박스 */
 main {
   width: 100vw;
-  margin-top: 100px;
+  
 }
 main.mainPage {
   margin-top: 0px;
@@ -403,51 +411,51 @@ main.mainPage section#event2 {
   background: #000;
   color: #fff;
 }
-main.mainPage section#event2 > article {
+main.mainPage section#event2 .ev2_tit {
+  width:100vw;
+  height:280px;
   font-family: 'Hyundai Sans Head Office';
-  position: absolute;
+  position:absolute;
   left: 200px;
-  top: 20%;
+  top: 20%;  
 }
-main.mainPage section#event2 > article h2 {
+main.mainPage section#event2 .ev2_tit h2 {
   font-weight: 500;
   font-size: 160px;
 }
-main.mainPage section#event2 > article h3 {
+main.mainPage section#event2 .ev2_tit h3 {
   font-weight: 100;
   font-size: 50px;
-  margin-top: -6%;
-  margin-left: 3%;
-  text-wrap: nowrap;
+  margin-top: -60px;
+  margin-left: 5px;
 }
-main.mainPage section#event2 > section {
-  position: absolute;
-  max-width: 1200px;
-  right: 120px;
-  bottom: 130px;
-  z-index: 9990;
+main.mainPage section#event2 > .ev2_models {
   display: grid;
-  gap: 10px;
+  grid-template-columns: minmax(550px,1fr) 2fr;
+  grid-auto-rows:minmax(auto,500px);
+  position: absolute;
+  right: 50px;
+  bottom: 100px;
   align-items: center;
 }
-
-main.mainPage section#event2 > section .ev2_wrap {
-  width: 100%;
-  height: 500px;
-  position: relative;
+main.mainPage section#event2 > .ev2_models .ev2_slide_wrap {
+  width:100%;
+  height:100%;
+  grid-column: 2 / -1;
+  align-self: end;
+  display: flex;
   overflow: hidden;
 }
-main.mainPage section#event2 > section .ev2_wrap article {
-  position: absolute;
-  bottom: 0;
-  display: flex;
-  transition: cubic-bezier(0.17, 0.67, 0.83, 0.67), 0.5s;
-}
-main.mainPage section#event2 > section .ev2_wrap figure {
+main.mainPage section#event2 > .ev2_models .ev2_slide_wrap figure {
   width: 100%;
+  height: 100%;
+  position: relative;
   aspect-ratio: 8/3;
 }
-main.mainPage section#event2 > section .ev2_wrap figure img {
+main.mainPage section#event2 > .ev2_models .ev2_slide_wrap figure img {
+  position: absolute;
+  top: 0px;
+  left: 0px;
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -473,7 +481,7 @@ main.mainPage section#event3 {
 }
 main.mainPage section#event3 article {
   position: absolute;
-  top: 30%;
+  top: 50%;
   transform: translateY(-50%);
   right: 160px;
   display: flex;
@@ -500,23 +508,18 @@ main.mainPage section#event4 {
   color: #fff;
 }
 main.mainPage section#event4 > article {
-  width: 1300px;
-  height: 70vh;
-  padding: 0 10%;
+  width: 80vw;
+  height: 100vh;
   position: absolute;
-  top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   overflow: hidden;
   z-index: 20;
+  display: flex;
+  align-items: center;
 }
 main.mainPage section#event4 .ev4_slide {
-  display: flex;
   width: 100%;
-  overflow: hidden;
-  position: absolute;
-  left: 0;
-  transition: cubic-bezier(0.17, 0.67, 0.83, 0.67), 0.5s;
 }
 main.mainPage section#event4 .ev4_wrap {
   display: grid;
@@ -662,86 +665,6 @@ main.mainPage section#event5 .ev5_wrap h2 {
   font: 500 60px/1 'Hyundai Sans Head Office';
   text-align: center;
 }
-/* main.mainPage section#event5 .ev5_wrap form {
-  display: grid;
-  grid-template-columns: 70px 600px 5px 70px 600px;
-  grid-auto-rows: minmax(75px, auto);
-  column-gap: 65px;
-  row-gap: 40px;
-  align-items: center;
-}
-main.mainPage section#event5 .ev5_wrap form label {
-  font: 400 24px/1 'Hyundai Sans Head Office';
-}
-main.mainPage section#event5 .ev5_wrap form label:nth-of-type(1) {
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
-}
-main.mainPage section#event5 .ev5_wrap form label:nth-of-type(2) {
-  grid-column: 4 / 5;
-  grid-row: 1 / 2;
-}
-main.mainPage section#event5 .ev5_wrap form label:nth-of-type(3) {
-  grid-column: 1 / 2;
-  grid-row: 2 / 3;
-}
-main.mainPage section#event5 .ev5_wrap form label:nth-of-type(4) {
-  grid-column: 4 / 5;
-  grid-row: 2 / 3;
-}
-main.mainPage section#event5 .ev5_wrap form label:nth-of-type(5) {
-  grid-column: 1 / 2;
-  grid-row: 3 / 4;
-}
-
-main.mainPage section#event5 .ev5_wrap form input,
-main.mainPage section#event5 .ev5_wrap form select {
-  font-size: 20px;
-  height: 100%;
-  border: 1px solid #666;
-  background: transparent;
-  color: #fff;
-  padding: 20px;
-  box-sizing: border-box;
-}
-main.mainPage section#event5 .ev5_wrap form select option {
-  color: #111;
-  font-size: 20px;
-}
-main.mainPage section#event5 .ev5_wrap form input:nth-of-type(1) {
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-}
-main.mainPage section#event5 .ev5_wrap form input:nth-of-type(2) {
-  grid-column: 5 / -1;
-  grid-row: 1 / 2;
-}
-main.mainPage section#event5 .ev5_wrap form select:nth-of-type(1) {
-  grid-column: 2 / 3;
-  grid-row: 2 / 3;
-}
-main.mainPage section#event5 .ev5_wrap form select:nth-of-type(2) {
-  grid-column: 5 / -1;
-  grid-row: 2 / 3;
-}
-main.mainPage section#event5 .ev5_wrap form textarea {
-  grid-column: 2 / -1;
-  grid-row: 3 / 4;
-  min-height: 200px;
-  min-width: 100%;
-  border: 1px solid #666;
-  background: transparent;
-  color: #fff;
-  padding: 20px;
-  box-sizing: border-box;
-  font-size: 20px;
-}
-main.mainPage section#event5 .ev5_wrap form button {
-  grid-column: 1 / -1;
-  grid-row: 4 / 5;
-  justify-self: center;
-  font-weight: 400;
-} */
 
 main.mainPage .ev5_wrap form select option {
   color: #000;
@@ -765,23 +688,23 @@ main.mainPage section#event5 .bgImg {
 
 /* footer */
 footer {
-  background: #000;
-  height: 310px;
-  position: relative;
-  padding: 60px 160px;
+  background:#000;
+  padding: 60px 100px;
   box-sizing: border-box;
   color: #999;
-  display: flex;
-  gap: 140px;
+  display: grid;
+  grid-template-columns: minmax(auto,284px) 2fr minmax(260px,1fr);
+  grid-auto-rows: minmax(190px, auto);
+  column-gap:100px;
+  grid-row: 3 / -1;
 }
-footer aside {
-  width: 284px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+footer figure {
+  position:relative;
+  aspect-ratio: 3.422 / 1;
+  align-self: center;
 }
-footer aside img {
-  width: 100%;
+footer figure img {
+  
   object-fit: contain;
 }
 
@@ -789,6 +712,7 @@ footer > ul {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  row-gap:20px;
 }
 footer > ul > li {
   display: flex;
@@ -796,9 +720,10 @@ footer > ul > li {
 }
 footer > ul > li > ul {
   display: flex;
+  flex-wrap: wrap;
 }
 footer .f_github ul {
-  gap: 15px;
+  column-gap: 15px;
 }
 footer .f_github ul li a {
   font-size: 18px;
@@ -812,7 +737,14 @@ footer .f_github ul li:last-child:after {
   content: '';
 }
 footer .f_skill ul {
-  gap: 14px;
+  column-gap: 14px;
+}
+footer .f_skill ul li {
+  display:flex;
+  column-gap:3px;
+}
+footer .f_skill ul li:before {
+  content:'#';
 }
 
 footer h4 {
@@ -827,11 +759,12 @@ footer .f_copy span {
   font: 100 14px/1 'Hyundai Sans Head Office';
 }
 
-footer button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 160px;
+footer aside {
+  width: 100%;
+  align-self: center;
+  text-align: end;
+}
+footer aside button {
   background: #232323;
   border: none;
   color: #999;
@@ -844,118 +777,6 @@ iframe {
   height: 320px;
 }
 
-/* drive page.tsx - 전시시승 신청 */
-/* main#drivePage {
-  width: 100%;
-  background: #fff;
-  z-index: 9990;
-}
-
-main#drivePage .drive {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  padding-top: 10rem;
-  padding-bottom: 10rem;
-  transform: translate(-50%, -50%);
-}
-
-main#drivePage .drive h2 {
-  font: 500 60px/1 'Hyundai Sans Head Office';
-  text-align: center;
-  margin-bottom: 60px;
-}
-
-main#drivePage .drive form {
-  display: grid;
-  grid-template-columns: 70px 600px 5px 70px 600px;
-  grid-auto-rows: minmax(75px, auto);
-  column-gap: 65px;
-  row-gap: 40px;
-  align-items: center;
-}
-main#drivePage .drive form label {
-  font: 400 24px/1 'Hyundai Sans Head Office';
-}
-main#drivePage .drive form label:nth-of-type(1) {
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
-}
-main#drivePage .drive form label:nth-of-type(2) {
-  grid-column: 4 / 5;
-  grid-row: 1 / 2;
-}
-main#drivePage .drive form label:nth-of-type(3) {
-  grid-column: 1 / 2;
-  grid-row: 2 / 3;
-}
-main#drivePage .drive form label:nth-of-type(4) {
-  grid-column: 4 / 5;
-  grid-row: 2 / 3;
-}
-main#drivePage .drive form label:nth-of-type(5) {
-  grid-column: 1 / 2;
-  grid-row: 3 / 4;
-}
-
-main#drivePage .drive form input,
-main#drivePage .drive form select {
-  font-size: 20px;
-  height: 100%;
-  border: 1px solid #ccc;
-  background: transparent;
-  color: #fff;
-  padding: 20px;
-  box-sizing: border-box;
-}
-main#drivePage .drive form select option {
-  font-size: 20px;
-}
-main#drivePage .drive form input:nth-of-type(1) {
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-}
-main#drivePage .drive form input:nth-of-type(2) {
-  grid-column: 5 / -1;
-  grid-row: 1 / 2;
-}
-main#drivePage .drive form select:nth-of-type(1) {
-  grid-column: 2 / 3;
-  grid-row: 2 / 3;
-}
-main#drivePage .drive form select:nth-of-type(2) {
-  grid-column: 5 / -1;
-  grid-row: 2 / 3;
-}
-main#drivePage .drive form textarea {
-  grid-column: 2 / -1;
-  grid-row: 3 / 4;
-  min-height: 200px;
-  min-width: 100%;
-  border: 1px solid #ccc;
-  background: transparent;
-  color: #fff;
-  padding: 20px;
-  box-sizing: border-box;
-  font-size: 20px;
-}
-main#drivePage .drive form button {
-  grid-column: 1 / -1;
-  grid-row: 4 / 5;
-  justify-self: center;
-  font-weight: 400;
-}
-
-/* main#drivePage .bgImg {
-  background: url('/images/ev5_bg.png') center/cover no-repeat;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 30%;
-} */
-
 
 /* 결제페이지 옵션 */
 .optionBullet>span {position:relative; padding-left: 15px;}
@@ -964,12 +785,6 @@ main#drivePage .drive form button {
   width:3.5px; height:3.5px; background:#bbb;
   display: block;
 }
-/* .optionBullet>span:last-child {
-  padding-left:0;
-}
-.optionBullet>span:last-child::before {
-  display:none;
-} */
 
 /* 페이지네이션 스타일 */
 .pagingView {font-size:16px; color:#aaa; transition: all 0.3s;}

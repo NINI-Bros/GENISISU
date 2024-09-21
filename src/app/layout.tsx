@@ -33,7 +33,7 @@ export default function RootLayout({ children, session }: Readonly<{children: Re
                 {/* 로그인 세션정보 분배 컴포넌트 */}
                 <SessionProvider session={session}> 
                     <Header isMain={isMain} />
-                        {children}
+                        <div className='childrenWrap'>{children}</div>
                     <Footer/>
                 </SessionProvider>
      

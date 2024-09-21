@@ -17,13 +17,14 @@ export default function Section2Intro({ abstract }: Section2IntroProps) {
         <h2 className="text-[40px]">{title}</h2>
         <p className="text-[20px] font-light">{content}</p>
       </article>
-      <figure className="w-[100%] h-[100%] overflow-hidden opacity-60">
+      <figure className="relative w-full overflow-hidden opacity-60 top-0 left-0">
         <video
-          className="fixed inset-0 w-full"
+          className="fixed top-0 bg-cover w-full"
           src={source}
           muted={true}
           autoPlay={true}
           loop={true}
+          
         />
       </figure>
     </section>

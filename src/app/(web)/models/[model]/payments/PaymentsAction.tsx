@@ -5,6 +5,7 @@ import useLocalStorage from "@/hook/useLocalStorage";
 import { AddrType } from "@/types/address";
 import { PaymentsActionProps, TaxOptions } from "@/types/payments";
 import { Cart, OptionItem } from "@/types/product";
+import { useModelStore } from "@/zustand/useModel";
 import PortOne from "@portone/browser-sdk/v2";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -46,7 +47,7 @@ const taxOptions : TaxOptions = {
 
 
 export default function PaymentsAction (
-  {vehicleInfo, optionData, exteriorData}: PaymentsActionProps) {
+  {vehicleInfo, optionData, exteriorData, params}: PaymentsActionProps) {
   const [storedValue, setValue] = useLocalStorage<Cart>('cart', {
     model:'',
     price:0,
@@ -305,7 +306,7 @@ export default function PaymentsAction (
                   ></Image>
 
                 </figure>
-                <span>{option?.[0].items?.[0].name}</span>
+                <span className="break-keep">{option?.[0].items?.[0].name}</span>
               </td>
               <td className="text-right"><span className="w-[50px] mr-[10px]">(기본)</span>{option && option?.[0].items?.[0].price?.toLocaleString() + "원"}</td>
             </>
@@ -320,7 +321,7 @@ export default function PaymentsAction (
                 ></Image>
 
               </figure>
-              <span>{storedValue.option?.[type].name.split('-')[1]}</span>
+              <span className="break-keep">{storedValue.option?.[type].name.split('-')[1]}</span>
             </td>
             <td className="text-right">{storedValue.option?.[type].price?.toLocaleString()}원</td>
           </>
@@ -340,7 +341,7 @@ export default function PaymentsAction (
                   ></Image>
 
                 </figure>
-                <span>{option?.[0].items?.[0].name}</span>
+                <span className="break-keep">{option?.[0].items?.[0].name}</span>
               </td>
               <td className="text-right"><span className="w-[50px] mr-[10px]">(기본)</span>{option && option?.[0].items?.[0].price?.toLocaleString() + "원"}</td>
             </>
@@ -355,7 +356,7 @@ export default function PaymentsAction (
                 ></Image>
 
               </figure>
-              <span>{storedValue.option?.[type].name.split('-')[1]}</span>
+              <span className="break-keep">{storedValue.option?.[type].name.split('-')[1]}</span>
             </td>
             <td className="text-right">{storedValue.option?.[type].price?.toLocaleString()}원</td>
           </>
@@ -376,7 +377,7 @@ export default function PaymentsAction (
             <>
               {optionAddSelect?.map((items,index) => (
                   <td key={"add_" + index} className="flex justify-between col-start-2">
-                    <div className="text-left">{items?.name}</div>
+                    <div className="text-left break-keep">{items?.name}</div>
                     <div className="text-right">
                       <span className="optionsPrice">{items?.price.toLocaleString() + "원"}</span>
                     </div>
@@ -390,7 +391,7 @@ export default function PaymentsAction (
       if (storedValue.option?.[type] === undefined || storedValue.option?.[type].name === option[0].topText ) {
         return(
           <>
-            <td className="text-left">{option?.[0].topText}</td>
+            <td className="text-left break-keep">{option?.[0].topText}</td>
             <td className="text-right">
               <span className="w-[50px] mr-[10px]">(기본)</span>
               <span className="optionsPrice">
@@ -402,7 +403,7 @@ export default function PaymentsAction (
       } else if (storedValue.option?.[type] !== undefined){
         return(
           <>
-            <td className="text-left">{type === "garnish" ? storedValue.option?.[type].name?.split("-")[1] : storedValue.option?.[type].name}</td>
+            <td className="text-left break-keep">{type === "garnish" ? storedValue.option?.[type].name?.split("-")[1] : storedValue.option?.[type].name}</td>
             <td className="text-right">
               <span className="optionsPrice">
                 {storedValue.option?.[type].price.toLocaleString()}
@@ -416,6 +417,11 @@ export default function PaymentsAction (
     }
 
   }
+
+  const clickButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    route.push(`/models/${params.model}/add`);
+  };
 
   return(
     <>   
@@ -503,11 +509,11 @@ export default function PaymentsAction (
               <h3 className="text-[25px] font-bold mt-[27px]">배송정보</h3>
               <table className="mt-[27px] w-full">
                 <tbody>
-                  <tr className="grid grid-cols-[100px_auto] gap-x-[140px] mb-[15px]">
+                  <tr className="grid grid-cols-[80px_auto] gap-x-[60px] mb-[15px]">
                     <th className="text-right">인수방법</th>
                     <td className="text-gray-400 font-normal">자택배송</td>
                   </tr>
-                  <tr className="grid grid-cols-[100px_auto] gap-x-[140px] mb-[15px]">
+                  <tr className="grid grid-cols-[80px_auto] gap-x-[60px] mb-[15px]">
                     <th className="text-right">배송지역</th>
                     <td className="w-full">
                       <div className="grid grid-cols-2 gap-[10px] auto-rows-[40px] text-white font-normal">
@@ -526,7 +532,7 @@ export default function PaymentsAction (
                         {sigungu === "" ? "(지역을 선택해주세요)" : sigungu + "센터"}
                       </td>
                   </tr> */}
-                  <tr className="grid grid-cols-[100px_auto] gap-x-[140px] mb-[15px]">
+                  <tr className="grid grid-cols-[80px_auto] gap-x-[60px] mb-[15px]">
                     <th className="text-right">예상출고일</th>
                     <td className="text-gray-400 font-normal">즉시출고가능</td>
                   </tr>
@@ -626,7 +632,7 @@ export default function PaymentsAction (
             <article className="border-t-[1px] border-[#a4a4a4]">
               <div className="w-full flex justify-between mt-[30px]">
                 <h3 className="text-[25px] font-bold text-nowrap">결제금액</h3>
-                <div className="text-gray-400 w-full flex flex-col gap-y-[10px]">
+                <div className="text-gray-400 w-full flex flex-col gap-y-[10px] mt-[20px]">
                   <div className="grid grid-cols-[3fr_1fr] justify-end">
                       <span className="text-right">옵션 총합 (a)</span>
                       <span className="text-right">{price.toLocaleString()}원</span>
@@ -657,9 +663,9 @@ export default function PaymentsAction (
 
           {/* 결제 요약 */}
           <div>
-            <article className="w-[660px] py-[50px] bg-[#333] rounded-[5px]">
+            <article className="mr-[10%] py-[50px] bg-[#333] rounded-[5px]">
               <figure className="aspect-[3/1] relative top-0 left-[50%] translate-x-[-50%]">
-                <Image src={originMatch && SERVER + originMatch.image} fill sizes="100%" priority alt="선택한 자동차 이미지입니다" className="absolute top-0 left-0" style={{objectFit: "contain"}}/>
+                <Image src={originMatch && SERVER + originMatch.image} fill sizes="100%" priority alt="선택한 자동차 이미지입니다" className="absolute" style={{objectFit: "contain"}}/>
               </figure>
               <div className="px-[60px] flex flex-col items-center">
                 <section className="border-b-[1px] border-[#a4a4a4] w-full py-[20px]">
@@ -735,7 +741,7 @@ export default function PaymentsAction (
 
                 <section className="text-[20px] grid grid-cols-[300px] grid-rows-[60px] gap-y-[15px]">
                   {/* <button className="px-[20px]">커스텀 저장</button> */}
-                  <button className="px-[20px] w-full">뒤로가기</button>
+                  <button className="px-[20px] w-full" onClick={(e) => clickButton(e)}>뒤로가기</button>
                   <button 
                     className="bg-white text-black px-[20px] py-[15px] col-start-1 row-start-2 col-span-2" 
                     // onClick={(e) => payClick(e)}>결제하기
