@@ -264,7 +264,7 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
 
   return (
     <>
-      <section className="h-screen relative grid grid-cols-[500px_auto] gap-x-[4rem]">
+      <section className="h-screen relative grid grid-cols-[400px_auto] gap-x-[4rem]">
 
         {/* 옵션명 */}
         <article className="col-start-2 grid grid-cols-2 justify-center items-top max-w-[90vw] mt-[120px] mr-[100px]">
