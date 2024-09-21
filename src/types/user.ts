@@ -1,23 +1,28 @@
-export interface UserData {
+export interface CommonType {
   _id: number;
-  email: string;
-  name: string;
-  phone?: string;
-  address?: string;
-  type: 'user' | 'seller' | 'admin';
-  loginType?: 'email' | 'kakao';
-  image?: string;
-  profile?: string;
-  token?: {
-    accessToken: string;
-    refreshToken: string;
+  extra?: {
+    [key: string]: any;
   };
   createdAt: string;
   updatedAt: string;
 }
 
+export interface UserData extends CommonType {
+  email?: string;
+  name?: string;
+  phone?: string;
+  address?: string;
+  type: 'user' | 'seller' | 'admin';
+  loginType?: 'email' | 'kakao' | 'google';
+  image: string;
+  token?: {
+    accessToken: string;
+    refreshToken: string;
+  };
+}
+
 export type UserInToken = Required<Pick<UserData, '_id' | 'name'>> &
-  Pick<UserData, 'profile'> & {
+  Pick<UserData, 'image'> & {
     accessToken: string;
     refreshToken: string;
   };
@@ -28,5 +33,7 @@ export type UserForm = {
   email: string;
   password: string;
   attach?: string | string[];
-  profileImage?: string;
+  image?: string;
 };
+
+export type UserLoginForm = Pick<UserForm, 'email' | 'password'>;

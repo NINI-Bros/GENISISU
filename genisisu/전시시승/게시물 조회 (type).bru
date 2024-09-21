@@ -1,13 +1,17 @@
 meta {
-  name: 게시물 조회 (keyword)
+  name: 게시물 조회 (type)
   type: http
   seq: 1
 }
 
 get {
-  url: {{URL}}/posts/1
+  url: {{URL}}/posts/?custom={"type" : "drive"}
   body: json
   auth: none
+}
+
+params:query {
+  custom: {"type" : "drive"}
 }
 
 body:json {

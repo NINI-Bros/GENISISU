@@ -30,17 +30,25 @@ export interface Post {
 }
 
 export interface BoardTitle {
-  title:string
-  tableTitle01:string
-  tableTitle02:string
-  tableTitle03:string
+  title: string;
+  tableTitle01: string;
+  tableTitle02: string;
+  tableTitle03: string;
 }
-
 
 export interface ListState {
-  listJsx: JSX.Element[] | null
-  pagination: Pagination | null
-  typingWord: string
-  searchWord: string
-  thisPage: string
+  listJsx: JSX.Element[] | null;
+  pagination: Pagination | null;
+  typingWord: string;
+  searchWord: string;
+  thisPage: string;
 }
+
+export type PostForm = {
+  boardName: 'drive' | 'info' | 'qna';
+  title: string;
+  name: string;
+  phone: string;
+  address?: string;
+  content: string;
+};

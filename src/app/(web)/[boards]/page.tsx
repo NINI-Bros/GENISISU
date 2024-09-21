@@ -3,7 +3,7 @@
 import { BoardTitle, ListState } from '@/types';
 import { fetchPagination, fetchPosts } from '@/data/fetch/postFetch';
 import { useEffect, useState } from 'react';
-import { Metadata } from 'next';
+// import { Metadata } from 'next';
 import PostPagination from '@/components/PostPagination';
 import Button from '@/components/Button';
 import Link from 'next/link';
@@ -39,9 +39,9 @@ export default function Page({ params }: { params: { boards: string} }) {
   });
   const [boardTitle, setBoardTitle] = useState<BoardTitle>({
     title:"",
-    tableTitle01:"",
-    tableTitle02:"",
-    tableTitle03:"",
+    tableTitle01:"제목",
+    tableTitle02:"작성자",
+    tableTitle03:"작성일",
   });
 
   // 서버액션 함수 (페이지네이션, 검색)
@@ -62,29 +62,23 @@ export default function Page({ params }: { params: { boards: string} }) {
   // 게시판분기에 따른 제목 및 Table Header값 설정
   useEffect(()=>{
     switch (params.boards) {
-      case 'info':
-        setBoardTitle(prev => {return {...prev, title:'전시시승'}})
-        setBoardTitle(prev => {return {...prev, tableTitle01:'시승신청 모델'}})
-        setBoardTitle(prev => {return {...prev, tableTitle02:'신청자'}})
-        setBoardTitle(prev => {return {...prev, tableTitle03:'시승 신청일'}})
+      case 'drive':
+        setBoardTitle(prev => ({
+          ...prev,
+          title: '전시시승',
+          tableTitle01: '시승신청 모델',
+          tableTitle02: '신청자',
+          tableTitle03: '시승 신청일'
+        }))
         break;
       case 'qna':
-        setBoardTitle(prev => {return {...prev, title:'고객지원'}})
-        setBoardTitle(prev => {return {...prev, tableTitle01:'제목'}})
-        setBoardTitle(prev => {return {...prev, tableTitle02:'작성자'}})
-        setBoardTitle(prev => {return {...prev, tableTitle03:'작성일'}})
+        setBoardTitle(prev => ({...prev, title: '고객지원'}))
         break;
-      case 'notice':
-        setBoardTitle(prev => {return {...prev, title:'공지사항'}})
-        setBoardTitle(prev => {return {...prev, tableTitle01:'제목'}})
-        setBoardTitle(prev => {return {...prev, tableTitle02:'작성자'}})
-        setBoardTitle(prev => {return {...prev, tableTitle03:'작성일'}})
+      case 'info':
+        setBoardTitle(prev => ({...prev, title: '공지사항'}))
         break;
       default:
-        setBoardTitle(prev => {return {...prev, title:''}})
-        setBoardTitle(prev => {return {...prev, tableTitle01:'제목'}})
-        setBoardTitle(prev => {return {...prev, tableTitle02:'작성자'}})
-        setBoardTitle(prev => {return {...prev, tableTitle03:'작성일'}})
+        setBoardTitle(prev => ({...prev}))
     }
   },[boardTitle.title, boardTitle.tableTitle01, boardTitle.tableTitle02, boardTitle.tableTitle03])
 
@@ -111,9 +105,9 @@ export default function Page({ params }: { params: { boards: string} }) {
     if (params.boards === 'notice' && session?.user?.type !== "admin") {
       return null
     } else if (params.boards === 'notice' && session?.user?.type === "admin") {
-      return <Link href={`/${params.boards}/drive`} className="btnBasic ml-[10px]">공지작성</Link>
+      return <Link href={`/${params.boards}/new`} className="btnBasic ml-[10px]">공지작성</Link>
     } else {
-      return <Link href={`/${params.boards}/drive`} className="btnBasic ml-[10px]">신청하기</Link>
+      return <Link href={`/${params.boards}/new`} className="btnBasic ml-[10px]">신청하기</Link>
     }
   }
 
