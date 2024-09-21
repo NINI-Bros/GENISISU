@@ -264,7 +264,7 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
 
   return (
     <>
-      <section className="h-screen relative grid grid-cols-[500px_auto] gap-x-[4rem]">
+      <section className="h-screen relative grid grid-cols-[400px_auto] gap-x-[4rem]">
 
         {/* 옵션명 */}
         <article className="col-start-2 grid grid-cols-2 justify-center items-top max-w-[90vw] mt-[120px] mr-[100px]">
@@ -310,13 +310,15 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
         </div>
         
         {/* 예상가격 */}
-        <aside className="fixed right-[100px] top-[calc(100vh_-120px)] bg-black font-Hyundai-sans border-[1px] border-[#666666] flex flex-col justify-center px-[37px] pt-[10px] self-end">
-          <p className="text-[15px] text-[#a4a4a4]">예상 가격</p>
-          <span className="text-[30px] font-bold mt-[-10px]">
-            {optionState.newPrice.toLocaleString('ko-KR')}
-            <span className="text-[20px] align-middle"> 원</span>
-          </span>
-        </aside>
+        <div className="h-full w-[280px] absolute bottom-0 right-[3rem]">
+          <aside className="sticky top-[calc(100vh_-120px)] bg-black font-Hyundai-sans border-[1px] border-[#666] flex flex-col pl-[35px] pt-[10px]">
+            <p className="text-[15px] text-[#a4a4a4]">예상 가격</p>
+            <span className="text-[30px] font-bold mt-[-10px]">
+              {optionState.newPrice.toLocaleString('ko-KR')}
+              <span className="text-[20px] align-middle"> 원</span>
+            </span>
+          </aside>
+        </div>
 
       </section>
     </>

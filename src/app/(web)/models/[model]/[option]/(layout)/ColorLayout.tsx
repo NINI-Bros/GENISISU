@@ -193,7 +193,7 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
 
   return (
     <>
-      <section className="min-h-screen relative grid grid-cols-[400px_auto_270px] gap-x-[4rem] pr-[3rem] box-border items-center">
+      <section className="min-h-screen relative grid grid-cols-[400px_auto_280px] gap-x-[4rem] pr-[3rem] box-border items-center">
 
         {/* 옵션명 */}
         <article className="col-start-2 flex flex-col items-center w-full py-[80px]">
@@ -229,13 +229,15 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
         </div>
 
        {/* 예상가격 */}
-       <aside className="fixed right-[100px] top-[calc(100vh_-120px)] bg-black font-Hyundai-sans border-[1px] border-[#666666] flex flex-col justify-center px-[37px] pt-[10px] self-end">
+       <div className='h-full'>
+        <aside className="sticky right-[100px] top-[calc(100vh_-120px)] bg-black font-Hyundai-sans border-[1px] border-[#666] flex flex-col pl-[35px] pt-[10px]">
           <p className="text-[15px] text-[#a4a4a4]">예상 가격</p>
           <span className="text-[30px] font-bold mt-[-10px]">
             {optionState.newPrice.toLocaleString('ko-KR')}
             <span className="text-[20px] align-middle"> 원</span>
           </span>
         </aside>
+       </div>
 
       </section>
     </>

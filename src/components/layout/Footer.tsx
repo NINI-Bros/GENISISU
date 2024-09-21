@@ -11,7 +11,7 @@ export default function Footer() {
   const route = useRouter()
   const btnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    route.push('https://github.com/FRONTENDSCHOOLPLUS2/hyundai-morgans')
+    route.push('https://github.com/NINI-Bros/GENISISU')
   }
 
 
