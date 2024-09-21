@@ -532,7 +532,7 @@ export default function PaymentsAction (
                         <Button onClick={handleClickSearchAddr} className="w-[150px] bg-white hover:bg-transparent text-black hover:text-white transition-all justify-self-end">우편번호 찾기</Button>
                         <input type="text" id="postAddr" placeholder="주소" className="col-span-2 bg-transparent border-b-[1px] border-gray-400" defaultValue={addrTax.detailAddr}/>
                         <input type="text" id="postDetailAddr" placeholder="상세주소" className="bg-transparent border-b-[1px] border-gray-400" defaultValue={detailSubAddr} 
-                          onChange={e => setDetailSubAddr(e.currentTarget.value)} maxLength={30} 
+                          onChange={e => setDetailSubAddr(e.currentTarget.value)} maxLength={50} 
                           onClick={handleValidateAddr}/>
                         <input type="text" id="postExtraAddr" placeholder="참고 항목" className="bg-transparent border-b-[1px] border-gray-400" defaultValue=""/>
                       </div>
