@@ -10,7 +10,7 @@ import PortOne from "@portone/browser-sdk/v2";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Script from "next/script";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // 세금값 옵션 테이블
 const taxOptions : TaxOptions = {
@@ -74,6 +74,7 @@ export default function PaymentsAction (
   const title = storedValue.model && storedValue.model?.split('-').join(' ').toUpperCase();
   const price = Number(storedValue.price);
   const originMatch = vehicleInfo.filter(item => item.name === storedValue.model)[0]
+  // const inputAddrRef = useRef<HTMLInputElement | undefined>([])
   const [optionPrice, setOptionPrice] = useState(0)
   const [tax,setTax] = useState({
     selValue: "normal", // 등록비용 - 장애여부 
@@ -171,6 +172,16 @@ export default function PaymentsAction (
           alert('결제가 완료되었습니다')
         )
       }
+  }
+
+  // 상세 하위주소 지역상태 관리 및 주소 검증 validation
+  const [detailSubAddr, setDetailSubAddr] = useState("");
+  const handleValidateAddr = () => {
+    if (addrTax.detailAddr === "") {
+      handleClickSearchAddr()
+    } else {
+      return
+    }
   }
 
   // 우편주소 다음 api 연결 함수
@@ -520,7 +531,9 @@ export default function PaymentsAction (
                         <input type="text" id="postCode" placeholder="우편번호" className="bg-transparent border-b-[1px] border-gray-400" defaultValue=""/>
                         <Button onClick={handleClickSearchAddr} className="w-[150px] bg-white hover:bg-transparent text-black hover:text-white transition-all justify-self-end">우편번호 찾기</Button>
                         <input type="text" id="postAddr" placeholder="주소" className="col-span-2 bg-transparent border-b-[1px] border-gray-400" defaultValue={addrTax.detailAddr}/>
-                        <input type="text" id="postDetailAddr" placeholder="상세주소" className="bg-transparent border-b-[1px] border-gray-400" defaultValue=""/>
+                        <input type="text" id="postDetailAddr" placeholder="상세주소" className="bg-transparent border-b-[1px] border-gray-400" defaultValue={detailSubAddr} 
+                          onChange={e => setDetailSubAddr(e.currentTarget.value)} maxLength={30} 
+                          onClick={handleValidateAddr}/>
                         <input type="text" id="postExtraAddr" placeholder="참고 항목" className="bg-transparent border-b-[1px] border-gray-400" defaultValue=""/>
                       </div>
                     </td>
@@ -683,9 +696,15 @@ export default function PaymentsAction (
                 </section>
 
                 <section className="border-b-[1px] border-[#a4a4a4] w-full py-[10px]">
-                  <div className="flex justify-between items-center">
+                  <div className="grid grid-cols-[auto_1fr] items-center gap-x-[1rem]">
                     <h3 className="font-Hyundai-sans font-light text-[20px]">차량배송지</h3>
-                    {addrTax.detailAddr === "" ? <div className="text-gray-400">(배송지 미지정)</div> : <div>{addrTax.detailAddr}</div>}
+                    {addrTax.detailAddr === "" 
+                    ? <div className="text-gray-400 text-right">(배송지 미지정)</div> 
+                    : 
+                      <div className="text-right break-keep">
+                        {addrTax.detailAddr} <br/>
+                        {detailSubAddr}
+                      </div>}
                   </div>
                 </section>
 
