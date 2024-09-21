@@ -14,7 +14,7 @@ import { useForm } from 'react-hook-form';
 export default function LoginForm() {
   const { register, handleSubmit, formState: { errors, isLoading, isSubmitted  }, setError } = useForm<UserForm>({
     defaultValues: {
-      email: 'mogany@market.com',
+      email: 'guest@genisisu.com',
       password: '11111111'
     }
   });
@@ -80,7 +80,7 @@ export default function LoginForm() {
           })
           }
         />
-        <InputError target={ errors. password } />
+        <InputError target={ errors.password } />
         <Link
           href="#"
           className="block mt-6 ml-auto text-gray-500 text-sm dark:text-gray-300 hover:underline"

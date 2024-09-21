@@ -2,23 +2,24 @@
 
 import { ApiRes, CoreRes, SingleItem, Post, PostComment, PostForm } from '@/types/index';
 import { auth } from '@/auth';
-import { redirect } from 'next/navigation';
+// import { redirect } from 'next/navigation';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 const CLIENT = process.env.NEXT_PUBLIC_CLIENT_ID;
 
 // 게시물 등록
-export async function addPost(postData: PostForm): Promise<ApiRes<SingleItem<Post>>> {
+export async function addPost(postForm: PostForm): Promise<ApiRes<SingleItem<Post>>> {
   const session = await auth();
-  const data = {
-    type: postData.boardName,
+  const postData = {
+    type: postForm.boardName,
     title:
-      postData.boardName === 'drive' ? postData.title + ' 차량 시승 신청합니다.' : postData.title,
+      postForm.boardName === 'drive' ? postForm.title + ' 차량 시승 신청합니다.' : postForm.title,
     extra: {
-      name: postData.name,
+      name: postForm.name,
     },
-    phone: postData.phone,
-    content: postData.content,
+    phone: postForm.phone,
+    address: postForm.address,
+    content: postForm.content,
   };
 
   try {
@@ -29,7 +30,7 @@ export async function addPost(postData: PostForm): Promise<ApiRes<SingleItem<Pos
         Authorization: `Bearer ${session?.accessToken}`,
         'client-Id': CLIENT,
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(postData),
     });
 
     if (!res.ok) {
@@ -37,7 +38,7 @@ export async function addPost(postData: PostForm): Promise<ApiRes<SingleItem<Pos
     }
 
     const response = await res.json();
-    redirect(`/${postData.boardName}`);
+    // redirect(`/${postData.boardName}`);
     return response;
   } catch (err) {
     console.error('Error adding post:', err);
@@ -72,7 +73,7 @@ export async function updatePost(formData: FormData): Promise<ApiRes<SingleItem<
     },
     body: JSON.stringify(postData),
   });
-  redirect(`/${boardName}`);
+  // redirect(`/${boardName}`);
   return res.json();
 }
 
@@ -88,7 +89,7 @@ export async function deletePost(formData: FormData): Promise<CoreRes> {
       'client-Id': CLIENT,
     },
   });
-  redirect(`/${boardName}`);
+  // redirect(`/${boardName}`);
   return res.json();
 }
 
@@ -117,7 +118,7 @@ export async function addComment(formData: FormData): Promise<SingleItem<PostCom
 
   // 응답 JSON 파싱
   const result = await res.json();
-  redirect(`/${boardName}/${postId}`);
+  // redirect(`/${boardName}/${postId}`);
   return result;
 }
 // (formData: FormData): Promise<ApiResWithValidation<SingleItem<UserData>, UserForm>>
@@ -138,6 +139,6 @@ export async function deleteComment(formData: FormData): Promise<CoreRes> {
   });
 
   // console.log(res);
-  redirect(`/${boardName}/${postId}`);
+  // redirect(`/${boardName}/${postId}`);
   return res.json();
 }

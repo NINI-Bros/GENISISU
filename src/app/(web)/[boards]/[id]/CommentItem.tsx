@@ -3,6 +3,7 @@
 import Submit from '@/components/Submit';
 import { deleteComment } from '@/data/actions/postAction';
 import { PostComment } from '@/types';
+import Image from 'next/image';
 import Link from 'next/link';
 const CLIENT = process.env.NEXT_CLIENT_ID;
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
@@ -17,7 +18,7 @@ export default function CommentItem({
   item: PostComment;
   boardName: string;
 }) {
-  let image = `${SERVER}/${item.user?.image}`;
+  let image = SERVER + item.user?.image;
   if (!item.user?.image) {
     image = `${SERVER}/files/${CLIENT}/user-jayg.webp`;
   }
@@ -33,12 +34,18 @@ export default function CommentItem({
 
   return (
     <div className="border-b-[1px] border-gray-400 border-solid p-2 mb-4">
-      <div className="flex justify-between items-center mb-2">
-        <img className="w-8 h-4 mr-2" src={image} alt="프로필 이미지" />
+      <div className="flex gap-2 justify-between items-center mb-2">
+        <figure className='relative w-[32px] h-[32px] aspect-auto'>
+          <Image fill sizes='100%' src={image} alt="프로필 이미지" />
+        </figure>
         <Link href="" className="font-medium text-lg">
           {item.user?.name}
         </Link>
-        <time className="ml-auto text-gray-400" dateTime={item.updatedAt}>
+        <time 
+          className="ml-auto text-[#aaa] text-sm" 
+          dateTime={item.updatedAt}
+          style={{ fontFamily: 'Hyundai-sans' }}
+        >
           {item.updatedAt}
         </time>
       </div>

@@ -9,10 +9,10 @@ export default function drive({ params }: { params: { boards: string } }) {
   }
 
   return (
-    <main id="drivePage" className="min-w-80 py-32 px-40 bg-white">
+    <main id="drivePage" className="min-w-80 py-16 px-40 bg-white">
       <div className="drive">
         <div className="text-center py-4">
-          <h2 className="pb-8 text-5xl font-medium text-black">{title}</h2>
+          <h2 className="pb-12 text-5xl font-medium text-black">{title}</h2>
         </div>
         <AddBoard isMain={false} params={{ boards: params.boards }} />
 

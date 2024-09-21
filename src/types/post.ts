@@ -49,7 +49,6 @@ export type PostForm = {
   title: string;
   name: string;
   phone: string;
-  model?: string;
   address?: string;
   content: string;
 };

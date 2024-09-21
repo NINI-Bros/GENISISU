@@ -8,10 +8,12 @@ import Input from './Input';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { PostForm } from '@/types';
+import { useRouter } from 'next/navigation';
 
 
 export default function AddBoard({ params, isMain }: { params: { boards: string }, isMain: boolean }) {
-  const setIsmain = (isMain:boolean) => isMain ? 'text-white' : 'text-black';
+  const router = useRouter();
+  const setIsMain = (isMain:boolean) => isMain ? 'text-white' : 'text-black';
   const { register, handleSubmit, formState: { errors, isLoading, isSubmitted }, setError } = useForm<PostForm>();
   
   const [modelNames, setModelNames] = useState<string[]>([
@@ -22,11 +24,11 @@ export default function AddBoard({ params, isMain }: { params: { boards: string 
 
   const post = async (postData: PostForm) => {
     // 프로그래밍 방식으로 서버액션 호출
-    // 게시글 작성 시 리턴값 없음
     const resData = await addPost(postData);
-    if(!resData) {
+    console.log(resData);
+    if(resData.ok) {
       alert(`게시글이 작성되었습니다.`);
-      // router.push(`/${params.boards}`);
+      router.push(`/${params.boards}`);
     } else if (!resData.ok) { // API 서버의 에러 메시지 처리
       alert(resData.message);
     }
@@ -44,31 +46,36 @@ export default function AddBoard({ params, isMain }: { params: { boards: string 
   return (
     <section className="mb-24 p-4">
       <form>
-        <input type="hidden" name="boardName" value={params.boards} />
+        <input 
+          type="hidden" 
+          value={params.boards}
+          // name="boardName" 
+          { ...register('boardName') }
+        />
 
         <div className="ev5_new_wrap">
           <div className="flex gap-16">
             {(params.boards === 'qna' || params.boards === 'info') && (
-              <Input id='title' placeholder='제목을 남겨주세요' />
+              <Input id='title' placeholder='제목을 남겨주세요' register={register} errors={errors} />
             )}
           </div>
           <div className="flex gap-16">
-            <Input id='name' placeholder='성함을 남겨주세요' />
-            <Input id='phone' placeholder='연락처를 남겨주세요' />
+            <Input id='name' placeholder='성함을 남겨주세요' register={register} errors={errors} />
+            <Input id='phone' placeholder='연락처를 남겨주세요 (ex. 010-0000-0000)' register={register} errors={errors} />
           </div>
 
           {params.boards === 'drive' && (
             <div className="flex gap-16">
-              <div className="flex-1 my-4 mb-10">
+              <div className="flex-1 mb-8">
                 <label className="block text-xl mb-2" htmlFor="model">
                   MODEL
                 </label>
-
                 <select
                   id="title"
-                  name="title"
-                  className={`w-full p-5 border bg-transparent ${setIsmain(isMain)} border-gray-300 focus:outline-none`}
+                  className={`w-full p-5 border bg-transparent ${setIsMain(isMain)} border-gray-300 focus:outline-none`}
                   defaultValue="model"
+                  // name="title"
+                  { ...register('title') }
                 >
                   <option value="model" disabled hidden>
                     시승체험을 원하는 모델을 선택해주세요
@@ -79,16 +86,16 @@ export default function AddBoard({ params, isMain }: { params: { boards: string 
                 </select>
               </div>
 
-              <div className="flex-1 my-4 mb-10">
+              <div className="flex-1 mb-8">
                 <label className="block text-xl mb-2" htmlFor="address">
                   ADDRESS
                 </label>
-
                 <select
                   id="address"
-                  name="address"
-                  className={`w-full p-5 border bg-transparent ${setIsmain(isMain)} border-gray-300 focus:outline-none`}
+                  className={`w-full p-5 border bg-transparent ${setIsMain(isMain)} border-gray-300 focus:outline-none`}
                   defaultValue="address"
+                  // name="address"
+                  { ...register('address') }
                 >
                   <option value="address" disabled hidden>
                     가까운 전시장을 찾아 선택해주세요
@@ -104,33 +111,27 @@ export default function AddBoard({ params, isMain }: { params: { boards: string 
             </div>
           )}
 
-          <label className="block text-xl mt-4 mb-2" htmlFor="content">
-            DETAILS
-          </label>
-
-          <textarea
-            id="content"
-            rows={15}
-            placeholder="원하는 상담내용을 입력해주세요"
-            className={`w-full p-5 resize-none border border-gray-300 bg-transparent ${setIsmain(isMain)} h-[200px]`}
-            name="content"
-          ></textarea>
+          <Input id='content' placeholder='원하는 상담내용을 입력해주세요' register={register} errors={errors} textColor={setIsMain(isMain)} />
 
           <div className="flex justify-center my-6 gap-x-[30px]">
             {isMain 
-            ? <Submit className={`mainBtn kr ${setIsmain(isMain)} border-[#aaa]`}>등록</Submit>
-            : 
-            <>
-              <Link
-                href={`/${params.boards}`}
-                className={`mainBtn kr text-black border-[#aaa] hover:text-white hover:bg-black`}>취소
-              </Link>
-              <Submit 
-                onClick={handleSubmit(post)}
-                className={`mainBtn kr ${setIsmain(isMain)} font-bold border-[#aaa] hover:border-[transparent] hover:bg-black hover:text-white`}>등록</Submit>
-            </>
-            }
-            
+              ? (
+                <Submit 
+                  onClick={handleSubmit(post)}
+                  className={`mainBtn kr ${setIsMain(isMain)} border-[#aaa]`}>
+                    등록
+                </Submit>
+              ):( 
+                <>
+                  <Link
+                    href={`/${params.boards}`}
+                    className={`mainBtn kr text-black border-[#aaa] hover:text-white hover:bg-black`}>취소
+                  </Link>
+                  <Submit 
+                    onClick={handleSubmit(post)}
+                    className={`mainBtn kr ${setIsMain(isMain)} font-bold border-[#aaa] hover:border-[transparent] hover:bg-black hover:text-white`}>등록</Submit>
+                </>
+            )}
           </div>
         </div>
       </form>
