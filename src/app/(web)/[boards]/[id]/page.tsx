@@ -44,10 +44,10 @@ export default async function Page({ params }: { params: { boards: string; id: s
   const profileImage = SERVER + item.user.image;
 
   return (
-    <main className="bg-white dark:bg-white px-40 py-20">
+    <main className="bg-white px-40 py-20 max-[1366px]:px-4 max-[1366px]:py-8">
       <section className="mb-8 p-4">
         <h2 className='inline-block text-sm mb-2 p-2 border border-gray-[#aaa] bg-transparent'>{board}</h2>
-        <div className="font-normal text-[42px] mb-2">
+        <div className="font-normal text-[42px] max-[1366px]:text-[25px] mb-2">
           {item.title}
         </div>
         <div className='flex gap-2 justify-start items-center mb-6'>
