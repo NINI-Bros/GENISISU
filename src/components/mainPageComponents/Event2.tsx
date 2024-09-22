@@ -50,13 +50,13 @@ export default function Event2 ( {data} : {data:Product[]}) {
         <article className="ev2_models">
           <div className="ev2_slide_wrap">
             <Swiper 
-            modules={[Navigation]} 
-            spaceBetween={100} 
-            slidesPerView={1} 
-            pagination={{clickable: true}}
-            navigation={true}
-            onSlideChange={(swiper : SwiperProps) => setIndex(swiper.activeIndex)}>
-              {data && imageData}  
+              modules={[Navigation]} 
+              spaceBetween={100} 
+              slidesPerView={1} 
+              pagination={{clickable: true}}
+              navigation={true}
+              onSlideChange={(swiper : SwiperProps) => setIndex(swiper.activeIndex)}>
+                {data && imageData}  
             </Swiper>
           </div>
         </article>

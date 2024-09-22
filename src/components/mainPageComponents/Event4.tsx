@@ -24,19 +24,19 @@ export default function Event4 () {
     <section id="event4">
       <article>
         <Swiper className="ev4_slide" 
-        modules={[Autoplay, Pagination, Navigation]} 
-        spaceBetween={100} 
-        slidesPerView={1} 
-        pagination={{
-          clickable: true,
-        }}
-        navigation={true}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
-        ref={swiperRef}
-        onSlideChange={(swiper : SwiperProps) => setIndex(swiper.activeIndex)}
+          modules={[Autoplay, Pagination, Navigation]} 
+          spaceBetween={100} 
+          slidesPerView={1} 
+          pagination={{
+            clickable: true,
+          }}
+          navigation={true}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
+          ref={swiperRef}
+          onSlideChange={(swiper : SwiperProps) => setIndex(swiper.activeIndex)}
         >
           <SwiperSlide className="ev4_wrap">
             <article>
@@ -49,9 +49,7 @@ export default function Event4 () {
                 }} >VIEW MORE</button>
 
             </article>
-            <figure>
-              <img src="" alt=""/>
-            </figure>
+            <figure className="modelImg"></figure>
           </SwiperSlide>
 
           <SwiperSlide className="ev4_wrap">
@@ -65,10 +63,9 @@ export default function Event4 () {
                 }} >VIEW MORE</button>
 
             </article>
-            <figure>
-              <img src="" alt=""/>
-            </figure>
+            <figure className="modelImg"></figure>
           </SwiperSlide>
+
           <SwiperSlide className="ev4_wrap">
             <article>
               <h2>THIRD <span>AWARDS</span></h2>
@@ -79,10 +76,9 @@ export default function Event4 () {
                   alert('준비중 입니다.')
                 }} >VIEW MORE</button>
             </article>
-            <figure>
-              <img src="" alt=""/>
-            </figure>
+            <figure className="modelImg"></figure>
           </SwiperSlide>
+          
           <SwiperSlide className="ev4_wrap">
             <article>
               <h2>LAST <span>AWARDS</span></h2>
@@ -94,9 +90,7 @@ export default function Event4 () {
             }} >VIEW MORE</button>
 
             </article>
-            <figure>
-              <img src="" alt=""/>
-            </figure>
+            <figure className="modelImg"></figure>
           </SwiperSlide>
         </Swiper>
       </article>
