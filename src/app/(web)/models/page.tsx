@@ -21,8 +21,8 @@ export default async function ListPage() {
   const data = await fetchVehicles();
   const productCard = data.map((model, index) => <ModelCard key={index} model={model} />);
   return (
-    <main className="bg-black pt-40 pl-28 pr-28">
-      <ul className="grid grid-cols-4 gap-6 text-white">{productCard}</ul>
+    <main className="bg-black pt-40 px-28 max-[1366px]:px-4 max-[1366px]:pt-20">
+      <ul className="grid grid-cols-4 max-[1366px]:grid-cols-3 max-[890px]:grid-cols-2 max-[600px]:grid-cols-1 gap-6 text-white">{productCard}</ul>
     </main>
   );
 }
