@@ -1,7 +1,3 @@
-import { Metadata } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useEffect } from 'react';
 import MainPagenation from '../components/mainPageComponents/MainPagenation';
 import { fetchVehicles } from '@/data/fetch/productFetch';
 import Event1 from '@/components/mainPageComponents/Event1';
@@ -20,7 +16,7 @@ export default async function RootPage() {
         <Event2 data={modelData} />
         <Event3 />
         <Event4 />
-        <Event5 boardName={'info'} />
+        <Event5 boardName={'drive'} />
       </main>
     </>
   );

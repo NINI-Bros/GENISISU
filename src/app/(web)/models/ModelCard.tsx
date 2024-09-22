@@ -16,14 +16,12 @@ export default function ModelCard({ model }: { model: Product }) {
   const { items } = useModelStore();
   const modelName = model.name;
   const [title, subtitle] = extractTitle(modelName);
-  // console.log(title + subtitle);
-  // console.log(model._id);
   const content = model.extra.content;
   const index = items.indexOf(modelName) + 1;
   const router = useRouter();
 
   const handleClick = () => {
-    router.push('/info/drive');
+    router.push('/drive/new');
   };
 
   useEffect(() => {
