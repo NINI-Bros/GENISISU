@@ -80,6 +80,7 @@ body {
   overflow-x:hidden;
   display: grid;
   grid-template-rows: 100px minmax(calc(100vh - 410px),auto) 310px;
+  padding-bottom: 0;
 }
 body.otherPage header::after {
   opacity: 100%;
@@ -112,44 +113,81 @@ header.mainHd::after {
   opacity: 60%;
 }
 
-header .gnb_logo {
-  width: 200px;
-}
-header .gnb_logo a img {
-  width: 100%;
-  object-fit: cover;
-}
 header .gnb {
   position: absolute;
   transform: translate(-50%,-50%);
   top: 50%;
   left:50%;
-  padding: 0 5rem;
-  display: flex;
-  justify-content: space-between;
+  padding: 0 3rem;
+  display: grid;
+  grid-template-columns: 4fr 1fr 1fr;
+  column-gap: 100px;
   width: 100vw;
 }
-header .gnb > li > ul {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  gap: 80px;
+header .gnb > .navWrap {
+  width: 100%;
 }
-header .gnb > li:nth-child(2) {
-  align-content: end;
-  font-size: 16px;
+header .gnb > .navWrap:nth-child(1) {
+  max-width: 900px;
+  grid-column: 1 / 2;
+  grid-row: 1/ 2;
+}
+header .gnb > .navWrap:nth-child(2) {
+  max-width: 300px;
+  min-width: 215px;
+  grid-column: 3 / -1;
+  grid-row: 1/ 2;
   justify-self: end;
 }
-header .gnb > li:nth-child(2) ul {
-  gap: 10px;
+header .gnb > .navWrap > ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
 }
-header .gnb > li:nth-child(2) > ul > li:first-child::after {
+header .gnb > .navWrap > ul.mobileView {
+  display: none;
+}
+header .gnb > .navWrap > .firstGnb .gnbLogo {
+  width: 150px;
+}
+header .gnb > .navWrap > .firstGnb .gnbLogo figure {
+  position:relative;
+  aspect-ratio: 2 / 1;
+}
+header .gnb > .navWrap .firstGnb .gnbLogo figure img {
+  object-fit: contain;
+  position: absolute;
+}
+header .gnb > .navWrap .secondGnb {
+  font-size: 16px;
+  column-gap: 10px;
+}
+header .gnb > .navWrap .secondGnb li {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+header .gnb > .navWrap .secondGnb li:first-child {
+
+  display: flex;
+  min-width:200px;
+}
+header .gnb > .navWrap .secondGnb > li:first-child > a:first-child:after {
   content: '|';
   font-size: 10px;
-  padding-left: 10px;
 }
-header .gnb > li:nth-child(2) > ul > li:last-child {
-  padding-left: 80px;
+header .gnb > .navWrap .secondGnb > li.sitemapBtn {
+  display:flex;
+  justify-content: end;
+}
+header .gnb > .navWrap .secondGnb > li.sitemapBtn figure {
+  width: 20px;
+  aspect-ratio: 2 / 1;
+  position: relative;
+}
+header .gnb > .navWrap .secondGnb > li.sitemapBtn figure img {
+  position:absolute;
 }
 header .smBtn {
   justify-self: center;
@@ -699,7 +737,6 @@ footer figure {
   align-self: center;
 }
 footer figure img {
-  
   object-fit: contain;
 }
 
@@ -731,6 +768,9 @@ footer .f_github ul li:after {
 footer .f_github ul li:last-child:after {
   content: '';
 }
+footer .f_skill {
+  display: flex;
+}
 footer .f_skill ul {
   column-gap: 14px;
 }
@@ -745,6 +785,7 @@ footer .f_skill ul li:before {
 footer h4 {
   font: 100 24px/1 'Hyundai Sans Head Office';
   margin-bottom: 8px;
+  display: block;
 }
 footer .footerInfo {
   font: 100 18px/1 'Hyundai Sans Head Office';
