@@ -10,7 +10,7 @@ import PortOne from "@portone/browser-sdk/v2";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Script from "next/script";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 // 세금값 옵션 테이블
 const taxOptions : TaxOptions = {
@@ -47,7 +47,7 @@ const taxOptions : TaxOptions = {
 
 
 export default function PaymentsAction (
-  {vehicleInfo, optionData, exteriorData, params}: PaymentsActionProps) {
+  {vehicleInfo, optionData, params}: PaymentsActionProps) {
   const [storedValue, setValue] = useLocalStorage<Cart>('cart', {
     model:'',
     price:0,
@@ -59,15 +59,15 @@ export default function PaymentsAction (
   const CHANNELKEY = process.env.NEXT_PUBLIC_PORTONE_CHANNELKEY;
 
   // 선택안했을때 기본 옵션 저장 (각 옵션값의 첫번째) ---
-  const optionExterior = exteriorData.extra.option.exterior[`${storedValue.model}`] // 외장 컬러
-  const optionInterior = optionData[3].interior[`${storedValue.model}`] // 내장 컬러
+  const optionExterior = optionData[3].exterior[`${storedValue.model}`] // 외장 컬러
+  const optionInterior = optionData[4].interior[`${storedValue.model}`] // 내장 컬러
 
   const optionEngine = optionData[0].engine[`${storedValue.model}`] // 엔진 타입
   const optionDrivetrain = optionData[1].drivetrain[`${storedValue.model}`] // 구동 타입
   const optionPassenger = optionData[2].passenger[`${storedValue.model}`] // 시트 구성
-  const optionGarnish = optionData[4].garnish[`${storedValue.model}`] // 내장 가니쉬
-  const optionWheel = optionData[5].wheel[`${storedValue.model}`] // 휠 & 타이어
-  const optionAdd = optionData[6].add[`${storedValue.model}`] // 선택 옵션
+  const optionGarnish = optionData[5].garnish[`${storedValue.model}`] // 내장 가니쉬
+  const optionWheel = optionData[6].wheel[`${storedValue.model}`] // 휠 & 타이어
+  const optionAdd = optionData[7].add[`${storedValue.model}`] // 선택 옵션
   const optionAddSelect = storedValue.option?.add?.selectedItems
   // --- 기본옵션 끝
 
