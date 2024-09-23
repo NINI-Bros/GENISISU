@@ -9,7 +9,7 @@ const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 const CLIENT = process.env.NEXT_PUBLIC_CLIENT_ID;
 
 // 게시물 등록
-export async function addPost(postForm: PostForm): Promise<ApiRes<SingleItem<Post>>> {
+export async function createPost(postForm: PostForm): Promise<ApiRes<SingleItem<Post>>> {
   const session = await auth();
   const postData = {
     type: postForm.boardName,
@@ -48,24 +48,20 @@ export async function addPost(postForm: PostForm): Promise<ApiRes<SingleItem<Pos
 }
 
 // 게시물 수정
-export async function updatePost(formData: FormData): Promise<ApiRes<SingleItem<Post>>> {
-  const boardName = formData.get('boardName');
+export async function updatePost(postForm: PostForm): Promise<ApiRes<SingleItem<Post>>> {
   const session = await auth();
   const postData = {
-    // type: formData.get('type') || 'info',
-    // title: formData.get('title') || '',
-    // content: formData.get('content') || '',
-    type: formData.get('type') || 'info',
-    title: formData.get('title'),
+    type: postForm.boardName,
+    title: postForm.title,
     extra: {
-      name: formData.get('name'),
+      name: postForm.name,
     },
-    phone: formData.get('phone'),
-    address: formData.get('address'),
-    content: formData.get('content'),
+    phone: postForm.phone,
+    address: postForm.address,
+    content: postForm.content,
   };
 
-  const res = await fetch(`${SERVER}/posts/${formData.get('_id')}`, {
+  const res = await fetch(`${SERVER}/posts/${postForm.id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',

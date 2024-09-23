@@ -51,4 +51,5 @@ export type PostForm = {
   phone: string;
   address?: string;
   content: string;
+  id?: string;
 };
