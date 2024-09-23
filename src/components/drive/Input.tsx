@@ -1,6 +1,6 @@
 import { PostForm } from "@/types";
 import { ReactElement } from "react";
-import { FieldErrors, UseFormRegister } from "react-hook-form";
+import { FieldError, FieldErrors, UseFormRegister } from "react-hook-form";
 import InputError from "../InputError";
 
 interface InputProps {
@@ -8,22 +8,23 @@ interface InputProps {
   placeholder: string,
   register: UseFormRegister<PostForm>,
   errors: FieldErrors<PostForm>,
-  textColor?: string
+  textColor?: string,
+  isWarningMargin: (errors: FieldError | undefined) => string
 }
 
-export default function Input ({ id, placeholder, register, errors, textColor }: InputProps):ReactElement {
+export default function Input ({ id, placeholder, register, errors, textColor, isWarningMargin }: InputProps):ReactElement {
   return (
-      <div className="flex-1 mb-5">
+      <div className={`flex-1 mb-[${isWarningMargin(errors[id])}]`}>
         <label className="block text-lg mb-2" htmlFor={`${id}`}>
           {id.toUpperCase()}
         </label>
         { id === 'content' ? (
             <textarea
               id={`${id}`}
-              rows={8}
+              rows={6}
               maxLength={3000}
               placeholder={`${placeholder}`}
-              className={`w-full p-5 resize-none border border-gray-300 bg-transparent ${textColor} h-[200px]`}
+              className={`block w-full p-4 resize-none border border-gray-300 bg-transparent ${textColor} h-[200px]`}
               // name="content"
               {
                 ...register(id, {
@@ -36,7 +37,7 @@ export default function Input ({ id, placeholder, register, errors, textColor }:
               id={`${id}`}
               type="text"
               placeholder={`${placeholder}`}
-              className="w-full p-5 border border-gray-300 bg-transparent dark:bg-gray-100"
+              className="w-full p-4 border border-gray-300 bg-transparent dark:bg-gray-100"
               // name={`${id}`}
               {
                 ...register(id, {
@@ -53,7 +54,7 @@ export default function Input ({ id, placeholder, register, errors, textColor }:
               id={`${id}`}
               type="text"
               placeholder={`${placeholder}`}
-              className="w-full p-5 border border-gray-300 bg-transparent dark:bg-gray-100"
+              className="w-full p-4 border border-gray-300 bg-transparent dark:bg-gray-100"
               // name={`${id}`}
               {
                 ...register(id, {
@@ -62,7 +63,7 @@ export default function Input ({ id, placeholder, register, errors, textColor }:
               }
             />
         )}
-        <InputError target={ errors[id] } />
+        <InputError target={errors[id]} />
       </div>
   );
 }
