@@ -112,13 +112,13 @@ export default function Header({ isMain }: { isMain: string }) {
               <FontAwesomeIcon icon={faCar} />
               <span>모델</span>
             </li>
-            <li onClick={() => router.push("/")}>
-              <FontAwesomeIcon icon={faHouseChimney}/>
-              <span>홈</span>
-            </li>
             <li onClick={() => router.push("/drive")}>
               <FontAwesomeIcon icon={faRightToBracket} />
               <span>전시시승</span>
+            </li>
+            <li onClick={() => router.push("/")}>
+              <FontAwesomeIcon icon={faHouseChimney}/>
+              <span>홈</span>
             </li>
             <li onClick={() => router.push("/qna")}>
               <FontAwesomeIcon icon={faHeadphones} />
@@ -150,19 +150,19 @@ export default function Header({ isMain }: { isMain: string }) {
 
           </ul>
 
-          <ul className="mobileView">
+          {/* <ul className="mobileView">
             <li onClick={() => router.push("/login")}>
               <span>로그인</span>
             </li>
             <li onClick={() => router.push("/signup")}>
               <span>회원가입</span>
             </li>
-            {/* 로그인여부에 따라 다르게 호출 */}
+            
             <li onClick={e => handleSignOut(e)}>
               <span>로그아웃</span>
             </li>
 
-          </ul>
+          </ul> */}
         </div>
       </nav>
       {/* {!mobileState.mobileView 

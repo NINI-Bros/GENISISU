@@ -1,6 +1,6 @@
 @media screen and (max-width: 1366px) {
   body {
-    grid-template-rows: 100px minmax(calc(100vh - 410px),auto) 310px;
+    grid-template-rows: 100px minmax(calc(100vh - 410px),auto) auto;
     padding-bottom: 60px;
   }
   /* 모바일 버튼컴포넌트 */
@@ -29,8 +29,8 @@
     opacity: 100%;
   }
   header .gnb {
-    padding: 0 1rem;
-    grid-template-columns: 2fr 1fr 1fr;
+    padding: 0 3rem;
+    grid-template-columns: 1fr;
     column-gap: 2%;
   }
   header .gnb > .navWrap:nth-child(2) {
@@ -68,6 +68,7 @@
   }
   .childrenWrap {
     grid-row: 1 / 3;
+    width: 100%;
   }
 
   /* 메인페이지 페이지네이션 모바일 */
@@ -267,72 +268,88 @@
 
   /* Footer 모바일 */
   footer {
-    padding: 0 5%;
+    padding: 5% 5%;
     grid-template-columns: 1fr;
     grid-auto-rows: auto;
     column-gap:0px;
+    row-gap: 20px;
     grid-row: 3 / 5;
   }
-  footer figure {
+  footer .f_logo {
     left: 50%;
     transform: translateX(-50%);
     max-width: 100px;
+    grid-column: 1 / 2;
+    grid-row : 2 / 3;
   }
   footer > ul {
-    row-gap:0%;
+   
     align-items: center;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
   }
-  footer > ul > li > ul {
+  footer > ul > li {
+    width: 100%;
+    display: flex;
     flex-direction: column;
     align-items: center;
+    column-gap: 20px;
+    /* grid-template-columns: minmax(auto,105px) 1fr; */
+  }
+  footer > ul > li > ul {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
+    min-width: 315px;
   }
   footer .f_github ul li a {
-    font-size: 12px;
+    font-size: 14px;
   }
   footer .f_github ul li:after {
     content: '';
     padding-left: 0px;
   }
   footer .f_skill {
-    display: none;
+    /* display: grid;
+    grid-template-columns: 1fr auto; */
+    align-items: center;
   }
-  /* footer .f_skill ul {
+  footer .f_skill h4 {
+    grid-row: span 2;
+    justify-self: start;
+  }
+  footer .f_skill ul {
     column-gap: 14px;
+  }
+  footer .f_skill ul:nth-of-type(2) {
+    grid-column: 2 / -1;
   }
   footer .f_skill ul li {
     display:flex;
-    column-gap:3px;
+    column-gap:5px;
   }
   footer .f_skill ul li:before {
     content:'#';
   }
   
   footer h4 {
-    font: 100 18px/1 'Hyundai Sans Head Office';
-    margin-bottom: 8px;
+    font: 100 15px/1 'Hyundai Sans Head Office';
+    margin-bottom: 10px;
     text-align: center;
+    min-width: 100px;
   }
-  footer .footerInfo {
-    font: 100 12px/1 'Hyundai Sans Head Office';
+
+  footer .f_info {
+    font: 100 14px/1 'Hyundai Sans Head Office';
+    flex-direction: row;
   }
-  */
-  footer h4 {
+ 
+  footer .f_copy {
     display: none;
   }
-  footer .f_copy span {
-    font: 100 10px/1 'Hyundai Sans Head Office';
-    text-align: center;
-    margin-top: -30px;
-  } 
-  footer aside {
-    text-align: center;
-    
+  footer .f_readBtn {
+    display: none;
   }
-  footer aside button {
-    background: #232323;
-    padding: 1% 10%;
-    max-width: 200px;
-  }
-  
   
 }
