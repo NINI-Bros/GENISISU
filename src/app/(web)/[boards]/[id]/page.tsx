@@ -6,6 +6,7 @@ import { fetchPost } from '@/data/fetch/postFetch';
 import { notFound } from 'next/navigation';
 import { auth } from '@/auth';
 import Image from 'next/image';
+import { deletePost } from '@/data/actions/postAction';
 
 export async function generateMetadata({
   params,
@@ -28,8 +29,36 @@ export async function generateMetadata({
 
 export async function generateStaticParams() {
   return [
-    { boards: 'info', id: '4' },
-    { boards: 'info', id: '5' },
+    { boards: 'drive', id: '13' },
+    { boards: 'drive', id: '12' },
+    { boards: 'drive', id: '11' },
+    { boards: 'drive', id: '10' },    
+    { boards: 'drive', id: '9' },
+    { boards: 'drive', id: '8' },
+    { boards: 'drive', id: '7' },
+    { boards: 'drive', id: '5' },
+    { boards: 'drive', id: '4' },
+    { boards: 'drive', id: '3' },
+    { boards: 'info', id: '43' },
+    { boards: 'info', id: '42' },
+    { boards: 'info', id: '41' },
+    { boards: 'info', id: '40' },
+    { boards: 'info', id: '39' },
+    { boards: 'info', id: '38' },
+    { boards: 'info', id: '37' },
+    { boards: 'info', id: '36' },
+    { boards: 'info', id: '35' },
+    { boards: 'info', id: '34' },
+    { boards: 'qna', id: '28' },
+    { boards: 'qna', id: '27' },
+    { boards: 'qna', id: '26' },
+    { boards: 'qna', id: '25' },
+    { boards: 'qna', id: '24' },
+    { boards: 'qna', id: '23' },
+    { boards: 'qna', id: '22' },
+    { boards: 'qna', id: '21' },
+    { boards: 'qna', id: '20' },
+    { boards: 'qna', id: '19' }
   ];
 }
 
@@ -45,17 +74,21 @@ export default async function Page({ params }: { params: { boards: string; id: s
 
   return (
     <main className="bg-white dark:bg-white px-40 py-20">
-      <section className="mb-8 p-4">
+      <form className="mb-8 p-4">
+        <input type='hidden' value={params.boards} name='boardName'></input>
+        <input type='hidden' value={params.id} name='_id'></input>
         <h2 className='inline-block text-sm mb-2 p-2 border border-gray-[#aaa] bg-transparent'>{board}</h2>
         <div className="font-normal text-[42px] mb-2">
           {item.title}
         </div>
+        {/* 프로필 */}
         <div className='flex gap-2 justify-start items-center mb-6'>
           <figure className='relative w-[34px] h-[34px] aspect-auto'>
             <Image fill sizes='100%' src={profileImage} alt="작성자 프로필 사진" />
           </figure>
           <div>
             <span className='block text-black text-sm'>
+              {/* {item.user.name} */}
               {item.extra?.name}
             </span>
             <time 
@@ -87,11 +120,11 @@ export default async function Page({ params }: { params: { boards: string; id: s
               >
                 수정
               </Link>
-              <Submit bgColor="black">삭제</Submit>
+              <Submit bgColor="black" formAction={deletePost}>삭제</Submit>
             </>
           )}
         </div>
-      </section>
+      </form>
 
       <CommentList params={params} />
     </main>

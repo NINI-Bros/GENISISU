@@ -2,6 +2,7 @@
 
 import { ApiRes, CoreRes, SingleItem, Post, PostComment, PostForm } from '@/types/index';
 import { auth } from '@/auth';
+import { redirect } from 'next/navigation';
 // import { redirect } from 'next/navigation';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
@@ -89,7 +90,7 @@ export async function deletePost(formData: FormData): Promise<CoreRes> {
       'client-Id': CLIENT,
     },
   });
-  // redirect(`/${boardName}`);
+  setTimeout(redirect(`/${boardName}`), 100);
   return res.json();
 }
 

@@ -26,7 +26,7 @@ export async function fetchPosts(
       'Content-Type': 'application/json',
       'client-Id': CLIENT,
     },
-    next: { revalidate: 0 }, // Revalidate every 15 seconds, 캐시 타임 설정
+    next: { revalidate: 15 }, // Revalidate every 15 seconds, 캐시 타임 설정
   });
   const resJson: ApiRes<MultiItem<Post>> = await res.json();
   // console.log(resJson);
