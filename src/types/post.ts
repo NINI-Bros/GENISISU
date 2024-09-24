@@ -9,6 +9,7 @@ export interface PostComment {
   like: number;
   createdAt: string;
   updatedAt: string;
+  boardName: string;
 }
 
 export interface Post {

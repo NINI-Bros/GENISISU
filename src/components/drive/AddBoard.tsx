@@ -7,8 +7,8 @@ import { fetchVehicles } from '@/data/fetch/productFetch';
 import Input from './Input';
 import { useEffect, useState } from 'react';
 import { FieldError, useForm } from 'react-hook-form';
-import { Post, PostForm } from '@/types';
-import { notFound, useRouter } from 'next/navigation';
+import { PostForm } from '@/types';
+import { notFound } from 'next/navigation';
 import InputError from '../InputError';
 import { useModelStore } from '@/zustand/useModel';
 import { fetchPost } from '@/data/fetch/postFetch';
@@ -24,7 +24,6 @@ export default function AddBoard({ params, isMain=false, isEdit=false }
 ){
   const isWarningMargin = (fieldError: FieldError | undefined) =>  fieldError ?  'mb-5' : 'mb-11';
   const { places } = useModelStore();
-  const router = useRouter();
   const textColor = isMain ? 'text-white' : 'text-black';
   const bgColor = isMain ? '' : 'font-bold hover:border-[transparent] hover:bg-black hover:text-white';
   const { register, setValue:setFormValue, watch, handleSubmit, formState: { errors, isLoading, isSubmitted }, setError } = useForm<PostForm>();
@@ -41,7 +40,6 @@ export default function AddBoard({ params, isMain=false, isEdit=false }
     console.log(resData);
     if(resData.ok) {
       alert(`게시글이 작성되었습니다.`);
-      router.push(`/${params.boards}`);
     } else if (!resData.ok) { // API 서버의 에러 메시지 처리
       alert(resData.message);
     }
@@ -53,7 +51,6 @@ export default function AddBoard({ params, isMain=false, isEdit=false }
     console.log(resData);
     if(resData.ok) {
       alert(`게시글이 수정되었습니다.`);
-      router.push(`/${params.boards}/${params.id}`);
     } else if (!resData.ok) { // API 서버의 에러 메시지 처리
       alert(resData.message);
     }

@@ -11,6 +11,7 @@ const CLIENT = process.env.NEXT_PUBLIC_CLIENT_ID;
 // 게시물 등록
 export async function createPost(postForm: PostForm): Promise<ApiRes<SingleItem<Post>>> {
   const session = await auth();
+  const boardName = postForm.boardName;
   const postData = {
     type: postForm.boardName,
     title:
@@ -39,7 +40,7 @@ export async function createPost(postForm: PostForm): Promise<ApiRes<SingleItem<
     }
 
     const response = await res.json();
-    // redirect(`/${postData.boardName}`);
+    setTimeout(redirect(`/${boardName}`), 100);
     return response;
   } catch (err) {
     console.error('Error adding post:', err);
@@ -50,6 +51,8 @@ export async function createPost(postForm: PostForm): Promise<ApiRes<SingleItem<
 // 게시물 수정
 export async function updatePost(postForm: PostForm): Promise<ApiRes<SingleItem<Post>>> {
   const session = await auth();
+  const postId = postForm.id;
+  const boardName = postForm.boardName;
   const postData = {
     type: postForm.boardName,
     title: postForm.title,
@@ -70,7 +73,8 @@ export async function updatePost(postForm: PostForm): Promise<ApiRes<SingleItem<
     },
     body: JSON.stringify(postData),
   });
-  // redirect(`/${boardName}`);
+  // redirect(`/${boardName}/${postId}`);
+  setTimeout(redirect(`/${boardName}/${postId}`), 100);
   return res.json();
 }
 
@@ -91,17 +95,13 @@ export async function deletePost(formData: FormData): Promise<CoreRes> {
 }
 
 // 여기서부터 댓글 영역
-export async function addComment(formData: FormData): Promise<SingleItem<PostComment>> {
-  const commentData = {
-    content: formData.get('comment') || '',
-  };
-  // FormData에서 데이터 추출
-  const postId = formData.get('postId') as string;
-  // const commentContent = formData.get('commentContent') as string;
-  const boardName = formData.get('boardName');
-  // const comment = formData.get('comment');
+export async function addComment(replyForm: PostComment): Promise<SingleItem<PostComment>> {
+  const postId = replyForm._id;
+  const boardName = replyForm.boardName;
   const session = await auth();
-
+  const commentData = {
+    content: replyForm.content,
+  };
   // Fetch 요청
   const res = await fetch(`${SERVER}/posts/${postId}/replies`, {
     method: 'POST',
@@ -112,20 +112,15 @@ export async function addComment(formData: FormData): Promise<SingleItem<PostCom
     },
     body: JSON.stringify(commentData),
   });
-
-  // 응답 JSON 파싱
-  const result = await res.json();
-  // redirect(`/${boardName}/${postId}`);
-  return result;
+  setTimeout(redirect(`/${boardName}/${postId}`), 100);
+  return res.json();
 }
-// (formData: FormData): Promise<ApiResWithValidation<SingleItem<UserData>, UserForm>>
 
 export async function deleteComment(formData: FormData): Promise<CoreRes> {
-  // console.log(formData);
-  const boardName = formData.get('boardName');
+  const session = await auth();
   const postId = formData.get('postId');
   const commentId = formData.get('commentId');
-  const session = await auth();
+  const boardName = formData.get('boardName');
   const res = await fetch(`${SERVER}/posts/${postId}/replies/${commentId}`, {
     method: 'DELETE',
     headers: {
@@ -134,8 +129,7 @@ export async function deleteComment(formData: FormData): Promise<CoreRes> {
       'client-Id': CLIENT,
     },
   });
-
   // console.log(res);
-  // redirect(`/${boardName}/${postId}`);
+  setTimeout(redirect(`/${boardName}/${postId}`), 100);
   return res.json();
 }
