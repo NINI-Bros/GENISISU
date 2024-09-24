@@ -64,6 +64,7 @@ a.mainBtn {
 /* swiper 색상 변경 */
 .swiper-button-prev,
 .swiper-button-next {
+  display: flex;
   color: #aaa !important;
 }
 .swiper-pagination-bullet {
@@ -298,7 +299,8 @@ header .modal .closeBtn .cl-line:last-child {
   display: flex;
 }
 
-.main_pagenation {
+.main_pagination {
+  display: block;
   position: fixed;
   z-index: 5;
   top: 50%;
@@ -308,11 +310,11 @@ header .modal .closeBtn .cl-line:last-child {
   flex-direction: column;
   gap: 14px;
 }
-.main_pagenation li {
+.main_pagination li {
   display: flex;
   justify-content: center;
 }
-.main_pagenation li a {
+.main_pagination li a {
   width: 13px;
   height: 13px;
   display: block;
@@ -323,19 +325,19 @@ header .modal .closeBtn .cl-line:last-child {
   box-sizing: border-box;
   transition: all 0.2s;
 }
-.main_pagenation li.on a {
+.main_pagination li.on a {
   opacity: 80%;
   transform: scale(1);
   border: none;
   background: #fff;
 }
-.main_pagenation li a:hover {
+.main_pagination li a:hover {
   opacity: 80%;
   transform: scale(1);
   border: none;
   background: #fff;
 }
-.main_pagenation li a::after {
+.main_pagination li a::after {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -346,7 +348,7 @@ header .modal .closeBtn .cl-line:last-child {
   height: 1px;
   background: #fff;
 }
-.main_pagenation li a:hover::after {
+.main_pagination li a:hover::after {
   width: 10px;
 }
 
