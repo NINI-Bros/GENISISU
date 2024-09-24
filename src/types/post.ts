@@ -15,7 +15,6 @@ export interface Post {
   _id: number;
   type?: string;
   title: string;
-  name: string;
   phone: string;
   model: string;
   extra?: { name: string };
@@ -47,7 +46,7 @@ export interface ListState {
 export type PostForm = {
   boardName: 'drive' | 'info' | 'qna';
   title: string;
-  name: string;
+  extra: string;
   phone: string;
   address?: string;
   content: string;

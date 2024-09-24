@@ -16,7 +16,7 @@ export async function createPost(postForm: PostForm): Promise<ApiRes<SingleItem<
     title:
       postForm.boardName === 'drive' ? postForm.title + ' 차량 시승 신청합니다.' : postForm.title,
     extra: {
-      name: postForm.name,
+      name: postForm.extra,
     },
     phone: postForm.phone,
     address: postForm.address,
@@ -54,7 +54,7 @@ export async function updatePost(postForm: PostForm): Promise<ApiRes<SingleItem<
     type: postForm.boardName,
     title: postForm.title,
     extra: {
-      name: postForm.name,
+      name: postForm.extra,
     },
     phone: postForm.phone,
     address: postForm.address,

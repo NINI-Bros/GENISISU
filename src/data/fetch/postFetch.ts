@@ -44,6 +44,7 @@ export async function fetchPost(_id: string) {
       'Content-Type': 'application/json',
       'client-Id': CLIENT,
     },
+    next: { revalidate: 15 }, // Revalidate every 15 seconds, 캐시 타임 설정
   });
   const resJson: ApiRes<SingleItem<Post>> = await res.json();
   if (!resJson.ok) {

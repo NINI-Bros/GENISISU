@@ -13,6 +13,8 @@ import InputError from '../InputError';
 import { useModelStore } from '@/zustand/useModel';
 import { fetchPost } from '@/data/fetch/postFetch';
 
+type InputKeyType = keyof Pick<PostForm, 'title' | 'extra' | 'phone' | 'address' | 'content'>;
+
 export default function AddBoard({ params, isMain=false, isEdit=false }
   : { 
     params: { boards: string, id?: string },
@@ -20,14 +22,12 @@ export default function AddBoard({ params, isMain=false, isEdit=false }
     isEdit?: boolean
   }
 ){
-  const [value, setValue] = useState<Post | undefined>(undefined);
-
   const isWarningMargin = (fieldError: FieldError | undefined) =>  fieldError ?  'mb-5' : 'mb-11';
   const { places } = useModelStore();
   const router = useRouter();
   const textColor = isMain ? 'text-white' : 'text-black';
   const bgColor = isMain ? '' : 'font-bold hover:border-[transparent] hover:bg-black hover:text-white';
-  const { register, handleSubmit, formState: { errors, isLoading, isSubmitted }, setError } = useForm<PostForm>();
+  const { register, setValue:setFormValue, watch, handleSubmit, formState: { errors, isLoading, isSubmitted }, setError } = useForm<PostForm>();
   
   const [modelNames, setModelNames] = useState<string[]>([
     'G90 BLACK',
@@ -66,12 +66,38 @@ export default function AddBoard({ params, isMain=false, isEdit=false }
       setModelNames(models);
       if (isEdit) {
         const resPost = await fetchPost(params.id!);
+        // console.log(resPost);
         if (resPost === null) notFound();
-        setValue(resPost);
+        const inputKeyArray = ['title', 'extra', 'phone', 'address', 'content'];
+        Object.keys(resPost)
+          .filter(key => inputKeyArray.includes(key))
+          .forEach(key => {
+            // console.log(key);
+            // console.log(resPost[key as InputKeyType]);
+            let inputKey:InputKeyType = key as InputKeyType;
+            // let inputValue = inputKey === 'extra' ? resPost.extra!.name : resPost[inputKey];
+            let inputValue = '';
+            if (inputKey === 'extra') {
+              inputValue = resPost.extra!.name;
+            } else if (inputKey === 'title' && params.boards === 'drive') {
+              inputValue = resPost.title.replace(' 차량 시승 신청합니다.', '')
+            } else {
+              inputValue = resPost[inputKey];
+            }
+            setFormValue(inputKey, inputValue);
+          });
       }
     };
     fetch();
   }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const field = e.target.id as keyof PostForm;
+    setFormValue(field, e.target.value);
+  }
+
+  const values = watch();
+  // console.log(values);
 
   return (
     <form className="mb-24 p-4">
@@ -89,29 +115,33 @@ export default function AddBoard({ params, isMain=false, isEdit=false }
               <Input 
                 id='title'
                 placeholder='제목을 남겨주세요'
-                value={value?.title}
+                value={values['title'] || ''}
                 register={register}
                 errors={errors}
                 isWarningMargin={isWarningMargin}
+                handleChange={handleChange}
               />
             )}
           </div>
           <div className="flex gap-16">
             <Input 
-              id='name'
+              id='extra'
               placeholder='성함을 남겨주세요'
-              value={value?.extra?.name}
+              value={values['extra']|| ''}
               register={register}
               errors={errors}
               isWarningMargin={isWarningMargin}
+              handleChange={handleChange}
             />
             <Input 
               id='phone'
               placeholder='연락처를 남겨주세요 (ex. 010-0000-0000)'
-              value={value?.phone}
+              value={values['phone'] || ''}
               register={register}
               errors={errors}
-              isWarningMargin={isWarningMargin} />
+              isWarningMargin={isWarningMargin}
+              handleChange={handleChange}
+            />
           </div>
 
           {params.boards === 'drive' && (
@@ -123,15 +153,16 @@ export default function AddBoard({ params, isMain=false, isEdit=false }
                 <select
                   id="title"
                   className={`w-full p-4 border bg-transparent ${textColor} border-gray-300 focus:outline-none`}
-                  defaultValue={"model"}
-                  value={value?.title.replace(' 차량 시승 신청합니다.', '')}
+                  defaultValue={values['title'] || "model"}
                   // name="title"
                   { ...register('title', {
-                    required: 'MODEL을 선택하세요.',
-                    pattern: {
-                      value: /^(?!.*model).+$/, // (?!...) 부정형 전방탐색: 특정 패턴이 뒤따르지 않는 경우
-                      message: '입력칸을 클릭하여 MODEL를 선택하세요.'
-                    }})
+                      required: 'MODEL을 선택하세요.',
+                      pattern: {
+                        value: /^(?!.*model).+$/, // (?!...) 부정형 전방탐색: 특정 패턴이 뒤따르지 않는 경우
+                        message: '입력칸을 클릭하여 MODEL를 선택하세요.'
+                      },
+                      onChange: handleChange
+                    })
                   }
                 >
                   <option value="model" disabled hidden>
@@ -149,17 +180,18 @@ export default function AddBoard({ params, isMain=false, isEdit=false }
                   ADDRESS
                 </label>
                 <select
-                  id="address"
+                  id='address'
                   className={`w-full p-4 border bg-transparent ${textColor} border-gray-300 focus:outline-none`}
-                  defaultValue={"address"}
-                  value={value?.address}
+                  defaultValue={values['address'] || 'address'}
                   // name="address"
                   { ...register('address', {
-                    required: 'ADDRESS를 선택하세요.',
-                    pattern: {
-                      value: /^(?!.*address).+$/, // (?!...) 부정형 전방탐색: 특정 패턴이 뒤따르지 않는 경우
-                      message: '입력칸을 클릭하여 ADDRESS를 선택하세요.'
-                    }})
+                      required: 'ADDRESS를 선택하세요.',
+                      pattern: {
+                        value: /^(?!.*address).+$/, // (?!...) 부정형 전방탐색: 특정 패턴이 뒤따르지 않는 경우
+                        message: '입력칸을 클릭하여 ADDRESS를 선택하세요.'
+                      },
+                      onChange: handleChange
+                    })
                   }
                 >
                   <option value="address" disabled hidden>
@@ -177,11 +209,12 @@ export default function AddBoard({ params, isMain=false, isEdit=false }
           <Input 
             id='content'
             placeholder='원하는 상담내용을 입력해주세요'
-            value={value?.content}
             register={register}
+            value={values['content'] || ''}
             errors={errors}
             textColor={textColor}
             isWarningMargin={isWarningMargin}
+            handleChange={handleChange}
           />
 
           <div className="flex justify-center py-8 gap-x-[30px] text-">
