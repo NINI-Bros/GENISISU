@@ -72,10 +72,7 @@ export default function AddBoard({ params, isMain=false, isEdit=false }
         Object.keys(resPost)
           .filter(key => inputKeyArray.includes(key))
           .forEach(key => {
-            // console.log(key);
-            // console.log(resPost[key as InputKeyType]);
             let inputKey:InputKeyType = key as InputKeyType;
-            // let inputValue = inputKey === 'extra' ? resPost.extra!.name : resPost[inputKey];
             let inputValue = '';
             if (inputKey === 'extra') {
               inputValue = resPost.extra!.name;
@@ -97,7 +94,6 @@ export default function AddBoard({ params, isMain=false, isEdit=false }
   }
 
   const values = watch();
-  // console.log(values);
 
   return (
     <form className="mb-24 p-4">
