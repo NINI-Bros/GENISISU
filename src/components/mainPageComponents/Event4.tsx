@@ -36,7 +36,7 @@ export default function Event4 () {
             disableOnInteraction: false,
           }}
           ref={swiperRef}
-          onSlideChange={(swiper : SwiperProps) => setIndex(swiper.activeIndex)}
+          onSlideChange={(swiper) => setIndex(swiper.activeIndex)}
         >
           <SwiperSlide className="ev4_wrap">
             <article>

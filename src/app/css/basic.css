@@ -582,6 +582,9 @@ main.mainPage section#event4 .ev4_wrap {
   column-gap: 70px;
   align-items: center;
 }
+main.mainPage section#event4 .ev4_wrap > article {
+  width:100%;
+}
 main.mainPage section#event4 .ev4_wrap:nth-child(1) figure {
   width: 100%;
   padding-top: 100%;
