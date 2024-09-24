@@ -452,6 +452,9 @@ main.mainPage section#event2 {
   background: #000;
   color: #fff;
 }
+main.mainPage section#event2 .swiper-pagination {
+  display:none;
+}
 main.mainPage section#event2 .ev2_tit {
   width:100vw;
   height:280px;
@@ -459,18 +462,26 @@ main.mainPage section#event2 .ev2_tit {
   position:absolute;
   left: 200px;
   top: 20%;  
+  display: grid;
+  line-height: normal;
+  grid-template-columns: 1fr;
 }
 main.mainPage section#event2 .ev2_tit h2 {
   font-weight: 500;
   font-size: 160px;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+main.mainPage section#event2 .ev2_tit .mainBtn.mobileView {
+  display: none;
 }
 main.mainPage section#event2 .ev2_tit h3 {
   font-weight: 100;
   font-size: 50px;
-  margin-top: -60px;
-  margin-left: 5px;
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
 }
-main.mainPage section#event2 > .ev2_models {
+main.mainPage section#event2  .ev2_models {
   display: grid;
   grid-template-columns: minmax(550px,1fr) 2fr;
   grid-auto-rows:minmax(auto,500px);
@@ -479,7 +490,7 @@ main.mainPage section#event2 > .ev2_models {
   bottom: 100px;
   align-items: center;
 }
-main.mainPage section#event2 > .ev2_models .ev2_slide_wrap {
+main.mainPage section#event2  .ev2_models .ev2_slide_wrap {
   width:100%;
   height:100%;
   grid-column: 2 / -1;
@@ -487,13 +498,15 @@ main.mainPage section#event2 > .ev2_models .ev2_slide_wrap {
   display: flex;
   overflow: hidden;
 }
-main.mainPage section#event2 > .ev2_models .ev2_slide_wrap figure {
+main.mainPage section#event2  .ev2_models .ev2_slide_wrap figure {
   width: 100%;
   min-height: 200px;
   position: relative;
   aspect-ratio: 8/3;
+  top: 50%;
+  transform:translateY(-50%);
 }
-main.mainPage section#event2 > .ev2_models .ev2_slide_wrap figure img {
+main.mainPage section#event2  .ev2_models .ev2_slide_wrap figure img {
   position: absolute;
   top: 0px;
   left: 0px;

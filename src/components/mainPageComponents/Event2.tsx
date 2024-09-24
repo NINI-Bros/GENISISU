@@ -3,7 +3,7 @@ import { Product } from "@/types/product";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
@@ -13,6 +13,7 @@ import 'swiper/css/pagination';
 export default function Event2 ( {data} : {data:Product[]}) {
   const SERVER : string = process.env.NEXT_PUBLIC_API_SERVER;
   const router = useRouter();
+  const titleRef = useRef<HTMLHeadingElement | null>(null);
   const regex = /gv?\d{2}/g; // 정규표현식
   const [index, setIndex] = useState(0);
   const imageData = data.map((image) => (
@@ -34,6 +35,31 @@ export default function Event2 ( {data} : {data:Product[]}) {
   const subTitle = nameTitData[index][1].toUpperCase()
 
 
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth < 1366) {
+        if (window.innerWidth < 1366 && title === "NEOLUN") {
+          titleRef.current?.style.setProperty("font-size", "40px")
+        } else {
+          titleRef.current?.style.setProperty("font-size", "60px")
+        }
+    } else {
+        titleRef.current?.style.setProperty("font-size", "160px")
+      }
+    }
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', handleResize)
+      handleResize()
+    }
+  
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('resize', handleResize)
+      }
+    }
+  }, [title, titleRef])
+
+
   const handleModelClick = () => {
     if (index === 12) {
       alert ("NEOLUN 차량은 준비중 입니다.\n기대해주세요")
@@ -43,30 +69,34 @@ export default function Event2 ( {data} : {data:Product[]}) {
   }
   return(
     <section id="event2">
-        <article className="ev2_tit">
-          <h2>{title} </h2>
-          <h3>{subTitle || "STANDARD"}</h3>
-        </article>
-        <article className="ev2_models">
-          <div className="ev2_slide_wrap">
-            <Swiper 
-              modules={[Navigation]} 
-              spaceBetween={100} 
-              slidesPerView={1} 
-              pagination={{clickable: true}}
-              navigation={true}
-              onSlideChange={(swiper : SwiperProps) => setIndex(swiper.activeIndex)}>
-                {data && imageData}  
-            </Swiper>
-          </div>
-        </article>
-        
-        <div className="ev2_bg">
-          <Link href="#" className="mainBtn" onClick={(e) => {
+      <article className="ev2_tit">
+          <h2 ref={titleRef}>{title}</h2>
+          <Link href="#" className="mainBtn mobileView" onClick={(e) => {
               e.preventDefault();
               handleModelClick();
             }}>VIEW MORE</Link>
+          <h3>{subTitle || "STANDARD"}</h3>
+      </article>
+      <article className="ev2_models">
+        <div className="ev2_slide_wrap">
+          <Swiper 
+            modules={[Navigation, Pagination]} 
+            spaceBetween={100} 
+            slidesPerView={1} 
+            pagination={{clickable: true}}
+            navigation={true}
+            onSlideChange={(swiper) => setIndex(swiper.activeIndex)}>
+              {data && imageData}  
+          </Swiper>
         </div>
-      </section>
+      </article>
+      
+      <div className="ev2_bg">
+        <Link href="#" className="mainBtn" onClick={(e) => {
+            e.preventDefault();
+            handleModelClick();
+          }}>VIEW MORE</Link>
+      </div>
+    </section>
   )
 }
