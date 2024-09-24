@@ -13,7 +13,7 @@ import InputError from '../InputError';
 import { useModelStore } from '@/zustand/useModel';
 
 export default function AddBoard({ params, isMain }: { params: { boards: string }, isMain: boolean }) {
-  const isWarningMargin = (errors: FieldError | undefined) =>  errors ?  '20px' : `calc(20px+24px)`;
+  const isWarningMargin = (errors: FieldError | undefined) =>  errors ?  '20px' : `calc(20px + 24px)`;
   const { places } = useModelStore();
   const router = useRouter();
   const setIsMain = (isMain:boolean) => isMain ? 'text-white' : 'text-black';
@@ -47,7 +47,7 @@ export default function AddBoard({ params, isMain }: { params: { boards: string 
   }, []);
 
   return (
-    <section className="mb-24 p-4">
+    <section className="mb-24 p-4 max-[1366px]:mb-0">
       <form>
         <input 
           type="hidden" 
@@ -57,18 +57,18 @@ export default function AddBoard({ params, isMain }: { params: { boards: string 
         />
 
         <div className="ev5_new_wrap">
-          <div className="flex gap-16">
+          <div className="flex gap-16 max-[1366px]:gap-0">
             {(params.boards === 'qna' || params.boards === 'info') && (
               <Input id='title' placeholder='제목을 남겨주세요' register={register} errors={errors} isWarningMargin={isWarningMargin} />
             )}
           </div>
-          <div className="flex gap-16">
+          <div className="flex gap-16 max-[1366px]:gap-0">
             <Input id='name' placeholder='성함을 남겨주세요' register={register} errors={errors}  isWarningMargin={isWarningMargin} />
             <Input id='phone' placeholder='연락처를 남겨주세요 (ex. 010-0000-0000)' register={register} errors={errors}  isWarningMargin={isWarningMargin} />
           </div>
 
           {params.boards === 'drive' && (
-            <div className="flex gap-16">
+            <div className="flex gap-16 max-[1366px]:gap-0">
               <div className={`flex-1 mb-[${isWarningMargin(errors.title)}]`}>
                 <label className="block text-lg mb-2" htmlFor="model">
                   MODEL
@@ -127,7 +127,7 @@ export default function AddBoard({ params, isMain }: { params: { boards: string 
 
           <Input id='content' placeholder='원하는 상담내용을 입력해주세요' register={register} errors={errors} textColor={setIsMain(isMain)}  isWarningMargin={isWarningMargin} />
 
-          <div className="flex justify-center py-8 gap-x-[30px]">
+          <div className="flex justify-center py-8 gap-x-[30px] max-[1366px]:pt-4 max-[1366px]:pb-0">
             {isMain 
               ? (
                 <Submit 

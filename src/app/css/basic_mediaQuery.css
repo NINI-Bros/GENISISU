@@ -37,6 +37,9 @@
     grid-template-columns: 1fr;
     column-gap: 2%;
   }
+  header .gnb > .navWrap:nth-child(1) {
+    max-width: 100%;
+  }
   header .gnb > .navWrap:nth-child(2) {
     min-width: auto;
   }
@@ -208,14 +211,20 @@
   }
 
   /* main - 세번째 박스 */
+  main.mainPage section#event3:after {
+    content:'';
+    display:block;
+    background:#000;
+    width:100%;
+    height:100%;
+    opacity:50%;
+  }
   main.mainPage section#event3 article {
-    width: 80%;
-    top: 50%;
-    left: 50%;
+    width: 100%;
     right: 0;
-    transform: translate(-50%,-50%);
     gap: 20px;
     align-items: center;
+    z-index:5;
   }
   main.mainPage section#event3 article h2 {
     font: 100 50px/1 'Hyundai Sans Head Office';
@@ -227,15 +236,21 @@
     text-align: center;
   }
 
-
-
-
-  /* main - 네번째 박스 */
+  /* main - 네번째 박스 430*/ 
+  main.mainPage section#event4 {
+    min-height: 712px;
+  }
   main.mainPage section#event4 > article {
-    width: 100vw;
+    width: 100%;
+    height: 100%;
+    max-width: calc(100vh / 1.571);
   }
   main.mainPage section#event4 .ev4_slide {
     margin-top: -50px;
+    max-height: 100vh;
+  }
+  main.mainPage section#event4 .ev4_slide > div:first-child {
+    height: 100%;
   }
   main.mainPage section#event4 .ev4_wrap {
     grid-template-columns: 1fr;
@@ -253,6 +268,7 @@
     font-weight: 100;
     font-size: 13px;
     margin: 5% 0 10% 0;
+    word-break: keep-all;
   }
   main.mainPage section#event4 .ev4_wrap > figure.modelImg {
     width: 100%;
@@ -263,6 +279,10 @@
 
 
   /* main - 마지막 박스 */
+  main.mainPage section#event5 {
+    height: 740px;
+    
+  }
   main.mainPage section#event5 .ev5_wrap {
     position: absolute;
     top: 50%;
@@ -273,13 +293,19 @@
     padding-top: 0px;
   }
   main.mainPage section#event5 .ev5_wrap h2 {
-    font: 500 60px/1 'Hyundai Sans Head Office';
+    font: 500 60px/1 'Pretendard';
     text-align: center;
   }
 
   main.mainPage .ev5_wrap form select option {
     color: #000;
     font-size: 20px;
+  }
+  main.mainPage section#event5 .ev5_wrap .ev5_new_wrap > div {
+    flex-direction: column;
+  }
+  main.mainPage section#event5 .ev5_wrap .ev5_new_wrap > div:last-child {
+    flex-direction: row;
   }
   main.mainPage section#event5 .bgImg {
     background: url('/images/ev5_bg.png') center/cover no-repeat;
@@ -290,6 +316,9 @@
     height: 100%;
     opacity: 30%;
   }
+
+
+
 
   /* Footer 모바일 */
   footer {

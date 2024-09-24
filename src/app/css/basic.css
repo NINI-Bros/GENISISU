@@ -551,6 +551,7 @@ main.mainPage section#event3 article h2 span {
 main.mainPage section#event3 article h3 {
   font-size: 20px;
   font-weight: 100;
+  word-break: keep-all;
 }
 main.mainPage section#event3 article button {
   margin-top: 20px;
@@ -655,7 +656,7 @@ main.mainPage section#event5 .ev5_wrap {
   z-index: 5;
 }
 main.mainPage section#event5 .ev5_wrap h2 {
-  font: 500 60px/1 'Hyundai Sans Head Office';
+  font: 500 60px/1 'Pretendard';
   text-align: center;
 }
 
