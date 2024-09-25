@@ -73,12 +73,12 @@ export default async function Page({ params }: { params: { boards: string; id: s
   const profileImage = SERVER + item.user.image;
 
   return (
-    <main className="bg-white dark:bg-white px-40 py-20">
+    <main className="bg-white px-40 py-20 max-[1366px]:px-4 max-[1366px]:py-8">
       <form className="mb-8 p-4">
         <input type='hidden' value={params.boards} name='boardName'></input>
         <input type='hidden' value={params.id} name='_id'></input>
         <h2 className='inline-block text-sm mb-2 p-2 border border-gray-[#aaa] bg-transparent'>{board}</h2>
-        <div className="font-normal text-[42px] mb-2">
+        <div className="font-normal text-[42px] max-[1366px]:text-[25px] mb-2">
           {item.title}
         </div>
         {/* 프로필 */}

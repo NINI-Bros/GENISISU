@@ -28,7 +28,7 @@ export default function Input ({ id, value, placeholder, register, errors, textC
               rows={6}
               maxLength={3000}
               placeholder={`${placeholder}`}
-              className={`block w-full p-4 resize-none border border-gray-300 bg-transparent ${textColor} h-[200px]`}
+              className={`block w-full p-4 resize-none border border-gray-300 bg-transparent ${textColor} h-[200px] max-[1366px]:h-[100px]`}
               // name="content"
               {
                 ...register(id, {
@@ -43,7 +43,7 @@ export default function Input ({ id, value, placeholder, register, errors, textC
               type="text"
               value={value}
               placeholder={`${placeholder}`}
-              className="w-full p-4 border border-gray-300 bg-transparent dark:bg-gray-100"
+              className="w-full p-4 border border-gray-300 bg-transparent"
               // name={`${id}`}
               {
                 ...register(id, {
@@ -62,7 +62,7 @@ export default function Input ({ id, value, placeholder, register, errors, textC
               type="text"
               value={value}
               placeholder={`${placeholder}`}
-              className="w-full p-4 border border-gray-300 bg-transparent dark:bg-gray-100"
+              className="w-full p-4 border border-gray-300 bg-transparent"
               // name={`${id}`}
               {
                 ...register(id, {

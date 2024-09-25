@@ -64,6 +64,7 @@ a.mainBtn {
 /* swiper 색상 변경 */
 .swiper-button-prev,
 .swiper-button-next {
+  display: flex;
   color: #aaa !important;
 }
 .swiper-pagination-bullet {
@@ -79,7 +80,8 @@ body {
   margin: 0px auto;
   overflow-x:hidden;
   display: grid;
-  grid-template-rows: 100px minmax(calc(100vh - 410px),auto) 310px;
+  grid-template-rows: 65px minmax(calc(100vh - 410px),auto) 250px;
+  padding-bottom: 0;
 }
 body.otherPage header::after {
   opacity: 100%;
@@ -91,7 +93,7 @@ header {
   left: 0;
   z-index: 10;
   width: 100vw;
-  height: 100px;
+  height: 65px;
   font-weight: 300;
   font-size: 20px;
   color: #bbb;
@@ -112,44 +114,85 @@ header.mainHd::after {
   opacity: 60%;
 }
 
-header .gnb_logo {
-  width: 200px;
-}
-header .gnb_logo a img {
-  width: 100%;
-  object-fit: cover;
-}
 header .gnb {
   position: absolute;
   transform: translate(-50%,-50%);
   top: 50%;
   left:50%;
-  padding: 0 5rem;
-  display: flex;
-  justify-content: space-between;
+  padding: 0 3rem;
+  display: grid;
+  grid-template-columns: 4fr 1fr 2fr;
+  column-gap: 100px;
   width: 100vw;
 }
-header .gnb > li > ul {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  gap: 80px;
+header .gnb > .navWrap {
+  width: 100%;
 }
-header .gnb > li:nth-child(2) {
-  align-content: end;
-  font-size: 16px;
+header .gnb > .navWrap:nth-child(1) {
+  max-width: 700px;
+  grid-column: 1 / 2;
+  grid-row: 1/ 2;
+}
+header .gnb > .navWrap:nth-child(2) {
+  max-width: 300px;
+  min-width: 215px;
+  grid-column: 3 / -1;
+  grid-row: 1/ 2;
   justify-self: end;
 }
-header .gnb > li:nth-child(2) ul {
-  gap: 10px;
+header .gnb > .navWrap > ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
 }
-header .gnb > li:nth-child(2) > ul > li:first-child::after {
-  content: '|';
+header .gnb > .navWrap > ul.mobileView {
+  display: none;
+}
+header .gnb > .navWrap > ul li a {
+  font-size: 18px;
+}
+header .gnb > .navWrap > .firstGnb .gnbLogo {
+  width: 130px;
+  display:block;
+}
+header .gnb > .navWrap > .firstGnb .gnbLogo figure {
+  position:relative;
+  aspect-ratio: 2 / 1;
+}
+header .gnb > .navWrap .firstGnb .gnbLogo figure img {
+  object-fit: contain;
+  position: absolute;
+}
+header .gnb > .navWrap .secondGnb {
+  font-size: 16px;
+  column-gap: 30px;
+}
+header .gnb > .navWrap .secondGnb li {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+header .gnb > .navWrap .secondGnb li:first-child {
+
+  display: flex;
+  min-width:200px;
+}
+header .gnb > .navWrap .secondGnb > li:first-child > a:first-child:after {
+  content: '';
   font-size: 10px;
-  padding-left: 10px;
 }
-header .gnb > li:nth-child(2) > ul > li:last-child {
-  padding-left: 80px;
+header .gnb > .navWrap .secondGnb > li.sitemapBtn {
+  display:flex;
+  justify-content: end;
+}
+header .gnb > .navWrap .secondGnb > li.sitemapBtn figure {
+  width: 20px;
+  aspect-ratio: 2 / 1;
+  position: relative;
+}
+header .gnb > .navWrap .secondGnb > li.sitemapBtn figure img {
+  position:absolute;
 }
 header .smBtn {
   justify-self: center;
@@ -257,7 +300,10 @@ header .modal .closeBtn .cl-line:last-child {
   display: flex;
 }
 
-.main_pagenation {
+
+
+.main_pagination {
+  display: block;
   position: fixed;
   z-index: 5;
   top: 50%;
@@ -267,11 +313,11 @@ header .modal .closeBtn .cl-line:last-child {
   flex-direction: column;
   gap: 14px;
 }
-.main_pagenation li {
+.main_pagination li {
   display: flex;
   justify-content: center;
 }
-.main_pagenation li a {
+.main_pagination li a {
   width: 13px;
   height: 13px;
   display: block;
@@ -282,19 +328,19 @@ header .modal .closeBtn .cl-line:last-child {
   box-sizing: border-box;
   transition: all 0.2s;
 }
-.main_pagenation li.on a {
+.main_pagination li.on a {
   opacity: 80%;
   transform: scale(1);
   border: none;
   background: #fff;
 }
-.main_pagenation li a:hover {
+.main_pagination li a:hover {
   opacity: 80%;
   transform: scale(1);
   border: none;
   background: #fff;
 }
-.main_pagenation li a::after {
+.main_pagination li a::after {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -305,7 +351,7 @@ header .modal .closeBtn .cl-line:last-child {
   height: 1px;
   background: #fff;
 }
-.main_pagenation li a:hover::after {
+.main_pagination li a:hover::after {
   width: 10px;
 }
 
@@ -339,7 +385,7 @@ main.mainPage > section#event1 > article h2 {
   font: 100 40px/1 'Hyundai Sans Head Office';
   margin-bottom: 30px;
 }
-main.mainPage > section#event1 > article h3 {
+main.mainPage > section#event1 > article h1 {
   font: 60px/1 'HYUNDAI';
   letter-spacing: 10px;
   margin-bottom: 10px;
@@ -350,7 +396,7 @@ main.mainPage > section#event1 > article .title_item {
   margin-bottom: 60px;
   position: relative;
 }
-main.mainPage > section#event1 > article .title_item > h3 > span {
+main.mainPage > section#event1 > article .title_item > h1 > span {
   padding: 0 6px;
 }
 main.mainPage > section#event1 > article .title_item .suyeon {
@@ -409,6 +455,9 @@ main.mainPage section#event2 {
   background: #000;
   color: #fff;
 }
+main.mainPage section#event2 .swiper-pagination {
+  display:none;
+}
 main.mainPage section#event2 .ev2_tit {
   width:100vw;
   height:280px;
@@ -416,18 +465,26 @@ main.mainPage section#event2 .ev2_tit {
   position:absolute;
   left: 200px;
   top: 20%;  
+  display: grid;
+  line-height: normal;
+  grid-template-columns: 1fr;
 }
 main.mainPage section#event2 .ev2_tit h2 {
   font-weight: 500;
   font-size: 160px;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+main.mainPage section#event2 .ev2_tit .mainBtn.mobileView {
+  display: none;
 }
 main.mainPage section#event2 .ev2_tit h3 {
   font-weight: 100;
   font-size: 50px;
-  margin-top: -60px;
-  margin-left: 5px;
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
 }
-main.mainPage section#event2 > .ev2_models {
+main.mainPage section#event2  .ev2_models {
   display: grid;
   grid-template-columns: minmax(550px,1fr) 2fr;
   grid-auto-rows:minmax(auto,500px);
@@ -436,7 +493,7 @@ main.mainPage section#event2 > .ev2_models {
   bottom: 100px;
   align-items: center;
 }
-main.mainPage section#event2 > .ev2_models .ev2_slide_wrap {
+main.mainPage section#event2  .ev2_models .ev2_slide_wrap {
   width:100%;
   height:100%;
   grid-column: 2 / -1;
@@ -444,13 +501,15 @@ main.mainPage section#event2 > .ev2_models .ev2_slide_wrap {
   display: flex;
   overflow: hidden;
 }
-main.mainPage section#event2 > .ev2_models .ev2_slide_wrap figure {
+main.mainPage section#event2  .ev2_models .ev2_slide_wrap figure {
   width: 100%;
-  height: 100%;
+  min-height: 200px;
   position: relative;
   aspect-ratio: 8/3;
+  top: 50%;
+  transform:translateY(-50%);
 }
-main.mainPage section#event2 > .ev2_models .ev2_slide_wrap figure img {
+main.mainPage section#event2  .ev2_models .ev2_slide_wrap figure img {
   position: absolute;
   top: 0px;
   left: 0px;
@@ -495,6 +554,7 @@ main.mainPage section#event3 article h2 span {
 main.mainPage section#event3 article h3 {
   font-size: 20px;
   font-weight: 100;
+  word-break: keep-all;
 }
 main.mainPage section#event3 article button {
   margin-top: 20px;
@@ -526,7 +586,10 @@ main.mainPage section#event4 .ev4_wrap {
   column-gap: 70px;
   align-items: center;
 }
-main.mainPage section#event4 .ev4_wrap figure {
+main.mainPage section#event4 .ev4_wrap > article {
+  width:100%;
+}
+main.mainPage section#event4 .ev4_wrap:nth-child(1) figure {
   width: 100%;
   padding-top: 100%;
   background: url('/images/ev4_bg.png') center/contain no-repeat;
@@ -546,16 +609,6 @@ main.mainPage section#event4 .ev4_wrap:nth-child(4) figure {
   padding-top: 100%;
   background: url('/images/ev4_bg_02.jpg') center/contain no-repeat;
 }
-main.mainPage section#event4 .ev4_wrap figure {
-  width: 100%;
-  padding-top: 100%;
-  background: url('/images/ev4_bg.png') center/contain no-repeat;
-}
-main.mainPage section#event4 .ev4_wrap figure {
-  width: 100%;
-  padding-top: 100%;
-  background: url('/images/ev4_bg.png') center/contain no-repeat;
-}
 main.mainPage section#event4 .ev4_wrap article h2 {
   font: 100 60px/1 'Hyundai Sans Head Office';
 }
@@ -568,57 +621,6 @@ main.mainPage section#event4 .ev4_wrap h3 {
   font-weight: 100;
   font-size: 20px;
   margin: 20px 0 80px 0;
-}
-main.mainPage section#event4 .ev4_navi {
-  display: flex;
-  column-gap: 20px;
-  grid-column: 1 / -1;
-  justify-self: center;
-  position: absolute;
-  bottom: 10px;
-  height: 10px;
-  transform: translateX(-50%);
-  left: 50%;
-  bottom: 80px;
-}
-main.mainPage section#event4 .ev4_navi li {
-  width: 10px;
-  height: 10px;
-  background: #666;
-  border-radius: 50%;
-}
-main.mainPage section#event4 .ev4_navi li a {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-main.mainPage section#event4 .ev4_navi li.on {
-  background: #fff;
-}
-main.mainPage section#event4 > span {
-  transition: all 0.5s;
-  cursor: pointer;
-  opacity: 30%;
-  display: block;
-  width: 35px;
-  height: 66px;
-  object-fit: contain;
-  padding-bottom: 60px;
-  position: absolute;
-  top: 60%;
-  transform: translateY(-50%);
-}
-main.mainPage section#event4 > span.ev4_prev {
-  background: url('/images/btn_prev.png') no-repeat;
-  left: 200px;
-}
-main.mainPage section#event4 > span.ev4_next {
-  background: url('/images/btn_next.png') no-repeat;
-  right: 200px;
-}
-main.mainPage section#event4 > span.ev4_prev:hover,
-main.mainPage section#event4 > span.ev4_next:hover {
-  opacity: 100%;
 }
 main.mainPage section#event4 .bgImg {
   transition: cubic-bezier(0.17, 0.67, 0.83, 0.67), 0.5s;
@@ -657,7 +659,7 @@ main.mainPage section#event5 .ev5_wrap {
   z-index: 5;
 }
 main.mainPage section#event5 .ev5_wrap h2 {
-  font: 500 60px/1 'Hyundai Sans Head Office';
+  font: 500 60px/1 'Pretendard';
   text-align: center;
 }
 
@@ -684,7 +686,7 @@ main.mainPage section#event5 .bgImg {
 /* footer */
 footer {
   background:#000;
-  padding: 60px 100px;
+  padding: 30px 100px;
   box-sizing: border-box;
   color: #999;
   display: grid;
@@ -693,13 +695,12 @@ footer {
   column-gap:100px;
   grid-row: 3 / -1;
 }
-footer figure {
+footer .f_logo {
   position:relative;
   aspect-ratio: 3.422 / 1;
   align-self: center;
 }
-footer figure img {
-  
+footer .f_logo img {
   object-fit: contain;
 }
 
@@ -745,16 +746,19 @@ footer .f_skill ul li:before {
 footer h4 {
   font: 100 24px/1 'Hyundai Sans Head Office';
   margin-bottom: 8px;
+  display: block;
 }
-footer .footerInfo {
+footer .f_info {
   font: 100 18px/1 'Hyundai Sans Head Office';
 }
 
 footer .f_copy span {
   font: 100 14px/1 'Hyundai Sans Head Office';
 }
-
-footer aside {
+footer .f_copy {
+  display: block;
+}
+footer .f_readBtn {
   width: 100%;
   align-self: center;
   text-align: end;
@@ -765,6 +769,7 @@ footer aside button {
   color: #999;
   cursor: pointer;
   padding: 1rem 6rem;
+  display: block;
 }
 
 iframe {

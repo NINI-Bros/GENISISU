@@ -93,7 +93,8 @@ export default function AddBoard({ params, isMain=false, isEdit=false }
   const values = watch();
 
   return (
-    <form className="mb-24 p-4">
+    <section className="mb-24 p-4 max-[1366px]:mb-0 max-[1366px]:px-[7%] max-[1366px]:h-full">
+      <form>
         <input 
           type="hidden" 
           value={params.boards}
@@ -103,7 +104,7 @@ export default function AddBoard({ params, isMain=false, isEdit=false }
         <input type='hidden' value={params.id} { ...register('id') } />
 
         <div className="ev5_new_wrap">
-          <div className="flex gap-16">
+          <div className="flex gap-16 max-[1366px]:gap-0">
             {(params.boards === 'qna' || params.boards === 'info') && (
               <Input 
                 id='title'
@@ -116,7 +117,7 @@ export default function AddBoard({ params, isMain=false, isEdit=false }
               />
             )}
           </div>
-          <div className="flex gap-16">
+          <div className="flex gap-16 max-[1366px]:gap-0">
             <Input 
               id='extra'
               placeholder='성함을 남겨주세요'
@@ -138,7 +139,7 @@ export default function AddBoard({ params, isMain=false, isEdit=false }
           </div>
 
           {params.boards === 'drive' && (
-            <div className="flex gap-16">
+            <div className="flex gap-16 max-[1366px]:gap-0">
               <div className={`flex-1 ${isWarningMargin(errors.title)}`}>
                 <label className="block text-lg mb-2" htmlFor="model">
                   MODEL
@@ -247,5 +248,6 @@ export default function AddBoard({ params, isMain=false, isEdit=false }
           </div>
         </div>
     </form>
+    </section>
   );
 }
