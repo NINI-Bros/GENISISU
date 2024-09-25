@@ -101,6 +101,10 @@ export async function signInWithGoogle(formData: FormData) {
   await signIn('google', { redirectTo: `/?email=${formData.get('email')}` });
 }
 
+export async function signInWithNaver(formData: FormData) {
+  await signIn('naver', { redirectTo: `/?email=${formData.get('email')}` });
+}
+
 export async function signInWithGithub(formData: FormData) {
-  await signIn('github', { redirectTo: '/' });
+  await signIn('github', { redirectTo: `/?email=${formData.get('email')}` });
 }

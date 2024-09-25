@@ -1,13 +1,18 @@
-import { Metadata } from "next";
 import LoginForm from "./LoginForm";
 
-export const metadata: Metadata = {
-  title: '로그인 - 제니시수',
-  openGraph: {
-    title: '로그인 - 제니시수',
-    description: '로그인 페이지',
-    url: '/login'
-  }
+export function generateMetadata() {
+  return {
+    title: '로그인 - GENISISU',
+    description: 'GENISISU 로그인 페이지',
+    openGraph: {
+      title: '로그인 - GENISISU',
+      description: 'GENISISU 로그인 페이지입니다.',
+      url: `/login`,
+      images: {
+        url: '/images/genisisu_logo_b.png',
+      },
+    },
+  };
 }
   
 export default function Page() {

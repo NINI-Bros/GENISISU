@@ -10,8 +10,8 @@ import Sitemap from './Sitemap';
 export default function Header({ isMain }: { isMain: string }) {
   // export default async function Header({ isMain }: {isMain:string}) {
   // const session = await auth();
-  // console.log('session', session);
   const { data:session, status } =  useSession();
+  console.log('session', session);
   const [modelOn, setModelOn] = useState(true)
   const [mobileState, setMobileState] = useState({
     mobileView: false,
@@ -52,7 +52,7 @@ export default function Header({ isMain }: { isMain: string }) {
   
     // event listener를 달아줬을 경우 항상 clean-up을 실행해줘야 함. 상태가 업데이트 될때마다 계속 useEffct를 실행시키므로 
     return (
-     window.removeEventListener('resize',handleResize)
+      window.removeEventListener('resize',handleResize)
     )
 
   },[modelOn, mobileState.thisWidth, mobileState.mobileView])

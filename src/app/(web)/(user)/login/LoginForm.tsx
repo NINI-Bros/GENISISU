@@ -88,13 +88,19 @@ export default function LoginForm() {
           비밀번호를 잊으셨나요?
         </Link>
       </div>
-      <div className="mt-10 flex justify-center items-center gap-x-[10px]">
+      <div className="flex gap-x-[10px] mt-10 mb-5 justify-center items-center">
         <Submit className='btnBasic px-[5%] py-[1%] hover:underline cursor:pointer' onClick={handleSubmit(login)}>로그인</Submit>
-        <Submit className='btnBasic px-[5%] py-[1%] hover:underline cursor:pointer' formAction={signInWithGithub}>깃허브</Submit>
-        <Submit className='btnBasic px-[5%] py-[1%] hover:underline cursor:pointer' formAction={signInWithGoogle}>구글</Submit>
-        <Link href="/signup" className="btnBasic px-[5%] py-[1%] hover:underline">
+        <Link 
+          href="/signup"
+          className="btnBasic px-[5%] py-[1%] hover:underline"
+        >
           회원가입
         </Link>
+      </div>
+      <div className='flex gap-x-[10px] justify-center items-center'>
+        <Submit className='btnBasic px-[5%] py-[1%] hover:underline cursor:pointer' formAction={signInWithGoogle}>구글</Submit>
+        <Submit className='btnBasic px-[5%] py-[1%] hover:underline cursor:pointer' formAction={signInWithGoogle}>네이버</Submit>
+        <Submit className='btnBasic px-[5%] py-[1%] hover:underline cursor:pointer' formAction={signInWithGoogle}>현대멤버스</Submit>
       </div>
     </form>
   );
