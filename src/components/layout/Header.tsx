@@ -22,6 +22,8 @@ export default function Header({ isMain }: { isMain: string }) {
     thisWidth:0
   })
   const router = useRouter();
+  const hamBtnRef = useRef<HTMLDivElement | null>(null)
+  const mobileMenuBtnRef = useRef<HTMLDivElement | null>(null)
 
   // console.log("모바일 상태 확인",mobileState.mobileView)
 
@@ -51,10 +53,8 @@ export default function Header({ isMain }: { isMain: string }) {
       setMobileState(prev => {return{...prev, mobileView:false}})
     } else if (mobileState.thisWidth < 1366) {
       setMobileState(prev => {return{...prev, mobileView:true}})
-
     }
 
-  
     // event listener를 달아줬을 경우 항상 clean-up을 실행해줘야 함. 상태가 업데이트 될때마다 계속 useEffct를 실행시키므로 
     return (
      window.removeEventListener('resize',handleResize)
@@ -73,6 +73,11 @@ export default function Header({ isMain }: { isMain: string }) {
   const handleSiteMapOpen = (e: React.MouseEvent<HTMLElement>) : void => {
     e.preventDefault();
     setmodalOn(!modalOn)
+  }
+
+  const handleHambtnClick = () => {
+    hamBtnRef.current?.classList.toggle('on')
+    mobileMenuBtnRef.current?.classList.toggle('on')
   }
 
   return (
@@ -173,6 +178,16 @@ export default function Header({ isMain }: { isMain: string }) {
 
       {/* 사이트맵 컴포넌트 */}
       <Sitemap modalState={modalOn} modalToggleFn={setmodalOn}/>
+
+      {/* 반응형 sideMenu */}
+      <aside className='mobileHamBtn'  ref={mobileMenuBtnRef} onClick={handleHambtnClick}>
+        <div></div>
+        <div></div>
+      </aside>
+
+      <article className='mobileSideBar' ref={hamBtnRef}>
+        12
+      </article>
 
   </header>
   );

@@ -24,10 +24,11 @@ export default function Event1 () {
           </h3>
           <h3 className="suyeon">YEON</h3>
         </article>
-        <button onClick={(e: React.MouseEvent<HTMLButtonElement>)=>{
+        {/* 0925 기획으로 인한 임시 숨김 */}
+        {/* <button onClick={(e: React.MouseEvent<HTMLButtonElement>)=>{
           e.preventDefault();
           alert('준비중 입니다.')
-        }} className="mainBtn">VIEW MORE</button>
+        }} className="mainBtn">VIEW MORE</button> */}
       </article>
 
       <figure>
