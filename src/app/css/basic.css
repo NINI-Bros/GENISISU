@@ -154,6 +154,7 @@ header .gnb > .navWrap > ul li a {
 }
 header .gnb > .navWrap > .firstGnb .gnbLogo {
   width: 130px;
+  display:block;
 }
 header .gnb > .navWrap > .firstGnb .gnbLogo figure {
   position:relative;
@@ -384,7 +385,7 @@ main.mainPage > section#event1 > article h2 {
   font: 100 40px/1 'Hyundai Sans Head Office';
   margin-bottom: 30px;
 }
-main.mainPage > section#event1 > article h3 {
+main.mainPage > section#event1 > article h1 {
   font: 60px/1 'HYUNDAI';
   letter-spacing: 10px;
   margin-bottom: 10px;
@@ -395,7 +396,7 @@ main.mainPage > section#event1 > article .title_item {
   margin-bottom: 60px;
   position: relative;
 }
-main.mainPage > section#event1 > article .title_item > h3 > span {
+main.mainPage > section#event1 > article .title_item > h1 > span {
   padding: 0 6px;
 }
 main.mainPage > section#event1 > article .title_item .suyeon {

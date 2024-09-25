@@ -19,10 +19,10 @@ export default function Event1 () {
       <article>
         <h2>Hyundai Morgans</h2>
         <article className="title_item" ref={titleRef}>
-          <h3>
+          <h1>
             GEN<span>I</span>S<span>I</span>SU
-          </h3>
-          <h3 className="suyeon">YEON</h3>
+          </h1>
+          <h1 className="suyeon">YEON</h1>
         </article>
         {/* 0925 기획으로 인한 임시 숨김 */}
         {/* <button onClick={(e: React.MouseEvent<HTMLButtonElement>)=>{

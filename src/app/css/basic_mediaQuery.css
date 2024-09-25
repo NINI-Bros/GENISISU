@@ -45,6 +45,9 @@
   header .gnb > .navWrap:nth-child(2) {
     min-width: auto;
   }
+
+
+
   header .gnb > .navWrap > ul.mobileView {
     display: flex;
   }
@@ -56,22 +59,21 @@
     column-gap: 7px;
   }
   header .gnb > .navWrap > ul.mobileView li {
-    cursor: pointer;
     width: 35px;
     height: 35px;
-    display: grid;
-    grid-template-columns: 1fr;
-    align-items: center;
   }
-  header .gnb > .navWrap > ul.mobileView li svg {
-    width: 100%;
-    height: 100%;
-    min-height: 20px;
+  header .gnb > .navWrap > ul.mobileView li a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   header .gnb > .navWrap > ul.mobileView li span {
     font-size: 10px;
     text-align: center;
   }
+
+
+
   header .gnb > .navWrap .secondGnb > li.sitemapBtn {
     display: none;
   }
@@ -170,7 +172,7 @@
     font: 100 20px/1 'Hyundai Sans Head Office';
     margin-bottom: 10px;
   }
-  main.mainPage > section#event1 > article h3 {
+  main.mainPage > section#event1 > article h1 {
     font: 30px/1 'HYUNDAI';
     letter-spacing: 4px;
     margin-bottom: 5px;
@@ -181,7 +183,7 @@
     margin-bottom: 30px;
     position: relative;
   }
-  main.mainPage > section#event1 > article .title_item > h3 > span {
+  main.mainPage > section#event1 > article .title_item > h1 > span {
     padding: 0 1%;
   }
   main.mainPage > section#event1 > article .title_item .suyeon {

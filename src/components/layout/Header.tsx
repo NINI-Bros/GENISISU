@@ -3,7 +3,7 @@
 // import { auth } from "@/auth";
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import Sitemap from './Sitemap';
 import Image from 'next/image';
@@ -86,13 +86,11 @@ export default function Header({ isMain }: { isMain: string }) {
         <div className="navWrap">
           <ul className="firstGnb">
             <li>
-              <h1 className="gnbLogo">
-                  <Link href="/">
-                    <figure>
-                      <Image src="/images/genisisu_logo_w.png" priority fill sizes="100%" alt={"타이틀이미지"} />
-                    </figure>
-                  </Link>
-              </h1>
+              <Link href="/" className="gnbLogo">
+                <figure>
+                  <Image src="/images/genisisu_logo_w.png" priority fill sizes="100%" alt={"타이틀이미지"} />
+                </figure>
+              </Link>
             </li>
             <li>
               <Link href="/models">모델</Link>
@@ -113,25 +111,35 @@ export default function Header({ isMain }: { isMain: string }) {
           </ul>
 
           <ul className="firstGnb mobileView">
-            <li onClick={() => router.push("/models")}>
-              <FontAwesomeIcon icon={faCar} />
-              <span>모델</span>
+            <li>
+              <Link href="/models">
+                <FontAwesomeIcon icon={faCar} />
+                <span>모델</span>
+              </Link>
             </li>
-            <li onClick={() => router.push("/drive")}>
-              <FontAwesomeIcon icon={faRightToBracket} />
-              <span>전시시승</span>
+            <li>
+              <Link href="/drive">
+                <FontAwesomeIcon icon={faRightToBracket} />
+                <span>전시시승</span>
+              </Link>
             </li>
-            <li onClick={() => router.push("/")}>
-              <FontAwesomeIcon icon={faHouseChimney}/>
-              <span>홈</span>
+            <li>
+              <Link href="/">
+                <FontAwesomeIcon icon={faHouseChimney}/>
+                <span>홈</span>
+              </Link>
             </li>
-            <li onClick={() => router.push("/qna")}>
-              <FontAwesomeIcon icon={faHeadphones} />
-              <span>고객지원</span>
+            <li>
+              <Link href="qna">
+                <FontAwesomeIcon icon={faHeadphones} />
+                <span>고객지원</span>
+              </Link>
             </li>
-            <li onClick={() => router.push("/info")}>
-              <FontAwesomeIcon icon={faFileLines} />
-              <span>공지사항</span>
+            <li>
+              <Link href="/info">
+                <FontAwesomeIcon icon={faFileLines} />
+                <span>공지사항</span>
+              </Link>
             </li>
           </ul>
 
@@ -186,7 +194,7 @@ export default function Header({ isMain }: { isMain: string }) {
       </aside>
 
       <article className='mobileSideBar' ref={hamBtnRef}>
-        12
+        
       </article>
 
   </header>
