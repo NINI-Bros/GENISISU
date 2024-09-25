@@ -40,9 +40,9 @@ export default function Event4 () {
         >
           <SwiperSlide className="ev4_wrap">
             <article>
-              <h2>GENISISUYEON <span>AWARDS</span></h2>
-              <h3>재니시수연의 고유한 감각을 반영한 현대적 공간으로 여러분을 초대합니다.<br/>
-                제네시스에 관한 다양한 체험으로 당신만의 제네시스를 찾는 여정을 지원합니다.</h3>
+              <h2>GENISISU <span>AWARDS</span></h2>
+              <h3>제니시수의 고유한 감각을 반영한 현대적 공간으로 여러분을 초대합니다.<br/>
+                제니시수에 관한 다양한 체험으로 당신만의 제네시스를 찾는 여정을 지원합니다.</h3>
               <button className="mainBtn" onClick={(e: React.MouseEvent<HTMLButtonElement>)=>{
                   e.preventDefault();
                   alert('준비중 입니다.')
@@ -56,7 +56,7 @@ export default function Event4 () {
             <article>
               <h2>SECONDS <span>AWARDS</span></h2>
               <h3>전기차, 그 이상의 시작<br/>
-                제네시스에 관한 다양한 체험으로 당신만의 제네시스를 찾는 여정을 지원합니다.</h3>
+                제니시수에 관한 다양한 체험으로 당신만의 제네시스를 찾는 여정을 지원합니다.</h3>
               <button className="mainBtn" onClick={(e: React.MouseEvent<HTMLButtonElement>)=>{
                   e.preventDefault();
                   alert('준비중 입니다.')
@@ -83,7 +83,7 @@ export default function Event4 () {
             <article>
               <h2>LAST <span>AWARDS</span></h2>
               <h3>전기차, 그 이상의 시작<br/>
-                제네시스에 관한 다양한 체험으로 당신만의 제네시스를 찾는 여정을 지원합니다.</h3>
+                제니시수에 관한 다양한 체험으로 당신만의 제니시수를 찾는 여정을 지원합니다.</h3>
               <button className="mainBtn" onClick={(e: React.MouseEvent<HTMLButtonElement>)=>{
               e.preventDefault();
               alert('준비중 입니다.')

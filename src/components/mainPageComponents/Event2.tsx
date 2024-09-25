@@ -34,32 +34,6 @@ export default function Event2 ( {data} : {data:Product[]}) {
   const title = nameTitData[index][0].toUpperCase()
   const subTitle = nameTitData[index][1].toUpperCase()
 
-
-  useEffect(() => {
-    function handleResize() {
-      if (window.innerWidth < 1366) {
-        if (window.innerWidth < 1366 && title === "NEOLUN") {
-          titleRef.current?.style.setProperty("font-size", "40px")
-        } else {
-          titleRef.current?.style.setProperty("font-size", "60px")
-        }
-    } else {
-        titleRef.current?.style.setProperty("font-size", "160px")
-      }
-    }
-    if (typeof window !== 'undefined') {
-      window.addEventListener('resize', handleResize)
-      handleResize()
-    }
-  
-    return () => {
-      if (typeof window !== 'undefined') {
-        window.removeEventListener('resize', handleResize)
-      }
-    }
-  }, [title, titleRef])
-
-
   const handleModelClick = () => {
     if (index === 12) {
       alert ("NEOLUN 차량은 준비중 입니다.\n기대해주세요")
