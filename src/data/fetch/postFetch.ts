@@ -26,7 +26,7 @@ export async function fetchPosts(
       'Content-Type': 'application/json',
       'client-Id': CLIENT,
     },
-    next: { revalidate: 0 }, // Revalidate every 15 seconds, 캐시 타임 설정
+    next: { revalidate: 15 }, // Revalidate every 15 seconds, 캐시 타임 설정
   });
   const resJson: ApiRes<MultiItem<Post>> = await res.json();
   // console.log(resJson);
@@ -44,6 +44,8 @@ export async function fetchPost(_id: string) {
       'Content-Type': 'application/json',
       'client-Id': CLIENT,
     },
+    // 댓글 작성하면 바로 보여야하므로 0ms로 설정
+    next: { revalidate: 0 }, // Revalidate every 0 seconds, 캐시 타임 설정
   });
   const resJson: ApiRes<SingleItem<Post>> = await res.json();
   if (!resJson.ok) {
@@ -72,10 +74,9 @@ export async function fetchPagination(
       'Content-Type': 'application/json',
       'client-Id': CLIENT,
     },
-    next: { revalidate: 0 }, // Revalidate every 60 seconds 캐시가 저장 된 데이타를 돌려주는건데 이거를 저장하지말고 돌려줘! 하는거임
+    next: { revalidate: 60 }, // Revalidate every 60 seconds
   });
   const resJson: ApiRes<MultiItem<Post>> = await res.json();
-  // console.log(resJson);
   if (!resJson.ok) {
     throw new Error('페이지네이션 조회 실패');
   }

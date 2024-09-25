@@ -3,6 +3,7 @@
 import Submit from '@/components/Submit';
 import { deleteComment } from '@/data/actions/postAction';
 import { PostComment } from '@/types';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 const CLIENT = process.env.NEXT_CLIENT_ID;
@@ -12,25 +13,19 @@ const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 export default function CommentItem({
   postId,
   item,
-  boardName,
+  authorId,
+  boardName
 }: {
-  postId: string;
-  item: PostComment;
-  boardName: string;
+  postId: string,
+  item: PostComment,
+  authorId: number,
+  boardName: string
 }) {
-  let image = SERVER + item.user?.image;
-  if (!item.user?.image) {
-    image = `${SERVER}/files/${CLIENT}/user-jayg.webp`;
-  }
+  const session = useSession();
+  const userId = session.data?.user?.id;
+  const userType = session.data?.user?.type;
 
-  // const clickhandler = async () => {
-  //   const postId = '1';
-  //   const formData = '4';
-
-  //   const res = await deleteComment(postId, formData);
-
-  //   console.log(res);
-  // };
+  const image = item.user.image ? SERVER + item.user?.image : `${SERVER}/files/${CLIENT}/user-jayg.webp`;
 
   return (
     <div className="border-b-[1px] border-gray-400 border-solid p-2 mb-4">
@@ -50,20 +45,27 @@ export default function CommentItem({
         </time>
       </div>
       <div className="flex justify-between items-center mb-2">
-        <form action={deleteComment}>
-          <input type="hidden" name="boardName" value={boardName} />
+        <form 
+          action={deleteComment}
+          className='w-full' 
+        >
           <input type="hidden" name="postId" value={postId} />
           <input type="hidden" name="commentId" value={item._id} />
+          <input type="hidden" name="boardName" value={boardName} />
           <pre
             className="whitespace-pre-wrap font-light ml-2 mb-4"
             style={{ fontFamily: 'Pretendard' }}
           >
             {item.content}
           </pre>
-          {boardName !== 'qna' ? (
-            <Submit bgColor="black" size="medium">
-              삭제
-            </Submit>
+          {(userType === 'admin' || String(authorId) === userId) ? (
+            <div className='flex flex-row-reverse'>
+              <Submit 
+                bgColor="black"
+                size="medium">
+                삭제
+              </Submit>
+            </div>
           ) : (
             ''
           )}
