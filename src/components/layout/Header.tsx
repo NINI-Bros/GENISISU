@@ -16,7 +16,7 @@ export default function Header({ isMain }: { isMain: string }) {
   // const session = await auth();
   const { data:session, status } =  useSession();
   console.log('session', session);
-  const [modelOn, setModelOn] = useState(true)
+  const [modalOn, setmodalOn] = useState(true)
   const [mobileState, setMobileState] = useState({
     mobileView: false,
     thisWidth:0
