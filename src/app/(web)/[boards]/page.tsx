@@ -105,24 +105,24 @@ export default function Page({ params }: { params: { boards: string} }) {
     if (params.boards === 'notice' && session?.user?.type !== "admin") {
       return null
     } else if (params.boards === 'notice' && session?.user?.type === "admin") {
-      return <Link href={`/${params.boards}/new`} className="btnBasic ml-[10px]">공지작성</Link>
+      return <Link href={`/${params.boards}/new`} className="btnBasic max-[1366px]:text-[14px]">공지작성</Link>
     } else {
-      return <Link href={`/${params.boards}/new`} className="btnBasic ml-[10px]">신청하기</Link>
+      return <Link href={`/${params.boards}/new`} className="btnBasic max-[1366px]:text-[14px]">신청하기</Link>
     }
   }
 
   return (
-    <main className="py-16 bg-white">
+    <main className="py-16 max-[1366px]:py-8 bg-white">
       <ScrollToTop />
       <div className='max-w-[1920px] m-[0px_auto]'>
         <div className="text-center py-4">
-          <h2 className="pb-20 text-5xl font-medium text-black">{boardTitle.title}</h2>
+          <h2 className="pb-20 max-[1366px]:pb-10 text-5xl font-medium text-black">{boardTitle.title}</h2>
         </div>
 
-        <div className="flex justify-end mr-4 mb-8 h-[45px]">
+        <div className="flex justify-end mr-4 mb-8 h-[45px] gap-x-[10px] max-[1366px]:justify-center max-[1366px]:mx-0 max-[1366px]:gap-x-[3%]">
           {/* <Search /> */}
           <div className='grid grid-cols-[3fr_1fr]'>
-            <input type="text" className='border-[1px] border-black pl-[10px]' value={list.typingWord} 
+            <input type="text" className='border-[1px] border-black pl-[10px] max-[1366px]:max-w-[180px]' value={list.typingWord} 
               onChange={(e) => {setList(prev => {return{...prev, typingWord:e.target.value}})}}
               onKeyDown={handleKeyDown}
               placeholder="게시글 검색"

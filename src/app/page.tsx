@@ -1,4 +1,4 @@
-import MainPagenation from '../components/mainPageComponents/MainPagenation';
+import MainPagination from '../components/mainPageComponents/MainPagination';
 import { fetchVehicles } from '@/data/fetch/productFetch';
 import Event1 from '@/components/mainPageComponents/Event1';
 import Event2 from '@/components/mainPageComponents/Event2';
@@ -10,7 +10,7 @@ export default async function RootPage() {
   const modelData = await fetchVehicles();
   return (
     <>
-      <MainPagenation />
+      <MainPagination />
       <main className="mainPage">
         <Event1 />
         <Event2 data={modelData} />
