@@ -10,20 +10,20 @@ import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouseChimney, faCar, faRightToBracket, faHeadphones, faKey } from '@fortawesome/free-solid-svg-icons';
 import { faFileLines } from '@fortawesome/free-regular-svg-icons';
+import SideBar from './SideBar';
 
 export default function Header({ isMain }: { isMain: string }) {
   // export default async function Header({ isMain }: {isMain:string}) {
   // const session = await auth();
   // console.log('session', session);
   const { data:session, status } =  useSession();
-  const [modalOn, setmodalOn] = useState(true)
+  const [modalOn, setmodalOn] = useState(true);
   const [mobileState, setMobileState] = useState({
     mobileView: false,
     thisWidth:0
   })
   const router = useRouter();
-  const hamBtnRef = useRef<HTMLDivElement | null>(null)
-  const mobileMenuBtnRef = useRef<HTMLDivElement | null>(null)
+
 
   // console.log("모바일 상태 확인",mobileState.mobileView)
 
@@ -57,7 +57,7 @@ export default function Header({ isMain }: { isMain: string }) {
 
     // event listener를 달아줬을 경우 항상 clean-up을 실행해줘야 함. 상태가 업데이트 될때마다 계속 useEffct를 실행시키므로 
     return (
-     window.removeEventListener('resize',handleResize)
+      window.removeEventListener('resize',handleResize)
     )
 
   },[modalOn, mobileState.thisWidth, mobileState.mobileView])
@@ -73,11 +73,6 @@ export default function Header({ isMain }: { isMain: string }) {
   const handleSiteMapOpen = (e: React.MouseEvent<HTMLElement>) : void => {
     e.preventDefault();
     setmodalOn(!modalOn)
-  }
-
-  const handleHambtnClick = () => {
-    hamBtnRef.current?.classList.toggle('on')
-    mobileMenuBtnRef.current?.classList.toggle('on')
   }
 
   return (
@@ -178,24 +173,9 @@ export default function Header({ isMain }: { isMain: string }) {
           </ul> */}
         </div>
       </nav>
-      {/* {!mobileState.mobileView 
-        ? 
-        : ""
-      } */}
-
 
       {/* 사이트맵 컴포넌트 */}
       <Sitemap modalState={modalOn} modalToggleFn={setmodalOn}/>
-
-      {/* 반응형 sideMenu */}
-      <aside className='mobileHamBtn'  ref={mobileMenuBtnRef} onClick={handleHambtnClick}>
-        <div></div>
-        <div></div>
-      </aside>
-
-      <article className='mobileSideBar' ref={hamBtnRef}>
-        
-      </article>
 
   </header>
   );
