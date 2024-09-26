@@ -87,21 +87,11 @@
 
   /* 메인페이지 페이지네이션 모바일 */
   .main_pagination {
-    /* gap: 12px;
-    left: 5%; */
     display: none;
   }
-  /* .main_pagination li a {
-    width: 9px;
-    height: 9px;
-  } */
-
-  
-  
-
 
   /* 모바일 햄버거버튼 */
-  header .mobileHamBtn {
+  .mobileSideBar .mobileHamBtn {
     width: 30px;
     height: 30px;
     position: absolute;
@@ -109,53 +99,92 @@
     right: 7%;
     cursor: pointer;
     z-index : 5;
-  
   }
-  header .mobileHamBtn > div {
+  .mobileSideBar .mobileHamBtn > div {
     width: 100%;
     height: 2px;
     background: #999;
     position: absolute;
     transition: 0.3s all;
-    /* transform-origin: 50% 50%; */
   }
-  header .mobileHamBtn > div:first-child {
+  .mobileSideBar .mobileHamBtn > div:first-child {
     transform: rotate(0deg) translateY(0%);
     top: 30%;
     left: 0;
   }
-  header .mobileHamBtn > div:last-child {
+  .mobileSideBar .mobileHamBtn > div:last-child {
     transform: rotate(0deg) translateY(0%);
     top: 70%;
     right: 0;
     transform-origin: 50% 50%;
   }
-  header .mobileHamBtn.on > div:first-child {
+  .mobileSideBar.on .mobileHamBtn > div:first-child {
     transform: rotate(45deg) translateY(-50%);
     top: 50%;
   }
-  header .mobileHamBtn.on > div:last-child {
+  .mobileSideBar.on .mobileHamBtn > div:last-child {
     transform: rotate(-45deg) translateY(-50%);
     top: 50%;
   }
 
+/* 모바일 사이드바 */
+.mobileSideBar {
+  display:block;
+}
+.mobileSideBar .mobileMenu {
+  width: 70vw;
+  height: 100vh;
+  background:#000;
+  position: fixed;
+  right:-100%;
+  top: 0%;
+  bottom: 0;
+  opacity: 100%;    
+  transition:0.3s all;
+  z-index: 3;
+}
+.mobileSideBar.on .mobileMenu {
+  right:0;
 
-  /* 모바일 사이드바 */
-  header .mobileSideBar {
-    width: 70vw;
-    height: 100vh;
-    background:#000;
-    position: fixed;
-    right:-100%;
-    bottom: 0;
-    opacity: 60%;    
-    transition:0.3s all;
-  }
-  header .mobileSideBar.on {
-    
-    right:0;
+}
+.mobileSideBar .mobileMenu .mobileMenuWrap {
+  width: 100%;
+  min-height: 100vh;
+  padding: 10% 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.mobileSideBar .mobileMenu .mobileMenuWrap article {
+  
+}
+.mobileSideBar .mobileMenu .mobileMenuWrap article div {
+  display: flex;
+  flex-direction: column;
+}
 
-  }
+
+
+
+.mobileSideBar .mobiledDimmedBg {
+  display: block;
+  position:fixed;
+  width: 100vw;
+  height: 100vh;
+  background:#000;
+  opacity: 0%;
+  top: 0;
+  left: -100%;
+
+  transition:0.4s all;
+}
+.mobileSideBar.on .mobiledDimmedBg {
+  left:0;
+  opacity: 60%;
+}
+
+
+
 
 
 

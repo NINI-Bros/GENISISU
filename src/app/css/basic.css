@@ -355,6 +355,14 @@ header .modal .closeBtn .cl-line:last-child {
   width: 10px;
 }
 
+/* 모바일 사이드바 */
+.mobileSideBar {
+  display:none;
+}
+.mobileSideBar .mobiledDimmedBg {
+  display: none;
+}
+
 /* main */
 /* main - 첫번째 박스 */
 main {

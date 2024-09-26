@@ -105,9 +105,9 @@ export default function Page({ params }: { params: { boards: string} }) {
     if (params.boards === 'notice' && session?.user?.type !== "admin") {
       return null
     } else if (params.boards === 'notice' && session?.user?.type === "admin") {
-      return <Link href={`/${params.boards}/new`} className="btnBasic max-[1366px]:text-[14px]">공지작성</Link>
+      return <Link href={`/${params.boards}/new`} className="btnBasic max-[1366px]:text-[14px] max-[1366px]:min-w-[80px] max-[1366px]:px-[1%]">공지작성</Link>
     } else {
-      return <Link href={`/${params.boards}/new`} className="btnBasic max-[1366px]:text-[14px]">신청하기</Link>
+      return <Link href={`/${params.boards}/new`} className="btnBasic max-[1366px]:text-[14px] max-[1366px]:min-w-[80px] max-[1366px]:px-[1%]">신청하기</Link>
     }
   }
 
@@ -121,8 +121,8 @@ export default function Page({ params }: { params: { boards: string} }) {
 
         <div className="flex justify-end mr-4 mb-8 h-[45px] gap-x-[10px] max-[1366px]:justify-between max-[1366px]:mx-0 max-[1366px]:gap-x-[3%] max-[1366px]:px-[7%]">
           {/* <Search /> */}
-          <div className='grid grid-cols-[3fr_1fr]'>
-            <input type="text" className='border-[1px] border-black pl-[10px] max-[1366px]:max-w-[180px]' value={list.typingWord} 
+          <div className='grid grid-cols-[auto_80px] max-[1366px]:w-full'>
+            <input type="text" className='border-[1px] border-black pl-[10px] w-full' value={list.typingWord} 
               onChange={(e) => {setList(prev => {return{...prev, typingWord:e.target.value}})}}
               onKeyDown={handleKeyDown}
               placeholder="게시글 검색"
