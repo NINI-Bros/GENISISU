@@ -130,7 +130,7 @@ export default function Header({ isMain }: { isMain: string }) {
               </Link>
             </li>
             <li>
-              <Link href="qna">
+              <Link href="/qna">
                 <FontAwesomeIcon icon={faHeadphones} />
                 <span>고객지원</span>
               </Link>

@@ -29,10 +29,13 @@
     height: 60px;
     font-size: 20px;
   }
-  header.mainHd::after {
+  header::after {
     opacity: 100%;
     box-shadow: 
       0px -0.1px 14px 0px #3f3f3f;
+  }
+  header.mainHd::after {
+    opacity:100%;
   }
   header .gnb {
     padding: 0 20px;
@@ -384,7 +387,9 @@
     color: #000;
     font-size: 16px;
   }
-  main.mainPage section#event5 .ev5_wrap .ev5_new_wrap > div {
+  /* 여기부터 게시판 수정 및 추가 페이지 작성 */
+  main.mainPage section#event5 .ev5_wrap .ev5_new_wrap > div,
+  .bbs_wrap .bbs_child {
     flex-direction: column;
   }
   main.mainPage section#event5 .ev5_wrap .ev5_new_wrap > div:last-child {
@@ -403,6 +408,25 @@
     width: 100%;
     height: 100%;
     opacity: 30%;
+  }
+
+  .bbs_mobile_place table tbody tr {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+  .bbs_mobile_place table tbody tr th {
+    grid-column: 1 / -1;
+    grid-row: 1 / 2;
+  }
+  .bbs_mobile_place table tbody tr td {
+    grid-column: 1 / -1;
+  }
+  .bbs_mobile_place table tbody tr td:nth-child(2) {
+    grid-row: 2 / 3;
+  }
+  .bbs_mobile_place table tbody tr td:nth-child(3) {
+    grid-row: 3 / 4;
   }
 
 

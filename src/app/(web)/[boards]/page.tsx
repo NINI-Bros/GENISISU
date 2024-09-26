@@ -119,7 +119,7 @@ export default function Page({ params }: { params: { boards: string} }) {
           <h2 className="pb-20 max-[1366px]:pb-10 text-5xl font-medium text-black">{boardTitle.title}</h2>
         </div>
 
-        <div className="flex justify-end mr-4 mb-8 h-[45px] gap-x-[10px] max-[1366px]:justify-center max-[1366px]:mx-0 max-[1366px]:gap-x-[3%]">
+        <div className="flex justify-end mr-4 mb-8 h-[45px] gap-x-[10px] max-[1366px]:justify-between max-[1366px]:mx-0 max-[1366px]:gap-x-[3%] max-[1366px]:px-[7%]">
           {/* <Search /> */}
           <div className='grid grid-cols-[3fr_1fr]'>
             <input type="text" className='border-[1px] border-black pl-[10px] max-[1366px]:max-w-[180px]' value={list.typingWord} 
