@@ -15,8 +15,22 @@
   .mainBtn.kr {
     font:500 12px/1 'Pretendard'
   }
+  .mainBtn.bbs {
+    padding: 0% 1%;
+    max-width: 80px;
+    height: 45px;
+    font:500 14px/1 'Pretendard'
+  }
+  .mainBtn.bbs:hover {
+    color:#fff;
+    background:#000;
+    border-color: transparent;
+  }
+
   .btnBasic {
-    padding: 0.7% 3%;
+    padding: 0% 1%;
+    font-size: 14px;
+    min-width: 80px;
   }
   .swiper .swiper-button-prev,
   .swiper .swiper-button-next {
@@ -61,14 +75,20 @@
   header .gnb > .navWrap > ul.firstGnb.mobileView {
     column-gap: 7px;
   }
-  header .gnb > .navWrap > ul.mobileView li {
+  header .gnb > .navWrap > ul.mobileView li a {
     width: 35px;
     height: 35px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 20px 15px;
   }
-  header .gnb > .navWrap > ul.mobileView li a {
+  header .gnb > .navWrap > ul.mobileView li a figure {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
+  }
+  header .gnb > .navWrap > ul.mobileView li a figure svg {
+    height: 100%;
   }
   header .gnb > .navWrap > ul.mobileView li span {
     font-size: 10px;
@@ -92,146 +112,147 @@
 
   /* 모바일 햄버거버튼 */
   .mobileSideBar .mobileHamBtn {
-    width: 30px;
-    height: 30px;
+    width: 45px;
+    height: 45px;
     position: fixed;
-    top: 20px;
-    right: 7%;
+    top: 10px;
+    left: 2%;
     cursor: pointer;
     z-index : 10;
+    box-sizing: border-box;
   }
   .mobileSideBar .mobileHamBtn > div {
-    width: 100%;
+    width: 50%;
     height: 2px;
     background: #999;
     position: absolute;
+    transform:rotate(0deg) translateX(-50%);
+    left:50%;
     transition: 0.3s all;
   }
   .mobileSideBar .mobileHamBtn > div:first-child {
-    transform: rotate(0deg) translateY(0%);
-    top: 30%;
-    left: 0;
+    top: 35%;
   }
   .mobileSideBar .mobileHamBtn > div:last-child {
-    transform: rotate(0deg) translateY(0%);
-    top: 70%;
-    right: 0;
-    transform-origin: 50% 50%;
+    top: 65%;
   }
   .mobileSideBar.on .mobileHamBtn > div:first-child {
-    transform: rotate(45deg) translateY(-50%);
+    transform:rotate(-45deg);
+    left:20%;
     top: 50%;
   }
   .mobileSideBar.on .mobileHamBtn > div:last-child {
-    transform: rotate(-45deg) translateY(-50%);
+    transform:rotate(45deg);
+    left:20%;
     top: 50%;
   }
 
-/* 모바일 사이드바 */
-.mobileSideBar {
-  display:block;
-}
-.mobileSideBar .mobileMenu {
-  width: 70vw;
-  height: 100vh;
-  background:#000;
-  color:#fff;
-  position: fixed;
-  right:-100%;
-  top: 0%;
-  bottom: 0;
-  opacity: 100%;    
-  transition:0.3s all;
-  z-index: 9;
-  padding: 30px 5% 10%;
-}
-.mobileSideBar.on .mobileMenu {
-  right:0;
-}
-.mobileSideBar .mobileMenu .signSet {
-  margin-bottom: 10%;
-  display: flex;
-  column-gap: 5%;
-  align-items: center;
-}
-.mobileSideBar .mobileMenu .signSet a {
-  line-height: 1;
-}
-.mobileSideBar .mobileMenu .mobileMenuWrap {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  row-gap: 10px;
-  max-height: calc(100vh - 180px);
-  overflow: scroll;
-}
-.mobileSideBar .mobileMenu .mobileMenuWrap h3 {
-  cursor: pointer;
-  position:relative;
-  font-size: 20px;
-}
-.mobileSideBar .mobileMenu .mobileMenuWrap h3 .arrowBtn {
-  width: 20px;
-  height: 20px;
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: 0.3s all;
-}
-.mobileSideBar .mobileMenu .mobileMenuWrap h3 .arrowBtn svg {
-  transition: 0.3s all;
+  /* 모바일 사이드바 */
+  .mobileSideBar {
+    display:block;
+  }
+  .mobileSideBar .mobileMenu {
+    width: 70vw;
+    height: 100vh;
+    background:#000;
+    color:#fff;
+    position: fixed;
+    left:-100%;
+    top: 0%;
+    bottom: 0;
+    opacity: 100%;    
+    transition:0.3s all;
+    z-index: 9;
+    padding: 30px 7% 10%;
+  }
+  .mobileSideBar.on .mobileMenu {
+    left:0;
+  }
+  .mobileSideBar .mobileMenu .signSet {
+    margin-bottom: 10%;
+    display: flex;
+    column-gap: 5%;
+    justify-content: end;
+    align-items: center;
+  }
+  .mobileSideBar .mobileMenu .signSet a {
+    line-height: 1;
+  }
+  .mobileSideBar .mobileMenu .mobileMenuWrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    max-height: calc(100vh - 180px);
+    overflow: scroll;
+  }
+  .mobileSideBar .mobileMenu .mobileMenuWrap h3 {
+    cursor: pointer;
+    position:relative;
+    font-size: 20px;
+  }
+  .mobileSideBar .mobileMenu .mobileMenuWrap h3 .arrowBtn {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s all;
+  }
+  .mobileSideBar .mobileMenu .mobileMenuWrap h3 .arrowBtn svg {
+    transition: 0.3s all;
 
-}
-.mobileSideBar .mobileMenu .mobileMenuWrap h3 .arrowBtn.on svg {
-  transform:rotate(180deg);
-}
+  }
+  .mobileSideBar .mobileMenu .mobileMenuWrap h3 .arrowBtn.on svg {
+    transform:rotate(180deg);
+  }
 
-.mobileSideBar .mobileMenu .mobileMenuWrap h3::after {
-  position:absolute;
-  content:'';
-  display:block;
-  bottom:0;
-  width:100%;
-  height: 2px;
-  background:#999;
-}
-.mobileSideBar .mobileMenu .mobileMenuWrap article .toggleWrap {
-  /* background: skyblue; */
-  max-height: 0;
-  display: flex;
-  flex-direction: column;
-  row-gap: 5px;
-  overflow-y: hidden;
-  transition: 0.3s all;
-  padding:0% 5%;
-}
-.mobileSideBar .mobileMenu .mobileMenuWrap article .toggleWrap.on {
-  max-height: 100vh;
-  padding:10% 5%;
-}
-
-
+  .mobileSideBar .mobileMenu .mobileMenuWrap h3::after {
+    position:absolute;
+    content:'';
+    display:block;
+    bottom:0;
+    width:100%;
+    height: 2px;
+    background:#999;
+  }
+  .mobileSideBar .mobileMenu .mobileMenuWrap article .toggleWrap {
+    /* background: skyblue; */
+    max-height: 0;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    overflow-y: hidden;
+    transition: 0.3s all;
+    padding:0% 5%;
+  }
+  .mobileSideBar .mobileMenu .mobileMenuWrap article .toggleWrap.on {
+    max-height: 100vh;
+    padding:10% 5%;
+  }
 
 
-.mobileSideBar .mobiledDimmedBg {
-  display: block;
-  position:fixed;
-  width: 100vw;
-  height: 100vh;
-  background:#000;
-  opacity: 0%;
-  top: 0;
-  left: -100%;
-  z-index:5;
-}
-.mobileSideBar.on .mobiledDimmedBg {
-  left:0;
-  opacity: 60%;
-}
+
+
+  .mobileSideBar .mobiledDimmedBg {
+    display: block;
+    position:fixed;
+    width: 100vw;
+    height: 100vh;
+    background:#000;
+    opacity: 0%;
+    top: 0;
+    left: -100%;
+    z-index:5;
+  }
+  .mobileSideBar.on .mobiledDimmedBg {
+    left:0;
+    opacity: 60%;
+  }
 
 
 
@@ -458,7 +479,7 @@
     padding-top: 0px;
   }
   main.mainPage section#event5 .ev5_wrap h2 {
-    font: 500 36px/1 'Pretendard';
+    font: 500 34px/1 'Pretendard';
     text-align: center;
   }
 
@@ -474,10 +495,10 @@
   main.mainPage section#event5 .ev5_wrap .ev5_new_wrap > div:last-child {
     flex-direction: row;
   }
-  main.mainPage section#event5 .ev5_wrap .ev5_new_wrap input,
-  main.mainPage section#event5 .ev5_wrap .ev5_new_wrap select,
-  main.mainPage section#event5 .ev5_wrap .ev5_new_wrap textarea {
-    padding:5px 1rem;
+  .ev5_new_wrap input,
+  .ev5_new_wrap select,
+  .ev5_new_wrap textarea {
+    padding:10px 1rem;
   }
   main.mainPage section#event5 .bgImg {
     background: url('/images/ev5_bg.png') center/cover no-repeat;
@@ -507,17 +528,19 @@
   .bbs_mobile_place table tbody tr td:nth-child(3) {
     grid-row: 3 / 4;
   }
-
+  .ev5_new_wrap .inputBtn {
+    padding: 3% 0 0 0;
+  }
 
 
 
   /* Footer 모바일 */
   footer {
-    padding: 5% 5%;
+    padding: 8% 5% 2%;
     grid-template-columns: minmax(auto, 700px);
     grid-auto-rows: auto;
     column-gap:0px;
-    row-gap: 20px;
+    row-gap: 5px;
     grid-row: 3 / 5;
     justify-self: center;
   }

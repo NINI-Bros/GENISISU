@@ -22,10 +22,11 @@ export default function AddBoard({ params, isMain=false, isEdit=false }
     isEdit?: boolean
   }
 ){
-  const isWarningMargin = (fieldError: FieldError | undefined) =>  fieldError ?  'mb-5' : 'mb-11';
+  const isWarningMargin = (fieldError: FieldError | undefined) =>  fieldError ?  'mb-1' : 'mb-7';
   const { places } = useModelStore();
   const textColor = isMain ? 'text-white' : 'text-black';
-  const bgColor = isMain ? '' : 'font-bold hover:border-[transparent] hover:bg-black hover:text-white';
+  const isBbs = isMain ? '' : 'bbs'
+  const bgColor = isMain ? '' : 'font-bold hover:border-transparent hover:bg-black hover:text-white';
   const { register, setValue:setFormValue, watch, handleSubmit, formState: { errors, isLoading, isSubmitted }, setError } = useForm<PostForm>();
   
   const [modelNames, setModelNames] = useState<string[]>([
@@ -211,18 +212,18 @@ export default function AddBoard({ params, isMain=false, isEdit=false }
             handleChange={handleChange}
           />
 
-          <div className="flex justify-center py-8 gap-x-[30px] text-">
+          <div className="flex justify-center py-8 gap-x-[30px] inputBtn">
             { isEdit ? (
               <>
                 <Link
                   href={`/${params.boards}/${params.id}`}
-                  className="mainBtn kr text-black border-[#aaa] hover:text-white hover:bg-black"
+                  className="mainBtn bbs kr"
                 >
                   취소
                 </Link>
                 <Submit 
                   onClick={handleSubmit(editPost)}
-                  className={`mainBtn kr ${textColor} border-[#aaa] ${bgColor}`}
+                  className={`mainBtn kr`}
                 >
                   수정
                 </Submit>
@@ -232,13 +233,13 @@ export default function AddBoard({ params, isMain=false, isEdit=false }
                 {!isMain && (
                   <Link
                     href={`/${params.boards}`}
-                    className="mainBtn kr text-black border-[#aaa] hover:text-white hover:bg-black">
+                    className="mainBtn bbs kr">
                       취소
                   </Link>
                 )}
                 <Submit 
                   onClick={handleSubmit(addPost)}
-                  className={`mainBtn kr ${textColor} border-[#aaa] ${bgColor}`}
+                  className={`mainBtn kr ${isBbs}`}
                 >
                   등록
                 </Submit>

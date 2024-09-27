@@ -108,31 +108,41 @@ export default function Header({ isMain }: { isMain: string }) {
           <ul className="firstGnb mobileView">
             <li>
               <Link href="/models">
-                <FontAwesomeIcon icon={faCar} />
+                <figure>
+                  <FontAwesomeIcon icon={faCar} />
+                </figure>
                 <span>모델</span>
               </Link>
             </li>
             <li>
               <Link href="/drive">
-                <FontAwesomeIcon icon={faRightToBracket} />
+                <figure>
+                  <FontAwesomeIcon icon={faRightToBracket} />
+                </figure>
                 <span>전시시승</span>
               </Link>
             </li>
             <li>
               <Link href="/">
-                <FontAwesomeIcon icon={faHouseChimney}/>
+                <figure>
+                 <FontAwesomeIcon icon={faHouseChimney}/>
+                </figure>
                 <span>홈</span>
               </Link>
             </li>
             <li>
               <Link href="/qna">
-                <FontAwesomeIcon icon={faHeadphones} />
+                <figure>
+                  <FontAwesomeIcon icon={faHeadphones} />
+                </figure>
                 <span>고객지원</span>
               </Link>
             </li>
             <li>
               <Link href="/info">
-                <FontAwesomeIcon icon={faFileLines} />
+                <figure>
+                  <FontAwesomeIcon icon={faFileLines} />
+                </figure>
                 <span>공지사항</span>
               </Link>
             </li>
