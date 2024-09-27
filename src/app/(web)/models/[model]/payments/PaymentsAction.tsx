@@ -438,7 +438,7 @@ export default function PaymentsAction (
     <>   
       <Script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" async/>
       <section>
-        <div className="ml-[300px] pt-[150px] grid grid-cols-2 gap-x-[80px]">
+        <div className="ml-[300px] pt-[150px] grid grid-cols-2 gap-x-[80px] max-[1366px]:grid-cols-1 max-[1366px]:ml-0 max-[1366px]:px-[7%]">
           {/* 옵션 선택 정보 */}
           <div className="flex flex-col gap-y-[20px]">
             <article className="flex items-end gap-x-[8px]">
@@ -676,7 +676,7 @@ export default function PaymentsAction (
 
           {/* 결제 요약 */}
           <div>
-            <article className="mr-[10%] py-[50px] bg-[#333] rounded-[5px]">
+            <article className="mr-[10%] py-[50px] bg-[#333] rounded-[5px] max-[1366px]:mr-0">
               <figure className="aspect-[3/1] relative top-0 left-[50%] translate-x-[-50%]">
                 <Image src={originMatch && SERVER + originMatch.image} fill sizes="100%" priority alt="선택한 자동차 이미지입니다" className="absolute" style={{objectFit: "contain"}}/>
               </figure>
