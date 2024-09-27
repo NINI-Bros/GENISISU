@@ -9,7 +9,7 @@ import Button from '@/components/Button';
 import Link from 'next/link';
 import ListItem from './ListItem';
 import ScrollToTop from '../../../components/ScrollToTop';
-import { useSession } from 'next-auth/react';
+import { useSession } from '@/hook/session';
 
 // export function generateMetadata({ params }: { params: { boards: string } }): Metadata {
 //   const boardName = params.boards;
@@ -29,7 +29,7 @@ import { useSession } from 'next-auth/react';
 
 
 export default function Page({ params }: { params: { boards: string} }) {
-  const { data:session, status } =  useSession();
+  const session = useSession();
   const [list, setList] = useState<ListState>({
     listJsx: null,
     pagination: null,

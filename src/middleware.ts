@@ -17,5 +17,5 @@ export default async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/:type/new'],
+  matcher: ['/:boards/new'],
 };

@@ -3,16 +3,13 @@
 import { useEffect, useRef } from "react"
 
 export default function Event1 () {
-
-
   const titleRef = useRef<HTMLElement | null>(null)
   useEffect(()=>{
     const yeon = titleRef.current?.querySelector('.suyeon') as HTMLElement | null
     setTimeout(()=>{
       yeon && yeon.classList.add('on')
     },3500)
-
-  },[])
+  }, [])
 
   return(
     <section id="event1">

@@ -2,8 +2,8 @@
 
 import Submit from '@/components/Submit';
 import { deleteComment } from '@/data/actions/postAction';
+import { useSession } from '@/hook/session';
 import { PostComment } from '@/types';
-import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 const CLIENT = process.env.NEXT_CLIENT_ID;
@@ -22,8 +22,8 @@ export default function CommentItem({
   boardName: string
 }) {
   const session = useSession();
-  const userId = session.data?.user?.id;
-  const userType = session.data?.user?.type;
+  const userId = session?.user?.id;
+  const userType = session?.user?.type;
 
   const image = item.user.image ? SERVER + item.user?.image : `${SERVER}/files/${CLIENT}/user-jayg.webp`;
 

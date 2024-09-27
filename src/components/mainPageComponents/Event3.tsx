@@ -1,6 +1,5 @@
 'use client';
 
-
 export default function Event3 () {
   return(
     <section id="event3">

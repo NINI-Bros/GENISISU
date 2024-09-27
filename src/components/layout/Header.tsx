@@ -1,10 +1,9 @@
 'use client'
 
-// import { auth } from "@/auth";
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { signOut, useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
+import { useSession } from '@/hook/session';
 import Sitemap from './Sitemap';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,16 +11,13 @@ import { faHouseChimney, faCar, faRightToBracket, faHeadphones, faKey } from '@f
 import { faFileLines } from '@fortawesome/free-regular-svg-icons';
 
 export default function Header({ isMain }: { isMain: string }) {
-  // export default async function Header({ isMain }: {isMain:string}) {
-  // const session = await auth();
-  const { data:session, status } =  useSession();
-  const profileImage = session && session.user?.image;
-  console.log('session', session);
+  const session = useSession();
+  // console.log('session', session);
 
-  const [modalOn, setModalOn] = useState(true)
+  const [modalOn, setModalOn] = useState(false)
   const [mobileState, setMobileState] = useState({
     mobileView: false,
-    thisWidth:0
+    thisWidth: 0
   })
   // const router = useRouter();
   const hamBtnRef = useRef<HTMLDivElement | null>(null)
@@ -30,19 +26,12 @@ export default function Header({ isMain }: { isMain: string }) {
   // console.log("모바일 상태 확인",mobileState.mobileView)
 
   useEffect(()=>{
-    setMobileState(prev => {return{...prev, thisWidth: window.innerWidth}})
-    const htmlBody = document.querySelector('body') as HTMLBodyElement
-    const handleResize = () => {
-      setMobileState(prev => {return{...prev, thisWidth: window.innerWidth}})
-    }
-    window.addEventListener('resize',handleResize)
-
+    setMobileState(prev => ({...prev, thisWidth: window.innerWidth}))
     // sitemap 호출
-    if (!modalOn) {
+    if (modalOn) {
       const scrollY = window.scrollY;
       document.body.style.top = `-${scrollY}px`;
       document.body.style.position = 'fixed';
-
     } else {
       const scrollY = document.body.style.top;
       document.body.style.top = '';
@@ -50,23 +39,7 @@ export default function Header({ isMain }: { isMain: string }) {
     
       window.scrollTo(0, parseInt(scrollY || '0') * -1);
     }
-
-    if (mobileState.thisWidth > 1366) {
-      setMobileState(prev => {return{...prev, mobileView:false}})
-    } else if (mobileState.thisWidth < 1366) {
-      setMobileState(prev => {return{...prev, mobileView:true}})
-    }
-
-    // event listener를 달아줬을 경우 항상 clean-up을 실행해줘야 함. 상태가 업데이트 될때마다 계속 useEffct를 실행시키므로 
-    return (
-      window.removeEventListener('resize',handleResize)
-    )
-
-  },[modalOn, mobileState.thisWidth, mobileState.mobileView])
-
-  const handleChangeSitemapState = (bl : boolean) => {
-    setModalOn(!bl)
-  }
+  }, [ modalOn ])
 
   const handleSignOut = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -74,7 +47,7 @@ export default function Header({ isMain }: { isMain: string }) {
   }
   const handleSiteMapOpen = (e: React.MouseEvent<HTMLElement>) : void => {
     e.preventDefault();
-    setModalOn(!modalOn)
+    setModalOn(prev => !prev)
   }
 
   const handleHambtnClick = () => {
@@ -149,7 +122,7 @@ export default function Header({ isMain }: { isMain: string }) {
           <ul className="secondGnb">
             <li className='flex justify-end items-center w-full gap-2'>
               { session ? (
-                <span className="text-[18px] cursor-pointer p-3" onClick={e => handleSignOut(e)}>로그아웃</span>
+                <span className="text-[18px] cursor-pointer p-3" onClick={handleSignOut}>로그아웃</span>
               ) : (
                 <>
                   <Link href="/login">로그인</Link>
@@ -159,7 +132,7 @@ export default function Header({ isMain }: { isMain: string }) {
               )}
             </li>
             <li className="sitemapBtn">
-              <div className='p-3 cursor-pointer' onClick={(e) => handleSiteMapOpen(e)}>
+              <div className='p-3 cursor-pointer' onClick={handleSiteMapOpen}>
                 <figure className='relative w-[20px] h-[10px]' >
                   <Image src="/images/menu_ham.png" fill sizes='100%' alt="" />
                 </figure>

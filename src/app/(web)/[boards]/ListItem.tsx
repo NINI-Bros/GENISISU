@@ -1,12 +1,12 @@
 'use client'
+import { useSession } from '@/hook/session';
 import { Post } from '@/types';
-import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 export default function ListItem({ item, params }: { item: Post; params: { boards: string } }) {
   const route = useRouter();
-  const { data:session, status } =  useSession();
+  const session = useSession();
   const handleDetailView = (e:React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
       if (session?.user?.type !== 'admin' && params.boards === 'info') {

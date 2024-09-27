@@ -2,16 +2,12 @@
 
 import InputError from '@/components/InputError';
 import Submit from '@/components/Submit';
-import {
-  signInWithCredentials,
-  signInWithGithub,
-  signInWithGoogle,
-} from '@/data/actions/userAction';
+import { signInWithCredentials, signInWithGoogle } from '@/data/actions/userAction';
 import { UserForm, UserLoginForm } from '@/types';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 
-export default function LoginForm() {
+export default function LoginForm() {    
   const { register, handleSubmit, formState: { errors, isLoading, isSubmitted  }, setError } = useForm<UserForm>({
     defaultValues: {
       email: 'guest@genisisu.com',
@@ -24,7 +20,7 @@ export default function LoginForm() {
     // 로그인 성공시 리턴값 없음
     const resData = await signInWithCredentials(loginData);
     if(!resData) {
-      alert(`로그인 되었습니다.`);
+      alert('로그인 되었습니다.');
       // router.push('/');
     } else if(!resData.ok) { // API 서버의 에러 메시지 처리
       if('errors' in resData) {
