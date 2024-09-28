@@ -135,8 +135,8 @@ export default function Page({ params }: { params: { boards: string} }) {
         <section className="pt-10">
           <table className="border-collapse w-full table-fixed">
             <colgroup>
-              <col className="w-[60%] sm:w-[49%]" />
-              <col className="w-[30%] sm:w-[25%]" />
+              <col className="w-[85%] sm:w-[49%]" />
+              <col className="w-[15%] sm:w-[25%]" />
               <col className="w-0 sm:w-[8%]" />
               <col className="w-0 sm:w-[8%]" />
               <col className="w-0 sm:w-[15%]" />
@@ -145,7 +145,7 @@ export default function Page({ params }: { params: { boards: string} }) {
               <tr className="border-b border-solid border-gray-600">
                 {/* <th className="p-2 whitespace-nowrap font-medium">번호</th> */}
                 <th className="p-2 ml-20 whitespace-nowrap font-medium">{boardTitle.tableTitle01}</th>
-                <th className="p-2 whitespace-nowrap font-medium">{boardTitle.tableTitle02}</th>
+                <th className="p-2 whitespace-nowrap font-medium max-[1366px]:px-0">{boardTitle.tableTitle02}</th>
                 <th className="p-2 whitespace-nowrap font-medium hidden sm:table-cell">조회수</th>
                 <th className="p-2 whitespace-nowrap font-medium hidden sm:table-cell">댓글수</th>
                 <th className="p-2 whitespace-nowrap font-medium hidden sm:table-cell">{boardTitle.tableTitle02}</th>
