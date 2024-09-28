@@ -76,8 +76,8 @@
     column-gap: 7px;
   }
   header .gnb > .navWrap > ul.mobileView li a {
-    width: 35px;
-    height: 35px;
+    width: fit-content;
+    height: fit-content;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 20px 15px;
@@ -88,11 +88,19 @@
     align-items: center;
   }
   header .gnb > .navWrap > ul.mobileView li a figure svg {
+    color:#888;
     height: 100%;
   }
-  header .gnb > .navWrap > ul.mobileView li span {
+  header .gnb > .navWrap > ul.mobileView li a.on figure svg {
+    color:#fff;
+  }
+  header .gnb > .navWrap > ul.mobileView li a span {
     font-size: 10px;
     text-align: center;
+    color:#888;
+  }
+  header .gnb > .navWrap > ul.mobileView li a.on span {
+    color:#fff;
   }
 
 

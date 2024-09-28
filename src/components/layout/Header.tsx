@@ -3,7 +3,7 @@
 // import { auth } from "@/auth";
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import Sitemap from './Sitemap';
 import Image from 'next/image';
@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouseChimney, faCar, faRightToBracket, faHeadphones, faKey } from '@fortawesome/free-solid-svg-icons';
 import { faFileLines } from '@fortawesome/free-regular-svg-icons';
 import SideBar from './SideBar';
+import { threadId } from 'worker_threads';
 
 export default function Header({ isMain }: { isMain: string }) {
   // export default async function Header({ isMain }: {isMain:string}) {
@@ -23,13 +24,13 @@ export default function Header({ isMain }: { isMain: string }) {
     thisWidth:0
   })
   const router = useRouter();
-
+  const mobileGnbRef = useRef<HTMLUListElement | null>(null);
+  const pathName = usePathname();
 
   // console.log("모바일 상태 확인",mobileState.mobileView)
 
   useEffect(()=>{
     setMobileState(prev => {return{...prev, thisWidth: window.innerWidth}})
-    const htmlBody = document.querySelector('body') as HTMLBodyElement
     const handleResize = () => {
       setMobileState(prev => {return{...prev, thisWidth: window.innerWidth}})
     }
@@ -75,6 +76,21 @@ export default function Header({ isMain }: { isMain: string }) {
     setmodalOn(!modalOn)
   }
 
+  
+  // 모바일 GNB 이동시 유지되게끔 하는 동작
+  useEffect(()=>{
+    let thisPath = pathName.split('/')[1] === "" ? "main" : pathName.split('/')[1]
+    const thisGnbOrigin = mobileGnbRef.current?.querySelectorAll<HTMLAnchorElement>('li a')
+    const thisGnb : HTMLAnchorElement[] = thisGnbOrigin ? [...thisGnbOrigin] : []
+    thisGnb.map(item => {
+      if (item.className.split('_')[1].includes(thisPath)) {
+        item?.classList.add('on')
+      } else {
+        item?.classList.remove('on')
+      }
+    })
+  },[pathName])
+
   return (
     <header className={isMain}>
       <nav className="gnb gnb_web">
@@ -105,9 +121,9 @@ export default function Header({ isMain }: { isMain: string }) {
             </li>
           </ul>
 
-          <ul className="firstGnb mobileView">
+          <ul className="firstGnb mobileView" ref={mobileGnbRef}>
             <li>
-              <Link href="/models">
+              <Link href="/models" className='mbGnb_models'>
                 <figure>
                   <FontAwesomeIcon icon={faCar} />
                 </figure>
@@ -115,7 +131,7 @@ export default function Header({ isMain }: { isMain: string }) {
               </Link>
             </li>
             <li>
-              <Link href="/drive">
+              <Link href="/drive" className='mbGnb_drive'>
                 <figure>
                   <FontAwesomeIcon icon={faRightToBracket} />
                 </figure>
@@ -123,15 +139,15 @@ export default function Header({ isMain }: { isMain: string }) {
               </Link>
             </li>
             <li>
-              <Link href="/">
+              <Link href="/" className='mbGnb_main'>
                 <figure>
-                 <FontAwesomeIcon icon={faHouseChimney}/>
+                  <FontAwesomeIcon icon={faHouseChimney}/>
                 </figure>
                 <span>홈</span>
               </Link>
             </li>
             <li>
-              <Link href="/qna">
+              <Link href="/qna" className='mbGnb_qna'>
                 <figure>
                   <FontAwesomeIcon icon={faHeadphones} />
                 </figure>
@@ -139,7 +155,7 @@ export default function Header({ isMain }: { isMain: string }) {
               </Link>
             </li>
             <li>
-              <Link href="/info">
+              <Link href="/info" className='mbGnb_info'>
                 <figure>
                   <FontAwesomeIcon icon={faFileLines} />
                 </figure>
