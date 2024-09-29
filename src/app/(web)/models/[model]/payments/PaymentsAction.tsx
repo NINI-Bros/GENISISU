@@ -150,6 +150,7 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
         });
         break;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tax.selValue]);
 
   // 결제이벤트 전 필수 조건 분기 처리
@@ -292,6 +293,7 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
         return { ...prev, numCardTax: taxOptions.regionNumcardCharge };
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addrTax.detailAddr]);
 
   // 옵션 선택값 로컬스토리지 선택값만 비교 후 컴포넌트 호출

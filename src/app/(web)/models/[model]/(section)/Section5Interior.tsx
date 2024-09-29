@@ -19,7 +19,14 @@ export default function Section5Interior({ interior }: Section5Interior) {
         <p className="text-[20px] text-[#888] leading-[1.2]">{content}</p>
       </article>
       <figure className="bg-slate-400 h-full flex-[1_0_900px] overflow-hidden relative">
-        <Image src={source} fill priority sizes='100%' className="absolute" alt="내장옵션 소개 이미지 입니다." />
+        <Image
+          src={source}
+          fill
+          priority
+          sizes="100%"
+          className="absolute"
+          alt="내장옵션 소개 이미지 입니다."
+        />
       </figure>
     </section>
   );

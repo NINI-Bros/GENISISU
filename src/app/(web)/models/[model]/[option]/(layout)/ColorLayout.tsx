@@ -47,14 +47,18 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
     defaultItemChipImage = storedValue.option[optionName].image || '';
   }
 
-  const clickedOptionRef = useRef<Set<string>>(new Set([defaultGroupName, defaultGroupName + defaultItemName]));
+  const clickedOptionRef = useRef<Set<string>>(
+    new Set([defaultGroupName, defaultGroupName + defaultItemName])
+  );
   const defaultMapData = {
     group: defaultGroupName,
     item: defaultItemName,
     price: defaultItemPrice,
-    image: defaultItemChipImage
-  }
-  const textOptionRef = useRef<Map<string, string | number>>(new Map(Object.entries(defaultMapData)));
+    image: defaultItemChipImage,
+  };
+  const textOptionRef = useRef<Map<string, string | number>>(
+    new Map(Object.entries(defaultMapData))
+  );
 
   const [optionState, setOptionState] = useState<{
     node: ReactNode;
@@ -75,17 +79,19 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
     optionItem: string,
     optionPrice: number,
     optionVehicleImage: string,
-    optionColorChipImage: string,
+    optionColorChipImage: string
   ) => {
     clickedOptionRef.current.clear();
     clickedOptionRef.current.add(optionGroup);
     clickedOptionRef.current.add(optionGroup + optionItem);
     const newImage = optionVehicleImage;
     let newPrice = 0;
-    if (storedValue.option?.[optionName]) { // 해당 옵션을 선택한 적 있는 경우
+    if (storedValue.option?.[optionName]) {
+      // 해당 옵션을 선택한 적 있는 경우
       const basePrice = storedValue.price - storedValue.option[optionName].price;
-      newPrice = basePrice + optionPrice; 
-    } else { // 해당 옵션을 선택한 적 없는 경우
+      newPrice = basePrice + optionPrice;
+    } else {
+      // 해당 옵션을 선택한 적 없는 경우
       newPrice = storedValue.price + optionPrice;
     }
     textOptionRef.current.set('group', optionGroup);
@@ -98,7 +104,7 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
       prevPrice: optionState.newPrice,
       newPrice: newPrice,
       imageSource: newImage,
-      optionText: textOptionRef.current.get('item') as string || '',
+      optionText: (textOptionRef.current.get('item') as string) || '',
     });
     updateCartItem({
       model: modelName,
@@ -108,13 +114,14 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
           name: optionGroup + '-' + optionItem,
           price: optionPrice,
           detailImage: newImage,
-          image: optionColorChipImage
-        }
-      }
+          image: optionColorChipImage,
+        },
+      },
     });
   };
 
-  const isClicked = (item: string) => clickedOptionRef.current.has(item) ? 'border-[3px] border-slate-300' : '';
+  const isClicked = (item: string) =>
+    clickedOptionRef.current.has(item) ? 'border-[3px] border-slate-300' : '';
 
   const generateOptionButton = (data: OptionItem): ReactNode => {
     const groupName = data.topText;
@@ -130,7 +137,11 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
           onClick={() => handleOptionClick(groupName, name, price, vehicleImage, colorChipImage)}
           className="w-[95px] h-[50px]"
         >
-          <figure className={`w-[95px] h-[50px] relative ${isClicked(groupName + name)} hover:cursor-pointer`}>
+          <figure
+            className={`w-[95px] h-[50px] relative ${isClicked(
+              groupName + name
+            )} hover:cursor-pointer`}
+          >
             <Image src={colorChipImage} fill sizes="100%" alt={`${name}`} />
           </figure>
         </li>
@@ -144,10 +155,11 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
   const list = modelOptionData.map((optionGroup) => {
     const groupName = optionGroup.topText;
     const refItem = textOptionRef.current.get('item') || '';
-    const itemName = textOptionRef.current.get('group') === groupName ? refItem : '(색상을 선택해주세요)';
+    const itemName =
+      textOptionRef.current.get('group') === groupName ? refItem : '(색상을 선택해주세요)';
     const optionData = generateOptionButton(optionGroup);
     return (
-      <table key={groupName} className='mb-8 w-full'>
+      <table key={groupName} className="mb-8 w-full">
         <tbody>
           {/* 그룹 타이틀 */}
           <tr>
@@ -155,8 +167,14 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
           </tr>
           {/* 옵션 텍스트 */}
           <tr className="grid grid-cols-[250px_1fr] auto-rows-[minmax(60px,_auto)] items-center text-[18px] gap-x-[86px] border-t-[1px] border-[#a4a4a4] pt-[30px] pl-[15px]">
-            <td className={`font-Hyundai-sans ${isOptionActive(groupName + itemName)} col-start-1 break-keep`}>{itemName}</td>
-            <td className=' col-start-2'>
+            <td
+              className={`font-Hyundai-sans ${isOptionActive(
+                groupName + itemName
+              )} col-start-1 break-keep`}
+            >
+              {itemName}
+            </td>
+            <td className=" col-start-2">
               {/* 옵션 버튼 생성 */}
               <ul className="flex gap-[20px] flex-wrap">{optionData}</ul>
             </td>
@@ -175,7 +193,9 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
     e.preventDefault();
     const step = direction === 'prev' ? prevStep : nextStep;
     router.push(`/models/${params.model}/${step}`);
-    const currentItem = `${textOptionRef.current!.get('group')}-${textOptionRef.current!.get('item')}`
+    const currentItem = `${textOptionRef.current!.get('group')}-${textOptionRef.current!.get(
+      'item'
+    )}`;
     setValue({
       model: modelName,
       price: optionState.newPrice,
@@ -185,16 +205,15 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
           name: currentItem,
           price: textOptionRef.current!.get('price') as number,
           image: textOptionRef.current!.get('image') as string,
-          detailImage: optionState.imageSource
-        }
-      }
+          detailImage: optionState.imageSource,
+        },
+      },
     });
   };
 
   return (
     <>
       <section className="min-h-screen relative grid grid-cols-[400px_auto_280px] gap-x-[4rem] pr-[3rem] box-border items-center">
-
         {/* 옵션명 */}
         <article className="col-start-2 flex flex-col items-center w-full py-[80px]">
           <figure className="w-full max-h-[500px] aspect-[2.4/1] relative">
@@ -204,41 +223,57 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
               sizes="100%"
               alt=""
               className="absolute"
-              style={{objectFit:"contain"}}
+              style={{ objectFit: 'contain' }}
               priority
             />
           </figure>
-          <h4 className='text-[16px] mt-[20px]'>상기 이미지는 차량의 대표 이미지로 적용되어 있습니다.</h4>
-          <div className="tableWrap mt-[50px] w-full">
-            {list}
-          </div>
+          <h4 className="text-[16px] mt-[20px]">
+            상기 이미지는 차량의 대표 이미지로 적용되어 있습니다.
+          </h4>
+          <div className="tableWrap mt-[50px] w-full">{list}</div>
         </article>
 
         {/* 화살표 이동 버튼 */}
         <div className="grid grid-cols-[60px_60px] grid-rows-[50px] gap-x-[20px] absolute top-[620px] left-[80px]">
-          <button className='bg-black border-[0.5px] border-white w-full h-full' onClick={(e) => clickButton(e, 'prev')}>
-            <figure className='relative w-full h-[75%]'>
-              <Image className='absolute top-0 left-0' fill sizes='100%' src="/images/btn_prev.png" alt="버튼 좌측 이미지" style={{objectFit:"contain"}}/>
+          <button
+            className="bg-black border-[0.5px] border-white w-full h-full"
+            onClick={(e) => clickButton(e, 'prev')}
+          >
+            <figure className="relative w-full h-[75%]">
+              <Image
+                className="absolute top-0 left-0"
+                fill
+                sizes="100%"
+                src="/images/btn_prev.png"
+                alt="버튼 좌측 이미지"
+                style={{ objectFit: 'contain' }}
+              />
             </figure>
           </button>
-          <button className='bg-white w-full h-full' onClick={clickButton}>
-            <figure className='relative w-full h-[75%]'>
-              <Image className='absolute top-0 left-0' fill sizes='100%' src="/images/btn_next_b.png" alt="버튼 좌측 이미지" style={{objectFit:"contain"}}/>
+          <button className="bg-white w-full h-full" onClick={clickButton}>
+            <figure className="relative w-full h-[75%]">
+              <Image
+                className="absolute top-0 left-0"
+                fill
+                sizes="100%"
+                src="/images/btn_next_b.png"
+                alt="버튼 좌측 이미지"
+                style={{ objectFit: 'contain' }}
+              />
             </figure>
           </button>
         </div>
 
-       {/* 예상가격 */}
-       <div className='h-full'>
-        <aside className="sticky right-[100px] top-[calc(100vh_-120px)] bg-black font-Hyundai-sans border-[1px] border-[#666] flex flex-col pl-[35px] pt-[10px]">
-          <p className="text-[15px] text-[#a4a4a4]">예상 가격</p>
-          <span className="text-[30px] font-bold mt-[-10px]">
-            {optionState.newPrice.toLocaleString('ko-KR')}
-            <span className="text-[20px] align-middle"> 원</span>
-          </span>
-        </aside>
-       </div>
-
+        {/* 예상가격 */}
+        <div className="h-full">
+          <aside className="sticky right-[100px] top-[calc(100vh_-120px)] bg-black font-Hyundai-sans border-[1px] border-[#666] flex flex-col pl-[35px] pt-[10px]">
+            <p className="text-[15px] text-[#a4a4a4]">예상 가격</p>
+            <span className="text-[30px] font-bold mt-[-10px]">
+              {optionState.newPrice.toLocaleString('ko-KR')}
+              <span className="text-[20px] align-middle"> 원</span>
+            </span>
+          </aside>
+        </div>
       </section>
     </>
   );

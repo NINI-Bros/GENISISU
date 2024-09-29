@@ -15,7 +15,14 @@ export default function Section4Exterior({ exterior }: Section4Exterior) {
   return (
     <section className="bg-black h-[540px] flex">
       <figure className="bg-slate-400 h-full flex-[1_0_900px] overflow-hidden relative">
-        <Image src={source} fill priority sizes='100%' className="absolute" alt="외장옵션 소개 이미지 입니다." />
+        <Image
+          src={source}
+          fill
+          priority
+          sizes="100%"
+          className="absolute"
+          alt="외장옵션 소개 이미지 입니다."
+        />
       </figure>
       <article className="flex-[1_1_auto] self-center px-[10%]">
         <h3 className="text-[40px] mb-[35px]">{title}</h3>
