@@ -264,11 +264,11 @@ export default function PaymentsAction (
       case "exterior":
         if (storedValue.option?.[type] === undefined || storedValue.option?.[type].name.split('-')[1] === option?.[0].items?.[0].name ) {
           return(
-            <span>{option?.[0].items?.[0].name}</span>
+            <span className="max-[1366px]:text-[12px]">{option?.[0].items?.[0].name}</span>
           )
         } else if (storedValue.option?.[type] !== undefined) {
           return(
-            <span>{storedValue.option?.[type].name.split('-')[1]}</span>
+            <span className="max-[1366px]:text-[12px]">{storedValue.option?.[type].name.split('-')[1]}</span>
           )
         } else {
           return null
@@ -277,11 +277,11 @@ export default function PaymentsAction (
       case "interior":
         if (storedValue.option?.[type] === undefined || storedValue.option?.[type].name.split('-')[1] === option?.[0].items?.[0].name ) {
           return(
-            <span>{option?.[0].items?.[0].name}</span>
+            <span className="max-[1366px]:text-[12px]">{option?.[0].items?.[0].name}</span>
           )
         } else if (storedValue.option?.[type] !== undefined) {
           return(
-            <span>{storedValue.option?.[type].name.split('-')[1]}</span>
+            <span className="max-[1366px]:text-[12px]">{storedValue.option?.[type].name.split('-')[1]}</span>
           )
         } else {
           return null
@@ -290,11 +290,11 @@ export default function PaymentsAction (
       default:
         if (storedValue.option?.[type] === undefined || storedValue.option?.[type].name === option[0].topText ) {
           return(
-            <span>{type === "add" ? "-" : option?.[0].topText}</span>
+            <span className="max-[1366px]:text-[12px]">{type === "add" ? "-" : option?.[0].topText}</span>
           )
         } else if (storedValue.option?.[type] !== undefined){
           return(
-            <span>{type === "add" || type === "garnish" ? storedValue.option?.[type].name?.split("-")[1] : storedValue.option?.[type].name}</span>
+            <span className="max-[1366px]:text-[12px]">{type === "add" || type === "garnish" ? storedValue.option?.[type].name?.split("-")[1] : storedValue.option?.[type].name}</span>
           )
         } else {
           return null
@@ -310,14 +310,14 @@ export default function PaymentsAction (
         if (storedValue.option?.[type] === undefined || storedValue.option?.[type].name.split('-')[1] === option?.[0].items?.[0].name ) {
           return (
             <>
-              <td className="flex gap-x-[10px]">
+              <td className="flex gap-x-[10px] max-[1366px]:grid max-[1366px]:grid-cols-[25px_,auto]">
                 <figure className="w-[25px] h-[25px] relative border-[1px] border-[#fff]">
                   <Image src={option && SERVER + option?.[0].items?.[0].images?.[0].path} fill sizes="100%"
                   style={{objectFit:"cover"}} alt="" className="absolute top-0 left-0"
                   ></Image>
 
                 </figure>
-                <span className="break-keep">{option?.[0].items?.[0].name}</span>
+                <span className="whitespace-pre-line">{option?.[0].items?.[0].name}</span>
               </td>
               <td className="text-right"><span className="w-[50px] mr-[10px]">(기본)</span>{option && option?.[0].items?.[0].price?.toLocaleString() + "원"}</td>
             </>
@@ -345,14 +345,14 @@ export default function PaymentsAction (
         if (storedValue.option?.[type] === undefined || storedValue.option?.[type].name.split('-')[1] === option?.[0].items?.[0].name ) {
           return (
             <>
-              <td className="flex gap-x-[10px] ">
+              <td className="flex gap-x-[10px] max-[1366px]:grid max-[1366px]:grid-cols-[25px_,auto]">
                 <figure className="w-[25px] h-[25px] relative border-[1px] border-[#fff]">
                   <Image src={option && SERVER + option?.[0].items?.[0].images?.[0].path} fill sizes="100%"
                   style={{objectFit:"cover"}} alt="" className="absolute top-0 left-0"
                   ></Image>
 
                 </figure>
-                <span className="break-keep">{option?.[0].items?.[0].name}</span>
+                <span className="whitespace-pre-line">{option?.[0].items?.[0].name}</span>
               </td>
               <td className="text-right"><span className="w-[50px] mr-[10px]">(기본)</span>{option && option?.[0].items?.[0].price?.toLocaleString() + "원"}</td>
             </>
@@ -664,7 +664,7 @@ export default function PaymentsAction (
                   </div>
                 </div>
               </div>         
-              <div className="flex gap-x-[10px] justify-end items-center mt-[20px] mb-[30px] max-[1366px]:flex-col max-[1366px]:items-start max-[1366px]:mt-[40px]">
+              <div className="flex gap-x-[10px] justify-end items-center mt-[20px] mb-[30px] max-[1366px]:flex-col max-[1366px]:items-start max-[1366px]:mt-[50px] max-[1366px]:mb-[120px]">
                 <span className="text-[20px] text-right">총 차량 구매금액 <span className="text-gray-400">(a + b + c + d)</span></span>
                 <div className="text-[30px] max-[1366px]:self-end">
                   <span className="max-[1366px]:font-bold">{totalSum.toLocaleString()}</span>원
@@ -682,7 +682,7 @@ export default function PaymentsAction (
               </figure>
               <div className="px-[60px] flex flex-col items-center max-[1366px]:px-[3%]">
                 <section className="border-b-[1px] border-[#a4a4a4] w-full py-[20px]">
-                  <h3 className="font-Hyundai-sans font-bold text-[40px]">{title}</h3>
+                  <h3 className="font-Hyundai-sans font-bold text-[40px] max-[1366px]:text-[34px] ">{title}</h3>
                   <ul className="ml-[20px]">
                     <li className="flex flex-col gap-x-[10px] optionBullet">
                       <OptionResultView type="exterior" option={optionExterior}/>
@@ -699,9 +699,9 @@ export default function PaymentsAction (
                   <div className="grid grid-cols-[auto_1fr] items-center gap-x-[1rem]">
                     <h3 className="font-Hyundai-sans font-light text-[20px]">차량배송지</h3>
                     {addrTax.detailAddr === "" 
-                    ? <div className="text-gray-400 text-right">(배송지 미지정)</div> 
+                    ? <div className="text-gray-400 text-right max-[1366px]:text-[12px]">(배송지 미지정)</div> 
                     : 
-                      <div className="text-right break-keep">
+                      <div className="text-right break-keep max-[1366px]:text-[12px]">
                         {addrTax.detailAddr} <br/>
                         {detailSubAddr}
                       </div>}
@@ -714,7 +714,7 @@ export default function PaymentsAction (
                   </div>
                   <div className="ml-[20px] border-[1px] border-[#bbb]  mt-[12px] py-[20px]">
                     <table className="w-[calc(100%-20px)]">
-                      <tbody className="text-[15px] flex flex-col gap-y-[12px]">
+                      <tbody className="text-[15px] flex flex-col gap-y-[12px] max-[1366px]:text-[12px]">
                         <tr className="flex w-full">
                           <th className="font-light basis-1/4">차량 금액</th>
                           <td className="basis-3/4 text-right"><span>{originMatch && originMatch.price.toLocaleString()}</span>원</td>
@@ -747,9 +747,9 @@ export default function PaymentsAction (
 
                 <section className="w-full py-[30px]">
       
-                  <div className="flex justify-between w-full">
-                    <h3 className="font-Hyundai-sans font-light text-[20px]">총 견적합계</h3>
-                    <span><span className="text-[30px]">{totalSum.toLocaleString()}</span>원</span>
+                  <div className="flex justify-between w-full max-[1366px]:items-center">
+                    <h3 className="font-Hyundai-sans font-light text-[20px] max-[1366px]:leading-none">총 견적합계</h3>
+                    <span><span className="text-[32px] max-[1366px]:leading-none max-[1366px]:font-bold max-[1366px]:text-[30px]">{totalSum.toLocaleString()}</span>원</span>
                   </div>
                   {/* 내부기획으로 인한 삭제 */}
                   {/* <div className="flex justify-between w-full">
@@ -758,11 +758,11 @@ export default function PaymentsAction (
                   </div> */}
                 </section>
 
-                <section className="text-[20px] grid grid-cols-[300px] grid-rows-[60px] gap-y-[15px]">
+                <section className="text-[20px] grid grid-cols-[300px] grid-rows-[60px] gap-y-[15px] max-[1366px]:flex max-[1366px]:text-[16px] max-[1366px]:gap-x-[5%] max-[1366px]:w-[80%]">
                   {/* <button className="px-[20px]">커스텀 저장</button> */}
-                  <button className="px-[20px] w-full" onClick={(e) => clickButton(e)}>뒤로가기</button>
+                  <button className="px-[20px] w-full max-[1366px]:px-[5%] max-[1366px]:py-[4%]" onClick={(e) => clickButton(e)}>뒤로가기</button>
                   <button 
-                    className="bg-white text-black px-[20px] py-[15px] col-start-1 row-start-2 col-span-2" 
+                    className="bg-white text-black px-[20px] py-[15px] col-start-1 row-start-2 col-span-2 max-[1366px]:py-[4%] max-[1366px]:px-[5%] max-[1366px]:w-full" 
                     // onClick={(e) => payClick(e)}>결제하기
                     onClick={(e) => checkValidateOption(e)}>결제하기
                     
