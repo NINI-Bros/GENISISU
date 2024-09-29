@@ -1,8 +1,5 @@
 import AddBoard from '@/components/drive/AddBoard';
-import Submit from '@/components/Submit';
-import { updatePost } from '@/data/actions/postAction';
 import { Metadata } from 'next';
-import Link from 'next/link';
 
 export function generateMetadata({ params }: { params: { boards: string; id: string } }): Metadata {
   const boardName = params.boards;
@@ -18,8 +15,15 @@ export function generateMetadata({ params }: { params: { boards: string; id: str
 }
 
 export default function Page({ params }: { params: { boards: string; id: string } }) {
-  const board = params.boards === 'drive' ? '시승신청 수정' : (params.boards === 'info' ? '공지글 수정' : '문의글 수정');
-  
+  let board = '';
+  if (params.boards === 'drive') {
+    board = '시승신청 수정';
+  } else if (params.boards === 'info') {
+    board = '공지글 수정';
+  } else {
+    board = '문의글 수정';
+  }
+
   return (
     <main className="min-w-80 py-16 px-40 bg-white max-[1366px]:px-[7%]">
       <div className="drive">

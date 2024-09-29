@@ -16,18 +16,17 @@ export default async function OptionPage({
   const optionData = (await fetchOption(params.option)) || [];
   return (
     <>
-    {verticalArray.includes(params.option) && (
-      <VerticalLayout params={params} modelData={modelData} optionData={optionData} />
-    )}
+      {verticalArray.includes(params.option) && (
+        <VerticalLayout params={params} modelData={modelData} optionData={optionData} />
+      )}
 
-    {colorArray.includes(params.option) && (
-      <ColorLayout params={params} modelData={modelData} optionData={optionData} />
-    )}
+      {colorArray.includes(params.option) && (
+        <ColorLayout params={params} modelData={modelData} optionData={optionData} />
+      )}
 
-    {horizontalArray.includes(params.option) && (
-      <HorizontalLayout params={params} modelData={modelData} optionData={optionData} />
-    )}
-
+      {horizontalArray.includes(params.option) && (
+        <HorizontalLayout params={params} modelData={modelData} optionData={optionData} />
+      )}
     </>
   );
 }

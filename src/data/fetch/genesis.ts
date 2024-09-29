@@ -1,8 +1,4 @@
-'use server';
-
-import { redirect } from 'next/navigation';
-
-export async function callGenesisLogin() {
+export function callGenesisLogin() {
   const params = new URLSearchParams();
   const clientId = process.env.NEXT_PUBLIC_GENESIS_CLIENT_ID;
   // const host = process.env.NEXT_PUBLIC_NEXT_SERVER;
@@ -12,5 +8,4 @@ export async function callGenesisLogin() {
   params.set('host', host);
   params.set('state', state);
   const url = `/api/proxy?${params.toString()}`; // 프록시 경로로 변경
-  redirect(url);
 }

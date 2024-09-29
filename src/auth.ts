@@ -212,7 +212,7 @@ export const {
 
     // 클라이언트에서 세션 정보 요청시 호출
     // token 객체 정보로 session 객체 설정
-    async session({ session, token }) {
+    session({ session, token }) {
       console.log('session.user', session.user);
       session.user.id = token.id as string;
       session.user.type = token.type as string;

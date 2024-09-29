@@ -38,7 +38,7 @@ export default function ModelLnb({ params }: { params: { model: string } }) {
   const modelName = modelList[Number(params.model) - 1];
   const [storedValue, setValue] = useLocalStorage<Cart>('cart', {
     model: modelName,
-    price: 0
+    price: 0,
   });
 
   useEffect(() => {
@@ -46,29 +46,32 @@ export default function ModelLnb({ params }: { params: { model: string } }) {
       const modelData = await fetchProduct(params.model);
       setValue({
         model: modelName,
-        price: modelData?.price || 0
+        price: modelData?.price || 0,
       });
     };
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.model, isReset]);
 
   const isActive = (path: string) => (pathname === path ? 'text-white' : '');
   const handleClick = (path: string) => {
-    if (path === '') { // 모델 상세 페이지라면, (store와 storage 초기화)
+    if (path === '') {
+      // 모델 상세 페이지라면, (store와 storage 초기화)
       resetCartItem();
       setIsReset((prevState) => !prevState);
-    } else { // 모델 상세 페이지가 아니라면,
+    } else {
+      // 모델 상세 페이지가 아니라면,
       setValue({
         model: modelName,
         price: cartItem.price === 0 ? storedValue.price : cartItem.price,
         option: {
           ...storedValue.option,
-          ...cartItem.option // 현재 옵션 페이지 선택 항목 추가 (덮어 쓰기)
-        }
+          ...cartItem.option, // 현재 옵션 페이지 선택 항목 추가 (덮어 쓰기)
+        },
       });
     }
     router.push(`/models/${params.model}${path}`);
-  }
+  };
 
   const items = Object.keys(optionList).map((item) => {
     const key = item as OptionKey;
@@ -79,11 +82,11 @@ export default function ModelLnb({ params }: { params: { model: string } }) {
       <li key={key} className={isActive(`/models/${params.model}${path}`)}>
         <Button
           className={`${isActive(`/models/${params.model}${path}`)} border-none`}
-          bgColor='black'
+          bgColor="black"
           style={{ fontFamily: 'Pretendard' }}
           onClick={() => handleClick(path)}
         >
-            {content}
+          {content}
         </Button>
       </li>
     );
@@ -91,9 +94,7 @@ export default function ModelLnb({ params }: { params: { model: string } }) {
 
   return (
     <div className="flex flex-col absolute top-[220px] left-[80px] max-[1366px]:hidden">
-      <ul className=" text-[#666666] flex flex-col gap-y-2.5 font-light text-xl z-20">
-        {items}
-      </ul>
+      <ul className=" text-[#666666] flex flex-col gap-y-2.5 font-light text-xl z-20">{items}</ul>
     </div>
   );
 }
