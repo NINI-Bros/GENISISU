@@ -1,4 +1,4 @@
-// File: E:\FESP\TeamProject\GENISISU\src\app\(web)\(user)\login\page.tsx
+// File: C:\Users\RYUNGOM\Documents\git_local\GENISISU\src\app\(web)\(user)\login\page.tsx
 import * as entry from '../../../../../../src/app/(web)/(user)/login/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

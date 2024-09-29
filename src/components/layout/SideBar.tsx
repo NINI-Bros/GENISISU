@@ -1,8 +1,11 @@
+import extractTitle from "@/data/extractTitle";
+import { fetchVehicles } from "@/data/fetch/productFetch";
+import { VehicleInfo } from "@/types/payments";
 import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export default function SideBar () {
   const route = useRouter();
@@ -30,60 +33,49 @@ export default function SideBar () {
         toggleModelRef.current?.classList.remove('on')
         toggleBbsRef.current?.classList.remove('on')
         mobileSideBarRef.current?.classList.remove('on')
-
         break;
     }
   }
-  const handleRouteClick = (e: React.MouseEvent<HTMLElement>, index:number) : void => {
-    e.preventDefault();
-    if (index < 13) {
-      route.push(`/models/${index}`)
-    } else if (index === 13) {
-      alert('아직 개발중이에요')
-    } else if (index > 13) {
-      switch(index) {
-        case 14:
-          route.push('/drive')
-          break;
-        case 15:
-          route.push('/qna')
-          break;
-        case 16:
-          route.push('/info')
-          break;
-        case 17:
-          route.push('/drive/new')
-          break;
-        case 18:
-          route.push('https://github.com/redcontroller')
-          break;
-        case 19:
-          route.push('https://github.com/sylee0102')
-          break;
-        case 20:
-          route.push('https://github.com/ryungom')
-          break;
-        case 21 :
-          route.push('/login')
-          break;
-        case 22 :
-          route.push('/signup')
-          break;
-        default:
-          route.push('#')
+
+  // 모델이름 불러오기 위한 서버액션
+  const [titdata,setTitData] = useState<String[]>([]);
+  useEffect(()=>{
+    const vehicleData = async () => {
+      try {
+        const originData = await fetchVehicles();
+        const nameData = originData.map((item) => (item.name.split('-').join(' ').toUpperCase()))
+        setTitData(nameData)
+      } catch (err) {
+        console.error(err)
       }
     }
-    
-    // handleHambtnClick();
-    handleToggleClick(e,"remove");
+    vehicleData();
+  },[])
+
+  // 모델명 컴포넌트
+  const MenuList = () => {
+    return (
+      <>
+        {titdata.map((item,i) => (
+          i !== 12 ? (
+            <Link key={'model_' + (i + 1)} href={'/models/' + (i + 1)} onClick={() => console.log(i+1,"클릭함")} >{item}</Link>
+          ) : (
+            <Link key={'model_' + 13 } href='#' onClick={(e) => {
+              e.preventDefault();
+              alert('준비중입니다')
+            }} >{item}</Link>
+          )
+        ))}
+      </>
+    )
   }
 
-
+  // 화면이동시마다 클래스값 제거 
   useEffect(()=> {
     mobileSideBarRef.current?.classList.remove('on')
+    const onClassese = Array.from(mobileSideBarRef.current?.querySelectorAll<HTMLElement>('.on') || [])
+    onClassese.map(item => item.classList.remove('on'))
     const thisWindow = window.innerHeight
-    // if (thisWindow)
-    // console.log('윈도우확인',thisWindow)
   },[path])
 
 
@@ -100,9 +92,9 @@ export default function SideBar () {
       {/* 모바일 메뉴 */}
       <section className="mobileMenu">
         <article className="signSet">
-          <Link href="/#" onClick={(e) => handleRouteClick(e,21)}>로그인</Link>
+          <Link href="/login">로그인</Link>
           <span className="text-[10px]">|</span>
-          <Link href="/#" onClick={(e) => handleRouteClick(e,22)}>회원가입</Link>
+          <Link href="/signup">회원가입</Link>
         </article>
         <div className="mobileMenuWrap">
           <article>
@@ -112,20 +104,9 @@ export default function SideBar () {
                 <FontAwesomeIcon icon={faCaretUp} />
               </figure>
             </h3>
+            {/* 모델명 호출 */}
             <div className="toggleWrap" ref={toggleModelRef}>
-              <Link href='#' onClick={(e) => handleRouteClick(e,1)}>G90 BLACK</Link>
-              <Link href='#' onClick={(e) => handleRouteClick(e,2)}>G90 LONG WHEEL BASE</Link>
-              <Link href='#' onClick={(e) => handleRouteClick(e,3)}>G90</Link>
-              <Link href='#' onClick={(e) => handleRouteClick(e,4)}>G80</Link>
-              <Link href='#' onClick={(e) => handleRouteClick(e,5)}>G80 ELECTRIFIED</Link>
-              <Link href='#' onClick={(e) => handleRouteClick(e,6)}>G70</Link>
-              <Link href='#' onClick={(e) => handleRouteClick(e,7)}>G70 SHOOTING BREAK</Link>
-              <Link href='#' onClick={(e) => handleRouteClick(e,8)}>GV80</Link>
-              <Link href='#' onClick={(e) => handleRouteClick(e,9)}>GV80 COUPE</Link>
-              <Link href='#' onClick={(e) => handleRouteClick(e,10)}>GV70</Link>
-              <Link href='#' onClick={(e) => handleRouteClick(e,11)}>GV70 ELECTRIFIED</Link>
-              <Link href='#' onClick={(e) => handleRouteClick(e,12)}>GV60</Link>
-              <Link href='#' onClick={(e) => handleRouteClick(e,13)}>NEOLUN CONCEPT</Link>
+              <MenuList/>
             </div>
           </article>
 
@@ -137,9 +118,9 @@ export default function SideBar () {
               </figure>
             </h3>
             <div className="toggleWrap" ref={toggleBbsRef}>
-              <Link href='#' onClick={(e) => handleRouteClick(e,14)}>전시시승</Link>
-              <Link href='#' onClick={(e) => handleRouteClick(e,15)}>고객지원</Link>
-              <Link href='#' onClick={(e) => handleRouteClick(e,16)}>공지사항</Link>     
+              <Link href='/drive'>전시시승</Link>
+              <Link href='/qna'>고객지원</Link>
+              <Link href='/info'>공지사항</Link>     
             </div>
           </article>
         </div>
@@ -147,9 +128,9 @@ export default function SideBar () {
         {/* <article>
           <h3>제니시수</h3>
           <div>
-            <Link href='#' onClick={(e) => handleRouteClick(e,18)}>김모건</Link>
-            <Link href='#' onClick={(e) => handleRouteClick(e,19)}>이수연</Link>
-            <Link href='#' onClick={(e) => handleRouteClick(e,20)}>류재준</Link>
+            <Link href='#'>김모건</Link>
+            <Link href='#'>이수연</Link>
+            <Link href='#'>류재준</Link>
 
           </div>
         </article> */}

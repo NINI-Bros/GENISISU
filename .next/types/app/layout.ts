@@ -1,4 +1,4 @@
-// File: E:\FESP\TeamProject\GENISISU\src\app\layout.tsx
+// File: C:\Users\RYUNGOM\Documents\git_local\GENISISU\src\app\layout.tsx
 import * as entry from '../../../src/app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
