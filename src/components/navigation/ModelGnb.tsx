@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function ModelGnb({ params }: { params: { model: string } }) {
   const { items } = useModelStore();
@@ -44,10 +45,18 @@ export default function ModelGnb({ params }: { params: { model: string } }) {
         className="grid col-auto font-Hyundai-sans w-[330px] h-full pt-[8px] px-[10px] gap-x-[3rem] bg-black absolute top-0 left-0 z-30"
         onClick={handleButtonClick}
       >
-        <span className="col-start-1 text-[13px] self-end text-left ">GENISISUYEON</span>
+        <span className="col-start-1 text-[13px] self-end text-left ">GENISISU</span>
         <span className="col-start-1 text-[22px] self-start text-left font-black">{modelName}</span>
         <div className="col-start-2 row-start-1 row-span-2 self-center justify-self-end w-[10px] h-[20px]">
-          <img src="/images/btn_next.png" className="object-cover" alt="" />
+          <figure className="relative w-[10px] h-[20px]">
+            <Image
+              fill
+              sizes="100%"
+              src="/images/btn_next.png"
+              className="object-cover"
+              alt="다음"
+            />
+          </figure>
         </div>
       </button>
       <div
