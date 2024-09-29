@@ -40,15 +40,15 @@ export default function ModelGnb ({params}: { params: { model: string }}) {
 
   
   return(
-      <nav className="flex items-end absolute top-[40px] left-[80px] z-20 w-[calc(100vw-_100px)] h-[70px] overflow-hidden max-[1366px]:hidden" >
-        <button className="grid col-auto font-Hyundai-sans w-[330px] h-full pt-[8px] px-[10px] gap-x-[3rem] bg-black absolute top-0 left-0 z-30" onClick={handleButtonClick}>
+      <nav className="flex items-end absolute top-[40px] left-[80px] z-5 w-[calc(100vw-_100px)] h-[70px] overflow-hidden max-[1366px]:hidden" >
+        <button className="grid col-auto font-Hyundai-sans w-[330px] h-full pt-[8px] px-[10px] gap-x-[3rem] bg-black absolute top-0 left-0 z-[4]" onClick={handleButtonClick}>
           <span className="col-start-1 text-[13px] self-end text-left ">GENISISUYEON</span>
           <span className="col-start-1 text-[22px] self-start text-left font-black">{modelName}</span>
           <div className="col-start-2 row-start-1 row-span-2 self-center justify-self-end w-[10px] h-[20px]">
             <img src="/images/btn_next.png" className="object-cover" alt="" />
           </div>
         </button>
-        <div className="absolute top-0 transition-all delay-[0.1s]" style={{left:'-1200px'}} ref={swipeWrapRef}>
+        <div className="absolute top-0 transition-all delay-[0.1s] z-[3]" style={{left:'-1200px'}} ref={swipeWrapRef}>
           <Swiper className="subGnb flex absolute w-[1200px] overflow-x-scroll overflow-y-hidden  opacity-1" spaceBetween={0} slidesPerView={6}>
             {items.map((name,index)=>{
               let titName = name.match(regex)?.[0] || name.split('-')[0]
