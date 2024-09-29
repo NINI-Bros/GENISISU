@@ -1,4 +1,4 @@
-import { Post, PostForm } from "@/types";
+import { Post, PostForm } from "../../../types";
 import { ReactElement } from "react";
 import { FieldError, FieldErrors, UseFormRegister } from "react-hook-form";
 import InputError from "../InputError";

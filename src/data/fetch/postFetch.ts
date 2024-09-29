@@ -1,4 +1,4 @@
-import { ApiRes, MultiItem, Pagination, Post, SingleItem } from '@/types';
+import { ApiRes, MultiItem, Pagination, Post, SingleItem } from '../../../types';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 const DELAY = process.env.NEXT_PUBLIC_DELAY;

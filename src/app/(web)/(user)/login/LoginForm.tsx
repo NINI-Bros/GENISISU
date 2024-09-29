@@ -2,15 +2,17 @@
 
 import InputError from '@/components/InputError';
 import Submit from '@/components/Submit';
-import { signInWithCredentials, signInWithGoogle } from '@/data/actions/userAction';
-import { UserForm, UserLoginForm } from '@/types';
+import { signInWithCredentials, signInWithGithub, signInWithGoogle, signInWithGenesis, signInWithNaver } from '@/data/actions/userAction';
+import { callGenesisLogin } from '@/data/fetch/genesis';
+import { UserForm, UserLoginForm } from '../../../../../types';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
+import React from 'react';
 
 export default function LoginForm() {    
   const { register, handleSubmit, formState: { errors, isLoading, isSubmitted  }, setError } = useForm<UserForm>({
     defaultValues: {
-      email: 'guest@genisisu.com',
+      email: 'hyundai-morgans@genisisu.com',
       password: '11111111'
     }
   });
@@ -31,6 +33,10 @@ export default function LoginForm() {
     }
   }
 
+  const handleGenesisLoginClick = async (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    await callGenesisLogin();
+  };
 
   return (
     <form>
@@ -95,8 +101,9 @@ export default function LoginForm() {
       </div>
       <div className='flex gap-x-[10px] justify-center items-center'>
         <Submit className='btnBasic px-[5%] py-[1%] hover:underline cursor:pointer' formAction={signInWithGoogle}>구글</Submit>
-        <Submit className='btnBasic px-[5%] py-[1%] hover:underline cursor:pointer' formAction={signInWithGoogle}>네이버</Submit>
-        <Submit className='btnBasic px-[5%] py-[1%] hover:underline cursor:pointer' formAction={signInWithGoogle}>현대멤버스</Submit>
+        <Submit className='btnBasic px-[5%] py-[1%] hover:underline cursor:pointer' formAction={signInWithGithub}>깃허브</Submit>
+        {/* <Submit className='btnBasic px-[5%] py-[1%] hover:underline cursor:pointer' onClick={handleGenesisLoginClick}>현대멤버스</Submit> */}
+        {/* <Submit className='btnBasic px-[5%] py-[1%] hover:underline cursor:pointer' formAction={signInWithNaver}>네이버</Submit> */}
       </div>
     </form>
   );

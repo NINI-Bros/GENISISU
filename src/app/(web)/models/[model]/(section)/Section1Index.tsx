@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { ImageViewer } from '../ImageViewer';
-import { Cart, Product } from '@/types/product';
+import { Cart, Product } from '../../../../../../types/product';
 import { useModelStore } from '@/zustand/useModel';
 import { useRouter } from 'next/navigation';
 import useLocalStorage from '@/hook/useLocalStorage';

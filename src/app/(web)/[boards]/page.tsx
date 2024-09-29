@@ -1,6 +1,6 @@
 'use client'
 
-import { BoardTitle, ListState } from '@/types';
+import { BoardTitle, ListState } from '../../../../types';
 import { fetchPagination, fetchPosts } from '@/data/fetch/postFetch';
 import { useEffect, useState } from 'react';
 // import { Metadata } from 'next';

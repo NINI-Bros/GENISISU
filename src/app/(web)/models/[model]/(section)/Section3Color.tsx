@@ -1,4 +1,4 @@
-import { OptionItem } from '@/types/product';
+import { OptionItem } from '../../../../../../types/product';
 import ModelColor from '../ModelColor';
 
 interface Section3Color {

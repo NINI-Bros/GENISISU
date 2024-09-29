@@ -1,6 +1,6 @@
 'use client';
 
-import { Product } from '@/types/product';
+import { Product } from '../../../../types/product';
 import sampleImage from '../../../../public/images/genesis-kr-gv70-facelift-sport-glossy-colors-uyuni-white-large.png';
 import Image from 'next/image';
 import Link from 'next/link';

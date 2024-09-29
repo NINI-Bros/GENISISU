@@ -2,7 +2,7 @@ import NextAuth, { CredentialsSignin } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import github from 'next-auth/providers/github';
 import google from 'next-auth/providers/google';
-import { OAuthUser, RefreshTokenRes, UserData, UserLoginForm } from './types';
+import { OAuthUser, RefreshTokenRes, UserData, UserLoginForm } from '../types';
 import { login, loginOAuth, signupWithOAuth } from './data/actions/userAction';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { fetchAccessToken } from './data/fetch/userFetch';
@@ -53,6 +53,14 @@ export const {
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
+    github({
+      clientId: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    }),
+    // genesis({
+    //   clientId: process.env.GENESIS_CLIENT_ID,
+    //   clientSecret: process.env.GENESIS_CLIENT_SECRET,
+    // }),
   ],
   session: {
     strategy: 'jwt', // JSON Web Token 사용(기본값)
@@ -93,10 +101,11 @@ export const {
           break;
 
         // SNS 로그인
+        case 'github':
         case 'google':
         case 'kakao':
         case 'naver':
-        case 'hyndai':
+        case 'genesis':
           console.log('OAuth 로그인', user);
           /*
             OAuth 로그인 {

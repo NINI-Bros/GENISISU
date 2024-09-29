@@ -1,9 +1,8 @@
-
-import { ModelOption, Option, OptionExterior } from "@/types/product";
+import { ModelOption, Option, OptionExterior } from './product';
 export interface VehicleInfo {
-  name:string,
-  image:string,
-  price:number,
+  name: string;
+  image: string;
+  price: number;
 }
 
 export interface TaxOptions {
@@ -22,8 +21,8 @@ export interface TaxOptions {
 }
 
 export interface PaymentsActionProps {
-  vehicleInfo : {name:string, image:string, price:number,}[],
-  optionData : {[item: string]: ModelOption;}[],
+  vehicleInfo: { name: string; image: string; price: number }[];
+  optionData: { [item: string]: ModelOption }[];
   params: {
     model: string;
     option: string;

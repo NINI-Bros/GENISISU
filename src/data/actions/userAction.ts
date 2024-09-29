@@ -13,7 +13,7 @@ import {
   UserData,
   UserForm,
   UserLoginForm,
-} from '@/types';
+} from '../../../types';
 import { redirect } from 'next/navigation';
 import { Result } from 'postcss';
 
@@ -131,6 +131,10 @@ export async function loginOAuth(providerAccountId: string): Promise<ApiRes<Sing
 
 export async function signInWithGoogle(formData: FormData) {
   await signIn('google', { redirectTo: `/?email=${formData.get('email')}` });
+}
+
+export async function signInWithGenesis(formData: FormData) {
+  await signIn('genesis', { redirectTo: `/?email=${formData.get('email')}` });
 }
 
 export async function signInWithNaver(formData: FormData) {

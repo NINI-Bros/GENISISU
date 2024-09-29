@@ -7,7 +7,7 @@ import { fetchVehicles } from '@/data/fetch/productFetch';
 import Input from './Input';
 import { useEffect, useState } from 'react';
 import { FieldError, useForm } from 'react-hook-form';
-import { PostForm } from '@/types';
+import { PostForm } from '../../../types';
 import { notFound } from 'next/navigation';
 import InputError from '../InputError';
 import { useModelStore } from '@/zustand/useModel';
