@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import Link from "next/link";
+import Image from "next/image";
 
 export default function ModelGnb ({params}: { params: { model: string }}) {
   const { items } = useModelStore();
@@ -44,8 +45,8 @@ export default function ModelGnb ({params}: { params: { model: string }}) {
         <button className="grid col-auto font-Hyundai-sans w-[330px] h-full pt-[8px] px-[10px] gap-x-[3rem] bg-black absolute top-0 left-0 z-[4]" onClick={handleButtonClick}>
           <span className="col-start-1 text-[13px] self-end text-left ">GENISISUYEON</span>
           <span className="col-start-1 text-[22px] self-start text-left font-black">{modelName}</span>
-          <div className="col-start-2 row-start-1 row-span-2 self-center justify-self-end w-[10px] h-[20px]">
-            <img src="/images/btn_next.png" className="object-cover" alt="" />
+          <div className="col-start-2 row-start-1 row-span-2 self-center justify-self-end w-[10px] h-[20px] relative">
+            <Image src="/images/btn_next.png" fill sizes="100%" className="object-cover absolute" alt="화면 상단에서 추가로 모델을 선택할 수 있는 보조 GNB의 클릭 버튼 입니다." />
           </div>
         </button>
         <div className="absolute top-0 transition-all delay-[0.1s] z-[3]" style={{left:'-1200px'}} ref={swipeWrapRef}>
