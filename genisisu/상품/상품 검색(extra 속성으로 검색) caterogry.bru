@@ -1,0 +1,22 @@
+meta {
+  name: 상품 검색(extra 속성으로 검색) caterogry
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{URL}}/products?sort={"_id": 1}&custom={"extra.category": "option"}
+  body: none
+  auth: none
+}
+
+params:query {
+  sort: {"_id": 1}
+  custom: {"extra.category": "option"}
+  ~custom: {"extra.category": "engine"}
+  ~custom: {"extra.category": "exterior"}
+  ~custom: {"extra.category": "passenger"}
+  ~custom: {"extra.category": "interior"}
+  ~custom: {"extra.category": "garnish"}
+  ~custom: {"extra.category": "add"}
+}

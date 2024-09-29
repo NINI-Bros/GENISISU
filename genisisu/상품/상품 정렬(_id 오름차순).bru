@@ -1,0 +1,15 @@
+meta {
+  name: 상품 정렬(_id 오름차순)
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{URL}}/products?sort={"_id": 1}
+  body: none
+  auth: none
+}
+
+params:query {
+  sort: {"_id": 1}
+}

@@ -1,0 +1,18 @@
+meta {
+  name: 게시물 수정
+  type: http
+  seq: 1
+}
+
+patch {
+  url: {{URL}}/posts/{{_id}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "title": "재니시수연 G90 BLACK 보고 왔습니다. 시승 신청이 가능한가요???",
+    "content": "재니시수연 G90 BLACK 보고 왔습니다. 시승 신청이 가능한가요??? 블랙컬러가 참 매력적인 것 같아요. 4인 가족이고, 손자네 선물하고 싶습니다. 아니 근데 이거 직원들 싹 돌리고싶은데  5000대 신청 가능한가요???"
+  }
+}

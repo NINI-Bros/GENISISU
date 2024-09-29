@@ -1,0 +1,17 @@
+meta {
+  name: 댓글 등록
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{URL}}/posts/{{POST}}/replies
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "content": "재니 돈구녕"
+  }
+}

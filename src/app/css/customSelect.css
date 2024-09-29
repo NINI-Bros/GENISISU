@@ -1,0 +1,37 @@
+.custom-select {
+  position: relative;
+  -webkit-appearance: none; /* Chrome, Safari, Edge */
+  -moz-appearance: none; /* Firefox */
+  appearance: none; /* Standard syntax */
+
+  /* background-repeat: no-repeat;
+  background-position: left; */
+  /* no-repeat right 10px center; */
+  /* background-size: 30px;
+  padding-right: 30px;
+  border: 1px solid #ccc;
+  border-radius: 0.375rem;
+  font-size: 1rem;*/
+  color: #000;
+  padding: 0.5rem 1rem;
+  padding-right: 2rem;
+}
+
+.custom-select::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: 0;
+  background: url('/images/ev5_bg.png') center/cover no-repeat;
+  /* background-image: url('/images/btn_drop_icon.png');
+  background-repeat: no-repeat;
+  background-size: cover; */
+}
+
+.custom-select:focus {
+  outline: none;
+  border-color: #ec4899; /* Tailwind의 focus:border-pink-500 */
+  box-shadow: 0 0 0 2px rgba(244, 114, 182, 0.2); /* Tailwind의 focus:ring-pink-200 */
+}
