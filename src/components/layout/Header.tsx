@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 import { signOut } from 'next-auth/react';
 import { useSession } from '@/hook/session';
 import Sitemap from './Sitemap';
@@ -9,23 +10,25 @@ import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouseChimney, faCar, faRightToBracket, faHeadphones, faKey } from '@fortawesome/free-solid-svg-icons';
 import { faFileLines } from '@fortawesome/free-regular-svg-icons';
+import SideBar from './SideBar';
+import { threadId } from 'worker_threads';
 
 export default function Header({ isMain }: { isMain: string }) {
   const session = useSession();
   // console.log('session', session);
-
   const [modalOn, setModalOn] = useState(false)
   const [mobileState, setMobileState] = useState({
     mobileView: false,
     thisWidth: 0
   })
-  // const router = useRouter();
-  const hamBtnRef = useRef<HTMLDivElement | null>(null)
-  const mobileMenuBtnRef = useRef<HTMLDivElement | null>(null)
+  const router = useRouter();
+  const mobileGnbRef = useRef<HTMLUListElement | null>(null);
+  const pathName = usePathname();
 
   // console.log("모바일 상태 확인",mobileState.mobileView)
 
   useEffect(()=>{
+
     setMobileState(prev => ({...prev, thisWidth: window.innerWidth}))
     // sitemap 호출
     if (modalOn) {
@@ -50,10 +53,20 @@ export default function Header({ isMain }: { isMain: string }) {
     setModalOn(prev => !prev)
   }
 
-  const handleHambtnClick = () => {
-    hamBtnRef.current?.classList.toggle('on')
-    mobileMenuBtnRef.current?.classList.toggle('on')
-  }
+  
+  // 모바일 GNB 이동시 유지되게끔 하는 동작
+  useEffect(()=>{
+    let thisPath = pathName.split('/')[1] === "" ? "main" : pathName.split('/')[1]
+    const thisGnbOrigin = mobileGnbRef.current?.querySelectorAll<HTMLAnchorElement>('li a')
+    const thisGnb : HTMLAnchorElement[] = thisGnbOrigin ? [...thisGnbOrigin] : []
+    thisGnb.map(item => {
+      if (item.className.split('_')[1].includes(thisPath)) {
+        item?.classList.add('on')
+      } else {
+        item?.classList.remove('on')
+      }
+    })
+  },[pathName])
 
   return (
     <header className={isMain}>
@@ -84,34 +97,44 @@ export default function Header({ isMain }: { isMain: string }) {
             </li>
           </ul>
 
-          <ul className="firstGnb mobileView">
+          <ul className="firstGnb mobileView" ref={mobileGnbRef}>
             <li>
-              <Link href="/models">
-                <FontAwesomeIcon icon={faCar} />
+              <Link href="/models" className='mbGnb_models'>
+                <figure>
+                  <FontAwesomeIcon icon={faCar} />
+                </figure>
                 <span>모델</span>
               </Link>
             </li>
             <li>
-              <Link href="/drive">
-                <FontAwesomeIcon icon={faRightToBracket} />
+              <Link href="/drive" className='mbGnb_drive'>
+                <figure>
+                  <FontAwesomeIcon icon={faRightToBracket} />
+                </figure>
                 <span>전시시승</span>
               </Link>
             </li>
             <li>
-              <Link href="/">
-                <FontAwesomeIcon icon={faHouseChimney}/>
+              <Link href="/" className='mbGnb_main'>
+                <figure>
+                  <FontAwesomeIcon icon={faHouseChimney}/>
+                </figure>
                 <span>홈</span>
               </Link>
             </li>
             <li>
-              <Link href="qna">
-                <FontAwesomeIcon icon={faHeadphones} />
+              <Link href="/qna" className='mbGnb_qna'>
+                <figure>
+                  <FontAwesomeIcon icon={faHeadphones} />
+                </figure>
                 <span>고객지원</span>
               </Link>
             </li>
             <li>
-              <Link href="/info">
-                <FontAwesomeIcon icon={faFileLines} />
+              <Link href="/info" className='mbGnb_info'>
+                <figure>
+                  <FontAwesomeIcon icon={faFileLines} />
+                </figure>
                 <span>공지사항</span>
               </Link>
             </li>
@@ -141,24 +164,9 @@ export default function Header({ isMain }: { isMain: string }) {
           </ul>
         </div>
       </nav>
-      {/* {!mobileState.mobileView 
-        ? 
-        : ""
-      } */}
-
 
       {/* 사이트맵 컴포넌트 */}
       <Sitemap modalState={modalOn} modalToggleFn={setModalOn}/>
-
-      {/* 반응형 sideMenu */}
-      <aside className='mobileHamBtn'  ref={mobileMenuBtnRef} onClick={handleHambtnClick}>
-        <div></div>
-        <div></div>
-      </aside>
-
-      <article className='mobileSideBar' ref={hamBtnRef}>
-        
-      </article>
 
   </header>
   );

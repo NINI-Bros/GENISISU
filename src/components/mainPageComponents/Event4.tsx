@@ -23,7 +23,7 @@ export default function Event4 () {
     <section id="event4">
       <article>
         <Swiper className="ev4_slide" 
-          modules={[ Pagination, Navigation]} 
+          modules={[Autoplay, Pagination, Navigation]} 
           spaceBetween={100} 
           slidesPerView={1} 
           pagination={{

@@ -5,8 +5,9 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { usePathname } from 'next/navigation';
 import { Session } from 'next-auth';
-// import { SessionProvider } from 'next-auth/react';
+import SideBar from '@/components/layout/SideBar';
 import { SessionProvider } from '@/hook/session';
+
 
 export default function RootLayout({ children, session }: Readonly<{children: React.ReactNode, session:Session}>) {
     const url = usePathname();
@@ -35,7 +36,10 @@ export default function RootLayout({ children, session }: Readonly<{children: Re
                 {/* <SessionProvider session={session}>  */}
                 <SessionProvider>
                     <Header isMain={isMain} />
-                    <div className='childrenWrap'>{children}</div>
+                        <div className='childrenWrap'>
+                          {children}
+                          <SideBar/>
+                        </div>
                     <Footer/>
                 </SessionProvider>
             </body>

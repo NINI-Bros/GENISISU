@@ -9,7 +9,7 @@ interface InputProps {
   register: UseFormRegister<PostForm>,
   errors: FieldErrors<PostForm>,
   textColor?: string,
-  isWarningMargin: (fieldError: FieldError | undefined) => 'mb-5' | 'mb-11',
+  isWarningMargin: (fieldError: FieldError | undefined) => 'mb-1' | 'mb-7',
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
   value: string
 }

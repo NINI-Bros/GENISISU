@@ -105,9 +105,9 @@ export default function Page({ params }: { params: { boards: string} }) {
     if (params.boards === 'notice' && session?.user?.type !== "admin") {
       return null
     } else if (params.boards === 'notice' && session?.user?.type === "admin") {
-      return <Link href={`/${params.boards}/new`} className="btnBasic max-[1366px]:text-[14px]">공지작성</Link>
+      return <Link href={`/${params.boards}/new`} className="btnBasic">공지작성</Link>
     } else {
-      return <Link href={`/${params.boards}/new`} className="btnBasic max-[1366px]:text-[14px]">신청하기</Link>
+      return <Link href={`/${params.boards}/new`} className="btnBasic">신청하기</Link>
     }
   }
 
@@ -116,13 +116,13 @@ export default function Page({ params }: { params: { boards: string} }) {
       <ScrollToTop />
       <div className='max-w-[1920px] m-[0px_auto]'>
         <div className="text-center py-4">
-          <h2 className="pb-20 max-[1366px]:pb-10 text-5xl font-medium text-black">{boardTitle.title}</h2>
+          <h2 className="pb-20 max-[1366px]:pb-5 text-5xl font-medium text-black max-[1366px]:text-[34px]">{boardTitle.title}</h2>
         </div>
 
-        <div className="flex justify-end mr-4 mb-8 h-[45px] gap-x-[10px] max-[1366px]:justify-center max-[1366px]:mx-0 max-[1366px]:gap-x-[3%]">
+        <div className="flex justify-end mr-4 mb-8 h-[45px] gap-x-[10px] max-[1366px]:justify-between max-[1366px]:mx-0 max-[1366px]:gap-x-[3%] max-[1366px]:px-[7%]">
           {/* <Search /> */}
-          <div className='grid grid-cols-[3fr_1fr]'>
-            <input type="text" className='border-[1px] border-black pl-[10px] max-[1366px]:max-w-[180px]' value={list.typingWord} 
+          <div className='grid grid-cols-[auto_80px] max-[1366px]:w-full'>
+            <input type="text" className='border-[1px] border-black pl-[10px] w-full' value={list.typingWord} 
               onChange={(e) => {setList(prev => {return{...prev, typingWord:e.target.value}})}}
               onKeyDown={handleKeyDown}
               placeholder="게시글 검색"
@@ -135,8 +135,8 @@ export default function Page({ params }: { params: { boards: string} }) {
         <section className="pt-10">
           <table className="border-collapse w-full table-fixed">
             <colgroup>
-              <col className="w-[60%] sm:w-[49%]" />
-              <col className="w-[30%] sm:w-[25%]" />
+              <col className="w-[80%] sm:w-[49%]" />
+              <col className="w-[20%] sm:w-[25%]" />
               <col className="w-0 sm:w-[8%]" />
               <col className="w-0 sm:w-[8%]" />
               <col className="w-0 sm:w-[15%]" />
@@ -144,8 +144,8 @@ export default function Page({ params }: { params: { boards: string} }) {
             <thead>
               <tr className="border-b border-solid border-gray-600">
                 {/* <th className="p-2 whitespace-nowrap font-medium">번호</th> */}
-                <th className="p-2 ml-20 whitespace-nowrap font-medium">{boardTitle.tableTitle01}</th>
-                <th className="p-2 whitespace-nowrap font-medium">{boardTitle.tableTitle02}</th>
+                <th className="p-2 ml-20 whitespace-nowrap font-medium max-[1366px]:px-[7%]">{boardTitle.tableTitle01}</th>
+                <th className="p-2 whitespace-nowrap font-medium max-[1366px]:pl-0 max-[1366px]:pr-[7%] max-[1366px]:text-left">{boardTitle.tableTitle02}</th>
                 <th className="p-2 whitespace-nowrap font-medium hidden sm:table-cell">조회수</th>
                 <th className="p-2 whitespace-nowrap font-medium hidden sm:table-cell">댓글수</th>
                 <th className="p-2 whitespace-nowrap font-medium hidden sm:table-cell">{boardTitle.tableTitle02}</th>

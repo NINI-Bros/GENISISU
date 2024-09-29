@@ -26,12 +26,15 @@ button {
 }
 .mainBtn {
   background: transparent;
-  border: 1px solid #fff;
+  border: 1px solid rgb(209 213 219);
   color: #fff;
   width: 240px;
   height: 60px;
   font: 500 20px/1 'Hyundai Sans Head Office';
   transition: all 0.2s;
+}
+.mainBtn.bbs {
+  color: #222;
 }
 .mainBtn.kr {
   font:500 20px/1 'Pretendard'
@@ -46,6 +49,11 @@ a.mainBtn {
   background:#fff;
   border-color:transparent;
   color:#000;
+}
+.mainBtn.bbs:hover {
+  color:#fff;
+  background:#000;
+  border-color: transparent;
 }
 .btnBasic {
   border: 1px solid #000;
@@ -344,6 +352,14 @@ header .modal .closeBtn .cl-line:last-child {
 }
 .main_pagination li a:hover::after {
   width: 10px;
+}
+
+/* 모바일 사이드바 */
+.mobileSideBar {
+  display:none;
+}
+.mobileSideBar .mobiledDimmedBg {
+  display: none;
 }
 
 /* main */
