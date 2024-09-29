@@ -1,4 +1,4 @@
-import { Spec } from '../../../../../../types/product';
+import { Spec } from '@/types/product';
 import Image from 'next/image';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;

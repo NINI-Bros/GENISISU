@@ -7,7 +7,8 @@ import { usePathname } from 'next/navigation';
 import { Session } from 'next-auth';
 import SideBar from '@/components/layout/SideBar';
 import { SessionProvider } from '@/hook/session';
-
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export default function RootLayout({ children, session }: Readonly<{children: React.ReactNode, session:Session}>) {
     const url = usePathname();
@@ -39,6 +40,8 @@ export default function RootLayout({ children, session }: Readonly<{children: Re
                         <div className='childrenWrap'>
                           {children}
                           <SideBar/>
+                          <Analytics/>
+                          <SpeedInsights/>
                         </div>
                     <Footer/>
                 </SessionProvider>

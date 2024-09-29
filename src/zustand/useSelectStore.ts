@@ -1,4 +1,4 @@
-import { Cart, CartOption } from '../../types/product';
+import { Cart } from '@/types/product';
 import { create } from 'zustand';
 
 export interface SelectStore {

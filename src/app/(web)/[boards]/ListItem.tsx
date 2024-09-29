@@ -1,6 +1,6 @@
 'use client'
 import { useSession } from '@/hook/session';
-import { Post } from '../../../../types';
+import { Post } from '@/types';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 

@@ -2,7 +2,7 @@ import NextAuth, { CredentialsSignin } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import github from 'next-auth/providers/github';
 import google from 'next-auth/providers/google';
-import { OAuthUser, RefreshTokenRes, UserData, UserLoginForm } from '../types';
+import { OAuthUser, RefreshTokenRes, UserData, UserLoginForm } from './types';
 import { login, loginOAuth, signupWithOAuth } from './data/actions/userAction';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { fetchAccessToken } from './data/fetch/userFetch';

@@ -1,5 +1,5 @@
-import { ApiRes, MultiItem, SingleItem } from '../../../types';
-import { Option, OptionExterior, Product } from '../../../types/product';
+import { ApiRes, MultiItem, SingleItem } from '@/types';
+import { Option, Product } from '@/types/product';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 const LIMIT = process.env.NEXT_PUBLIC_LIMIT;

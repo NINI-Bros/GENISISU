@@ -3,7 +3,7 @@
 import InputError from '@/components/InputError';
 import Submit from '@/components/Submit';
 import { addComment } from '@/data/actions/postAction';
-import { PostComment } from '../../../../../types';
+import { PostComment } from '@/types';
 import { redirect, useRouter } from 'next/navigation';
 import { FieldError, useForm } from 'react-hook-form';
 
