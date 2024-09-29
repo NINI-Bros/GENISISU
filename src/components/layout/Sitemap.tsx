@@ -35,6 +35,7 @@ export default function Sitemap({
   // 화면이동시마다 클래스값 제거
   useEffect(() => {
     modalToggleFn(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [path]);
 
   // 모델명 컴포넌트
