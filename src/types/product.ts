@@ -133,19 +133,21 @@ export interface Option extends Common {
   };
 }
 
+export interface CartOption {
+  [optionName: string]: {
+    name: string;
+    price: number;
+    detailImage: string;
+    image?: string;
+    description?: string;
+    selectedItems?: { name: string; price: number }[];
+  };
+}
+
 export interface Cart {
   model: string;
   price: number;
-  option?: {
-    [optionName: string]: {
-      name: string;
-      price: number;
-      detailImage: string;
-      image?: string;
-      description?: string;
-      selectedItems?: { name: string; price: number }[];
-    };
-  };
+  option?: CartOption;
 }
 
 // export interface Thumbnail {

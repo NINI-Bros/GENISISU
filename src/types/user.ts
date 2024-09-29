@@ -1,32 +1,40 @@
-export interface UserData {
+export interface CommonType {
   _id: number;
-  email: string;
-  name: string;
-  phone?: string;
-  address?: string;
-  type: 'user' | 'seller' | 'admin';
-  loginType?: 'email' | 'kakao';
-  image?: string;
-  profile?: string;
-  token?: {
-    accessToken: string;
-    refreshToken: string;
+  extra?: {
+    [key: string]: any;
   };
   createdAt: string;
   updatedAt: string;
 }
 
+export interface UserData extends CommonType {
+  email?: string;
+  name?: string;
+  phone?: string;
+  address?: string;
+  type: 'user' | 'seller' | 'admin' | 'guest';
+  loginType?: 'email' | 'kakao' | 'google' | 'naver' | 'genesis' | 'github';
+  image: string;
+  token?: {
+    accessToken: string;
+    refreshToken: string;
+  };
+}
+
+export type OAuthUser = Required<Pick<UserData, 'type' | 'loginType'>> &
+  Partial<Pick<UserData, 'name' | 'email' | 'image' | 'extra'>>;
+
 export type UserInToken = Required<Pick<UserData, '_id' | 'name'>> &
-  Pick<UserData, 'profile'> & {
+  Pick<UserData, 'image'> & {
     accessToken: string;
     refreshToken: string;
   };
 
-export type UserForm = {
-  type: 'user' | 'seller';
-  name: string;
-  email: string;
+export type UserForm = Pick<UserData, 'name' | 'email' | 'image' | 'type'> & {
   password: string;
   attach?: string | string[];
-  profileImage?: string;
 };
+
+export type UserLoginForm = Pick<UserForm, 'email' | 'password'>;
+
+export type ReplyUser = Pick<UserData, '_id' | 'name' | 'email' | 'image'>;

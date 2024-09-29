@@ -3,6 +3,7 @@
 @tailwind utilities;
 @import url("./fonts.css");
 @import url("./basic.css");
+@import url("./basic_mediaQuery.css");
 
 
 @layer components {

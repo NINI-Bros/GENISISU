@@ -1,8 +1,4 @@
-import { Metadata } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useEffect } from 'react';
-import MainPagenation from '../components/mainPageComponents/MainPagenation';
+import MainPagination from '../components/mainPageComponents/MainPagination';
 import { fetchVehicles } from '@/data/fetch/productFetch';
 import Event1 from '@/components/mainPageComponents/Event1';
 import Event2 from '@/components/mainPageComponents/Event2';
@@ -14,13 +10,13 @@ export default async function RootPage() {
   const modelData = await fetchVehicles();
   return (
     <>
-      <MainPagenation />
+      <MainPagination />
       <main className="mainPage">
         <Event1 />
         <Event2 data={modelData} />
         <Event3 />
         <Event4 />
-        <Event5 boardName={'info'} />
+        <Event5 boardName={'drive'} />
       </main>
     </>
   );

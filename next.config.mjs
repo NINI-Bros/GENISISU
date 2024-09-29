@@ -19,6 +19,15 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/api/proxy/:path*',
+        destination: 'https://accounts.genesis.com/api/authorize/ccsp/oauth/:path*',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

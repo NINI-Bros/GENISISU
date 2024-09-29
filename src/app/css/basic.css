@@ -26,12 +26,15 @@ button {
 }
 .mainBtn {
   background: transparent;
-  border: 1px solid #fff;
+  border: 1px solid rgb(209 213 219);
   color: #fff;
   width: 240px;
   height: 60px;
   font: 500 20px/1 'Hyundai Sans Head Office';
   transition: all 0.2s;
+}
+.mainBtn.bbs {
+  color: #222;
 }
 .mainBtn.kr {
   font:500 20px/1 'Pretendard'
@@ -47,12 +50,20 @@ a.mainBtn {
   border-color:transparent;
   color:#000;
 }
+.mainBtn.bbs:hover {
+  color:#fff;
+  background:#000;
+  border-color: transparent;
+}
 .btnBasic {
   border: 1px solid #000;
   color:#fff;
   background:#000;
   padding: 0.7% 3%;
   transition: 0.2s all;
+  display:flex;
+  align-items: center;
+  justify-content: center;
 }
 .btnBasic:hover{
   background:#555;
@@ -61,20 +72,24 @@ a.mainBtn {
 /* swiper 색상 변경 */
 .swiper-button-prev,
 .swiper-button-next {
+  display: flex;
   color: #aaa !important;
 }
 .swiper-pagination-bullet {
   background: #fff !important;
 }
 /* 다른페이지가 붙을경우 헤딩 변경 */
+
 body {
   position: relative;
   font-family: 'Pretendard';
   background: #000;
-  max-width: 1920px;
   width: 100vw;
   margin: 0px auto;
   overflow-x:hidden;
+  display: grid;
+  grid-template-rows: 65px minmax(calc(100vh - 410px),auto) 250px;
+  padding-bottom: 0;
 }
 body.otherPage header::after {
   opacity: 100%;
@@ -84,9 +99,9 @@ header {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 9999;
+  z-index: 10;
   width: 100vw;
-  height: 100px;
+  height: 65px;
   font-weight: 300;
   font-size: 20px;
   color: #bbb;
@@ -107,44 +122,76 @@ header.mainHd::after {
   opacity: 60%;
 }
 
-header .gnb_logo {
-  width: 200px;
-}
-header .gnb_logo a img {
-  width: 100%;
-  object-fit: cover;
-}
 header .gnb {
   position: absolute;
-  transform: translateY(-50%);
+  transform: translate(-50%,-50%);
   top: 50%;
-  /* right: 160px; */
-  left: 80px;
+  left:50%;
+  padding: 0 3rem;
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 4fr 1fr 2fr;
+  column-gap: 100px;
   width: 100vw;
-  /* max-width: 70%; */
 }
-header .gnb > li > ul {
+header .gnb > .navWrap {
+  width: 100%;
+}
+header .gnb > .navWrap:nth-child(1) {
+  max-width: 700px;
+  grid-column: 1 / 2;
+  grid-row: 1/ 2;
+}
+header .gnb > .navWrap:nth-child(2) {
+  max-width: 300px;
+  min-width: 215px;
+  grid-column: 3 / -1;
+  grid-row: 1/ 2;
+  justify-self: end;
+}
+header .gnb > .navWrap > ul {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   height: 100%;
-  gap: 80px;
 }
-header .gnb > li:nth-child(2) {
-  align-content: end;
+header .gnb > .navWrap > ul.mobileView {
+  display: none;
+}
+header .gnb > .navWrap > ul li a {
+  font-size: 18px;
+  padding: 12px;
+}
+header .gnb > .navWrap > .firstGnb .gnbLogo {
+  width: 130px;
+  display:block;
+  padding: 0px;
+}
+header .gnb > .navWrap > .firstGnb .gnbLogo figure {
+  position:relative;
+  aspect-ratio: 2 / 1;
+}
+header .gnb > .navWrap .firstGnb .gnbLogo figure img {
+  object-fit: contain;
+  position: absolute;
+}
+header .gnb > .navWrap .secondGnb {
   font-size: 16px;
+  column-gap: 30px;
 }
-header .gnb > li:nth-child(2) ul {
-  gap: 10px;
+header .gnb > .navWrap .secondGnb a {
+  padding: 12px;
 }
-header .gnb > li:nth-child(2) > ul > li:first-child::after {
-  content: '|';
-  font-size: 10px;
-  padding-left: 10px;
+header .gnb > .navWrap .secondGnb > li.sitemapBtn {
+  display:flex;
+  justify-content: end;
 }
-header .gnb > li:nth-child(2) > ul > li:last-child {
-  padding-left: 80px;
+header .gnb > .navWrap .secondGnb > li.sitemapBtn figure {
+  width: 20px;
+  aspect-ratio: 2 / 1;
+  position: relative;
+}
+header .gnb > .navWrap .secondGnb > li.sitemapBtn figure img {
+  position:absolute;
 }
 header .smBtn {
   justify-self: center;
@@ -164,7 +211,7 @@ header .modal {
 header .modal.on {
   opacity: 95%;
   top: 0;
-  z-index: 9999;
+  z-index: 20;
 }
 header .modal .closeBtn {
   position: absolute;
@@ -232,8 +279,6 @@ header .modal section .siteItemWrap article:nth-child(3) div {
   grid-auto-rows: 50px;
 }
 
-
-
 header .modal .closeBtn .cl-line {
   position: absolute;
   top: 50%;
@@ -248,9 +293,18 @@ header .modal .closeBtn .cl-line:last-child {
   transform: rotate(-45deg);
 }
 
-.main_pagenation {
+.childrenWrap {
+  grid-row: 2 / 3;
+  height: 100%;
+  display: flex;
+}
+
+
+
+.main_pagination {
+  display: block;
   position: fixed;
-  z-index: 999;
+  z-index: 5;
   top: 50%;
   left: 50px;
   transform: translateY(-50%);
@@ -258,11 +312,11 @@ header .modal .closeBtn .cl-line:last-child {
   flex-direction: column;
   gap: 14px;
 }
-.main_pagenation li {
+.main_pagination li {
   display: flex;
   justify-content: center;
 }
-.main_pagenation li a {
+.main_pagination li a {
   width: 13px;
   height: 13px;
   display: block;
@@ -273,19 +327,19 @@ header .modal .closeBtn .cl-line:last-child {
   box-sizing: border-box;
   transition: all 0.2s;
 }
-.main_pagenation li.on a {
+.main_pagination li.on a {
   opacity: 80%;
   transform: scale(1);
   border: none;
   background: #fff;
 }
-.main_pagenation li a:hover {
+.main_pagination li a:hover {
   opacity: 80%;
   transform: scale(1);
   border: none;
   background: #fff;
 }
-.main_pagenation li a::after {
+.main_pagination li a::after {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -296,18 +350,26 @@ header .modal .closeBtn .cl-line:last-child {
   height: 1px;
   background: #fff;
 }
-.main_pagenation li a:hover::after {
+.main_pagination li a:hover::after {
   width: 10px;
+}
+
+/* 모바일 사이드바 */
+.mobileSideBar {
+  display:none;
+}
+.mobileSideBar .mobiledDimmedBg {
+  display: none;
 }
 
 /* main */
 /* main - 첫번째 박스 */
 main {
   width: 100vw;
-  margin-top: 100px;
+  
 }
 main.mainPage {
-  margin-top: 0px;
+  margin-top: -100px;
 }
 main.mainPage > section {
   width: 100%;
@@ -318,7 +380,7 @@ main.mainPage > section#event1 > article {
   position: absolute;
   top: 200px;
   left: 150px;
-  z-index: 9990;
+  z-index: 5;
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -330,7 +392,7 @@ main.mainPage > section#event1 > article h2 {
   font: 100 40px/1 'Hyundai Sans Head Office';
   margin-bottom: 30px;
 }
-main.mainPage > section#event1 > article h3 {
+main.mainPage > section#event1 > article h1 {
   font: 60px/1 'HYUNDAI';
   letter-spacing: 10px;
   margin-bottom: 10px;
@@ -341,7 +403,7 @@ main.mainPage > section#event1 > article .title_item {
   margin-bottom: 60px;
   position: relative;
 }
-main.mainPage > section#event1 > article .title_item > h3 > span {
+main.mainPage > section#event1 > article .title_item > h1 > span {
   padding: 0 6px;
 }
 main.mainPage > section#event1 > article .title_item .suyeon {
@@ -400,51 +462,64 @@ main.mainPage section#event2 {
   background: #000;
   color: #fff;
 }
-main.mainPage section#event2 > article {
-  font-family: 'Hyundai Sans Head Office';
-  position: absolute;
-  left: 200px;
-  top: 20%;
+main.mainPage section#event2 .swiper-pagination {
+  display:none;
 }
-main.mainPage section#event2 > article h2 {
+main.mainPage section#event2 .ev2_tit {
+  width:100vw;
+  height:280px;
+  font-family: 'Hyundai Sans Head Office';
+  position:absolute;
+  left: 200px;
+  top: 20%;  
+  display: grid;
+  line-height: normal;
+  grid-template-columns: 1fr;
+}
+main.mainPage section#event2 .ev2_tit h2 {
   font-weight: 500;
   font-size: 160px;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
 }
-main.mainPage section#event2 > article h3 {
+main.mainPage section#event2 .ev2_tit .mainBtn.mobileView {
+  display: none;
+}
+main.mainPage section#event2 .ev2_tit h3 {
   font-weight: 100;
   font-size: 50px;
-  margin-top: -6%;
-  margin-left: 3%;
-  text-wrap: nowrap;
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
 }
-main.mainPage section#event2 > section {
-  position: absolute;
-  max-width: 1200px;
-  right: 120px;
-  bottom: 130px;
-  z-index: 9990;
+main.mainPage section#event2  .ev2_models {
   display: grid;
-  gap: 10px;
+  grid-template-columns: minmax(550px,1fr) 2fr;
+  grid-auto-rows:minmax(auto,500px);
+  position: absolute;
+  right: 50px;
+  bottom: 100px;
   align-items: center;
 }
-
-main.mainPage section#event2 > section .ev2_wrap {
-  width: 100%;
-  height: 500px;
-  position: relative;
+main.mainPage section#event2  .ev2_models .ev2_slide_wrap {
+  width:100%;
+  height:100%;
+  grid-column: 2 / -1;
+  align-self: end;
+  display: flex;
   overflow: hidden;
 }
-main.mainPage section#event2 > section .ev2_wrap article {
-  position: absolute;
-  bottom: 0;
-  display: flex;
-  transition: cubic-bezier(0.17, 0.67, 0.83, 0.67), 0.5s;
-}
-main.mainPage section#event2 > section .ev2_wrap figure {
+main.mainPage section#event2  .ev2_models .ev2_slide_wrap figure {
   width: 100%;
+  min-height: 200px;
+  position: relative;
   aspect-ratio: 8/3;
+  top: 50%;
+  transform:translateY(-50%);
 }
-main.mainPage section#event2 > section .ev2_wrap figure img {
+main.mainPage section#event2  .ev2_models .ev2_slide_wrap figure img {
+  position: absolute;
+  top: 0px;
+  left: 0px;
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -470,7 +545,7 @@ main.mainPage section#event3 {
 }
 main.mainPage section#event3 article {
   position: absolute;
-  top: 30%;
+  top: 50%;
   transform: translateY(-50%);
   right: 160px;
   display: flex;
@@ -486,6 +561,7 @@ main.mainPage section#event3 article h2 span {
 main.mainPage section#event3 article h3 {
   font-size: 20px;
   font-weight: 100;
+  word-break: keep-all;
 }
 main.mainPage section#event3 article button {
   margin-top: 20px;
@@ -497,33 +573,30 @@ main.mainPage section#event4 {
   color: #fff;
 }
 main.mainPage section#event4 > article {
-  width: 1300px;
-  height: 70vh;
-  padding: 0 10%;
+  width: 80vw;
+  height: 100vh;
   position: absolute;
-  top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   overflow: hidden;
-  z-index: 20;
+  display: flex;
+  align-items: center;
+  z-index: 5;
 }
 main.mainPage section#event4 .ev4_slide {
-  display: flex;
   width: 100%;
-  overflow: hidden;
-  position: absolute;
-  left: 0;
-  transition: cubic-bezier(0.17, 0.67, 0.83, 0.67), 0.5s;
 }
 main.mainPage section#event4 .ev4_wrap {
   display: grid;
   grid-template-columns: 1fr 2fr;
   padding: 0 10%;
-  z-index: 9000;
   column-gap: 70px;
   align-items: center;
 }
-main.mainPage section#event4 .ev4_wrap figure {
+main.mainPage section#event4 .ev4_wrap > article {
+  width:100%;
+}
+main.mainPage section#event4 .ev4_wrap:nth-child(1) figure {
   width: 100%;
   padding-top: 100%;
   background: url('/images/ev4_bg.png') center/contain no-repeat;
@@ -543,16 +616,6 @@ main.mainPage section#event4 .ev4_wrap:nth-child(4) figure {
   padding-top: 100%;
   background: url('/images/ev4_bg_02.jpg') center/contain no-repeat;
 }
-main.mainPage section#event4 .ev4_wrap figure {
-  width: 100%;
-  padding-top: 100%;
-  background: url('/images/ev4_bg.png') center/contain no-repeat;
-}
-main.mainPage section#event4 .ev4_wrap figure {
-  width: 100%;
-  padding-top: 100%;
-  background: url('/images/ev4_bg.png') center/contain no-repeat;
-}
 main.mainPage section#event4 .ev4_wrap article h2 {
   font: 100 60px/1 'Hyundai Sans Head Office';
 }
@@ -566,59 +629,6 @@ main.mainPage section#event4 .ev4_wrap h3 {
   font-size: 20px;
   margin: 20px 0 80px 0;
 }
-main.mainPage section#event4 .ev4_navi {
-  display: flex;
-  column-gap: 20px;
-  grid-column: 1 / -1;
-  justify-self: center;
-  position: absolute;
-  bottom: 10px;
-  height: 10px;
-  z-index: 9990;
-  transform: translateX(-50%);
-  left: 50%;
-  bottom: 80px;
-}
-main.mainPage section#event4 .ev4_navi li {
-  width: 10px;
-  height: 10px;
-  background: #666;
-  border-radius: 50%;
-}
-main.mainPage section#event4 .ev4_navi li a {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-main.mainPage section#event4 .ev4_navi li.on {
-  background: #fff;
-}
-main.mainPage section#event4 > span {
-  transition: all 0.5s;
-  z-index: 9990;
-  cursor: pointer;
-  opacity: 30%;
-  display: block;
-  width: 35px;
-  height: 66px;
-  object-fit: contain;
-  padding-bottom: 60px;
-  position: absolute;
-  top: 60%;
-  transform: translateY(-50%);
-}
-main.mainPage section#event4 > span.ev4_prev {
-  background: url('/images/btn_prev.png') no-repeat;
-  left: 200px;
-}
-main.mainPage section#event4 > span.ev4_next {
-  background: url('/images/btn_next.png') no-repeat;
-  right: 200px;
-}
-main.mainPage section#event4 > span.ev4_prev:hover,
-main.mainPage section#event4 > span.ev4_next:hover {
-  opacity: 100%;
-}
 main.mainPage section#event4 .bgImg {
   transition: cubic-bezier(0.17, 0.67, 0.83, 0.67), 0.5s;
   background-size: cover;
@@ -630,7 +640,7 @@ main.mainPage section#event4 .bgImg {
   width: 100%;
   height: 100%;
   opacity: 30%;
-  z-index: 10;
+  z-index: 1;
 }
 main.mainPage section#event4 .bgImg::after {
   content: '';
@@ -653,92 +663,12 @@ main.mainPage section#event5 .ev5_wrap {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 9990;
+  z-index: 5;
 }
 main.mainPage section#event5 .ev5_wrap h2 {
-  font: 500 60px/1 'Hyundai Sans Head Office';
+  font: 500 60px/1 'Pretendard';
   text-align: center;
 }
-/* main.mainPage section#event5 .ev5_wrap form {
-  display: grid;
-  grid-template-columns: 70px 600px 5px 70px 600px;
-  grid-auto-rows: minmax(75px, auto);
-  column-gap: 65px;
-  row-gap: 40px;
-  align-items: center;
-}
-main.mainPage section#event5 .ev5_wrap form label {
-  font: 400 24px/1 'Hyundai Sans Head Office';
-}
-main.mainPage section#event5 .ev5_wrap form label:nth-of-type(1) {
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
-}
-main.mainPage section#event5 .ev5_wrap form label:nth-of-type(2) {
-  grid-column: 4 / 5;
-  grid-row: 1 / 2;
-}
-main.mainPage section#event5 .ev5_wrap form label:nth-of-type(3) {
-  grid-column: 1 / 2;
-  grid-row: 2 / 3;
-}
-main.mainPage section#event5 .ev5_wrap form label:nth-of-type(4) {
-  grid-column: 4 / 5;
-  grid-row: 2 / 3;
-}
-main.mainPage section#event5 .ev5_wrap form label:nth-of-type(5) {
-  grid-column: 1 / 2;
-  grid-row: 3 / 4;
-}
-
-main.mainPage section#event5 .ev5_wrap form input,
-main.mainPage section#event5 .ev5_wrap form select {
-  font-size: 20px;
-  height: 100%;
-  border: 1px solid #666;
-  background: transparent;
-  color: #fff;
-  padding: 20px;
-  box-sizing: border-box;
-}
-main.mainPage section#event5 .ev5_wrap form select option {
-  color: #111;
-  font-size: 20px;
-}
-main.mainPage section#event5 .ev5_wrap form input:nth-of-type(1) {
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-}
-main.mainPage section#event5 .ev5_wrap form input:nth-of-type(2) {
-  grid-column: 5 / -1;
-  grid-row: 1 / 2;
-}
-main.mainPage section#event5 .ev5_wrap form select:nth-of-type(1) {
-  grid-column: 2 / 3;
-  grid-row: 2 / 3;
-}
-main.mainPage section#event5 .ev5_wrap form select:nth-of-type(2) {
-  grid-column: 5 / -1;
-  grid-row: 2 / 3;
-}
-main.mainPage section#event5 .ev5_wrap form textarea {
-  grid-column: 2 / -1;
-  grid-row: 3 / 4;
-  min-height: 200px;
-  min-width: 100%;
-  border: 1px solid #666;
-  background: transparent;
-  color: #fff;
-  padding: 20px;
-  box-sizing: border-box;
-  font-size: 20px;
-}
-main.mainPage section#event5 .ev5_wrap form button {
-  grid-column: 1 / -1;
-  grid-row: 4 / 5;
-  justify-self: center;
-  font-weight: 400;
-} */
 
 main.mainPage .ev5_wrap form select option {
   color: #000;
@@ -757,28 +687,27 @@ main.mainPage section#event5 .bgImg {
 /* ev5_새로운 퍼블리싱 추가 */
 .ev5_wrap {
   width: 90vw;
-  padding-top: 200px;
+  padding-top: 110px;
 }
 
 /* footer */
 footer {
-  background: #000;
-  height: 310px;
-  position: relative;
-  padding: 60px 160px;
+  background:#000;
+  padding: 30px 100px;
   box-sizing: border-box;
   color: #999;
-  display: flex;
-  gap: 140px;
+  display: grid;
+  grid-template-columns: minmax(auto,284px) 2fr minmax(260px,1fr);
+  grid-auto-rows: minmax(190px, auto);
+  column-gap:100px;
+  grid-row: 3 / -1;
 }
-footer aside {
-  width: 284px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+footer .f_logo {
+  position:relative;
+  aspect-ratio: 3.422 / 1;
+  align-self: center;
 }
-footer aside img {
-  width: 100%;
+footer .f_logo img {
   object-fit: contain;
 }
 
@@ -786,6 +715,7 @@ footer > ul {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  row-gap:20px;
 }
 footer > ul > li {
   display: flex;
@@ -793,9 +723,10 @@ footer > ul > li {
 }
 footer > ul > li > ul {
   display: flex;
+  flex-wrap: wrap;
 }
 footer .f_github ul {
-  gap: 15px;
+  column-gap: 15px;
 }
 footer .f_github ul li a {
   font-size: 18px;
@@ -809,149 +740,49 @@ footer .f_github ul li:last-child:after {
   content: '';
 }
 footer .f_skill ul {
-  gap: 14px;
+  column-gap: 14px;
+}
+footer .f_skill ul li {
+  display:flex;
+  column-gap:3px;
+}
+footer .f_skill ul li:before {
+  content:'#';
 }
 
 footer h4 {
   font: 100 24px/1 'Hyundai Sans Head Office';
   margin-bottom: 8px;
+  display: block;
 }
-footer .footerInfo {
+footer .f_info {
   font: 100 18px/1 'Hyundai Sans Head Office';
 }
 
 footer .f_copy span {
   font: 100 14px/1 'Hyundai Sans Head Office';
 }
-
-footer button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 160px;
+footer .f_copy {
+  display: block;
+}
+footer .f_readBtn {
+  width: 100%;
+  align-self: center;
+  text-align: end;
+}
+footer aside button {
   background: #232323;
   border: none;
   color: #999;
   cursor: pointer;
   padding: 1rem 6rem;
+  display: block;
 }
 
 iframe {
   width: 100%;
   height: 320px;
 }
-
-/* drive page.tsx - 전시시승 신청 */
-/* main#drivePage {
-  width: 100%;
-  background: #fff;
-  z-index: 9990;
-}
-
-main#drivePage .drive {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  padding-top: 10rem;
-  padding-bottom: 10rem;
-  transform: translate(-50%, -50%);
-}
-
-main#drivePage .drive h2 {
-  font: 500 60px/1 'Hyundai Sans Head Office';
-  text-align: center;
-  margin-bottom: 60px;
-}
-
-main#drivePage .drive form {
-  display: grid;
-  grid-template-columns: 70px 600px 5px 70px 600px;
-  grid-auto-rows: minmax(75px, auto);
-  column-gap: 65px;
-  row-gap: 40px;
-  align-items: center;
-}
-main#drivePage .drive form label {
-  font: 400 24px/1 'Hyundai Sans Head Office';
-}
-main#drivePage .drive form label:nth-of-type(1) {
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
-}
-main#drivePage .drive form label:nth-of-type(2) {
-  grid-column: 4 / 5;
-  grid-row: 1 / 2;
-}
-main#drivePage .drive form label:nth-of-type(3) {
-  grid-column: 1 / 2;
-  grid-row: 2 / 3;
-}
-main#drivePage .drive form label:nth-of-type(4) {
-  grid-column: 4 / 5;
-  grid-row: 2 / 3;
-}
-main#drivePage .drive form label:nth-of-type(5) {
-  grid-column: 1 / 2;
-  grid-row: 3 / 4;
-}
-
-main#drivePage .drive form input,
-main#drivePage .drive form select {
-  font-size: 20px;
-  height: 100%;
-  border: 1px solid #ccc;
-  background: transparent;
-  color: #fff;
-  padding: 20px;
-  box-sizing: border-box;
-}
-main#drivePage .drive form select option {
-  font-size: 20px;
-}
-main#drivePage .drive form input:nth-of-type(1) {
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-}
-main#drivePage .drive form input:nth-of-type(2) {
-  grid-column: 5 / -1;
-  grid-row: 1 / 2;
-}
-main#drivePage .drive form select:nth-of-type(1) {
-  grid-column: 2 / 3;
-  grid-row: 2 / 3;
-}
-main#drivePage .drive form select:nth-of-type(2) {
-  grid-column: 5 / -1;
-  grid-row: 2 / 3;
-}
-main#drivePage .drive form textarea {
-  grid-column: 2 / -1;
-  grid-row: 3 / 4;
-  min-height: 200px;
-  min-width: 100%;
-  border: 1px solid #ccc;
-  background: transparent;
-  color: #fff;
-  padding: 20px;
-  box-sizing: border-box;
-  font-size: 20px;
-}
-main#drivePage .drive form button {
-  grid-column: 1 / -1;
-  grid-row: 4 / 5;
-  justify-self: center;
-  font-weight: 400;
-}
-
-/* main#drivePage .bgImg {
-  background: url('/images/ev5_bg.png') center/cover no-repeat;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 30%;
-} */
 
 
 /* 결제페이지 옵션 */
@@ -961,9 +792,8 @@ main#drivePage .drive form button {
   width:3.5px; height:3.5px; background:#bbb;
   display: block;
 }
-/* .optionBullet>span:last-child {
-  padding-left:0;
-}
-.optionBullet>span:last-child::before {
-  display:none;
-} */
+
+/* 페이지네이션 스타일 */
+.pagingView {font-size:16px; color:#aaa; transition: all 0.3s;}
+.pagingView.on,
+.pagingView:hover {font-weight:bold; color:#111;}

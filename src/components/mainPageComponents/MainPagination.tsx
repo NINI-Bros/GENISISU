@@ -2,11 +2,11 @@
 
 import { useEffect, useRef, useState } from "react"
 
-export default function MainPagenation (){
-    const [liLength, setLiLength] = useState(0);
+export default function MainPagination (){
+    // const [liLength, setLiLength] = useState(0);
     const [viewHeight, setViewHeight] = useState(0);
     const [currScroll, setCurrScroll] = useState(0);
-    const [scrollTf, setScrollTf] = useState(true);
+    // const [scrollTf, setScrollTf] = useState(true);
     const pagingRef = useRef<HTMLUListElement | null>(null)
     const [activePage, setActivePage] = useState(1);
 
@@ -28,15 +28,15 @@ export default function MainPagenation (){
     },[])
 
     // 스크롤값과 브라우저 height값을 실시간으로 비교하여 스크롤 할때마다 checkTf에 boolean값 지정
-    useEffect(()=>{
-      function checkTf(){setScrollTf(currScroll <= viewHeight)};
-      window.addEventListener('scroll',checkTf);
-    },[currScroll,viewHeight])
+    // useEffect(()=>{
+    //   function checkTf(){setScrollTf(currScroll <= viewHeight)};
+    //   window.addEventListener('scroll',checkTf);
+    // },[currScroll,viewHeight])
 
     
     // 첫마운트시 li 전체 갯수와 두번째 section의 높이값 지정
     // useEffect(()=>{
-    //   const liLen = document.querySelectorAll('.main_pagenation li')
+    //   const liLen = document.querySelectorAll('.main_pagination li')
     //   setLiLength(liLen.length);
     //   const ev2 : HTMLSelectElement | null  = document.querySelector('#event2')
     //   let ev2H = ev2!.offsetTop;
@@ -105,7 +105,7 @@ export default function MainPagenation (){
 
 
   return(
-    <ul className="main_pagenation" ref={pagingRef}>
+    <ul className="main_pagination" ref={pagingRef}>
       {/* section 갯수가 정해져잇는 정적인 페이지라 반복문 돌지 않았음 */}
       <li className={activePage === 1 ? 'on' : ''}><a href="#none" onClick={(e) => liPaging(e, 1)}></a></li>
       <li className={activePage === 2 ? 'on' : ''}><a href="#none" onClick={(e) => liPaging(e, 2)}></a></li>

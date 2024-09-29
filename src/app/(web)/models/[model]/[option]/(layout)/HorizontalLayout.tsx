@@ -3,6 +3,7 @@
 import useLocalStorage from '@/hook/useLocalStorage';
 import { Cart, Option, Product } from '@/types/product';
 import { useModelStore } from '@/zustand/useModel';
+import { useSelectUpdate } from '@/zustand/useSelectStore';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ReactNode, useRef, useState } from 'react';
@@ -16,10 +17,19 @@ interface HorizontalLayoutProps {
   optionData: Option[];
 }
 
+interface OptionEventParams {
+    optionGroup: string,
+    optionItem: string,
+    optionImage: string,
+    optionText: string,
+    optionPrice: number
+}
+
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
 // 3번레이아웃_기본 default 옵션 사진 가로
 export default function HorizontalLayout({ params, modelData, optionData }: HorizontalLayoutProps) {
+  const updateCartItem = useSelectUpdate();
   const router = useRouter();
   const optionName = params.option;
   const modelName = modelData?.name || '';
@@ -71,19 +81,25 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
     const firstItemText = groupItems[0].description || '';
     const matchedItems = [...checkOptionRef.current].filter(item => item.name === groupName);
     const checkIcon = matchedItems.length > 0 ? '/images/check_activate.svg' : '/images/check_deactivate.svg';
-    // const checkIcon = checkOptionRef.current.has(groupName) ? '/images/check_activate.svg' : '/images/check_deactivate.svg';
     const textItems = groupItems.length > 1 ? groupItems : [];
+    let optionEventParams = {
+      optionGroup: groupName,
+      optionItem: firstItem,
+      optionImage: groupImage,
+      optionText: firstItemText,
+      optionPrice: price
+    }
     return (
       <tr 
         key={groupName + i}
         className={`flex flex-col items-left text-[18px] gap-x-[86px] border-t-[1px] border-[#a4a4a4] py-[15px] pl-[15px]`}
       >
         <td 
-          onClick={() => handleOptionClick(groupName, firstItem, groupImage, firstItemText, price)}
+          onClick={() => handleOptionClick(optionEventParams)}
           className={`font-Hyundai-sans flex gap-x-3 items-center font-bold ${isGroupActive(groupName)} `}
         >
           <figure 
-            onClick={() => handleOptionCheck(groupName, price)}
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleOptionCheck(e, optionEventParams)}
             className='w-[30px] h-[30px] relative hover:cursor-pointer'>
             <Image src={checkIcon} fill sizes='100%' alt='check icon' />
           </figure>
@@ -95,14 +111,18 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
         <td className={`font-Hyundai-sans mt-2`}>
           <ul className='list-disc px-[60px] text-[16px]'>
             {textItems.map((item, j) => {
-              const itemImage = item.image?.path ? SERVER + item.image.path : '';
               const itemName = item.name;
-              const itemText = item.description || '';
-              const itemPrice = item.price || 0;
+              let optionEventParams = {
+                optionGroup: groupName,
+                optionItem: itemName,
+                optionImage: item.image?.path ? SERVER + item.image.path : '',
+                optionText: item.description || '',
+                optionPrice: item.price || 0
+              }
               return (
                 <li 
                   key={item.name + j}
-                  onClick={() => handleOptionClick(groupName, itemName, itemImage, itemText, itemPrice)}
+                  onClick={() => handleOptionClick(optionEventParams)}
                   className={`${isItemActive(groupName + '-' + itemName)} hover:cursor-pointer`}
                 >
                   {item.name}
@@ -129,12 +149,13 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
     optionText: defaultItemDescription,
   });
 
-  const handleOptionClick = (
-    optionGroup: string,
-    optionItem: string,
-    optionImage: string,
-    optionText: string,
-    optionPrice: number
+  const handleOptionClick = ({
+    optionGroup,
+    optionItem,
+    optionImage,
+    optionText,
+    optionPrice
+  }: OptionEventParams
   ) => {
     clickedOptionRef.current.clear();
     clickedOptionRef.current.set('group', optionGroup);
@@ -148,12 +169,34 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
       imageSource: newImage,
       optionText: optionText
     }));
+    
+    updateCartItem({
+      model: modelName,
+      price: optionState.newPrice,
+      option: {
+        [optionName]: {
+          name: optionGroup + '-' + optionItem,
+          price: optionPrice,
+          detailImage: newImage,
+          description: optionText,
+          selectedItems: [...checkOptionRef.current]
+        }
+      }
+    });
   };
 
   const handleOptionCheck = (
-    optionGroup: string,
-    optionPrice: number,
+    event: React.MouseEvent,
+    {
+      optionGroup,
+      optionItem,
+      optionImage,
+      optionText,
+      optionPrice
+    } : OptionEventParams
   ) => {
+    event.stopPropagation();
+    handleOptionClick({optionGroup, optionItem, optionImage, optionText, optionPrice});
     let newPrice = optionState.newPrice;
     const matchedGroupArray = [...checkOptionRef.current].filter(option => option.name === optionGroup);
     if (matchedGroupArray.length > 0) {
@@ -174,8 +217,20 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
       prevPrice: prevState.newPrice,
       newPrice: newPrice,
     }));
+    updateCartItem({
+      model: modelName,
+      price: newPrice,
+      option: {
+        [optionName]: {
+          name: clickedOptionRef.current!.get('item') as string,
+          price: clickedOptionRef.current!.get('price') as number,
+          detailImage: optionState.imageSource,
+          description: optionState.optionText,
+          selectedItems: [...checkOptionRef.current]
+        }
+      }
+    });
   };
-
 
   const { steps } = useModelStore();
   const currentStep = steps.indexOf(optionName);
@@ -209,14 +264,18 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
 
   return (
     <>
-      <section className="h-screen relative">
-        <article className="flex absolute justify-center items-top w-[1440px] right-[50px] top-[200px]">
+      <section className="h-screen relative grid grid-cols-[400px_auto] gap-x-[4rem]">
+
+        {/* 옵션명 */}
+        <article className="col-start-2 grid grid-cols-2 justify-center items-top max-w-[90vw] mt-[120px] mr-[100px]">
 
           <div className="flex flex-col mr-[40px]">
-            <figure className="w-[650px] h-[325px] relative">
-              <Image src={optionState.imageSource} fill sizes='100%' className="w-full" alt="" />
+            {/* <figure className="w-[650px] h-[325px] relative"> */}
+            <figure className="aspect-[16/9] relative">
+              <Image src={optionState.imageSource} priority fill sizes='100%' className="absolute w-full" style={{objectFit:"contain"}} alt="" />
             </figure>
-            <h4 className="w-[650px] mb-[20px] self-center mt-[20px] text-[16px]">
+            {/* <h4 className="w-[650px] mb-[20px] self-center mt-[20px] text-[16px]"> */}
+            <h4 className="w-full mb-[20px] self-center mt-[20px] text-[16px]">
               <pre className='font-Hyundai-sans whitespace-pre-wrap'>
                 {mainText}
               </pre>
@@ -226,7 +285,7 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
             </h4>
           </div>
 
-          <article className="w-[600px] h-[670px] overflow-scroll border-t-[1px] border-b-[1px]  border-[#a4a4a4]">
+          <article className="w-full h-[550px] overflow-scroll border-t-[1px] border-b-[1px]  border-[#a4a4a4]">
             <table className="w-full">
               <tbody>
                 {list}
@@ -236,31 +295,31 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
 
         </article>
 
+        {/* 화살표 이동 버튼 */}
         <div className="grid grid-cols-[60px_60px] grid-rows-[50px] gap-x-[20px] absolute top-[620px] left-[80px]">
-            <button className='bg-black border-[0.5px] border-white w-full h-full' onClick={(e) => clickButton(e, 'prev')}>
-              <figure className='relative w-full h-[75%]'>
-                <Image className='absolute top-0 left-0' src="/images/btn_prev.png" alt="버튼 좌측 이미지" fill sizes='100%' style={{objectFit:"contain"}}/>
-              </figure>
-            </button>
-            <button className='bg-white w-full h-full' onClick={clickButton}>
-              <figure className='relative w-full h-[75%]'>
-                <Image className='absolute top-0 left-0' src="/images/btn_next_b.png" alt="버튼 좌측 이미지" fill sizes='100%' style={{objectFit:"contain"}}/>
-              </figure>
-            </button>
+          <button className='bg-black border-[0.5px] border-white w-full h-full' onClick={(e) => clickButton(e, 'prev')}>
+            <figure className='relative w-full h-[75%]'>
+              <Image className='absolute top-0 left-0' src="/images/btn_prev.png" alt="버튼 좌측 이미지" fill sizes='100%' style={{objectFit:"contain"}}/>
+            </figure>
+          </button>
+          <button className='bg-white w-full h-full' onClick={clickButton}>
+            <figure className='relative w-full h-[75%]'>
+              <Image className='absolute top-0 left-0' src="/images/btn_next_b.png" alt="버튼 좌측 이미지" fill sizes='100%' style={{objectFit:"contain"}}/>
+            </figure>
+          </button>
         </div>
         
-        <article className="w-full absolute bottom-[120px] flex items-end z-10 justify-center ">
+        {/* 예상가격 */}
+        <div className="h-full w-[280px] absolute bottom-0 right-[3rem]">
+          <aside className="sticky top-[calc(100vh_-120px)] bg-black font-Hyundai-sans border-[1px] border-[#666] flex flex-col pl-[35px] pt-[10px]">
+            <p className="text-[15px] text-[#a4a4a4]">예상 가격</p>
+            <span className="text-[30px] font-bold mt-[-10px]">
+              {optionState.newPrice.toLocaleString('ko-KR')}
+              <span className="text-[20px] align-middle"> 원</span>
+            </span>
+          </aside>
+        </div>
 
-          <div className="absolute right-12">
-            <aside className="font-Hyundai-sans border-[1px] border-[#666666] flex flex-col justify-center px-[30px] pt-[10px]">
-              <p className="text-[15px] text-[#a4a4a4]">예상가격</p>
-              <span className="text-[30px] font-bold mt-[-10px]">
-                {optionState.newPrice.toLocaleString('ko-KR')}
-                <span className="text-[20px] align-middle"> 원</span>
-              </span>
-            </aside>
-          </div>
-        </article>
       </section>
     </>
   );

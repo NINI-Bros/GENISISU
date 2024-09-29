@@ -5,6 +5,7 @@ import Section3Color from './(section)/Section3Color';
 import Section4Exterior from './(section)/Section4Exterior';
 import Section5Interior from './(section)/Section5Interior';
 import Section6Spec from './(section)/Section6Spec';
+import ScrollToTop from '@/components/ScrollToTop';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
@@ -25,6 +26,8 @@ export default async function OrderPage({ params }: { params: { model: string } 
 
   return (
     <>
+      <ScrollToTop />
+      
       {/* 첫번째 섹션 : 360도 이미지 */}
       <Section1Index modelIndex={modelIndex} modelData={modelData} imageArray={imageArray} />
 

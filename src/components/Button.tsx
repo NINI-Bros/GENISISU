@@ -2,7 +2,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   children: React.ReactNode;
   bgColor?: 'gray' | 'black' | 'red' | 'white';
   size?: 'sm' | 'md' | 'lg' | 'medium' | 'custom';
-  color?: 'black' | 'white';
+  color?: 'black' | 'white' | 'gray';
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   custom?: string;
 }
@@ -27,6 +27,7 @@ const Button: React.FC<ButtonProps> = ({
   let textColor = {
     black: 'text-black',
     white: 'text-white',
+    gray: 'text-[#666666]'
   };
   let btnColor = {
     gray: `bg-gray-900`,
@@ -46,6 +47,7 @@ const Button: React.FC<ButtonProps> = ({
     <button
       type={type}
       className={`${btnColor[bgColor]} ${btnSize[size]} ${textColor[color]}`}
+      style={{ fontFamily: 'Pretendard' }}
       {...rest}
     >
       {children}
