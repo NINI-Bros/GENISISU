@@ -2,19 +2,17 @@
 
 import InputError from '@/components/InputError';
 import Submit from '@/components/Submit';
-import {
-  signInWithCredentials,
-  signInWithGithub,
-  signInWithGoogle,
-} from '@/data/actions/userAction';
-import { UserForm, UserLoginForm } from '@/types';
+import { signInWithCredentials, signInWithGithub, signInWithGoogle, signInWithGenesis, signInWithNaver } from '@/data/actions/userAction';
+import { callGenesisLogin } from '@/data/fetch/genesis';
+import { UserForm, UserLoginForm } from '../../../../../types';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
+import React from 'react';
 
-export default function LoginForm() {
+export default function LoginForm() {    
   const { register, handleSubmit, formState: { errors, isLoading, isSubmitted  }, setError } = useForm<UserForm>({
     defaultValues: {
-      email: 'guest@genisisu.com',
+      email: 'hyundai-morgans@genisisu.com',
       password: '11111111'
     }
   });
@@ -24,7 +22,7 @@ export default function LoginForm() {
     // 로그인 성공시 리턴값 없음
     const resData = await signInWithCredentials(loginData);
     if(!resData) {
-      alert(`로그인 되었습니다.`);
+      alert('로그인 되었습니다.');
       // router.push('/');
     } else if(!resData.ok) { // API 서버의 에러 메시지 처리
       if('errors' in resData) {
@@ -35,6 +33,10 @@ export default function LoginForm() {
     }
   }
 
+  const handleGenesisLoginClick = async (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    await callGenesisLogin();
+  };
 
   return (
     <form>
@@ -88,13 +90,20 @@ export default function LoginForm() {
           비밀번호를 잊으셨나요?
         </Link>
       </div>
-      <div className="mt-10 flex justify-center items-center gap-x-[10px]">
+      <div className="flex gap-x-[10px] mt-10 mb-5 justify-center items-center">
         <Submit className='btnBasic px-[5%] py-[1%] hover:underline cursor:pointer' onClick={handleSubmit(login)}>로그인</Submit>
-        <Submit className='btnBasic px-[5%] py-[1%] hover:underline cursor:pointer' formAction={signInWithGithub}>깃허브</Submit>
-        <Submit className='btnBasic px-[5%] py-[1%] hover:underline cursor:pointer' formAction={signInWithGoogle}>구글</Submit>
-        <Link href="/signup" className="btnBasic px-[5%] py-[1%] hover:underline">
+        <Link 
+          href="/signup"
+          className="btnBasic px-[5%] py-[1%] hover:underline"
+        >
           회원가입
         </Link>
+      </div>
+      <div className='flex gap-x-[10px] justify-center items-center'>
+        <Submit className='btnBasic px-[5%] py-[1%] hover:underline cursor:pointer' formAction={signInWithGoogle}>구글</Submit>
+        <Submit className='btnBasic px-[5%] py-[1%] hover:underline cursor:pointer' formAction={signInWithGithub}>깃허브</Submit>
+        {/* <Submit className='btnBasic px-[5%] py-[1%] hover:underline cursor:pointer' onClick={handleGenesisLoginClick}>현대멤버스</Submit> */}
+        {/* <Submit className='btnBasic px-[5%] py-[1%] hover:underline cursor:pointer' formAction={signInWithNaver}>네이버</Submit> */}
       </div>
     </form>
   );

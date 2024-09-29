@@ -3,7 +3,7 @@
 import InputError from "@/components/InputError";
 import Submit from "@/components/Submit";
 import { signup } from "@/data/actions/userAction";
-import { UserForm } from "@/types";
+import { UserForm } from "../../../../../types";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";

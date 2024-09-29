@@ -1,4 +1,5 @@
 import AddBoard from '../drive/AddBoard';
+
 export default function Event5({ boardName }: { boardName: string }) {
   return (
     <section id="event5">

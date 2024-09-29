@@ -3,10 +3,10 @@
 import { useEffect, useRef, useState } from "react"
 
 export default function MainPagination (){
-    const [liLength, setLiLength] = useState(0);
+    // const [liLength, setLiLength] = useState(0);
     const [viewHeight, setViewHeight] = useState(0);
     const [currScroll, setCurrScroll] = useState(0);
-    const [scrollTf, setScrollTf] = useState(true);
+    // const [scrollTf, setScrollTf] = useState(true);
     const pagingRef = useRef<HTMLUListElement | null>(null)
     const [activePage, setActivePage] = useState(1);
 
@@ -28,10 +28,10 @@ export default function MainPagination (){
     },[])
 
     // 스크롤값과 브라우저 height값을 실시간으로 비교하여 스크롤 할때마다 checkTf에 boolean값 지정
-    useEffect(()=>{
-      function checkTf(){setScrollTf(currScroll <= viewHeight)};
-      window.addEventListener('scroll',checkTf);
-    },[currScroll,viewHeight])
+    // useEffect(()=>{
+    //   function checkTf(){setScrollTf(currScroll <= viewHeight)};
+    //   window.addEventListener('scroll',checkTf);
+    // },[currScroll,viewHeight])
 
     
     // 첫마운트시 li 전체 갯수와 두번째 section의 높이값 지정

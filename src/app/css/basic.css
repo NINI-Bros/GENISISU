@@ -159,10 +159,12 @@ header .gnb > .navWrap > ul.mobileView {
 }
 header .gnb > .navWrap > ul li a {
   font-size: 18px;
+  padding: 12px;
 }
 header .gnb > .navWrap > .firstGnb .gnbLogo {
   width: 130px;
   display:block;
+  padding: 0px;
 }
 header .gnb > .navWrap > .firstGnb .gnbLogo figure {
   position:relative;
@@ -176,19 +178,8 @@ header .gnb > .navWrap .secondGnb {
   font-size: 16px;
   column-gap: 30px;
 }
-header .gnb > .navWrap .secondGnb li {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-header .gnb > .navWrap .secondGnb li:first-child {
-
-  display: flex;
-  min-width:200px;
-}
-header .gnb > .navWrap .secondGnb > li:first-child > a:first-child:after {
-  content: '';
-  font-size: 10px;
+header .gnb > .navWrap .secondGnb a {
+  padding: 12px;
 }
 header .gnb > .navWrap .secondGnb > li.sitemapBtn {
   display:flex;

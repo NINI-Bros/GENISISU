@@ -1,6 +1,6 @@
 'use client';
 
-import { OptionDetail, OptionItem } from '@/types/product';
+import { OptionDetail, OptionItem } from '../../../../../types/product';
 import Image from 'next/image';
 import React, { ReactNode, useRef, useState } from 'react';
 

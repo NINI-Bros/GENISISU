@@ -4,9 +4,10 @@ import './css/globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { usePathname } from 'next/navigation';
-import { SessionProvider } from 'next-auth/react';
 import { Session } from 'next-auth';
 import SideBar from '@/components/layout/SideBar';
+import { SessionProvider } from '@/hook/session';
+
 
 export default function RootLayout({ children, session }: Readonly<{children: React.ReactNode, session:Session}>) {
     const url = usePathname();
@@ -32,7 +33,8 @@ export default function RootLayout({ children, session }: Readonly<{children: Re
             </head>
             <body>
                 {/* 로그인 세션정보 분배 컴포넌트 */}
-                <SessionProvider session={session}> 
+                {/* <SessionProvider session={session}>  */}
+                <SessionProvider>
                     <Header isMain={isMain} />
                         <div className='childrenWrap'>
                           {children}
@@ -40,7 +42,6 @@ export default function RootLayout({ children, session }: Readonly<{children: Re
                         </div>
                     <Footer/>
                 </SessionProvider>
-     
             </body>
         </html>
     );

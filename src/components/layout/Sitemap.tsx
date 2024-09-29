@@ -4,16 +4,13 @@ import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import { useRef } from "react";
 
-export default function Sitemap ({modalState, modalToggleFn} : {
-  modalState: boolean; 
+export default function Sitemap ({ modalState, modalToggleFn } : {
+  modalState: boolean,
   modalToggleFn: React.Dispatch<React.SetStateAction<boolean>> 
 }) {
-
   const route = useRouter();
   const modelRef = useRef(null);
-  const handleCloseBtn = () => modalToggleFn(!modalState);
-
-
+  const handleCloseBtn = () => modalToggleFn(prev => !prev);
   const handleSitemapClick = (e: React.MouseEvent<HTMLElement>,index:number) : void => {
     e.preventDefault();
     if (index < 13) {
@@ -48,12 +45,12 @@ export default function Sitemap ({modalState, modalToggleFn} : {
       }
     }
     
-    modalToggleFn(!modalState)
+    modalToggleFn(prev => !prev)
   }
 
 
   return(
-    <div className={["modal", modalState ? "" : "on"].join(" ")} ref={modelRef}>
+    <div className={["modal", modalState ? "on" : ""].join(" ")} ref={modelRef}>
       <section>
         <h2>SITE MAP</h2>
 
