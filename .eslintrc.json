@@ -1,6 +1,5 @@
 {
   "extends": ["next/core-web-vitals", "prettier"],
-  "plugins": ["prettier"],
   "rules": {
     "indent": ["error", 2, { "SwitchCase": 1 }], // 들여쓰기 2칸만 허용
     "no-var": "error", // var 키워드 사용 금지
