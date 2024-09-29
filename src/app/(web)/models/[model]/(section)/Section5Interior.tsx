@@ -18,7 +18,7 @@ export default function Section5Interior({ interior }: Section5Interior) {
         <p className="text-[20px] text-[#888] leading-[1.2]">{content}</p>
       </article>
       <figure className="bg-slate-400 h-full flex-[1_0_900px] overflow-hidden">
-        <img src={source} className="w-full h-full object-cover" alt="" />
+        <img src={source} className="w-full h-full object-cover" alt="내장 디자인" />
       </figure>
     </section>
   );

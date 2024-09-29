@@ -27,7 +27,7 @@ const Button: React.FC<ButtonProps> = ({
   let textColor = {
     black: 'text-black',
     white: 'text-white',
-    gray: 'text-[#666666]'
+    gray: 'text-[#666666]',
   };
   let btnColor = {
     gray: `bg-gray-900`,
