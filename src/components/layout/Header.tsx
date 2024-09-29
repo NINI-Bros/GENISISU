@@ -1,10 +1,9 @@
 'use client'
 
-// import { auth } from "@/auth";
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { signOut, useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
+import { useSession } from '@/hook/session';
 import Sitemap from './Sitemap';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,35 +11,27 @@ import { faHouseChimney, faCar, faRightToBracket, faHeadphones, faKey } from '@f
 import { faFileLines } from '@fortawesome/free-regular-svg-icons';
 
 export default function Header({ isMain }: { isMain: string }) {
-  // export default async function Header({ isMain }: {isMain:string}) {
-  // const session = await auth();
+  const session = useSession();
   // console.log('session', session);
-  const { data:session, status } =  useSession();
-  const [modalOn, setmodalOn] = useState(true)
+
+  const [modalOn, setModalOn] = useState(false)
   const [mobileState, setMobileState] = useState({
     mobileView: false,
-    thisWidth:0
+    thisWidth: 0
   })
-  const router = useRouter();
+  // const router = useRouter();
   const hamBtnRef = useRef<HTMLDivElement | null>(null)
   const mobileMenuBtnRef = useRef<HTMLDivElement | null>(null)
 
   // console.log("모바일 상태 확인",mobileState.mobileView)
 
   useEffect(()=>{
-    setMobileState(prev => {return{...prev, thisWidth: window.innerWidth}})
-    const htmlBody = document.querySelector('body') as HTMLBodyElement
-    const handleResize = () => {
-      setMobileState(prev => {return{...prev, thisWidth: window.innerWidth}})
-    }
-    window.addEventListener('resize',handleResize)
-
+    setMobileState(prev => ({...prev, thisWidth: window.innerWidth}))
     // sitemap 호출
-    if (!modalOn) {
+    if (modalOn) {
       const scrollY = window.scrollY;
       document.body.style.top = `-${scrollY}px`;
       document.body.style.position = 'fixed';
-
     } else {
       const scrollY = document.body.style.top;
       document.body.style.top = '';
@@ -48,23 +39,7 @@ export default function Header({ isMain }: { isMain: string }) {
     
       window.scrollTo(0, parseInt(scrollY || '0') * -1);
     }
-
-    if (mobileState.thisWidth > 1366) {
-      setMobileState(prev => {return{...prev, mobileView:false}})
-    } else if (mobileState.thisWidth < 1366) {
-      setMobileState(prev => {return{...prev, mobileView:true}})
-    }
-
-    // event listener를 달아줬을 경우 항상 clean-up을 실행해줘야 함. 상태가 업데이트 될때마다 계속 useEffct를 실행시키므로 
-    return (
-     window.removeEventListener('resize',handleResize)
-    )
-
-  },[modalOn, mobileState.thisWidth, mobileState.mobileView])
-
-  const handleChangeSitemapState = (bl : boolean) => {
-    setmodalOn(!bl)
-  }
+  }, [ modalOn ])
 
   const handleSignOut = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -72,7 +47,7 @@ export default function Header({ isMain }: { isMain: string }) {
   }
   const handleSiteMapOpen = (e: React.MouseEvent<HTMLElement>) : void => {
     e.preventDefault();
-    setmodalOn(!modalOn)
+    setModalOn(prev => !prev)
   }
 
   const handleHambtnClick = () => {
@@ -97,7 +72,6 @@ export default function Header({ isMain }: { isMain: string }) {
             </li>
             <li>
               <Link href="/drive">전시시승</Link>
-
             </li>
             <li>
               <Link href="/qna">고객지원</Link>
@@ -146,36 +120,25 @@ export default function Header({ isMain }: { isMain: string }) {
         </div>
         <div className="navWrap">
           <ul className="secondGnb">
-  
-            <li>
-              <Link href="/login">로그인</Link>
-              <Link href="/signup">회원가입</Link>
-              <Link href="#" className="cursor-pointer" onClick={e => handleSignOut(e)}>로그아웃</Link>
+            <li className='flex justify-end items-center w-full gap-2'>
+              { session ? (
+                <span className="text-[18px] cursor-pointer p-3" onClick={handleSignOut}>로그아웃</span>
+              ) : (
+                <>
+                  <Link href="/login">로그인</Link>
+                  <span>|</span>
+                  <Link href="/signup">회원가입</Link>
+                </>
+              )}
             </li>
-
             <li className="sitemapBtn">
-              <Link href="#" onClick={(e) => handleSiteMapOpen(e)}>
-                <figure>
+              <div className='p-3 cursor-pointer' onClick={handleSiteMapOpen}>
+                <figure className='relative w-[20px] h-[10px]' >
                   <Image src="/images/menu_ham.png" fill sizes='100%' alt="" />
                 </figure>
-              </Link>
+              </div>
             </li>
-
           </ul>
-
-          {/* <ul className="mobileView">
-            <li onClick={() => router.push("/login")}>
-              <span>로그인</span>
-            </li>
-            <li onClick={() => router.push("/signup")}>
-              <span>회원가입</span>
-            </li>
-            
-            <li onClick={e => handleSignOut(e)}>
-              <span>로그아웃</span>
-            </li>
-
-          </ul> */}
         </div>
       </nav>
       {/* {!mobileState.mobileView 
@@ -185,7 +148,7 @@ export default function Header({ isMain }: { isMain: string }) {
 
 
       {/* 사이트맵 컴포넌트 */}
-      <Sitemap modalState={modalOn} modalToggleFn={setmodalOn}/>
+      <Sitemap modalState={modalOn} modalToggleFn={setModalOn}/>
 
       {/* 반응형 sideMenu */}
       <aside className='mobileHamBtn'  ref={mobileMenuBtnRef} onClick={handleHambtnClick}>

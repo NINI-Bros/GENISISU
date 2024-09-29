@@ -1,10 +1,10 @@
 'use client'
-import { Product } from "@/types/product";
+import { Product } from "../../../types/product";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react';
+import { useRef, useState } from "react";
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -24,7 +24,6 @@ export default function Event2 ( {data} : {data:Product[]}) {
     </SwiperSlide>
 
   ))
-  const imgLength = imageData.length
   const nameTitData = data.map(modelName => {
     const titText = modelName.name.match(regex)?.[0] || modelName.name.split('-')[0]
     const subText = modelName.name.split('-').filter((item)=>item !== titText).join(' ')

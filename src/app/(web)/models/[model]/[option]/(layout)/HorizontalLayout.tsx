@@ -1,7 +1,7 @@
 'use client'
 
 import useLocalStorage from '@/hook/useLocalStorage';
-import { Cart, Option, Product } from '@/types/product';
+import { Cart, Option, Product } from '../../../../../../../types/product';
 import { useModelStore } from '@/zustand/useModel';
 import { useSelectUpdate } from '@/zustand/useSelectStore';
 import Image from 'next/image';

@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState } from "react";
-import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -18,7 +18,6 @@ export default function Event4 () {
     "/images/ev4_bg_03.jpg",
     "/images/ev4_bg_04.jpg",
   ]
-
   
   return(
     <section id="event4">
@@ -85,10 +84,9 @@ export default function Event4 () {
               <h3>전기차, 그 이상의 시작<br/>
                 제니시수에 관한 다양한 체험으로 당신만의 제니시수를 찾는 여정을 지원합니다.</h3>
               <button className="mainBtn" onClick={(e: React.MouseEvent<HTMLButtonElement>)=>{
-              e.preventDefault();
-              alert('준비중 입니다.')
-            }} >VIEW MORE</button>
-
+                e.preventDefault();
+                alert('준비중 입니다.')
+              }} >VIEW MORE</button>
             </article>
             <figure className="modelImg"></figure>
           </SwiperSlide>

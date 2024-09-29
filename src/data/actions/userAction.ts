@@ -3,16 +3,19 @@
 
 import { signIn } from '@/auth';
 import {
+  ApiRes,
   ApiResWithValidation,
   CoreErrorRes,
   FileRes,
   MultiItem,
+  OAuthUser,
   SingleItem,
   UserData,
   UserForm,
   UserLoginForm,
-} from '@/types';
+} from '../../../types';
 import { redirect } from 'next/navigation';
+import { Result } from 'postcss';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
@@ -66,7 +69,7 @@ export async function signup(
 export async function signInWithCredentials(
   loginData: UserLoginForm
 ): Promise<ApiResWithValidation<SingleItem<UserForm>, UserLoginForm>> {
-  console.log(loginData);
+  console.log('signInWithCredentials 로그인 결과', loginData);
   try {
     const result = await signIn('credentials', {
       ...loginData,
@@ -97,10 +100,47 @@ export async function login(
   return res.json();
 }
 
+// auth provider 인증 후 자동 회원 가입
+export async function signupWithOAuth(
+  user: OAuthUser
+): Promise<ApiResWithValidation<SingleItem<UserData>, UserForm>> {
+  const res = await fetch(`${SERVER}/users/signup/oauth`, {
+    method: 'POST',
+    headers: {
+      'client-id': process.env.NEXT_PUBLIC_CLIENT_ID,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(user),
+  });
+
+  return res.json();
+}
+
+// auth provider로 인증된 사용자 로그인
+export async function loginOAuth(providerAccountId: string): Promise<ApiRes<SingleItem<UserData>>> {
+  const res = await fetch(`${SERVER}/users/login/with`, {
+    method: 'POST',
+    headers: {
+      'client-id': process.env.NEXT_PUBLIC_CLIENT_ID,
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({ providerAccountId }),
+  });
+  return res.json();
+}
+
 export async function signInWithGoogle(formData: FormData) {
   await signIn('google', { redirectTo: `/?email=${formData.get('email')}` });
 }
 
+export async function signInWithGenesis(formData: FormData) {
+  await signIn('genesis', { redirectTo: `/?email=${formData.get('email')}` });
+}
+
+export async function signInWithNaver(formData: FormData) {
+  await signIn('naver', { redirectTo: `/?email=${formData.get('email')}` });
+}
+
 export async function signInWithGithub(formData: FormData) {
-  await signIn('github', { redirectTo: '/' });
+  await signIn('github', { redirectTo: `/?email=${formData.get('email')}` });
 }

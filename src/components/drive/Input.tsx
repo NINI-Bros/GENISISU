@@ -1,4 +1,4 @@
-import { Post, PostForm } from "@/types";
+import { Post, PostForm } from "../../../types";
 import { ReactElement } from "react";
 import { FieldError, FieldErrors, UseFormRegister } from "react-hook-form";
 import InputError from "../InputError";
@@ -15,11 +15,12 @@ interface InputProps {
 }
 
 export default function Input ({ id, value, placeholder, register, errors, textColor, isWarningMargin, handleChange }: InputProps):ReactElement {
+  const tagLabel = id === 'extra' ? 'name' : id;
   return (
       <div className={`flex-1 ${isWarningMargin(errors[id])}`}>
       {/* <div className={`flex-1 mb-[20px]`}> */}
         <label className="block text-lg mb-2" htmlFor={`${id}`}>
-          {id.toUpperCase()}
+          {tagLabel.toUpperCase()}
         </label>
         { id === 'content' ? (
             <textarea
