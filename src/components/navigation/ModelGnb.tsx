@@ -40,27 +40,19 @@ export default function ModelGnb({ params }: { params: { model: string } }) {
   };
 
   return (
-    <nav className="flex items-end absolute top-[40px] left-[80px] z-20 w-[calc(100vw-_100px)] h-[70px] overflow-hidden max-[1366px]:hidden">
+    <nav className="flex items-end absolute top-[40px] left-[80px] z-5 w-[calc(100vw-_100px)] h-[70px] overflow-hidden max-[1366px]:hidden">
       <button
-        className="grid col-auto font-Hyundai-sans w-[330px] h-full pt-[8px] px-[10px] gap-x-[3rem] bg-black absolute top-0 left-0 z-30"
+        className="grid col-auto font-Hyundai-sans w-[330px] h-full pt-[8px] px-[10px] gap-x-[3rem] bg-black absolute top-0 left-0 z-[4]"
         onClick={handleButtonClick}
       >
         <span className="col-start-1 text-[13px] self-end text-left ">GENISISU</span>
         <span className="col-start-1 text-[22px] self-start text-left font-black">{modelName}</span>
         <div className="col-start-2 row-start-1 row-span-2 self-center justify-self-end w-[10px] h-[20px]">
-          <figure className="relative w-[10px] h-[20px]">
-            <Image
-              fill
-              sizes="100%"
-              src="/images/btn_next.png"
-              className="object-cover"
-              alt="다음"
-            />
-          </figure>
+          <img src="/images/btn_next.png" className="object-cover" alt="" />
         </div>
       </button>
       <div
-        className="absolute top-0 transition-all delay-[0.1s]"
+        className="absolute top-0 transition-all delay-[0.1s] z-[3]"
         style={{ left: '-1200px' }}
         ref={swipeWrapRef}
       >

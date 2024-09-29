@@ -1,5 +1,0 @@
-{
-  "/(web)/models/page": "app/(web)/models/page.js",
-  "/page": "app/page.js",
-  "/(web)/models/[model]/page": "app/(web)/models/[model]/page.js"
-}

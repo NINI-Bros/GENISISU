@@ -19,15 +19,24 @@ export default function ListItem({ item, params }: { item: Post; params: { board
   return (
     <tr className="border-b border-gray-200 hover:bg-slate-100 transition duration-300 ease-in-out">
       {/* <td className="p-2 text-center">{item._id}</td> */}
+<<<<<<< HEAD
       <td className="p-2 indent-4 max-[1366px]:break-keep max-[1366px]:indent-0 max-[1366px]:pl-[7%] max-[1366px]:pr-[3%]">
         <Link href="#" onClick={(e) => handleDetailView(e)} className="cursor-pointer">
+=======
+      <td className="p-2 indent-4 max-[1366px]:break-keep max-[1366px]:indent-0 max-[1366px]:pl-[5%] max-[1366px]:pr-[3%]">
+        <Link href="#" onClick={e => handleDetailView(e)} className="cursor-pointer">
+>>>>>>> 6686c9674b1adcb97f1dc191c1aeea3a6060bf0d
           {item.title}
         </Link>
       </td>
       {/* <td className="p-2 text-center truncate">{item.user.name}</td> */}
+<<<<<<< HEAD
       <td className="p-2 text-center truncate max-[1366px]:pl-0 max-[1366px]:pr-[7%] max-[1366px]:text-left">
         {item.extra?.name}
       </td>
+=======
+      <td className="p-2 text-center truncate max-[1366px]:pl-0 max-[1366px]:pr-[5%] max-[1366px]:text-left">{item.extra?.name}</td>
+>>>>>>> 6686c9674b1adcb97f1dc191c1aeea3a6060bf0d
       <td className="p-2 text-center hidden sm:table-cell">{item.views}</td>
       <td className="p-2 text-center hidden sm:table-cell">{item.repliesCount}</td>
       <td className="p-2 truncate text-center hidden sm:table-cell">
