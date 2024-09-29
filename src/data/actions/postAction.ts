@@ -1,6 +1,6 @@
 'use server';
 
-import { ApiRes, CoreRes, SingleItem, Post, PostComment, PostForm } from '../../../types/index';
+import { ApiRes, CoreRes, SingleItem, Post, PostComment, PostForm } from '@/types/index';
 import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 // import { redirect } from 'next/navigation';

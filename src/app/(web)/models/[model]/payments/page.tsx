@@ -1,5 +1,5 @@
 import { fetchOptions, fetchVehicles } from "@/data/fetch/productFetch";
-import { VehicleInfo } from "../../../../../../types/payments";
+import { VehicleInfo } from "../../../..//payments";
 import PaymentsAction from "./PaymentsAction";
 
 export default async function Payments ({params}:{params: {

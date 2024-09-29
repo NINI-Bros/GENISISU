@@ -3,7 +3,7 @@
 import Submit from '@/components/Submit';
 import { deleteComment } from '@/data/actions/postAction';
 import { useSession } from '@/hook/session';
-import { PostComment } from '../../../../../types';
+import { PostComment } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
 const CLIENT = process.env.NEXT_CLIENT_ID;

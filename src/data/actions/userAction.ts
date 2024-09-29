@@ -13,9 +13,8 @@ import {
   UserData,
   UserForm,
   UserLoginForm,
-} from '../../../types';
+} from '@/types';
 import { redirect } from 'next/navigation';
-import { Result } from 'postcss';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 

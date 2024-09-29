@@ -1,4 +1,4 @@
-import { Subject } from '../../../../../../types/product';
+import { Subject } from '@/types/product';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 

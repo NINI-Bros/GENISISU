@@ -2,10 +2,9 @@
 
 import Button from "@/components/Button";
 import useLocalStorage from "@/hook/useLocalStorage";
-import { AddrType } from "../../../../../../types/address";
-import { PaymentsActionProps, TaxOptions } from "../../../../../../types/payments";
-import { Cart, OptionItem } from "../../../../../../types/product";
-import { useModelStore } from "@/zustand/useModel";
+import { AddrType } from "@/types/address";
+import { PaymentsActionProps, TaxOptions } from "@/types/payments";
+import { Cart, OptionItem } from "@/types/product";
 import PortOne from "@portone/browser-sdk/v2";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
