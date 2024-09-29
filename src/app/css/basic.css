@@ -50,6 +50,11 @@ a.mainBtn {
   border-color:transparent;
   color:#000;
 }
+.mainBtn.bbs:hover {
+  color:#fff;
+  background:#000;
+  border-color: transparent;
+}
 .btnBasic {
   border: 1px solid #000;
   color:#fff;

@@ -82,8 +82,8 @@ export default function SideBar () {
   useEffect(()=> {
     mobileSideBarRef.current?.classList.remove('on')
     const thisWindow = window.innerHeight
-    if (thisWindow)
-    console.log('윈도우확인',thisWindow)
+    // if (thisWindow)
+    // console.log('윈도우확인',thisWindow)
   },[path])
 
 

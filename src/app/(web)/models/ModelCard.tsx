@@ -50,7 +50,7 @@ export default function ModelCard({ model }: { model: Product }) {
 
         <h3 className="col-span-full mt-[2.5%] mb-[5.5%] self-center">{content}</h3>
 
-        <button className="justify-self-start text-l px-4 py-1 max-h-[40px]" type="button" onClick={handleClick}>
+        <button className="justify-self-start text-l px-4 py-2 max-h-[40px]" type="button" onClick={handleClick}>
           전시시승
         </button>
         {title !== 'neolun' ? (

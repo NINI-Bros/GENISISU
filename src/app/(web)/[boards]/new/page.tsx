@@ -23,7 +23,7 @@ export default function drive({ params }: { params: { boards: string } }) {
         <AddBoard isMain={false} params={{ boards: params.boards }} />
 
         <div className="text-center py-4 max-[1366px]:mt-10 max-[1366px]:px-[7%]">
-          <h2 className="pb-12 text-5xl font-medium text-black max-[1366px]:text-3xl max-[1366px]:pb-6">제니시수 플레이스</h2>
+          <h2 className="pb-12 text-5xl font-medium text-black max-[1366px]:text-[32px] max-[1366px]:pb-6">제니시수 플레이스</h2>
         </div>
         <section className="mb-20 bbs_mobile_place max-[1366px]:px-[7%]">
           <table className="border-collapse w-full table-fixed">

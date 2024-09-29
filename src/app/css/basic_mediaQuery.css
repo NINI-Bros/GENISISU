@@ -5,31 +5,27 @@
   }
   /* 모바일 버튼컴포넌트 */
   button {
-    font: 500 14px/1 'Hyundai Sans Head Office';
+    font: 500 16px/1 'Hyundai Sans Head Office';
   }
   .mainBtn {
-    width: 100px;
+    max-width: 120px;
     height: 40px;
-    font: 500 12px/1 'Hyundai Sans Head Office';
+    font: 500 16px/1 'Hyundai Sans Head Office';
+    padding: 0 3%;
   }
   .mainBtn.kr {
-    font:500 12px/1 'Pretendard'
+    font:500 16px/1 'Pretendard'
   }
   .mainBtn.bbs {
     padding: 0% 1%;
     max-width: 80px;
     height: 45px;
-    font:500 14px/1 'Pretendard'
-  }
-  .mainBtn.bbs:hover {
-    color:#fff;
-    background:#000;
-    border-color: transparent;
+    font:500 16px/1 'Pretendard'
   }
 
   .btnBasic {
     padding: 0% 1%;
-    font-size: 14px;
+    font-size: 16px;
     min-width: 80px;
   }
   .swiper .swiper-button-prev,
