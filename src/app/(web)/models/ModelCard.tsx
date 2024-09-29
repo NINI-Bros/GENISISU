@@ -1,7 +1,6 @@
 'use client';
 
-import { Product } from '../../../../types/product';
-import sampleImage from '../../../../public/images/genesis-kr-gv70-facelift-sport-glossy-colors-uyuni-white-large.png';
+import { Product } from '@/types/product';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useModelStore } from '@/zustand/useModel';
@@ -31,7 +30,7 @@ export default function ModelCard({ model }: { model: Product }) {
   return (
     <li className="grid grid-cols-1 auto-rows-min gap-y-10 justify-center px-6 py-8 bg-item-background">
       {!model.mainImages ? (
-        <Image src={sampleImage} width={500} height={500} alt="" priority className="col-span-full" />
+        <Image src='/images/genesis-kr-gv70-facelift-sport-glossy-colors-uyuni-white-large.png' width={500} height={500} alt="" priority className="col-span-full" />
       ) : (
         <Image
           src={SERVER + model.mainImages[0].path}

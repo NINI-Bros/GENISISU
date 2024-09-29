@@ -1,6 +1,6 @@
 'use client';
 
-import { Pagination } from '../../types';
+import { Pagination } from '@/types';
 import { useEffect, useRef } from 'react';
 
 export default function PostPagination({ listData, pagingFn } : {

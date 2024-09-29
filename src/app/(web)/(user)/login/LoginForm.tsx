@@ -4,7 +4,7 @@ import InputError from '@/components/InputError';
 import Submit from '@/components/Submit';
 import { signInWithCredentials, signInWithGithub, signInWithGoogle, signInWithGenesis, signInWithNaver } from '@/data/actions/userAction';
 import { callGenesisLogin } from '@/data/fetch/genesis';
-import { UserForm, UserLoginForm } from '../../../../../types';
+import { UserForm, UserLoginForm } from '@/types';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import React from 'react';
