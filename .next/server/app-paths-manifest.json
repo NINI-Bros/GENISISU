@@ -1,6 +1,17 @@
 {
-  "/(web)/[boards]/page": "app/(web)/[boards]/page.js",
-  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/(web)/(user)/login/page": "app/(web)/(user)/login/page.js",
-  "/(web)/models/[model]/page": "app/(web)/models/[model]/page.js"
+  "/(web)/[boards]/new/page": "app/(web)/[boards]/new/page.js",
+  "/(web)/[boards]/[id]/edit/page": "app/(web)/[boards]/[id]/edit/page.js",
+  "/(web)/[boards]/page": "app/(web)/[boards]/page.js",
+  "/(web)/models/page": "app/(web)/models/page.js",
+  "/(web)/models/paymentsComplete/page": "app/(web)/models/paymentsComplete/page.js",
+  "/page": "app/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/(web)/(user)/signup/page": "app/(web)/(user)/signup/page.js",
+  "/(web)/[boards]/[id]/page": "app/(web)/[boards]/[id]/page.js",
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/(web)/models/[model]/page": "app/(web)/models/[model]/page.js",
+  "/(web)/models/[model]/[option]/page": "app/(web)/models/[model]/[option]/page.js",
+  "/(web)/models/[model]/payments/page": "app/(web)/models/[model]/payments/page.js"
 }
