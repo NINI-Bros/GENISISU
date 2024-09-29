@@ -173,17 +173,12 @@ export default function Page({ params }: { params: { boards: string } }) {
             <thead>
               <tr className="border-b border-solid border-gray-600">
                 {/* <th className="p-2 whitespace-nowrap font-medium">번호</th> */}
-<<<<<<< HEAD
                 <th className="p-2 ml-20 whitespace-nowrap font-medium max-[1366px]:px-[7%]">
                   {boardTitle.tableTitle01}
                 </th>
                 <th className="p-2 whitespace-nowrap font-medium max-[1366px]:pl-0 max-[1366px]:pr-[7%] max-[1366px]:text-left">
                   {boardTitle.tableTitle02}
                 </th>
-=======
-                <th className="p-2 ml-20 whitespace-nowrap font-medium max-[1366px]:px-[5%]">{boardTitle.tableTitle01}</th>
-                <th className="p-2 whitespace-nowrap font-medium max-[1366px]:pl-0 max-[1366px]:pr-[5%] max-[1366px]:text-left">{boardTitle.tableTitle02}</th>
->>>>>>> 6686c9674b1adcb97f1dc191c1aeea3a6060bf0d
                 <th className="p-2 whitespace-nowrap font-medium hidden sm:table-cell">조회수</th>
                 <th className="p-2 whitespace-nowrap font-medium hidden sm:table-cell">댓글수</th>
                 <th className="p-2 whitespace-nowrap font-medium hidden sm:table-cell">
