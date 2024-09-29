@@ -57,8 +57,8 @@ export default function SideBar () {
     return (
       <>
         {titdata.map((item,i) => (
-          i !== 12 ? (
-            <Link key={'model_' + (i + 1)} href={'/models/' + (i + 1)} onClick={() => console.log(i+1,"클릭함")} >{item}</Link>
+          item !== "NEOLUN CONCEPT" ? (
+            <Link key={'model_' + (i + 1)} href={'/models/' + (i + 1)} >{item}</Link>
           ) : (
             <Link key={'model_' + 13 } href='#' onClick={(e) => {
               e.preventDefault();

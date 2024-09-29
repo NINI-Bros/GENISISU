@@ -40,8 +40,8 @@ export default function Sitemap ({ modalState, modalToggleFn } : {
     return (
       <>
         {titdata.map((item,i) => (
-          i !== 12 ? (
-            <Link key={'model_' + (i + 1)} href={'/models/' + (i + 1)} onClick={() => console.log(i+1,"클릭함")} >{item}</Link>
+          item !== "NEOLUN CONCEPT" ? (
+            <Link key={'model_' + (i + 1)} href={'/models/' + (i + 1)}>{item}</Link>
           ) : (
             <Link key={'model_' + 13 } href='#' onClick={(e) => {
               e.preventDefault();
@@ -80,9 +80,9 @@ export default function Sitemap ({ modalState, modalToggleFn } : {
           <article>
             <h3>제니시수</h3>
             <div>
-              <Link href='#'>김모건</Link>
-              <Link href='#'>이수연</Link>
-              <Link href='#'>류재준</Link>
+              <Link href='https://github.com/redcontroller'>김모건</Link>
+              <Link href='https://github.com/sylee0102'>이수연</Link>
+              <Link href='https://github.com/ryungom'>류재준</Link>
 
             </div>
           </article>
