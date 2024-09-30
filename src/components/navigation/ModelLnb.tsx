@@ -93,8 +93,8 @@ export default function ModelLnb({ params }: { params: { model: string } }) {
   });
 
   return (
-    <div className="flex flex-col absolute top-[220px] left-[80px] max-[1366px]:hidden">
-      <ul className=" text-[#666666] flex flex-col gap-y-2.5 font-light text-xl z-20">{items}</ul>
+    <div className="flex flex-col absolute top-[220px] left-[80px] max-[1366px]:hidden z-[4]">
+      <ul className=" text-[#666666] flex flex-col gap-y-2.5 font-light text-xl">{items}</ul>
     </div>
   );
 }
