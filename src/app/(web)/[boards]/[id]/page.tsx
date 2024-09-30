@@ -16,13 +16,24 @@ export async function generateMetadata({
   const boardName = params.boards;
   const item = await fetchPost(params.id);
   if (item === null) notFound();
+  let board = '';
+  if (boardName === 'drive') {
+    board = '전시시승 게시판';
+  } else if (boardName === 'info') {
+    board = '공지사항 게시판';
+  } else {
+    board = '고객지원 게시판';
+  }
   return {
-    title: `${boardName} - ${item.title}`,
-    description: `${boardName} - ${item.content}`,
+    title: `${board} - ${item.title}`,
+    description: `GENISISU ${board} 페이지`,
     openGraph: {
-      title: `${boardName} - ${item.title}`,
-      description: `${boardName} - ${item.content}`,
-      url: `/${params.boards}/${params.id}`,
+      title: `${board} - ${item.title}`,
+      description: `GENISISU ${board} 페이지입니다.`,
+      url: `/${boardName}/${params.id}`,
+      images: {
+        url: '/images/genisisu_logo_og.jpg',
+      },
     },
   };
 }

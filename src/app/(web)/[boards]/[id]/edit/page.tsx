@@ -3,13 +3,24 @@ import { Metadata } from 'next';
 
 export function generateMetadata({ params }: { params: { boards: string; id: string } }): Metadata {
   const boardName = params.boards;
+  let board = '';
+  if (boardName === 'drive') {
+    board = '전시시승';
+  } else if (boardName === 'info') {
+    board = '공지사항';
+  } else {
+    board = '고객지원';
+  }
   return {
-    title: `${boardName} - 게시글 수정`,
-    description: `${boardName} - 게시글을 수정하세요.`,
+    title: `${board} 게시글 수정 - GENISISU`,
+    description: `${board} 게시글 수정 페이지.`,
     openGraph: {
-      title: `${boardName} - 게시글 수정`,
-      description: `${boardName} - 게시글을 수정하세요.`,
-      url: `/${params.boards}/${params.id}/editDrive`,
+      title: `${board} 게시글 수정 - GENISISU`,
+      description: `GENISISU ${board} 게시글을 수정하세요.`,
+      url: `/${params.boards}/${params.id}/edit`,
+      images: {
+        url: '/images/genisisu_logo_og.jpg',
+      },
     },
   };
 }
