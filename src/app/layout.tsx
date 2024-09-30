@@ -29,7 +29,7 @@ export default function RootLayout({
         <meta name="author" content="김모건, 류재준, 이수연" />
 
         <meta property="og:title" content="GENISISU - 현대모건스 제니시수연" />
-        <meta property="og:description" content="나만의 차량을 꾸미고 구매해보세요" />
+        <meta property="og:description" content="나만의 차량을 꾸미고 구매해 보세요" />
         <meta property="og:image" content="/images/genisisu_logo_b.png" />
         <meta property="og:url" content="https://genisisu.vercel.app/" />
         <meta property="og:type" content="website" />
