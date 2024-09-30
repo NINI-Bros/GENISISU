@@ -273,7 +273,7 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
 
   // 우편주소 지역 구분에 따른 세금 부과
   useEffect(() => {
-    setOptionPrice(price - originMatch.price);
+    setOptionPrice(price - originMatch?.price);
     const item = window.localStorage.getItem('cart');
     item && setValue((prev) => ({ ...prev, ...JSON.parse(item) }));
 
