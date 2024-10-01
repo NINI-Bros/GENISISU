@@ -22,8 +22,8 @@
 
 ## 2. 배포 주소
 
-<p>🔗 <strong>실행 링크</strong>: https://hyundai-morgans.vercel.app/</p>
-<p>🔒 <strong>테스트 계정(ID)</strong>: test@market.com</p>
+<p>🔗 <strong>실행 링크</strong>: https://genisisu.vercel.app/</p>
+<p>🔒 <strong>테스트 계정(ID)</strong>: hyundai-morgans@genisisu.com</p>
 <p>🔑 <strong>테스트 계정(PW)</strong>: 11111111</p>
 </br>
 
