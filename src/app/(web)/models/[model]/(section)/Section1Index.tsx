@@ -49,19 +49,19 @@ export default function Section1Index({ modelIndex, modelData, imageArray }: Sec
   };
 
   return (
-    <section className="w-screen h-[calc(100vh-100px)] grid grid-cols-[450px_auto] gap-x-[4rem] bg-black z-10">
-      <article className="w-[90%] max-h-full col-start-2 grid-cols-1 flex flex-col justify-items-center mt-[40px] pb-[100px] gap-y-[20px] overflow-hidden justify-between">
+    <section className="w-screen h-[calc(100vh-100px)] grid grid-cols-[450px_auto] gap-x-[4rem] bg-black z-10 max-[1366px]:grid-cols-1 max-[1366px]:gap-x-0 max-[1366px]:h-[calc(100vh-60px)] max-[1366px]:justify-items-center">
+      <article className="w-[90%] max-h-full col-start-2 grid-cols-1 flex flex-col justify-items-center mt-[40px] pb-[100px] gap-y-[20px] overflow-hidden justify-between max-[1366px]:col-start-1 max-[1366px]:flex-col-reverse">
         {/* 이미지 영역 */}
         <figure className="relative aspect-[2/1] overflow-hidden">
           {modelData && <ImageViewer images={imageArray} />}
         </figure>
 
         {/* 가격 표시 */}
-        <div className="grid grid-cols-[auto_1fr_1fr] gap-y-[10px] gap-x-[3rem] self-center">
-          <h2 className="text-[50px] font-Hyundai-sans self-center justify-self-center px-[10px] font-black">
+        <div className="grid grid-cols-[auto_1fr_1fr] gap-y-[10px] gap-x-[3rem] self-center max-[1366px]:grid-cols-1 max-[1366px]:gap-x-0 max-[1366px]:justify-items-center">
+          <h2 className="text-[50px] font-Hyundai-sans self-center justify-self-center px-[10px] font-black max-[1366px]:text-[32px]">
             {modelName && uppercaseName}
           </h2>
-          <h3 className="text-[30px] text-[#a4a4a4] col-span-2 self-center">
+          <h3 className="text-[30px] text-[#a4a4a4] col-span-2 self-center max-[1366px]:text-[20px]">
             시작가격{' '}
             <span className="text-white font-Hyundai-sans">
               {modelPrice.toLocaleString('ko-KR')}
@@ -69,7 +69,7 @@ export default function Section1Index({ modelIndex, modelData, imageArray }: Sec
             <span className="text-[20px] text-white"> 원</span>
           </h3>
 
-          <div className="flex justify-self-center col-span-3 mt-[0px] items-end gap-x-[10px]">
+          <div className="flex justify-self-center col-span-3 mt-[0px] items-end gap-x-[10px] max-[1366px]:absolute max-[1366px]:top-[calc(100vh_-100px)]">
             <figure className="w-[30px] h-[30px] relative ">
               <Image
                 src="/images/scrollIcon_g.png"
