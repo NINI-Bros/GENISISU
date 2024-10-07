@@ -50,7 +50,8 @@ export default function Section1Index({ modelIndex, modelData, imageArray }: Sec
 
   return (
     <section className="w-screen h-[calc(100vh-100px)] grid grid-cols-[450px_auto] gap-x-[4rem] bg-black z-10 max-[1366px]:grid-cols-1 max-[1366px]:gap-x-0 max-[1366px]:h-[calc(100vh-60px)] max-[1366px]:justify-items-center">
-      <article className="w-[90%] max-h-full col-start-2 grid-cols-1 flex flex-col justify-items-center mt-[40px] pb-[100px] gap-y-[20px] overflow-hidden justify-between max-[1366px]:col-start-1 max-[1366px]:flex-col-reverse">
+      <article className="w-[90%] max-h-full col-start-2 grid-cols-1 flex flex-col justify-items-center mt-[40px] pb-[100px] gap-y-[20px] overflow-hidden justify-between 
+                          max-[1366px]:col-start-1 max-[1366px]:flex-col-reverse max-[1366px]:pb-0 max-[1366px]:h-[80%]">
         {/* 이미지 영역 */}
         <figure className="relative aspect-[2/1] overflow-hidden">
           {modelData && <ImageViewer images={imageArray} />}
@@ -58,7 +59,7 @@ export default function Section1Index({ modelIndex, modelData, imageArray }: Sec
 
         {/* 가격 표시 */}
         <div className="grid grid-cols-[auto_1fr_1fr] gap-y-[10px] gap-x-[3rem] self-center max-[1366px]:grid-cols-1 max-[1366px]:gap-x-0 max-[1366px]:justify-items-center">
-          <h2 className="text-[50px] font-Hyundai-sans self-center justify-self-center px-[10px] font-black max-[1366px]:text-[32px]">
+          <h2 className="text-[50px] font-Hyundai-sans self-center justify-self-center px-[10px] font-black max-[1366px]:text-[7vw]">
             {modelName && uppercaseName}
           </h2>
           <h3 className="text-[30px] text-[#a4a4a4] col-span-2 self-center max-[1366px]:text-[20px]">
@@ -84,10 +85,11 @@ export default function Section1Index({ modelIndex, modelData, imageArray }: Sec
         </div>
 
         {/* 이후 레이아웃인 화살표 이동에 대응하는 다음버튼 */}
-        <div className="flex flex-col w-[120px] gap-y-[10px] mt-[0px] col-span-2 self-start absolute top-[620px] left-[80px] ">
+        <div className="flex flex-col w-[120px] gap-y-[10px] mt-[0px] col-span-2 self-start absolute top-[620px] left-[80px] 
+                        max-[1366px]:top-[150px] max-[1366px]:left-[50%] max-[1366px]:translate-x-[-50%] max-[1366px]:flex-row max-[1366px]:w-[250px] max-[1366px]:justify-between">
           <Link
             href={{ pathname: '/info', query: { model: modelName } }}
-            className="w-full h-[37px] font-normal border-2 border-white flex items-center justify-center"
+            className="w-full h-[37px] font-normal border-2 border-white flex items-center justify-center max-[1366px]:max-w-[120px]"
           >
             시승신청
           </Link>

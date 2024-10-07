@@ -99,7 +99,7 @@ const ModelColor: React.FC<ModelColorProps> = ({ exterior }) => {
 
   return (
     <section className="h-screen bg-slate-900 relative overflow-hidden">
-      <nav className="z-10 text-[#666666] inline-flex flex-col gap-y-[40px] absolute top-[160px] left-[160px]">
+      <nav className="z-[5] text-[#666666] inline-flex flex-col gap-y-[40px] absolute top-[160px] left-[160px]">
         <ul className="text-[30px] flex gap-x-[24px]">
           <li
             className={`cursor-pointer hover:cursor-pointer ${isGroupActive(groupName1)}`}
@@ -118,12 +118,12 @@ const ModelColor: React.FC<ModelColorProps> = ({ exterior }) => {
         </ul>
         <ul className="text-[24px] text-[#666666] flex flex-col gap-y-[10px]">{colorState.node}</ul>
       </nav>
-      <figure className="absolute aspect-[16/9] w-[1900px] min-w-[1300px] left-[50%] translate-x-[-50%] bottom-[-100px] z-0">
+      <figure className="absolute aspect-[16/9] w-[1900px] min-w-[1300px] left-[50%] translate-x-[-50%] bottom-[-100px] z-[4]">
         {colorState.imageSource !== '' ? (
-          <Image className="w-full absolute" fill sizes="100%" style={{objectFit:"contain"}} src={colorState.imageSource} alt="" />
+          <Image className="w-full absolute z-1" fill sizes="100%" style={{objectFit:"contain"}} src={colorState.imageSource} alt="" />
         ) : null}
       </figure>
-      <div className="absolute bottom-0 left-0 w-full h-[300px] bg-gradient-to-b from-[#6A6C72] to-[#303135] opacity-30 blur"></div>
+      <div className="absolute bottom-0 left-0 w-full h-[300px] bg-gradient-to-b from-[#6A6C72] to-[#303135] opacity-30 blur z-[1]"></div>
     </section>
   );
 };
