@@ -1,7 +1,9 @@
 import LoginForm from './LoginForm';
 
 export function generateMetadata() {
+  const metadataBase = new URL('https://genisisu.vercel.app');
   return {
+    metadataBase,
     title: '로그인 - GENISISU',
     description: 'GENISISU 로그인 페이지',
     openGraph: {

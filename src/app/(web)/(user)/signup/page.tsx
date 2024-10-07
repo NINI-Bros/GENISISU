@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import SignupForm from './SignupForm';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://genisisu.vercel.app'),
   title: '회원가입 - GENISISU',
   description: 'GENISISU 회원가입 페이지',
   openGraph: {

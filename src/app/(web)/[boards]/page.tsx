@@ -13,7 +13,9 @@ import { useSession } from '@/hook/session';
 
 // export function generateMetadata({ params }: { params: { boards: string } }): Metadata {
 //   const boardName = params.boards;
+//   const metadataBase = new URL('https://genisisu.vercel.app');
 //   return {
+//     metadataBase,
 //     title: `${boardName} - 전시시승`,
 //     description: `${boardName} 게시판입니다.`,
 //     openGraph: {

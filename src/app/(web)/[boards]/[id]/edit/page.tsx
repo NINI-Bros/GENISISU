@@ -11,7 +11,9 @@ export function generateMetadata({ params }: { params: { boards: string; id: str
   } else {
     board = '고객지원';
   }
+  const metadataBase = new URL('https://genisisu.vercel.app');
   return {
+    metadataBase,
     title: `${board} 게시글 수정 - GENISISU`,
     description: `${board} 게시글 수정 페이지.`,
     openGraph: {
