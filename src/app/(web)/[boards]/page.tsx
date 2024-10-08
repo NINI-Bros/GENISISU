@@ -41,6 +41,7 @@ export default function Page({ params }: { params: { boards: string } }) {
     tableTitle01: '제목',
     tableTitle02: '작성자',
     tableTitle03: '작성일',
+    btnTitle:''
   });
 
   // 서버액션 함수 (페이지네이션, 검색)
@@ -72,13 +73,14 @@ export default function Page({ params }: { params: { boards: string } }) {
           tableTitle01: '시승신청 모델',
           tableTitle02: '신청자',
           tableTitle03: '시승 신청일',
+          btnTitle: '신청하기',
         }));
         break;
       case 'qna':
-        setBoardTitle((prev) => ({ ...prev, title: '고객지원' }));
+        setBoardTitle((prev) => ({ ...prev, title: '고객지원' , btnTitle: '문의하기', }));
         break;
       case 'info':
-        setBoardTitle((prev) => ({ ...prev, title: '공지사항' }));
+        setBoardTitle((prev) => ({ ...prev, title: '공지사항', btnTitle: '작성하기', }));
         break;
       default:
         setBoardTitle((prev) => ({ ...prev }));
@@ -112,18 +114,18 @@ export default function Page({ params }: { params: { boards: string } }) {
 
   // 로그인 & 공지사항에 따른 버튼 표기 분기
   const ApplyBtn = () => {
-    if (params.boards === 'notice' && session?.user?.type !== 'admin') {
+    if (params.boards === 'info' && session?.user?.type !== 'admin') {
       return null;
-    } else if (params.boards === 'notice' && session?.user?.type === 'admin') {
+    } else if (params.boards === 'info' && session?.user?.type === 'admin') {
       return (
         <Link href={`/${params.boards}/new`} className="btnBasic">
-          공지작성
+          {boardTitle.btnTitle}
         </Link>
       );
     } else {
       return (
         <Link href={`/${params.boards}/new`} className="btnBasic">
-          신청하기
+          {boardTitle.btnTitle}
         </Link>
       );
     }
@@ -139,7 +141,7 @@ export default function Page({ params }: { params: { boards: string } }) {
           </h2>
         </div>
 
-        <div className="flex justify-end mr-4 mb-8 h-[45px] gap-x-[10px] max-[1366px]:justify-between max-[1366px]:mx-0 max-[1366px]:gap-x-[3%] max-[1366px]:px-[7%]">
+        <div className="flex justify-end mr-[360px] mb-8 h-[45px] gap-x-[10px] max-[1366px]:justify-between max-[1366px]:mx-0 max-[1366px]:gap-x-[3%] max-[1366px]:px-[7%]">
           {/* <Search /> */}
           <div className="grid grid-cols-[auto_80px] max-[1366px]:w-full">
             <input
@@ -161,14 +163,20 @@ export default function Page({ params }: { params: { boards: string } }) {
           <ApplyBtn />
         </div>
 
-        <section className="pt-10">
+        <section className="pt-10 px-[360px] max-[1366px]:px-0">
           <table className="border-collapse w-full table-fixed">
             <colgroup>
-              <col className="w-[80%] sm:w-[49%]" />
+              {/* <col className="w-[80%] sm:w-[49%]" />
               <col className="w-[20%] sm:w-[25%]" />
               <col className="w-0 sm:w-[8%]" />
               <col className="w-0 sm:w-[8%]" />
-              <col className="w-0 sm:w-[15%]" />
+              <col className="w-0 sm:w-[15%]" /> */}
+
+              <col className="w-[80%] sm:w-[68%]" />
+              <col className="w-[20%] sm:w-[8%]" />
+              <col className="w-0 sm:w-[8%]" />
+              <col className="w-0 sm:w-[8%]" />
+              <col className="w-0 sm:w-[8%]" />
             </colgroup>
             <thead>
               <tr className="border-b border-solid border-gray-600">
