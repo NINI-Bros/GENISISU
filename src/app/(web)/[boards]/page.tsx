@@ -166,12 +166,6 @@ export default function Page({ params }: { params: { boards: string } }) {
         <section className="pt-10 px-[360px] max-[1366px]:px-0">
           <table className="border-collapse w-full table-fixed">
             <colgroup>
-              {/* <col className="w-[80%] sm:w-[49%]" />
-              <col className="w-[20%] sm:w-[25%]" />
-              <col className="w-0 sm:w-[8%]" />
-              <col className="w-0 sm:w-[8%]" />
-              <col className="w-0 sm:w-[15%]" /> */}
-
               <col className="w-[80%] sm:w-[68%]" />
               <col className="w-[20%] sm:w-[8%]" />
               <col className="w-0 sm:w-[8%]" />
