@@ -43,8 +43,8 @@ export default function RootLayout({
           <div className="childrenWrap">
             {children}
             <SideBar />
-            <Analytics />
-            <SpeedInsights />
+            {/* <Analytics /> */}
+            {/* <SpeedInsights /> */}
           </div>
           <Footer />
         </SessionProvider>

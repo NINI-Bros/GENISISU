@@ -3,7 +3,9 @@ import { fetchVehicles } from '@/data/fetch/productFetch';
 import ModelCard from './ModelCard';
 
 export function generateMetadata() {
+  const metadataBase = new URL('https://genisisu.vercel.app');
   return {
+    metadataBase,
     title: '모델 - GENISISU',
     description: 'GENISISU 모델 목록 페이지',
     openGraph: {
