@@ -34,6 +34,7 @@ export interface BoardTitle {
   tableTitle01: string;
   tableTitle02: string;
   tableTitle03: string;
+  btnTitle: string;
 }
 
 export interface ListState {
