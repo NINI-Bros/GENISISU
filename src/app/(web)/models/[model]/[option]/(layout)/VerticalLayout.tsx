@@ -29,16 +29,18 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
   const modelOptionData = optionData[0].extra.option[optionName][modelName];
   const [storedValue, setValue] = useLocalStorage<Cart>('cart', {
     model: modelName,
-    price: initialPrice
+    price: initialPrice,
   });
 
   const defaultMapData = {
     item: storedValue.option?.[optionName]?.name || modelOptionData[0].topText,
-    price: storedValue.option?.[optionName]?.price || modelOptionData[0].price
+    price: storedValue.option?.[optionName]?.price || modelOptionData[0].price,
   };
   let defaultImage = SERVER + modelOptionData[0].image?.path || '';
   defaultImage = storedValue.option?.[optionName]?.detailImage || defaultImage;
-  const clickedOptionRef = useRef<Map<string, string | number>>(new Map(Object.entries(defaultMapData)));
+  const clickedOptionRef = useRef<Map<string, string | number>>(
+    new Map(Object.entries(defaultMapData))
+  );
 
   const handleOptionClick = (optionItem: string, optionIndex: number, optionPrice: number) => {
     clickedOptionRef.current.clear();
@@ -46,10 +48,12 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
     clickedOptionRef.current.set('price', optionPrice);
     const newImage = SERVER + modelOptionData[optionIndex].image?.path;
     let newPrice = 0;
-    if (storedValue.option?.[optionName]) { // 해당 옵션을 선택한 적 있는 경우
+    if (storedValue.option?.[optionName]) {
+      // 해당 옵션을 선택한 적 있는 경우
       const basePrice = storedValue.price - storedValue.option[optionName].price;
-      newPrice = basePrice + optionPrice; 
-    } else { // 해당 옵션을 선택한 적 없는 경우
+      newPrice = basePrice + optionPrice;
+    } else {
+      // 해당 옵션을 선택한 적 없는 경우
       newPrice = storedValue.price + optionPrice;
     }
     setOptionState({
@@ -65,9 +69,9 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
         [optionName]: {
           name: optionItem,
           price: optionPrice,
-          detailImage: newImage
-        }
-      }
+          detailImage: newImage,
+        },
+      },
     });
   };
 
@@ -83,11 +87,11 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
         <tr
           key={topText + index}
           onClick={() => handleOptionClick(topText, index, price)}
-          className={`grid grid-cols-[250px_1fr] auto-rows-[66px] items-center text-[30px] ${isOptionActive(topText)} gap-x-[30px] border-t-[1px] ${isBolder} border-[#a4a4a4] pl-[15px] cursor-pointer`}
+          className={`grid grid-cols-[250px_1fr] auto-rows-[66px] items-center text-[30px] ${isOptionActive(
+            topText
+          )} gap-x-[30px] border-t-[1px] ${isBolder} border-[#a4a4a4] pl-[15px] cursor-pointer`}
         >
-          <td className="font-Hyundai-sans text-[22px] break-keep">
-            {topText}
-          </td>
+          <td className="font-Hyundai-sans text-[22px] break-keep">{topText}</td>
           <td className="font-Hyundai-sans text-[22px]" data-value="">
             + {price.toLocaleString('ko-KR')} 원
           </td>
@@ -125,9 +129,9 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
         [optionName]: {
           name: clickedOptionRef.current!.get('item') as string,
           price: clickedOptionRef.current!.get('price') as number,
-          detailImage: optionState.imageSource
-        }
-      }
+          detailImage: optionState.imageSource,
+        },
+      },
     });
   };
 
@@ -137,9 +141,19 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
         {/* 옵션명 */}
         <article className="w-full col-start-2 flex flex-col gap-y-[30px] items-center mt-[-80px]">
           <figure className="aspect-[2/1] w-full max-h-[500px] relative ">
-            <Image src={optionState.imageSource} fill sizes='100%' priority className='absolute top-0 left-0' style={{objectFit:"contain"}} alt="" />
+            <Image
+              src={optionState.imageSource}
+              fill
+              sizes="100%"
+              priority
+              className="absolute top-0 left-0"
+              style={{ objectFit: 'contain' }}
+              alt=""
+            />
           </figure>
-          <h4 className="justify-self-center text-[16px]">상기 이미지는 차량의 대표 이미지로 적용되어 있습니다.</h4>
+          <h4 className="justify-self-center text-[16px]">
+            상기 이미지는 차량의 대표 이미지로 적용되어 있습니다.
+          </h4>
           <article className="w-full max-h-[180px] overflow-scroll">
             <table className="w-full">
               <tbody>
@@ -152,14 +166,31 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
 
         {/* 화살표 이동 버튼 */}
         <div className="grid grid-cols-[60px_60px] grid-rows-[50px] gap-x-[20px] absolute top-[620px] left-[80px]">
-          <button className='bg-black border-[0.5px] border-white w-full h-full' onClick={(e) => clickButton(e, 'prev')}>
-            <figure className='relative w-full h-[75%]'>
-              <Image className='absolute top-0 left-0' fill sizes='100%' src="/images/btn_prev.png" alt="버튼 좌측 이미지" style={{objectFit:"contain"}}/>
+          <button
+            className="bg-black border-[0.5px] border-white w-full h-full"
+            onClick={(e) => clickButton(e, 'prev')}
+          >
+            <figure className="relative w-full h-[75%]">
+              <Image
+                className="absolute top-0 left-0"
+                fill
+                sizes="100%"
+                src="/images/btn_prev.png"
+                alt="버튼 좌측 이미지"
+                style={{ objectFit: 'contain' }}
+              />
             </figure>
           </button>
-          <button className='bg-white w-full h-full' onClick={clickButton}>
-            <figure className='relative w-full h-[75%]'>
-              <Image className='absolute top-0 left-0' fill sizes='100%' src="/images/btn_next_b.png" alt="버튼 좌측 이미지" style={{objectFit:"contain"}}/>
+          <button className="bg-white w-full h-full" onClick={clickButton}>
+            <figure className="relative w-full h-[75%]">
+              <Image
+                className="absolute top-0 left-0"
+                fill
+                sizes="100%"
+                src="/images/btn_next_b.png"
+                alt="버튼 좌측 이미지"
+                style={{ objectFit: 'contain' }}
+              />
             </figure>
           </button>
         </div>
@@ -174,7 +205,6 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
             </span>
           </aside>
         </div>
-
       </section>
     </>
   );

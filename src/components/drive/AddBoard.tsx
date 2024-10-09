@@ -28,16 +28,12 @@ export default function AddBoard({
   const { places } = useModelStore();
   const textColor = isMain ? 'text-white' : 'text-black';
   const isBbs = isMain ? '' : 'bbs';
-  const bgColor = isMain
-    ? ''
-    : 'font-bold hover:border-transparent hover:bg-black hover:text-white';
   const {
     register,
     setValue: setFormValue,
     watch,
     handleSubmit,
     formState: { errors, isLoading, isSubmitted },
-    setError,
   } = useForm<PostForm>();
 
   const [modelNames, setModelNames] = useState<string[]>([
@@ -234,7 +230,7 @@ export default function AddBoard({
                 <Link href={`/${params.boards}/${params.id}`} className="mainBtn bbs kr">
                   취소
                 </Link>
-                <Submit onClick={handleSubmit(editPost)} className={`mainBtn kr`}>
+                <Submit onClick={handleSubmit(editPost)} className={`mainBtn kr ${isBbs}`}>
                   수정
                 </Submit>
               </>

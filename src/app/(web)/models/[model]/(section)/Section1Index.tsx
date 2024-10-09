@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import useLocalStorage from '@/hook/useLocalStorage';
 import extractTitle from '@/data/extractTitle';
 import { useEffect } from 'react';
-import { useSelectReset, useSelectState } from '@/zustand/useSelectStore';
+import { useSelectReset } from '@/zustand/useSelectStore';
 import Image from 'next/image';
 
 interface Section1IndexProps {
@@ -26,9 +26,9 @@ export default function Section1Index({ modelIndex, modelData, imageArray }: Sec
   };
   const [storedValue, setValue] = useLocalStorage<Cart>('cart', initialValue);
   useEffect(() => {
-    // 초기화 안하려면 제거
     resetCartItem();
     window.localStorage.setItem('cart', JSON.stringify(initialValue));
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const router = useRouter();
