@@ -14,7 +14,7 @@ export interface UserData extends CommonType {
   address?: string;
   type: 'user' | 'seller' | 'admin' | 'guest';
   loginType?: 'email' | 'kakao' | 'google' | 'naver' | 'genesis' | 'github';
-  image: string;
+  image?: string;
   token?: {
     accessToken: string;
     refreshToken: string;

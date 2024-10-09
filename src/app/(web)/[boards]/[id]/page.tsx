@@ -76,6 +76,7 @@ export function generateStaticParams() {
 }
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
+const CLIENT = process.env.NEXT_PUBLIC_CLIENT_ID;
 
 export default async function Page({ params }: { params: { boards: string; id: string } }) {
   // const item = await model.post.detail(Number(params.id));
@@ -90,7 +91,9 @@ export default async function Page({ params }: { params: { boards: string; id: s
   } else {
     board = '고객지원 게시글';
   }
-  const profileImage = SERVER + item.user.image;
+  const profileImage = item.user.image
+    ? SERVER + item.user.image
+    : `${SERVER}/files/${CLIENT}/user-jayg.webp`;
 
   return (
     <main className="bg-white px-40 py-20 max-[1366px]:px-4 max-[1366px]:py-8">
@@ -109,7 +112,7 @@ export default async function Page({ params }: { params: { boards: string; id: s
           <div>
             <span className="block text-black text-sm">
               {/* {item.user.name} */}
-              {item.extra?.name}
+              {item.name}
             </span>
             <time
               className="block text-[#aaa] text-sm font-normal"
