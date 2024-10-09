@@ -1,7 +1,7 @@
 {
   "extends": ["next/core-web-vitals", "prettier"],
   "rules": {
-    "indent": ["error", 2, { "SwitchCase": 1 }], // 들여쓰기 2칸만 허용
+    "indent": ["warn", 2, { "SwitchCase": 1, "ignoredNodes": ["ObjectExpression"] }], // 들여쓰기 2칸만 허용, 객체 무시, 경고로 설정
     "no-var": "error", // var 키워드 사용 금지
     "require-await": "error", // async 함수 내부에 await 키워드가 없으면 오류 발생
     "eqeqeq": "warn" // ==, != 대신에 ===, !== 사용

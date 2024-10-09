@@ -31,7 +31,7 @@ export default function ListItem({ item, params }: { item: Post; params: { board
       </td>
       {/* <td className="p-2 text-center truncate">{item.user.name}</td> */}
       <td className="p-2 text-center truncate max-[1366px]:pl-0 max-[1366px]:pr-[7%] max-[1366px]:text-left">
-        {item.extra?.name}
+        {item.user.name}
       </td>
       <td className="p-2 text-center hidden sm:table-cell">{item.views}</td>
       <td className="p-2 text-center hidden sm:table-cell">{item.repliesCount}</td>
