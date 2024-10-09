@@ -112,7 +112,7 @@ export default async function Page({ params }: { params: { boards: string; id: s
           <div>
             <span className="block text-black text-sm">
               {/* {item.user.name} */}
-              {item.name}
+              {item.name || '익명'}
             </span>
             <time
               className="block text-[#aaa] text-sm font-normal"

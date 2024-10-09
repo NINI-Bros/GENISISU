@@ -6,7 +6,7 @@ import { useSession } from '@/hook/session';
 import { PostComment } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
-const CLIENT = process.env.NEXT_CLIENT_ID;
+const CLIENT = process.env.NEXT_PUBLIC_CLIENT_ID;
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
 // deletePost
@@ -24,7 +24,6 @@ export default function CommentItem({
   const session = useSession();
   const userId = session?.user?.id;
   const userType = session?.user?.type;
-
   const image = item.user.image
     ? SERVER + item.user?.image
     : `${SERVER}/files/${CLIENT}/user-jayg.webp`;
@@ -36,7 +35,7 @@ export default function CommentItem({
           <Image fill sizes="100%" src={image} alt="프로필 이미지" />
         </figure>
         <Link href="" className="font-medium text-lg">
-          {item.user?.name}
+          {item.user?.name || '익명'}
         </Link>
         <time
           className="ml-auto text-[#aaa] text-sm"
