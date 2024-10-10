@@ -10,7 +10,12 @@ export default function ListItem({ item, params }: { item: Post; params: { board
   const handleDetailView = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     if (session?.user?.type !== 'admin' && params.boards === 'drive') {
-      alert('관리자 권한이 필요합니다.');
+      let confirmText = confirm('관리자 권한이 필요합니다.\n관리자로 로그인 하시겠습니까?');
+      if (confirmText) {
+        route.push('/login')
+      } else {
+        return;
+      }
     } else {
       route.push(`/${item.type}/${item._id}`);
     }
@@ -26,7 +31,7 @@ export default function ListItem({ item, params }: { item: Post; params: { board
       </td>
       {/* <td className="p-2 text-center truncate">{item.user.name}</td> */}
       <td className="p-2 text-center truncate max-[1366px]:pl-0 max-[1366px]:pr-[7%] max-[1366px]:text-left">
-        {item.extra?.name}
+        {item.user.name}
       </td>
       <td className="p-2 text-center hidden sm:table-cell">{item.views}</td>
       <td className="p-2 text-center hidden sm:table-cell">{item.repliesCount}</td>

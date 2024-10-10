@@ -4,7 +4,7 @@ import { FieldError, FieldErrors, UseFormRegister } from 'react-hook-form';
 import InputError from '../InputError';
 
 interface InputProps {
-  id: 'title' | 'extra' | 'phone' | 'content';
+  id: 'title' | 'name' | 'phone' | 'content';
   placeholder: string;
   register: UseFormRegister<PostForm>;
   errors: FieldErrors<PostForm>;
@@ -24,12 +24,11 @@ export default function Input({
   isWarningMargin,
   handleChange,
 }: InputProps): ReactElement {
-  const tagLabel = id === 'extra' ? 'name' : id;
   return (
     <div className={`flex-1 ${isWarningMargin(errors[id])}`}>
       {/* <div className={`flex-1 mb-[20px]`}> */}
       <label className="block text-lg mb-2" htmlFor={`${id}`}>
-        {tagLabel.toUpperCase()}
+        {id.toUpperCase()}
       </label>
       {id === 'content' ? (
         <textarea

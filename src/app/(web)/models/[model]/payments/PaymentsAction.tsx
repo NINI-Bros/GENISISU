@@ -176,6 +176,11 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
       totalAmount: totalSum,
       currency: 'CURRENCY_KRW',
       payMethod: 'CARD',
+      windowType : { 
+        pc : 'IFRAME',
+        mobile : 'REDIRECTION'
+      },
+      redirectUrl:'https://genisisu.vercel.app/models/paymentsComplete',
     });
 
     if (response?.code !== undefined) {
@@ -193,6 +198,7 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
           // 주문 정보...
         }),
       });
+      // 모바일이 아닌 pc버전으로 결제요청 들어갈 경우 이 route.push로 리다이렉트 됌
       route.push('/models/paymentsComplete');
       return alert('결제가 완료되었습니다');
     }

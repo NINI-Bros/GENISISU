@@ -3,7 +3,7 @@
 import { useModelStore } from '@/zustand/useModel';
 import { usePathname, useRouter } from 'next/navigation';
 import Button from '@/components/Button';
-import { useSelectReset, useSelectState, useSelectUpdate } from '@/zustand/useSelectStore';
+import { useSelectReset, useSelectState } from '@/zustand/useSelectStore';
 import { Cart } from '@/types/product';
 import useLocalStorage from '@/hook/useLocalStorage';
 import { useEffect, useState } from 'react';

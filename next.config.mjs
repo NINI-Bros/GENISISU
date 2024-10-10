@@ -19,6 +19,7 @@ const nextConfig = {
       },
     ],
   },
+  // eslint-disable-next-line require-await
   async redirects() {
     return [
       {

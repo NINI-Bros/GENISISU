@@ -8,12 +8,12 @@ import Input from './Input';
 import { useEffect, useState } from 'react';
 import { FieldError, useForm } from 'react-hook-form';
 import { PostForm } from '@/types';
-import { notFound } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 import InputError from '../InputError';
 import { useModelStore } from '@/zustand/useModel';
 import { fetchPost } from '@/data/fetch/postFetch';
 
-type InputKeyType = keyof Pick<PostForm, 'title' | 'extra' | 'phone' | 'address' | 'content'>;
+type InputKeyType = keyof Pick<PostForm, 'title' | 'name' | 'phone' | 'address' | 'content'>;
 
 export default function AddBoard({
   params,
@@ -24,20 +24,17 @@ export default function AddBoard({
   isMain?: boolean;
   isEdit?: boolean;
 }) {
+  const router = useRouter();
   const isWarningMargin = (fieldError: FieldError | undefined) => (fieldError ? 'mb-1' : 'mb-7');
   const { places } = useModelStore();
   const textColor = isMain ? 'text-white' : 'text-black';
   const isBbs = isMain ? '' : 'bbs';
-  const bgColor = isMain
-    ? ''
-    : 'font-bold hover:border-transparent hover:bg-black hover:text-white';
   const {
     register,
     setValue: setFormValue,
     watch,
     handleSubmit,
     formState: { errors, isLoading, isSubmitted },
-    setError,
   } = useForm<PostForm>();
 
   const [modelNames, setModelNames] = useState<string[]>([
@@ -49,12 +46,23 @@ export default function AddBoard({
   const addPost = async (postData: PostForm) => {
     // 프로그래밍 방식으로 서버액션 호출
     const resData = await createPost(postData);
-    console.log(resData);
-    if (resData.ok) {
-      alert(`게시글이 작성되었습니다.`);
-    } else if (!resData.ok) {
+    // console.log('Response from createPost in addPost', resData); // 확인용 로그
+
+    if (resData?.ok) {
+      let alertText = '';
+      if (params.boards === 'drive') {
+        alertText = '시승 신청이 완료되었습니다.\n곧 담당자가 연락드릴 예정입니다.\n감사합니다.';
+      } else if (params.boards === 'qna') {
+        alertText =
+          '문의가 성공적으로 등록되었습니다.\n빠른 시일 내에 답변드리겠습니다.\n감사합니다.';
+      } else if (params.boards === 'info') {
+        alertText = '게시글이 성공적으로 작성되었습니다.';
+      }
+      alert(alertText);
+      router.push(`/${params.boards}`);
+    } else if (!resData?.ok) {
       // API 서버의 에러 메시지 처리
-      alert(resData.message);
+      alert(resData?.message);
     }
   };
 
@@ -79,15 +87,13 @@ export default function AddBoard({
         const resPost = await fetchPost(params.id!);
         // console.log(resPost);
         if (resPost === null) notFound();
-        const inputKeyArray = ['title', 'extra', 'phone', 'address', 'content'];
+        const inputKeyArray = ['title', 'name', 'phone', 'address', 'content'];
         Object.keys(resPost)
           .filter((key) => inputKeyArray.includes(key))
           .forEach((key) => {
             let inputKey: InputKeyType = key as InputKeyType;
             let inputValue = '';
-            if (inputKey === 'extra') {
-              inputValue = resPost.extra!.name;
-            } else if (inputKey === 'title' && params.boards === 'drive') {
+            if (inputKey === 'title' && params.boards === 'drive') {
               inputValue = resPost.title.replace(' 차량 시승 신청합니다.', '');
             } else {
               inputValue = resPost[inputKey];
@@ -134,9 +140,9 @@ export default function AddBoard({
           </div>
           <div className="flex gap-16 max-[1366px]:gap-0 bbs_child">
             <Input
-              id="extra"
+              id="name"
               placeholder="성함을 남겨주세요"
-              value={values['extra'] || ''}
+              value={values['name'] || ''}
               register={register}
               errors={errors}
               isWarningMargin={isWarningMargin}
@@ -234,7 +240,7 @@ export default function AddBoard({
                 <Link href={`/${params.boards}/${params.id}`} className="mainBtn bbs kr">
                   취소
                 </Link>
-                <Submit onClick={handleSubmit(editPost)} className={`mainBtn kr`}>
+                <Submit onClick={handleSubmit(editPost)} className={`mainBtn kr ${isBbs}`}>
                   수정
                 </Submit>
               </>
