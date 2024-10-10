@@ -9,7 +9,7 @@ export default function Section6Spec({ spec }: { spec: Spec }) {
     .filter((item) => item !== 'engine' && item !== 'images')
     .map((item, idx) => {
       return (
-        <tr key={idx} className="grid grid-cols-2 gap-x-[120px]">
+        <tr key={idx} className="grid grid-cols-2 gap-x-[120px] max-[1366px]:gap-x-[50px] items-center">
           <th className="text-left">{item.toUpperCase()}</th>
           <td className="text-center">{spec[item]}</td>
         </tr>
@@ -19,7 +19,7 @@ export default function Section6Spec({ spec }: { spec: Spec }) {
     .filter((item) => item !== 'image' && item !== 'title')
     .map((item, idx) => {
       return (
-        <tr key={idx} className="grid grid-cols-2 gap-x-[120px]">
+        <tr key={idx} className="grid grid-cols-2 gap-x-[120px] max-[1366px]:gap-x-[50px] items-center">
           <th className="text-left">{item.toUpperCase()}</th>
           <td className="text-center">{spec.engine[0][item]}</td>
         </tr>
@@ -28,9 +28,9 @@ export default function Section6Spec({ spec }: { spec: Spec }) {
   // console.log(list);
 
   return (
-    <section className="bg-white text-black py-[200px] box-border flex flex-col items-center gap-y-[270px]">
+    <section className="bg-white text-black py-[200px] box-border flex flex-col items-center gap-y-[270px] max-[1366px]:py-[50px] max-[1366px]:gap-y-[100px] max-[1366px]:px-[7%]">
       <article className="flex flex-col items-center">
-        <h2 className="text-[50px]">제품 엔진 스펙</h2>
+        <h2 className="text-[50px] max-[1366px]:text-2xl">제품 엔진 스펙</h2>
         <table>
           <tbody>
             {/* 엔진이 3개일때 grid-cols-4, 2개일때는 grid-cols-3, 1개일때는 grid-cols-2 */}
@@ -39,7 +39,7 @@ export default function Section6Spec({ spec }: { spec: Spec }) {
 
               {/* default - 엔진1개 */}
               <td className="col-span-2">
-                <figure className="w-[1000px] h-[500px]">
+                <figure className="max-w-[1000px] aspect-[2/1]">
                   <Image
                     src={engineImage}
                     width={0}
@@ -49,7 +49,7 @@ export default function Section6Spec({ spec }: { spec: Spec }) {
                     alt=""
                   />
                 </figure>
-                <h3 className="text-[30px] mb-[120px] text-center">{spec.engine[0].title}</h3>
+                <h3 className="text-[30px] mb-[120px] text-center max-[1366px]:text-xl">{spec.engine[0].title}</h3>
               </td>
 
               {/* 엔진이 1개일 때 써주세요 */}
@@ -77,8 +77,8 @@ export default function Section6Spec({ spec }: { spec: Spec }) {
           </tbody>
         </table>
 
-        <table className="text-[30px]">
-          <tbody className="flex flex-col gap-y-[40px]">
+        <table className="text-[30px] max-[1366px]:text-base">
+          <tbody className="flex flex-col gap-y-[40px] max-[1366px]:gap-y-[20px]">
             {/* 2번째, 3번째 엔진이 추가될때마다 td를 복사해서 넣어주셔야 합니다*/}
             {/* 엔진이 3개일때 tr마다 grid-cols-4, 2개일때는 grid-cols-3, 1개일때는 grid-cols-2 */}
             {listEngineSpec}
@@ -87,8 +87,8 @@ export default function Section6Spec({ spec }: { spec: Spec }) {
         </table>
       </article>
       <article className="flex flex-col items-center">
-        <h2 className="text-[50px] mb-[120px]">제품 외장 스펙</h2>
-        <div className="grid grid-cols-[repeat(3,400px)] auto-rows-auto">
+        <h2 className="text-[50px] mb-[120px] max-[1366px]:text-2xl max-[1366px]:mb-[50px]">제품 외장 스펙</h2>
+        <div className="grid grid-cols-[repeat(3,400px)] auto-rows-auto max-[1366px]:grid-cols-[minmax(auto_,400px)]">
           {/* 엔진 갯수가 추가될때마다 img 태그 복사해서 경로붙여넣어주세요 */}
           <figure className="relative aspect-[1/1]">
             <Image src={SERVER + spec.images[0].path} alt="" fill sizes="100%" style={{objectFit:"contain"}}/>

@@ -19,7 +19,7 @@ export default function Section2Intro({ abstract }: Section2IntroProps) {
       </article>
       <figure className="relative w-full overflow-hidden opacity-60 top-0 left-0 z-1">
         <video
-          className="fixed top-0 bg-cover w-full"
+          className="fixed top-0 object-cover w-screen h-screen"
           src={source}
           muted={true}
           autoPlay={true}
