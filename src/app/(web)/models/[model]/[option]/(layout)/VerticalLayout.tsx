@@ -87,12 +87,12 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
         <tr
           key={topText + index}
           onClick={() => handleOptionClick(topText, index, price)}
-          className={`grid grid-cols-[250px_1fr] auto-rows-[66px] items-center text-[30px] ${isOptionActive(
+          className={`grid grid-cols-[250px_1fr] auto-rows-[66px] items-center text-[30px] max-[1366px]: ${isOptionActive(
             topText
-          )} gap-x-[30px] border-t-[1px] ${isBolder} border-[#a4a4a4] pl-[15px] cursor-pointer`}
+          )} gap-x-[30px] border-t-[1px] ${isBolder} border-[#a4a4a4] pl-[15px] cursor-pointer max-[1366px]:pl-0 max-[1366px]:grid-cols-2`}
         >
-          <td className="font-Hyundai-sans text-[22px] break-keep">{topText}</td>
-          <td className="font-Hyundai-sans text-[22px]" data-value="">
+          <td className="font-Hyundai-sans text-[22px] break-keep max-[1366px]:text-base">{topText}</td>
+          <td className="font-Hyundai-sans text-[22px] max-[1366px]:text-base" data-value="">
             + {price.toLocaleString('ko-KR')} 원
           </td>
         </tr>
@@ -137,9 +137,9 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
 
   return (
     <>
-      <section className="h-screen grid grid-cols-[400px_auto_280px] gap-x-[4rem] pr-[3rem] relative items-center">
+      <section className="h-screen grid grid-cols-[400px_auto_280px] gap-x-[4rem] pr-[3rem] relative items-center max-[1366px]:grid-cols-1 max-[1366px]:pr-0">
         {/* 옵션명 */}
-        <article className="w-full col-start-2 flex flex-col gap-y-[30px] items-center mt-[-80px]">
+        <article className="w-full col-start-2 flex flex-col gap-y-[30px] items-center mt-[-80px] max-[1366px]:col-start-1 max-[1366px]:px-[7%]">
           <figure className="aspect-[2/1] w-full max-h-[500px] relative ">
             <Image
               src={optionState.imageSource}
@@ -151,7 +151,7 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
               alt=""
             />
           </figure>
-          <h4 className="justify-self-center text-[16px]">
+          <h4 className="justify-self-center text-base max-[1366px]:text-sm">
             상기 이미지는 차량의 대표 이미지로 적용되어 있습니다.
           </h4>
           <article className="w-full max-h-[180px] overflow-scroll">
@@ -197,11 +197,12 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
 
         {/* 예상가격 */}
         <div className="h-full">
-          <aside className="sticky top-[calc(100vh_-120px)] bg-black font-Hyundai-sans border-[1px] border-[#666] flex flex-col pl-[35px] pt-[10px]">
-            <p className="text-[15px] text-[#a4a4a4]">예상 가격</p>
-            <span className="text-[30px] font-bold mt-[-10px]">
+          <aside className="sticky top-[calc(100vh_-120px)] bg-black font-Hyundai-sans border-[1px] border-[#666] flex flex-col pl-[35px] pt-[10px] 
+                max-[1366px]:pl-0 max-[1366px]:flex-row max-[1366px]:py-[10px] max-[1366px]:items-center justify-center max-[1366px]:gap-x-[20px]">
+            <p className="text-[15px] text-[#a4a4a4] max-[1366px]:text-xl">예상 가격</p>
+            <span className="text-[30px] font-bold mt-[-10px] max-[1366px]:text-xl max-[1366px]:mt-0">
               {optionState.newPrice.toLocaleString('ko-KR')}
-              <span className="text-[20px] align-middle"> 원</span>
+              <span className="text-[20px] align-middle max-[1366px]:text-xl"> 원</span>
             </span>
           </aside>
         </div>
