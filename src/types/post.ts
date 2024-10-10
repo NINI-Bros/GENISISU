@@ -18,7 +18,7 @@ export interface Post {
   title: string;
   phone: string;
   model: string;
-  extra?: { name: string };
+  name: string;
   address: string;
   content: string;
   user: Pick<UserData, '_id' | 'name' | 'image'>;
@@ -48,7 +48,7 @@ export interface ListState {
 export type PostForm = {
   boardName: 'drive' | 'info' | 'qna';
   title: string;
-  extra: string;
+  name: string;
   phone: string;
   address?: string;
   content: string;

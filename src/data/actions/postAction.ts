@@ -11,14 +11,11 @@ const CLIENT = process.env.NEXT_PUBLIC_CLIENT_ID;
 // 게시물 등록
 export async function createPost(postForm: PostForm): Promise<ApiRes<SingleItem<Post>>> {
   const session = await auth();
-  const boardName = postForm.boardName;
   const postData = {
     type: postForm.boardName,
     title:
       postForm.boardName === 'drive' ? postForm.title + ' 차량 시승 신청합니다.' : postForm.title,
-    extra: {
-      name: postForm.extra,
-    },
+    name: postForm.name,
     phone: postForm.phone,
     address: postForm.address,
     content: postForm.content,
@@ -27,20 +24,23 @@ export async function createPost(postForm: PostForm): Promise<ApiRes<SingleItem<
   try {
     const res = await fetch(`${SERVER}/posts`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session?.accessToken}`,
-        'client-Id': CLIENT,
-      },
+      headers: session
+        ? {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${session?.accessToken}`,
+            'client-Id': CLIENT,
+          }
+        : {
+            'Content-Type': 'application/json',
+            'client-Id': CLIENT,
+          },
       body: JSON.stringify(postData),
     });
-
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`);
     }
-
     const response = await res.json();
-    setTimeout(redirect(`/${boardName}`), 100);
+    // console.log('Response from createPost:', response); // 서버 응답 확인
     return response;
   } catch (err) {
     console.error('Error adding post:', err);
@@ -56,9 +56,7 @@ export async function updatePost(postForm: PostForm): Promise<ApiRes<SingleItem<
   const postData = {
     type: postForm.boardName,
     title: postForm.title,
-    extra: {
-      name: postForm.extra,
-    },
+    name: postForm.name,
     phone: postForm.phone,
     address: postForm.address,
     content: postForm.content,
@@ -75,7 +73,7 @@ export async function updatePost(postForm: PostForm): Promise<ApiRes<SingleItem<
   });
   // redirect(`/${boardName}/${postId}`);
   setTimeout(redirect(`/${boardName}/${postId}`), 100);
-  return res.json();
+  return await res.json();
 }
 
 // 게시물 삭제
@@ -91,7 +89,7 @@ export async function deletePost(formData: FormData): Promise<CoreRes> {
     },
   });
   setTimeout(redirect(`/${boardName}`), 100);
-  return res.json();
+  return await res.json();
 }
 
 // 여기서부터 댓글 영역
@@ -113,7 +111,7 @@ export async function addComment(replyForm: PostComment): Promise<SingleItem<Pos
     body: JSON.stringify(commentData),
   });
   setTimeout(redirect(`/${boardName}/${postId}`), 100);
-  return res.json();
+  return await res.json();
 }
 
 export async function deleteComment(formData: FormData): Promise<CoreRes> {
@@ -131,5 +129,5 @@ export async function deleteComment(formData: FormData): Promise<CoreRes> {
   });
   // console.log(res);
   setTimeout(redirect(`/${boardName}/${postId}`), 100);
-  return res.json();
+  return await res.json();
 }

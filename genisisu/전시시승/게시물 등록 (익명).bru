@@ -1,0 +1,20 @@
+meta {
+  name: 게시물 등록 (익명)
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{URL}}/posts
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "게스트1",
+    "type": "drive",
+    "title": "익명 게시글 타이틀",
+    "content": "익명 게시글 콘텐츠"
+  }
+}
