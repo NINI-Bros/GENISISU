@@ -13,7 +13,7 @@ export interface UserData extends CommonType {
   phone?: string;
   address?: string;
   type: 'user' | 'seller' | 'admin' | 'guest';
-  loginType?: 'email' | 'kakao' | 'google' | 'naver' | 'genesis' | 'github';
+  loginType?: 'email' | 'kakao' | 'google' | 'naver' | 'genesis' | 'hyundai' | 'github';
   image?: string;
   token?: {
     accessToken: string;

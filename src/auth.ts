@@ -2,6 +2,8 @@ import NextAuth, { CredentialsSignin } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import github from 'next-auth/providers/github';
 import google from 'next-auth/providers/google';
+import naver from 'next-auth/providers/naver';
+import kakao from 'next-auth/providers/kakao';
 import { OAuthUser, RefreshTokenRes, UserData, UserLoginForm } from './types';
 import { login, loginOAuth, signupWithOAuth } from './data/actions/userAction';
 import jwt, { JwtPayload } from 'jsonwebtoken';
@@ -53,9 +55,13 @@ export const {
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
-    github({
-      clientId: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    naver({
+      clientId: process.env.NAVER_CLIENT_ID,
+      clientSecret: process.env.NAVER_CLIENT_SECRET,
+    }),
+    kakao({
+      clientId: process.env.KAKAO_CLIENT_ID,
+      clientSecret: process.env.KAKAO_CLIENT_SECRET,
     }),
     // genesis({
     //   clientId: process.env.GENESIS_CLIENT_ID,
@@ -105,6 +111,7 @@ export const {
         case 'google':
         case 'kakao':
         case 'naver':
+        case 'hyundai':
         case 'genesis':
           console.log('OAuth 로그인', user);
           /*

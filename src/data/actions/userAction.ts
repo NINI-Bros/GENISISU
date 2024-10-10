@@ -17,6 +17,7 @@ import {
 import { redirect } from 'next/navigation';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
+const CLIENT = process.env.NEXT_PUBLIC_CLIENT_ID;
 
 export async function signup(
   formData: FormData
@@ -37,7 +38,7 @@ export async function signup(
     const fileRes = await fetch(`${SERVER}/files`, {
       method: 'POST',
       headers: {
-        'client-id': process.env.NEXT_PUBLIC_CLIENT_ID,
+        'client-id': CLIENT,
       },
       body: formData,
     });
@@ -53,7 +54,7 @@ export async function signup(
   const res = await fetch(`${SERVER}/users`, {
     method: 'POST',
     headers: {
-      'client-id': process.env.NEXT_PUBLIC_CLIENT_ID,
+      'client-id': CLIENT,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(userData),
@@ -64,7 +65,7 @@ export async function signup(
   return signupData;
 }
 
-// email/password 로그인
+// Auth.js 기반 아이디/패스워드 인증 로직
 export async function signInWithCredentials(
   loginData: UserLoginForm
 ): Promise<ApiResWithValidation<SingleItem<UserForm>, UserLoginForm>> {
@@ -92,7 +93,7 @@ export async function login(
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'client-Id': process.env.NEXT_PUBLIC_CLIENT_ID,
+      'client-Id': CLIENT,
     },
     body: JSON.stringify(userObj),
   });
@@ -106,7 +107,7 @@ export async function signupWithOAuth(
   const res = await fetch(`${SERVER}/users/signup/oauth`, {
     method: 'POST',
     headers: {
-      'client-id': process.env.NEXT_PUBLIC_CLIENT_ID,
+      'client-id': CLIENT,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(user),
@@ -120,7 +121,7 @@ export async function loginOAuth(providerAccountId: string): Promise<ApiRes<Sing
   const res = await fetch(`${SERVER}/users/login/with`, {
     method: 'POST',
     headers: {
-      'client-id': process.env.NEXT_PUBLIC_CLIENT_ID,
+      'client-id': CLIENT,
       'Content-type': 'application/json',
     },
     body: JSON.stringify({ providerAccountId }),
@@ -128,18 +129,54 @@ export async function loginOAuth(providerAccountId: string): Promise<ApiRes<Sing
   return res.json();
 }
 
-export async function signInWithGoogle(formData: FormData) {
-  await signIn('google', { redirectTo: `/?email=${formData.get('email')}` });
+// DB 카카오 로그인
+export async function loginWithKakao(
+  code: string, // 카카오 인증 코드
+  redirectUri: string, // 카카오 인가 코드 받기 API에 사용한 redirect_uri 값
+  user: Partial<UserData> = {} // 추가적인 사용자 정보
+): Promise<ApiRes<SingleItem<UserData>> | undefined> {
+  const userData = {
+    code,
+    redirect_uri: redirectUri,
+    user,
+  };
+  const res = await fetch(`${SERVER}/users/login/kakao`, {
+    method: 'POST',
+    headers: {
+      'client-id': `${CLIENT}`,
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify(userData),
+  });
+  return await res.json();
 }
 
-export async function signInWithGenesis(formData: FormData) {
-  await signIn('genesis', { redirectTo: `/?email=${formData.get('email')}` });
+// 구글 로그인
+export async function signInWithGoogle() {
+  await signIn('google', { redirectTo: '/' });
 }
 
-export async function signInWithNaver(formData: FormData) {
-  await signIn('naver', { redirectTo: `/?email=${formData.get('email')}` });
+// 제네시스 로그인
+export async function signInWithGenesis() {
+  await signIn('genesis', { redirectTo: '/' });
 }
 
-export async function signInWithGithub(formData: FormData) {
-  await signIn('github', { redirectTo: `/?email=${formData.get('email')}` });
+// 현대 로그인
+export async function signInWithHyundai() {
+  await signIn('genesis', { redirectTo: '/' });
+}
+
+// 네이버 로그인
+export async function signInWithNaver() {
+  await signIn('naver', { redirectTo: '/' });
+}
+
+// 카카오 로그인
+export async function signInWithKakao() {
+  await signIn('kakao', { redirectTo: '/' });
+}
+
+// 깃허브 로그인
+export async function signInWithGithub() {
+  await signIn('github', { redirectTo: '/' });
 }
