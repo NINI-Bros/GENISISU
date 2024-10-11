@@ -10,7 +10,7 @@ export default function Section6Spec({ spec }: { spec: Spec }) {
     .map((item, idx) => {
       return (
         <tr key={idx} className="grid grid-cols-2 gap-x-[120px] max-[1366px]:gap-x-[50px] items-center">
-          <th className="text-left">{item.toUpperCase()}</th>
+          <th className="text-left">{item}</th>
           <td className="text-center">{spec[item]}</td>
         </tr>
       );
@@ -20,7 +20,7 @@ export default function Section6Spec({ spec }: { spec: Spec }) {
     .map((item, idx) => {
       return (
         <tr key={idx} className="grid grid-cols-2 gap-x-[120px] max-[1366px]:gap-x-[50px] items-center">
-          <th className="text-left">{item.toUpperCase()}</th>
+          <th className="text-left">{item}</th>
           <td className="text-center">{spec.engine[0][item]}</td>
         </tr>
       );
@@ -39,7 +39,7 @@ export default function Section6Spec({ spec }: { spec: Spec }) {
 
               {/* default - 엔진1개 */}
               <td className="col-span-2">
-                <figure className="max-w-[1000px] aspect-[2/1]">
+                <figure className="max-w-[1000px] aspect-[2/1] max-[1366px]:my-[30px]">
                   <Image
                     src={engineImage}
                     width={0}
@@ -49,7 +49,7 @@ export default function Section6Spec({ spec }: { spec: Spec }) {
                     alt=""
                   />
                 </figure>
-                <h3 className="text-[30px] mb-[120px] text-center max-[1366px]:text-xl">{spec.engine[0].title}</h3>
+                <h3 className="text-[30px] mb-[120px] text-center max-[1366px]:text-xl max-[1366px]:mb-[30px]">{spec.engine[0].title}</h3>
               </td>
 
               {/* 엔진이 1개일 때 써주세요 */}

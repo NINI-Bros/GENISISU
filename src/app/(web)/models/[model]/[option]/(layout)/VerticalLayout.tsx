@@ -17,6 +17,23 @@ interface VerticalLayoutProps {
   optionData: Option[];
 }
 
+interface OptionList {
+  [key: string]: string;
+}
+
+const optionList: OptionList = {
+  detail: '모델 상세',
+  engine: '엔진 타입',
+  drivetrain: '구동 타입',
+  passenger: '시트 구성',
+  exterior: '외장 컬러',
+  interior: '내장디자인 & 컬러',
+  garnish: '내장가니쉬',
+  wheel: '휠 & 타이어',
+  add: '선택 품목',
+  payments: '결제',
+};
+
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
 // 1번레이아웃_중앙 정렬 옵션
@@ -74,6 +91,10 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
       },
     });
   };
+
+  const changeOptionKrName = () => {
+
+  }
 
   const isOptionActive = (option: string) =>
     clickedOptionRef.current.get('item') === option ? 'text-white' : 'text-[#666666]';
@@ -137,9 +158,45 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
 
   return (
     <>
-      <section className="h-screen grid grid-cols-[400px_auto_280px] gap-x-[4rem] pr-[3rem] relative items-center max-[1366px]:grid-cols-1 max-[1366px]:pr-0">
+      <section className="h-screen grid grid-cols-[400px_auto_280px] gap-x-[4rem] pr-[3rem] relative items-center max-[1366px]:mt-[20px] 
+                        max-[1366px]:grid-cols-1 max-[1366px]:pr-0 max-[1366px]:grid-rows-[80px_calc(100vh_-210px)_50px] max-[1366px]:h-full">
+        {/* 모바일에서만 보여질 상단바 */}
+        <aside className='hidden max-[1366px]:flex justify-between items-center gap-x-[20px] max-w-[200px] h-full justify-self-center'>
+          <button
+              className="border-none w-[20px] h-[30px]"
+              onClick={(e) => clickButton(e, 'prev')}
+            >
+              <figure className="relative w-full h-[75%]">
+                <Image
+                  className="absolute top-0 left-0"
+                  fill
+                  sizes="100%"
+                  src="/images/btn_prev.png"
+                  alt="버튼 좌측 이미지"
+                  style={{ objectFit: 'contain' }}
+                />
+              </figure>
+          </button>
+          <div className='flex flex-col items-center'>
+            <h2 className='text-[20px] text-center leading-none font-black font-Hyundai-sans after:w-full after:bg-white after:block after:h-[1px]'>{modelName.split('-').join(' ').toUpperCase()}</h2>
+            <h3 className='mt-[10px]'>{optionList[optionName]}</h3>
+          </div>
+          <button className="border-none w-[20px] h-[30px]" onClick={clickButton}>
+            <figure className="relative w-full h-[75%]">
+              <Image
+                className="absolute top-0 left-0"
+                fill
+                sizes="100%"
+                src="/images/btn_next.png"
+                alt="버튼 좌측 이미지"
+                style={{ objectFit: 'contain' }}
+              />
+            </figure>
+          </button>
+        </aside>
+        
         {/* 옵션명 */}
-        <article className="w-full col-start-2 flex flex-col gap-y-[30px] items-center mt-[-80px] max-[1366px]:col-start-1 max-[1366px]:px-[7%]">
+        <article className="w-full col-start-2 flex flex-col gap-y-[30px] items-center mt-[-80px] max-[1366px]:col-start-1 max-[1366px]:px-[7%] max-[1366px]:gap-y-0 max-[1366px]:mt-0 max-[1366px]:max-h-[calc(100vh_-220px)] max-[1366px]:mb-[30px]">
           <figure className="aspect-[2/1] w-full max-h-[500px] relative ">
             <Image
               src={optionState.imageSource}
@@ -151,10 +208,10 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
               alt=""
             />
           </figure>
-          <h4 className="justify-self-center text-base max-[1366px]:text-sm">
+          <h4 className="justify-self-center text-base max-[1366px]:text-sm max-[1366px]:mb-[50px] max-[1366px]:text-[#666]">
             상기 이미지는 차량의 대표 이미지로 적용되어 있습니다.
           </h4>
-          <article className="w-full max-h-[180px] overflow-scroll">
+          <article className="w-full">
             <table className="w-full">
               <tbody>
                 {/* 옵션 항목 렌더링 */}
@@ -165,7 +222,7 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
         </article>
 
         {/* 화살표 이동 버튼 */}
-        <div className="grid grid-cols-[60px_60px] grid-rows-[50px] gap-x-[20px] absolute top-[620px] left-[80px]">
+        <div className="grid grid-cols-[60px_60px] grid-rows-[50px] gap-x-[20px] absolute top-[620px] left-[80px] max-[1366px]:hidden">
           <button
             className="bg-black border-[0.5px] border-white w-full h-full"
             onClick={(e) => clickButton(e, 'prev')}
@@ -198,7 +255,7 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
         {/* 예상가격 */}
         <div className="h-full">
           <aside className="sticky top-[calc(100vh_-120px)] bg-black font-Hyundai-sans border-[1px] border-[#666] flex flex-col pl-[35px] pt-[10px] 
-                max-[1366px]:pl-0 max-[1366px]:flex-row max-[1366px]:py-[10px] max-[1366px]:items-center justify-center max-[1366px]:gap-x-[20px]">
+                max-[1366px]:pl-0 max-[1366px]:flex-row max-[1366px]:py-0 max-[1366px]:items-center justify-center max-[1366px]:gap-x-[20px] max-[1366px]:h-full">
             <p className="text-[15px] text-[#a4a4a4] max-[1366px]:text-xl">예상 가격</p>
             <span className="text-[30px] font-bold mt-[-10px] max-[1366px]:text-xl max-[1366px]:mt-0">
               {optionState.newPrice.toLocaleString('ko-KR')}

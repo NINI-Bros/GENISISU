@@ -881,7 +881,7 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
 
                 <section className="border-b-[1px] border-[#a4a4a4] w-full py-[10px]">
                   <div className="grid grid-cols-[auto_1fr] items-center gap-x-[1rem]">
-                    <h3 className="font-Hyundai-sans font-light text-[20px]">차량배송지</h3>
+                    <h3 className="font-Hyundai-sans font-light text-[20px]">차량 배송지</h3>
                     {addrTax.detailAddr === '' ? (
                       <div className="text-gray-400 text-right max-[1366px]:text-[12px]">
                         (배송지 미지정)
