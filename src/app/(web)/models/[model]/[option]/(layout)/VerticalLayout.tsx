@@ -108,11 +108,12 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
         <tr
           key={topText + index}
           onClick={() => handleOptionClick(topText, index, price)}
-          className={`grid grid-cols-[250px_1fr] auto-rows-[66px] items-center text-[30px] max-[1366px]: ${isOptionActive(
+          className={`grid grid-cols-[250px_1fr] auto-rows-[66px] items-center text-[30px] ${isOptionActive(
             topText
-          )} gap-x-[30px] border-t-[1px] ${isBolder} border-[#a4a4a4] pl-[15px] cursor-pointer max-[1366px]:pl-0 max-[1366px]:grid-cols-2`}
+          )} gap-x-[30px] border-t-[1px] ${isBolder} border-[#a4a4a4] pl-[15px] cursor-pointer 
+              max-[1366px]:pl-0 max-[1366px]:grid-cols-[1fr_110px]`}
         >
-          <td className="font-Hyundai-sans text-[22px] break-keep max-[1366px]:text-base">{topText}</td>
+          <td className="text-[22px] break-keep max-[1366px]:text-base">{topText}</td>
           <td className="font-Hyundai-sans text-[22px] max-[1366px]:text-base" data-value="">
             + {price.toLocaleString('ko-KR')} 원
           </td>
@@ -158,46 +159,44 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
 
   return (
     <>
-      <section className="h-screen grid grid-cols-[400px_auto_280px] gap-x-[4rem] pr-[3rem] relative items-center max-[1366px]:mt-[20px] 
-                        max-[1366px]:grid-cols-1 max-[1366px]:pr-0 max-[1366px]:grid-rows-[80px_calc(100vh_-210px)_50px] max-[1366px]:h-full">
+      <section className="h-screen grid grid-cols-[400px_auto_280px] gap-x-[4rem] pr-[3rem] relative items-center
+                        max-[1366px]:grid-cols-1 max-[1366px]:pr-0 max-[1366px]:grid-rows-[max-content_auto] max-[1366px]:min-h-0 max-[1366px]:h-min">
         {/* 모바일에서만 보여질 상단바 */}
-        <aside className='hidden max-[1366px]:flex justify-between items-center gap-x-[20px] max-w-[200px] h-full justify-self-center'>
-          <button
-              className="border-none w-[20px] h-[30px]"
-              onClick={(e) => clickButton(e, 'prev')}
-            >
-              <figure className="relative w-full h-[75%]">
+        <aside className='hidden max-[1366px]:flex flex-col items-center w-full h-min justify-self-center px-[7%] mt-[60px]'>
+          <h2 className='text-[28px] w-full text-center leading-none font-black font-Hyundai-sans border-b-[1px] border-[#666] pb-[1%]'>{modelName.split('-').join(' ').toUpperCase()}</h2>
+          <div className='w-full grid grid-cols-[1fr_2fr_1fr] auto-rows-[20px] pt-[3%]'>
+
+            <button className="border-none w-full relative" onClick={(e) => clickButton(e, 'prev')}>
+                <figure className="absolute aspect-[1/2] h-full top-0 left-[30%]">
+                  <Image
+                    className="absolute top-0 left-0"
+                    fill
+                    sizes="100%"
+                    src="/images/btn_prev.png"
+                    alt="버튼 좌측 이미지"
+                    style={{ objectFit: 'contain' }}
+                  />
+                </figure>
+            </button>
+            <h3 className='leading-none text-[20px] justify-self-center'>{optionList[optionName]}</h3>
+            <button className="border-none w-full relative" onClick={clickButton}>
+              <figure className="absolute aspect-[1/2] h-full top-0 right-[30%]">
                 <Image
                   className="absolute top-0 left-0"
                   fill
                   sizes="100%"
-                  src="/images/btn_prev.png"
+                  src="/images/btn_next.png"
                   alt="버튼 좌측 이미지"
                   style={{ objectFit: 'contain' }}
                 />
               </figure>
-          </button>
-          <div className='flex flex-col items-center'>
-            <h2 className='text-[20px] text-center leading-none font-black font-Hyundai-sans after:w-full after:bg-white after:block after:h-[1px]'>{modelName.split('-').join(' ').toUpperCase()}</h2>
-            <h3 className='mt-[10px]'>{optionList[optionName]}</h3>
+            </button>
           </div>
-          <button className="border-none w-[20px] h-[30px]" onClick={clickButton}>
-            <figure className="relative w-full h-[75%]">
-              <Image
-                className="absolute top-0 left-0"
-                fill
-                sizes="100%"
-                src="/images/btn_next.png"
-                alt="버튼 좌측 이미지"
-                style={{ objectFit: 'contain' }}
-              />
-            </figure>
-          </button>
         </aside>
         
         {/* 옵션명 */}
-        <article className="w-full col-start-2 flex flex-col gap-y-[30px] items-center mt-[-80px] max-[1366px]:col-start-1 max-[1366px]:px-[7%] max-[1366px]:gap-y-0 max-[1366px]:mt-0 max-[1366px]:max-h-[calc(100vh_-220px)] max-[1366px]:mb-[30px]">
-          <figure className="aspect-[2/1] w-full max-h-[500px] relative ">
+        <article className="w-full col-start-2 flex flex-col gap-y-[30px] items-center mt-[-80px] max-[1366px]:col-start-1 max-[1366px]:px-[7%] max-[1366px]:gap-y-0 max-[1366px]:my-[50px]">
+          <figure className="aspect-[16/9] w-full max-h-[500px] relative max-[1366px]:h-min ">
             <Image
               src={optionState.imageSource}
               fill
@@ -253,7 +252,7 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
         </div>
 
         {/* 예상가격 */}
-        <div className="h-full">
+        <div className="h-full max-[1366px]:hidden">
           <aside className="sticky top-[calc(100vh_-120px)] bg-black font-Hyundai-sans border-[1px] border-[#666] flex flex-col pl-[35px] pt-[10px] 
                 max-[1366px]:pl-0 max-[1366px]:flex-row max-[1366px]:py-0 max-[1366px]:items-center justify-center max-[1366px]:gap-x-[20px] max-[1366px]:h-full">
             <p className="text-[15px] text-[#a4a4a4] max-[1366px]:text-xl">예상 가격</p>
@@ -263,7 +262,17 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
             </span>
           </aside>
         </div>
+
       </section>
+      {/* 모바일 예상가격 */}
+      <aside className="hidden sticky bottom-[60px] z-10 bg-black border-[1px] border-[#666] max-[1366px]:flex flex-row pl-0 py-[10px]
+                        items-center justify-center gap-x-[20px] mx-[7%] text-xl">
+        <p className="text-[#a4a4a4]">예상 가격</p>
+        <span className="font-bold font-Hyundai-sans">
+          {optionState.newPrice.toLocaleString('ko-KR')}
+          <span className="align-middle"> 원</span>
+        </span>
+      </aside>
     </>
   );
 }

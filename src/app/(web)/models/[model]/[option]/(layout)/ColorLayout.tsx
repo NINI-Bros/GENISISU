@@ -232,53 +232,50 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
   return (
     <>
       <section className="min-h-screen relative grid grid-cols-[400px_auto_280px] gap-x-[4rem] pr-[3rem] box-border items-center 
-                        max-[1366px]:grid-cols-1 max-[1366px]:grid-rows-[80px_auto] max-[1366px]:pr-0 max-[1366px]:mt-[20px] max-[1366px]:min-h-0">
+                        max-[1366px]:grid-cols-1 max-[1366px]:grid-rows-[max-content_auto] max-[1366px]:pr-0 max-[1366px]:min-h-0">
         
         {/* 모바일에서만 보여질 상단바 */}
-        <aside className='hidden max-[1366px]:flex justify-between items-center gap-x-[20px] 
-                        max-[1366px]:row-start-1 max-w-[200px] justify-self-center h-full'>
-          <button
-              className="border-none w-[20px] h-[30px]"
-              onClick={(e) => clickButton(e, 'prev')}
-            >
-              <figure className="relative w-full h-[75%]">
+        <aside className='hidden max-[1366px]:flex flex-col items-center w-full h-min justify-self-center px-[7%] mt-[60px]'>
+          <h2 className='text-[28px] w-full text-center leading-none font-black font-Hyundai-sans border-b-[1px] border-[#666] pb-[1%]'>{modelName.split('-').join(' ').toUpperCase()}</h2>
+          <div className='w-full grid grid-cols-[1fr_2fr_1fr] auto-rows-[20px] pt-[3%]'>
+
+            <button className="border-none w-full relative" onClick={(e) => clickButton(e, 'prev')}>
+                <figure className="absolute aspect-[1/2] h-full top-0 left-[30%]">
+                  <Image
+                    className="absolute top-0 left-0"
+                    fill
+                    sizes="100%"
+                    src="/images/btn_prev.png"
+                    alt="버튼 좌측 이미지"
+                    style={{ objectFit: 'contain' }}
+                  />
+                </figure>
+            </button>
+            <h3 className='leading-none text-[20px] justify-self-center'>{optionList[optionName]}</h3>
+            <button className="border-none w-full relative" onClick={clickButton}>
+              <figure className="absolute aspect-[1/2] h-full top-0 right-[30%]">
                 <Image
                   className="absolute top-0 left-0"
                   fill
                   sizes="100%"
-                  src="/images/btn_prev.png"
+                  src="/images/btn_next.png"
                   alt="버튼 좌측 이미지"
                   style={{ objectFit: 'contain' }}
                 />
               </figure>
-          </button>
-          <div className='flex flex-col items-center'>
-            <h2 className='text-[20px] text-center leading-none font-black font-Hyundai-sans after:w-full after:bg-white after:block after:h-[1px]'>{modelName.split('-').join(' ').toUpperCase()}</h2>
-            <h3 className='mt-[10px]'>{optionList[optionName]}</h3>
+            </button>
           </div>
-          <button className="border-none w-[20px] h-[30px]" onClick={clickButton}>
-            <figure className="relative w-full h-[75%]">
-              <Image
-                className="absolute top-0 left-0"
-                fill
-                sizes="100%"
-                src="/images/btn_next.png"
-                alt="버튼 좌측 이미지"
-                style={{ objectFit: 'contain' }}
-              />
-            </figure>
-          </button>
         </aside>
         
         {/* 옵션명 */}
-        <article className="col-start-2 flex flex-col items-center w-full py-[80px] max-[1366px]:col-start-1 max-[1366px]:px-[7%] max-[1366px]:py-[0px] max-[1366px]:self-start max-[1366px]:mt-[20px]">
-          <figure className="w-full max-h-[500px] aspect-[2.4/1] relative">
+        <article className="col-start-2 flex flex-col items-center w-full py-[80px] max-[1366px]:col-start-1 max-[1366px]:px-[7%] max-[1366px]:py-[0px] max-[1366px]:self-start max-[1366px]:mt-[50px]">
+          <figure className="w-full max-h-[500px] aspect-[2.4/1] relative overflow-hidden">
             <Image
               src={optionState.imageSource}
               fill
               sizes="100%"
               alt=""
-              className="absolute"
+              className="absolute scale-150"
               style={{ objectFit: 'contain' }}
               priority
             />
@@ -334,12 +331,12 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
       </section>
 
       {/* 모바일 예상가격 */}
-      <aside className="hidden sticky bottom-[60px] z-10 bg-black font-Hyundai-sans border-[1px] border-[#666] max-[1366px]:flex flex-row pl-0 py-[10px]
-                        items-center justify-center gap-x-[20px]">
-        <p className="text-[15px] text-[#a4a4a4] max-[1366px]:text-xl">예상 가격</p>
-        <span className="text-[30px] font-bold mt-[-10px] max-[1366px]:text-xl max-[1366px]:mt-0">
+      <aside className="hidden sticky bottom-[60px] z-10 bg-black border-[1px] border-[#666] max-[1366px]:flex flex-row pl-0 py-[10px]
+                        items-center justify-center gap-x-[20px] mx-[7%] text-xl">
+        <p className="text-[#a4a4a4]">예상 가격</p>
+        <span className="font-bold font-Hyundai-sans">
           {optionState.newPrice.toLocaleString('ko-KR')}
-          <span className="text-[20px] align-middle max-[1366px]:text-xl"> 원</span>
+          <span className="align-middle"> 원</span>
         </span>
       </aside>
     </>
