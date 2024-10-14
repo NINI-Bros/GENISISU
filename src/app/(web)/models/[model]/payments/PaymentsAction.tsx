@@ -2,7 +2,6 @@
 
 import Button from '@/components/Button';
 import { useSession } from '@/hook/session';
-import useLocalStorage from '@/hook/useLocalStorage';
 import { AddrType } from '@/types/address';
 import { PaymentsActionProps, TaxOptions } from '@/types/payments';
 import { Cart, OptionItem } from '@/types/product';
@@ -50,7 +49,7 @@ const initialCart = {
 };
 
 export default function PaymentsAction({ vehicleInfo, optionData, params }: PaymentsActionProps) {
-  const [storedValue, setValue] = useLocalStorage<Cart>('cart',initialCart);
+  const [storedValue, setValue] = useState<Cart>(initialCart);
 
   const route = useRouter();
   const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
@@ -282,6 +281,8 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
   // 우편주소 지역 구분에 따른 세금 부과
   useEffect(() => {
     setOptionPrice(price - originMatch?.price);
+    const item = window.localStorage.getItem('cart');
+    item && setValue((prev) => ({ ...prev, ...JSON.parse(item) }));
 
     if (addrTax.detailAddr.split(' ')[0] === '서울') {
       // setNumCardTax(taxOptions.seoulNumcardCharge)
@@ -300,7 +301,7 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [addrTax.detailAddr]);
+  }, [addrTax.detailAddr, price, originMatch?.price]);
 
   // 옵션 선택값 로컬스토리지 선택값만 비교 후 컴포넌트 호출
   const OptionResultView = ({ type, option }: { type: string; option: OptionItem[] }) => {

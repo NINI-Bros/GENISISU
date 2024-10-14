@@ -314,7 +314,7 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
         {/* 옵션명 */}
         <article className="col-start-2 grid grid-cols-2 justify-center items-top max-w-[90vw] mt-[120px] mr-[100px] 
                             max-[1366px]:col-start-1 max-[1366px]:mr-0 max-[1366px]:justify-self-center max-[1366px]:mt-[50px] max-[1366px]:grid-cols-1 max-[1366px]:min-h-full max-[1366px]:self-start
-                            max-[1366px]:max-w-full max-[1366px]:px-[7%]">
+                            max-[1366px]:max-w-full max-[1366px]:px-[7%] max-[1366px]:w-full">
           <div className="flex flex-col mr-[40px] max-[1366px]:mr-0">
             {/* <figure className="w-[650px] h-[325px] relative"> */}
             <figure className="aspect-[16/9] relative">
