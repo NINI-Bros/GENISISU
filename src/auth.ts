@@ -1,4 +1,4 @@
-import NextAuth, { CredentialsSignin } from 'next-auth';
+import NextAuth, { CredentialsSignin, User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import github from 'next-auth/providers/github';
 import google from 'next-auth/providers/google';
@@ -10,6 +10,7 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import { fetchAccessToken } from './data/fetch/userFetch';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
+const CLIENT = process.env.NEXT_PUBLIC_CLIENT_ID;
 
 // OAuth2.0
 export const {
@@ -41,7 +42,7 @@ export const {
             image: user.image && SERVER + user.image,
             accessToken: user.token!.accessToken,
             refreshToken: user.token!.refreshToken,
-          };
+          } as User;
         } else {
           throw new CredentialsSignin(resJson.message, { cause: resJson });
         }
@@ -131,8 +132,8 @@ export const {
               type: 'user',
               loginType: account.provider,
               name: user.name || '',
-              email: user.email || '',
-              image: user.image || '',
+              email: user.email || `${Date.now()}@genisisu.com`,
+              image: user.image || `${SERVER}/files/${CLIENT}/user-jayg.webp`,
               extra: { ...profile, providerAccountId: account.providerAccountId },
             };
 
@@ -153,8 +154,8 @@ export const {
             console.error(err);
             throw err;
           }
-          user.id = String(userInfo?._id);
-          user.type = userInfo?.type;
+          user.id = String(userInfo._id);
+          user.type = userInfo.type;
           user.accessToken = userInfo.token!.accessToken;
           user.refreshToken = userInfo.token!.refreshToken;
           break;
@@ -166,7 +167,7 @@ export const {
     // JWT 토큰이 생성될 때, 업데이트될 때 호출
     // 로그인 성공한 회원 정보로 token 객체 설정
     // 최초 로그인시 user 객체 전달, 업데이트시나 세션 조회용으로 호출되면 user는 없음
-    async jwt({ token, user, trigger, session, account, profile }) {
+    async jwt({ token, user, trigger, session }) {
       console.log('jwt.user', user);
       // 토큰 만료 체크, refreshToken으로 accessToken 갱신
       // refreshToken도 만료되었을 경우 로그아웃 처리
@@ -178,14 +179,14 @@ export const {
       }
 
       // JWT 자체의 만료 시간 추출
-      const decodedToken = jwt.decode(token.accessToken) as JwtPayload | null;
+      const decodedToken = jwt.decode(token.accessToken as string) as JwtPayload | null;
       const accessTokenExpires = decodedToken?.exp ? decodedToken.exp * 1000 : 0; // ms 단위로 변환
       // 토큰 만료 확인
       const shouldRefreshToken = Date.now() > accessTokenExpires;
       if (shouldRefreshToken) {
         try {
           console.log('토큰 만료됨.', Date.now() + ' > ' + accessTokenExpires);
-          const res = await fetchAccessToken(token.refreshToken);
+          const res = await fetchAccessToken(token.refreshToken as string);
           if (res.ok) {
             const resJson: RefreshTokenRes = await res.json();
             return {
@@ -223,8 +224,8 @@ export const {
       console.log('session.user', session.user);
       session.user.id = token.id as string;
       session.user.type = token.type as string;
-      session.accessToken = token.accessToken;
-      session.refreshToken = token.refreshToken;
+      session.accessToken = token.accessToken as string;
+      session.refreshToken = token.refreshToken as string;
       return session;
     },
 
