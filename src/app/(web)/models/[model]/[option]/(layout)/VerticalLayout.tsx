@@ -23,19 +23,6 @@ interface OptionList {
   [key: string]: string;
 }
 
-const optionList: OptionList = {
-  detail: '모델 상세',
-  engine: '엔진 타입',
-  drivetrain: '구동 타입',
-  passenger: '시트 구성',
-  exterior: '외장 컬러',
-  interior: '내장디자인 & 컬러',
-  garnish: '내장가니쉬',
-  wheel: '휠 & 타이어',
-  add: '선택 품목',
-  payments: '결제',
-};
-
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
 // 1번레이아웃_중앙 정렬 옵션
@@ -94,9 +81,7 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
     });
   };
 
-  const changeOptionKrName = () => {
 
-  }
 
   const isOptionActive = (option: string) =>
     clickedOptionRef.current.get('item') === option ? 'text-white' : 'text-[#666666]';
@@ -157,6 +142,19 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
         },
       },
     });
+  };
+
+  const optionList: OptionList = {
+    detail: '모델 상세',
+    engine: '엔진 타입',
+    drivetrain: '구동 타입',
+    passenger: `${storedValue.model === 'g80' ? '스포츠 패키지' : '시트구성'}`,
+    exterior: '외장 컬러',
+    interior: '내장디자인 & 컬러',
+    garnish: '내장가니쉬',
+    wheel: '휠 & 타이어',
+    add: '선택 품목',
+    payments: '결제',
   };
 
   return (
