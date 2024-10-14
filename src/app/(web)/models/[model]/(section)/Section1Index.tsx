@@ -18,6 +18,7 @@ interface Section1IndexProps {
 }
 
 export default function Section1Index({ modelIndex, modelData, imageArray }: Section1IndexProps) {
+  const isOneImage = (arr: string[]) => arr.length === 1 ? 'scale-150' : '';
   const resetCartItem = useSelectReset();
   const { steps } = useModelStore();
   const initialValue = {
@@ -54,19 +55,19 @@ export default function Section1Index({ modelIndex, modelData, imageArray }: Sec
                           max-[1366px]:col-start-1 max-[1366px]:pb-0 max-[1366px]:h-[80%] max-[1366px]:mt-0
                           max-[1366px]:grid max-[1366px]:grid-rows-[250px_auto] max-[1366px]:w-full max-[1366px]:px-[7%]">
         {/* 이미지 영역 */}
-        <figure className="relative max-w-full aspect-[2/1] overflow-hidden max-[1366px]:row-start-2">
+        <figure className={`relative max-w-full aspect-[2/1] overflow-hidden max-[1366px]:row-start-2 max-[1366px]:${isOneImage(imageArray)}`}>
           {modelData && <ImageViewer images={imageArray} />}
         </figure>
 
         {/* 가격 표시 */}
         <div className="grid grid-cols-[auto_1fr_1fr] gap-y-[10px] gap-x-[3rem] self-center 
-                        max-[1366px]:grid-cols-1 max-[1366px]:gap-x-0 max-[1366px]:justify-items-center max-[1366px]:row-start-1 max-[1366px]:w-full">
+                        max-[1366px]:grid-cols-1 max-[1366px]:gap-x-0 max-[1366px]:gap-y-0 max-[1366px]:justify-items-center max-[1366px]:row-start-1 max-[1366px]:w-full">
           <h2 className="text-[50px] text-center font-Hyundai-sans self-center justify-self-center px-[10px] font-black flex flex-col items-center
                         max-[1366px]:text-[28px] max-[1366px]:max-w-full max-[1366px]:leading-none max-[1366px]:w-[95%] max-[1366px]:border-b-[1px] max-[1366px]:border-[#666]
-                        max-[1366px]:pb-[1%] max-[1366px]:mt-[1%] max-[1366px]:px-0">
+                        max-[1366px]:pb-[1%] max-[1366px]:mt-[4%] max-[1366px]:px-0 ">
             {modelName && uppercaseName}
           </h2>
-          <h3 className="text-[30px] text-[#a4a4a4] col-span-2 self-center max-[1366px]:text-base">
+          <h3 className="text-[30px] text-[#a4a4a4] col-span-2 self-center max-[1366px]:text-[20px] max-[1366px]:mt-[1%]">
             시작가격{' '}
             <span className="text-white font-Hyundai-sans">
               {modelPrice.toLocaleString('ko-KR')}

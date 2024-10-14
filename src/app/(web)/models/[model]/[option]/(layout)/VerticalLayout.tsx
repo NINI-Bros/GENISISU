@@ -162,19 +162,19 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
       <section className="h-screen grid grid-cols-[400px_auto_280px] gap-x-[4rem] pr-[3rem] relative items-center
                         max-[1366px]:grid-cols-1 max-[1366px]:pr-0 max-[1366px]:grid-rows-[max-content_auto] max-[1366px]:min-h-0 max-[1366px]:h-min">
         {/* 모바일에서만 보여질 상단바 */}
-        <aside className='hidden max-[1366px]:flex flex-col items-center w-full h-min justify-self-center px-[7%] mt-[60px]'>
+        <aside className='hidden max-[1366px]:flex flex-col items-center w-full h-min justify-self-center px-[7%] mt-[70px]'>
           <h2 className='text-[28px] w-[95%] text-center leading-none font-black font-Hyundai-sans border-b-[1px] border-[#666] pb-[1%]'>{modelName.split('-').join(' ').toUpperCase()}</h2>
-          <div className='w-full grid grid-cols-[1fr_2fr_1fr] auto-rows-[30px] items-center'>
+          <div className='w-full grid grid-cols-[1fr_2fr_1fr] auto-rows-[40px] items-center'>
 
             <button className="border-none w-full h-full relative text-[#666] hover:text-white" onClick={(e) => clickButton(e, 'prev')}>
-              <figure className="absolute aspect-[1/2] h-[20px] top-[50%] translate-y-[-50%] left-[15%]">
-                <FontAwesomeIcon icon={faChevronLeft} className='transition-colors'/>
+              <figure className="absolute aspect-[1/2] h-[25px] top-[50%] translate-y-[-50%] left-[15%]">
+                <FontAwesomeIcon icon={faChevronLeft} className='transition-colors text-[25px]'/>
               </figure>
             </button>
             <h3 className='leading-none text-[20px] justify-self-center'>{optionList[optionName]}</h3>
             <button className="border-none w-full h-full relative text-[#666] hover:text-white" onClick={clickButton}>
-              <figure className="absolute aspect-[1/2] h-[20px] top-[50%] translate-y-[-50%] right-[15%]">
-                <FontAwesomeIcon icon={faChevronRight} className=' transition-colors'/>
+              <figure className="absolute aspect-[1/2] h-[25px] top-[50%] translate-y-[-50%] right-[15%]">
+                <FontAwesomeIcon icon={faChevronRight} className=' transition-colors text-[25px]'/>
               </figure>
             </button>
           </div>

@@ -372,7 +372,7 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
         ) {
           return (
             <>
-              <td className="flex gap-x-[10px] max-[1366px]:grid max-[1366px]:grid-cols-[25px_,auto]">
+              <td className="flex gap-x-[10px] max-[1366px]:grid max-[1366px]:grid-cols-[25px_,auto] items-center">
                 <figure className="w-[25px] h-[25px] relative border-[1px] border-[#fff]">
                   <Image
                     src={option && SERVER + option?.[0].items?.[0].images?.[0].path}
@@ -394,7 +394,7 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
         } else if (storedValue.option?.[type] !== undefined) {
           return (
             <>
-              <td className="flex gap-x-[10px]">
+              <td className="flex gap-x-[10px] max-[1366px]:grid max-[1366px]:grid-cols-[25px_,auto] items-center">
                 <figure className="w-[25px] h-[25px] relative border-[1px] border-[#fff]">
                   <Image
                     src={(storedValue.option?.[type] && storedValue.option?.[type].image) || ''}
@@ -421,7 +421,7 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
         ) {
           return (
             <>
-              <td className="flex gap-x-[10px] max-[1366px]:grid max-[1366px]:grid-cols-[25px_,auto]">
+              <td className="flex gap-x-[10px] max-[1366px]:grid max-[1366px]:grid-cols-[25px_,auto] items-center">
                 <figure className="w-[25px] h-[25px] relative border-[1px] border-[#fff]">
                   <Image
                     src={option && SERVER + option?.[0].items?.[0].images?.[0].path}
@@ -434,7 +434,7 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
                 </figure>
                 <span className="whitespace-pre-line">{option?.[0].items?.[0].name}</span>
               </td>
-              <td className="text-right">
+              <td className="text-right items-center">
                 <span className="w-[50px] mr-[10px]">(기본)</span>
                 {option && option?.[0].items?.[0].price?.toLocaleString() + ' 원'}
               </td>
@@ -443,7 +443,7 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
         } else if (storedValue.option?.[type] !== undefined) {
           return (
             <>
-              <td className="flex gap-x-[10px]">
+              <td className="flex gap-x-[10px] items-center">
                 <figure className="w-[25px] h-[25px] relative border-[1px] border-[#fff]">
                   <Image
                     src={(storedValue.option?.[type] && storedValue.option?.[type].image) || ''}
@@ -454,7 +454,7 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
                     className="absolute top-0 left-0"
                   ></Image>
                 </figure>
-                <span className="break-keep">{storedValue.option?.[type].name.split('-')[1]}</span>
+                <span className="whitespace-break-spaces">{storedValue.option?.[type].name.split('-')[1]}</span>
               </td>
               <td className="text-right">{storedValue.option?.[type].price?.toLocaleString()}원</td>
             </>
@@ -593,13 +593,13 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
                     <td className="max-[1366px]:pl-[5%]">
                       <table className="w-full text-gray-400">
                         <tbody className="flex flex-col gap-y-[10px] h-full">
-                          <tr className="grid grid-cols-[100px_4fr_minmax(100px,auto)] gap-x-[5px] text-nowrap max-[1366px]:grid-cols-[70px_auto_minmax(50px,auto)] ">
+                          <tr className="grid grid-cols-[100px_4fr_minmax(100px,auto)] gap-x-[5px] text-nowrap max-[1366px]:grid-cols-[70px_auto_minmax(50px,auto)] items-center ">
                             <th className="mr-[15px] rounded-[10px] font-normal text-left max-[1366px]:mr-0">
                               외장 컬러
                             </th>
                             <OptionView type="exterior" option={optionExterior} />
                           </tr>
-                          <tr className="grid grid-cols-[100px_4fr_minmax(100px,auto)] gap-x-[5px] text-nowrap max-[1366px]:grid-cols-[70px_auto_minmax(50px,auto)] ">
+                          <tr className="grid grid-cols-[100px_4fr_minmax(100px,auto)] gap-x-[5px] text-nowrap max-[1366px]:grid-cols-[70px_auto_minmax(50px,auto)] items-center">
                             <th className="mr-[15px] rounded-[10px] font-normal text-left max-[1366px]:mr-0">
                               내장 컬러
                             </th>
