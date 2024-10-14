@@ -1,35 +1,16 @@
 'use client';
 
 import useLocalStorage from '@/hook/useLocalStorage';
-import { Cart, Option, Product } from '@/types/product';
+import { Cart } from '@/types/product';
 import { useModelStore } from '@/zustand/useModel';
 import { useSelectUpdate } from '@/zustand/useSelectStore';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ReactNode, useRef, useState } from 'react';
+import MobileTitleLayout from './MobileTitleLayout';
+import { HorizontalLayoutProps, OptionEventParams, OptionList } from '@/types/optionLayout';
+import MobilePriceLayout from './MobilePriceLayout';
 
-interface HorizontalLayoutProps {
-  params: {
-    model: string;
-    option: string;
-  };
-  modelData: Product | null;
-  optionData: Option[];
-}
-
-interface OptionEventParams {
-  optionGroup: string;
-  optionItem: string;
-  optionImage: string;
-  optionText: string;
-  optionPrice: number;
-}
-
-interface OptionList {
-  [key: string]: string;
-}
 
 const optionList: OptionList = {
   detail: '모델 상세',
@@ -291,25 +272,13 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
     <>
       <section className="h-screen relative grid grid-cols-[400px_auto] gap-x-[4rem] 
                         max-[1366px]:grid-cols-1 max-[1366px]:grid-rows-[max-content_auto] max-[1366px]:h-max max-[1366px]:mb-[50px]">
-
         {/* 모바일에서만 보여질 상단바 */}
-        <aside className='hidden max-[1366px]:flex flex-col items-center w-full h-min justify-self-center px-[7%] mt-[70px]'>
-          <h2 className='text-[28px] w-[95%] text-center leading-none font-black font-Hyundai-sans border-b-[1px] border-[#666] pb-[1%]'>{modelName.split('-').join(' ').toUpperCase()}</h2>
-          <div className='w-full grid grid-cols-[1fr_2fr_1fr] auto-rows-[40px] items-center'>
-
-            <button className="border-none w-full h-full relative text-[#666] hover:text-white" onClick={(e) => clickButton(e, 'prev')}>
-              <figure className="absolute aspect-[1/2] h-[25px] top-[50%] translate-y-[-50%] left-[15%]">
-                <FontAwesomeIcon icon={faChevronLeft} className='transition-colors text-[25px]'/>
-              </figure>
-            </button>
-            <h3 className='leading-none text-[20px] justify-self-center'>{optionList[optionName]}</h3>
-            <button className="border-none w-full h-full relative text-[#666] hover:text-white" onClick={clickButton}>
-              <figure className="absolute aspect-[1/2] h-[25px] top-[50%] translate-y-[-50%] right-[15%]">
-                <FontAwesomeIcon icon={faChevronRight} className=' transition-colors text-[25px]'/>
-              </figure>
-            </button>
-          </div>
-        </aside>
+        <MobileTitleLayout 
+          optionList={optionList} 
+          optionName={optionName} 
+          modelName={modelName}
+          clickBtn={clickButton}
+        />
         
         {/* 옵션명 */}
         <article className="col-start-2 grid grid-cols-2 justify-center items-top max-w-[90vw] mt-[120px] mr-[100px] 
@@ -389,14 +358,7 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
       </section>
 
       {/* 모바일 예상가격 */}
-      <aside className="hidden sticky bottom-[60px] z-10 bg-black  border-[1px] border-[#666] max-[1366px]:flex flex-row pl-0 py-[10px]
-                      items-center justify-center gap-x-[20px] mx-[7%] text-xl">
-        <p className="text-[#a4a4a4]">예상 가격</p>
-        <span className="font-bold font-Hyundai-sans">
-          {optionState.newPrice.toLocaleString('ko-KR')}
-          <span className="align-middle"> 원</span>
-        </span>
-      </aside>
+      <MobilePriceLayout mobilePrice={optionState.newPrice}/>
     </>
   );
 }

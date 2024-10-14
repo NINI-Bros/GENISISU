@@ -1,27 +1,15 @@
 'use client';
 
 import useLocalStorage from '@/hook/useLocalStorage';
-import { Cart, Option, OptionItem, Product } from '@/types/product';
+import { Cart, OptionItem } from '@/types/product';
 import { useModelStore } from '@/zustand/useModel';
 import { useSelectUpdate } from '@/zustand/useSelectStore';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ReactNode, useRef, useState } from 'react';
-
-interface VerticalLayoutProps {
-  params: {
-    model: string;
-    option: string;
-  };
-  modelData: Product | null;
-  optionData: Option[];
-}
-
-interface OptionList {
-  [key: string]: string;
-}
+import MobileTitleLayout from './MobileTitleLayout';
+import { OptionList, VerticalLayoutProps } from '@/types/optionLayout';
+import MobilePriceLayout from './MobilePriceLayout';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
@@ -80,8 +68,6 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
       },
     });
   };
-
-
 
   const isOptionActive = (option: string) =>
     clickedOptionRef.current.get('item') === option ? 'text-white' : 'text-[#666666]';
@@ -162,23 +148,12 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
       <section className="h-screen grid grid-cols-[400px_auto_280px] gap-x-[4rem] pr-[3rem] relative items-center
                         max-[1366px]:grid-cols-1 max-[1366px]:pr-0 max-[1366px]:grid-rows-[max-content_auto] max-[1366px]:min-h-0 max-[1366px]:h-min">
         {/* 모바일에서만 보여질 상단바 */}
-        <aside className='hidden max-[1366px]:flex flex-col items-center w-full h-min justify-self-center px-[7%] mt-[70px]'>
-          <h2 className='text-[28px] w-[95%] text-center leading-none font-black font-Hyundai-sans border-b-[1px] border-[#666] pb-[1%]'>{modelName.split('-').join(' ').toUpperCase()}</h2>
-          <div className='w-full grid grid-cols-[1fr_2fr_1fr] auto-rows-[40px] items-center'>
-
-            <button className="border-none w-full h-full relative text-[#666] hover:text-white" onClick={(e) => clickButton(e, 'prev')}>
-              <figure className="absolute aspect-[1/2] h-[25px] top-[50%] translate-y-[-50%] left-[15%]">
-                <FontAwesomeIcon icon={faChevronLeft} className='transition-colors text-[25px]'/>
-              </figure>
-            </button>
-            <h3 className='leading-none text-[20px] justify-self-center'>{optionList[optionName]}</h3>
-            <button className="border-none w-full h-full relative text-[#666] hover:text-white" onClick={clickButton}>
-              <figure className="absolute aspect-[1/2] h-[25px] top-[50%] translate-y-[-50%] right-[15%]">
-                <FontAwesomeIcon icon={faChevronRight} className=' transition-colors text-[25px]'/>
-              </figure>
-            </button>
-          </div>
-        </aside>
+        <MobileTitleLayout 
+          optionList={optionList} 
+          optionName={optionName} 
+          modelName={modelName}
+          clickBtn={clickButton}
+        />
         
         {/* 옵션명 */}
         <article className="w-full col-start-2 flex flex-col gap-y-[30px] items-center mt-[-80px] max-[1366px]:col-start-1 max-[1366px]:px-[7%] max-[1366px]:gap-y-0 max-[1366px]:my-[50px]">
@@ -251,14 +226,7 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
 
       </section>
       {/* 모바일 예상가격 */}
-      <aside className="hidden sticky bottom-[60px] z-10 bg-black border-[1px] border-[#666] max-[1366px]:flex flex-row pl-0 py-[10px]
-                        items-center justify-center gap-x-[20px] mx-[7%] text-xl">
-        <p className="text-[#a4a4a4]">예상 가격</p>
-        <span className="font-bold font-Hyundai-sans">
-          {optionState.newPrice.toLocaleString('ko-KR')}
-          <span className="align-middle"> 원</span>
-        </span>
-      </aside>
+      <MobilePriceLayout mobilePrice={optionState.newPrice}/>
     </>
   );
 }
