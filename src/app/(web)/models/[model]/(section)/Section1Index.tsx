@@ -18,7 +18,7 @@ interface Section1IndexProps {
 }
 
 export default function Section1Index({ modelIndex, modelData, imageArray }: Section1IndexProps) {
-  const isOneImage = (arr: string[]) => arr.length === 1 ? 'scale-150' : '';
+  const isOneImage = (arr: string[]) => arr.length === 1 ? 'max-[1366px]:scale-150' : '';
   const resetCartItem = useSelectReset();
   const { steps } = useModelStore();
   const initialValue = {
@@ -55,7 +55,7 @@ export default function Section1Index({ modelIndex, modelData, imageArray }: Sec
                           max-[1366px]:col-start-1 max-[1366px]:pb-0 max-[1366px]:h-[80%] max-[1366px]:mt-0
                           max-[1366px]:grid max-[1366px]:grid-rows-[250px_auto] max-[1366px]:w-full max-[1366px]:px-[7%]">
         {/* 이미지 영역 */}
-        <figure className={`relative max-w-full aspect-[2/1] overflow-hidden max-[1366px]:row-start-2 max-[1366px]:${isOneImage(imageArray)}`}>
+        <figure className={`relative max-w-full aspect-[2/1] overflow-hidden max-[1366px]:row-start-2 ${isOneImage(imageArray)}`}>
           {modelData && <ImageViewer images={imageArray} />}
         </figure>
 

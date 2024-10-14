@@ -107,52 +107,54 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
 
   // 장애여부 세금 부과
   useEffect(() => {
-    switch (tax.selValue) {
-      case 'normal':
-        setTax((prev) => {
-          return { ...prev, tax01Value: 1000000 };
-        });
-        setTax((prev) => {
-          return { ...prev, tax02Value: price * 0.07 };
-        });
-        setTax((prev) => {
-          return { ...prev, tax03Value: price * 0.025 };
-        });
-        setTax((prev) => {
-          return { ...prev, isAble: false };
-        });
-        break;
-      case 'disabled':
-        setTax((prev) => {
-          return { ...prev, tax01Value: 0 };
-        });
-        setTax((prev) => {
-          return { ...prev, tax02Value: 0 };
-        });
-        setTax((prev) => {
-          return { ...prev, tax03Value: 0 };
-        });
-        setTax((prev) => {
-          return { ...prev, isAble: true };
-        });
-        break;
-      default:
-        setTax((prev) => {
-          return { ...prev, tax01Value: 1000000 };
-        });
-        setTax((prev) => {
-          return { ...prev, tax02Value: price * 0.07 };
-        });
-        setTax((prev) => {
-          return { ...prev, tax03Value: price * 0.025 };
-        });
-        setTax((prev) => {
-          return { ...prev, isAble: false };
-        });
-        break;
+    if (price !== null ) {
+      switch (tax.selValue) {
+        case 'normal':
+          setTax((prev) => {
+            return { ...prev, tax01Value: 1000000 };
+          });
+          setTax((prev) => {
+            return { ...prev, tax02Value: price * 0.07 };
+          });
+          setTax((prev) => {
+            return { ...prev, tax03Value: price * 0.025 };
+          });
+          setTax((prev) => {
+            return { ...prev, isAble: false };
+          });
+          break;
+        case 'disabled':
+          setTax((prev) => {
+            return { ...prev, tax01Value: 0 };
+          });
+          setTax((prev) => {
+            return { ...prev, tax02Value: 0 };
+          });
+          setTax((prev) => {
+            return { ...prev, tax03Value: 0 };
+          });
+          setTax((prev) => {
+            return { ...prev, isAble: true };
+          });
+          break;
+        default:
+          setTax((prev) => {
+            return { ...prev, tax01Value: 1000000 };
+          });
+          setTax((prev) => {
+            return { ...prev, tax02Value: price * 0.07 };
+          });
+          setTax((prev) => {
+            return { ...prev, tax03Value: price * 0.025 };
+          });
+          setTax((prev) => {
+            return { ...prev, isAble: false };
+          });
+          break;
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tax.selValue]);
+  }, [price, tax.selValue]);
 
   // 결제이벤트 전 필수 조건 분기 처리
   const checkValidateOption = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -872,7 +874,7 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
                 <span className="text-[20px] self-end">
                   총 차량 구매금액 <span className="text-gray-400">(a + b + c + d)</span>
                 </span>
-                <div className="text-[30px] max-[1366px]:self-end max-[1366px]:text-[27px]">
+                <div className="text-[30px] max-[1366px]:self-end max-[1366px]:text-[20px]">
                   <span className="max-[1366px]:font-bold">{totalSum.toLocaleString() + ' 원'}</span>
                 </div>
               </div>
