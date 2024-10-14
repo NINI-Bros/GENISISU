@@ -749,19 +749,19 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
               <table className="mt-[27px] w-full max-[1366px]:text-[12px]">
                 <tbody>
                   <tr className="flex justify-between items-center min-h-[42px] gap-x-[140px] ml-[20px] max-[1366px]:ml-0">
-                      <th className="text-right">구분</th>
-                      <td className="flex gap-x-[10px] text-gray-400">
-                        <select
-                          name=""
-                          id=""
-                          className="text-black w-[150px] h-[40px] text-center"
-                          onChange={handleValueChange}
-                          defaultValue={tax.selValue}
-                        >
-                          <option value="normal">일반인</option>
-                          <option value="disabled">장애인</option>
-                        </select>
-                      </td>
+                    <th className="text-right">구분</th>
+                    <td className="flex gap-x-[10px] text-gray-400">
+                      <select
+                        name=""
+                        id=""
+                        className="text-black w-[150px] h-[40px] text-center"
+                        onChange={handleValueChange}
+                        defaultValue={tax.selValue}
+                      >
+                        <option value="normal">일반인</option>
+                        <option value="disabled">장애인</option>
+                      </select>
+                    </td>
                   </tr>
                   <tr className="flex justify-between items-center min-h-[42px] gap-x-[140px] ml-[20px] max-[1366px]:ml-0">
                     <th className="text-right">면세</th>
@@ -868,7 +868,7 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
                 </div>
               </div>
               <div className="flex gap-x-[10px] justify-end items-center mt-[20px] mb-[30px] max-[1366px]:flex-col max-[1366px]:items-start max-[1366px]:mt-[50px] max-[1366px]:mb-[120px]">
-                <span className="text-[20px] text-right">
+                <span className="text-[20px] self-end">
                   총 차량 구매금액 <span className="text-gray-400">(a + b + c + d)</span>
                 </span>
                 <div className="text-[30px] max-[1366px]:self-end max-[1366px]:text-[27px]">
@@ -881,7 +881,7 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
           {/* 결제 요약 */}
           <div>
             <article className="mr-[10%] py-[50px] bg-[#333] rounded-[5px] max-[1366px]:mr-0">
-              <figure className="aspect-[3/1] relative top-0 left-[50%] translate-x-[-50%]">
+              <figure className="aspect-[3/1] max-w-[730px] relative top-0 left-[50%] translate-x-[-50%]">
                 <Image
                   src={originMatch && SERVER + originMatch.image}
                   fill

@@ -4,6 +4,8 @@ import useLocalStorage from '@/hook/useLocalStorage';
 import { Cart, Option, Product } from '@/types/product';
 import { useModelStore } from '@/zustand/useModel';
 import { useSelectUpdate } from '@/zustand/useSelectStore';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ReactNode, useRef, useState } from 'react';
@@ -292,32 +294,18 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
 
         {/* 모바일에서만 보여질 상단바 */}
         <aside className='hidden max-[1366px]:flex flex-col items-center w-full h-min justify-self-center px-[7%] mt-[60px]'>
-          <h2 className='text-[28px] w-full text-center leading-none font-black font-Hyundai-sans border-b-[1px] border-[#666] pb-[1%]'>{modelName.split('-').join(' ').toUpperCase()}</h2>
-          <div className='w-full grid grid-cols-[1fr_2fr_1fr] auto-rows-[20px] pt-[3%]'>
+          <h2 className='text-[28px] w-[95%] text-center leading-none font-black font-Hyundai-sans border-b-[1px] border-[#666] pb-[1%]'>{modelName.split('-').join(' ').toUpperCase()}</h2>
+          <div className='w-full grid grid-cols-[1fr_2fr_1fr] auto-rows-[30px] items-center'>
 
-            <button className="border-none w-full relative" onClick={(e) => clickButton(e, 'prev')}>
-                <figure className="absolute aspect-[1/2] h-full top-0 left-[30%]">
-                  <Image
-                    className="absolute top-0 left-0"
-                    fill
-                    sizes="100%"
-                    src="/images/btn_prev.png"
-                    alt="버튼 좌측 이미지"
-                    style={{ objectFit: 'contain' }}
-                  />
-                </figure>
+            <button className="border-none w-full h-full relative text-[#666] hover:text-white" onClick={(e) => clickButton(e, 'prev')}>
+              <figure className="absolute aspect-[1/2] h-[20px] top-[50%] translate-y-[-50%] left-[15%]">
+                <FontAwesomeIcon icon={faChevronLeft} className='transition-colors'/>
+              </figure>
             </button>
             <h3 className='leading-none text-[20px] justify-self-center'>{optionList[optionName]}</h3>
-            <button className="border-none w-full relative" onClick={clickButton}>
-              <figure className="absolute aspect-[1/2] h-full top-0 right-[30%]">
-                <Image
-                  className="absolute top-0 left-0"
-                  fill
-                  sizes="100%"
-                  src="/images/btn_next.png"
-                  alt="버튼 좌측 이미지"
-                  style={{ objectFit: 'contain' }}
-                />
+            <button className="border-none w-full h-full relative text-[#666] hover:text-white" onClick={clickButton}>
+              <figure className="absolute aspect-[1/2] h-[20px] top-[50%] translate-y-[-50%] right-[15%]">
+                <FontAwesomeIcon icon={faChevronRight} className=' transition-colors'/>
               </figure>
             </button>
           </div>
@@ -403,12 +391,12 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
       {/* 모바일 예상가격 */}
       <aside className="hidden sticky bottom-[60px] z-10 bg-black  border-[1px] border-[#666] max-[1366px]:flex flex-row pl-0 py-[10px]
                       items-center justify-center gap-x-[20px] mx-[7%] text-xl">
-      <p className="text-[#a4a4a4]">예상 가격</p>
-      <span className="font-bold font-Hyundai-sans">
-        {optionState.newPrice.toLocaleString('ko-KR')}
-        <span className="align-middle"> 원</span>
-      </span>
-    </aside>
+        <p className="text-[#a4a4a4]">예상 가격</p>
+        <span className="font-bold font-Hyundai-sans">
+          {optionState.newPrice.toLocaleString('ko-KR')}
+          <span className="align-middle"> 원</span>
+        </span>
+      </aside>
     </>
   );
 }
