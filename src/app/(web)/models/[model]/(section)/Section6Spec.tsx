@@ -28,7 +28,7 @@ export default function Section6Spec({ spec }: { spec: Spec }) {
   // console.log(list);
 
   return (
-    <section className="bg-white text-black py-[200px] box-border flex flex-col items-center gap-y-[270px] max-[1366px]:py-[50px] max-[1366px]:gap-y-[100px] max-[1366px]:px-[7%]">
+    <section className="bg-white text-black py-[200px] box-border flex flex-col items-center gap-y-[270px] max-[1366px]:py-[50px] max-[1366px]:gap-y-[100px] max-[1366px]:px-[7%] relative z-[5]">
       <article className="flex flex-col items-center">
         <h2 className="text-[50px] max-[1366px]:text-2xl">제품 엔진 스펙</h2>
         <table>

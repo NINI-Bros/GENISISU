@@ -98,9 +98,9 @@ const ModelColor: React.FC<ModelColorProps> = ({ exterior }) => {
   const isGroupActive = (group: string) => (clickedGroupRef.current.has(group) ? 'text-white' : '');
 
   return (
-    <section className="h-screen bg-slate-900 relative overflow-hidden max-[1366px]:h-[calc(100vh_-60px)]">
+    <section className="h-screen bg-slate-900 relative z-[5] overflow-hidden max-[1366px]:h-[calc(100vh_-60px)]">
       <nav className="z-[5] text-[#666666] inline-flex flex-col gap-y-[40px] absolute top-[160px] left-[160px] max-[1366px]:top-[100px] max-[1366px]:left-[14%] max-[1366px]:gap-y-[15px]">
-        <ul className="text-[30px] flex gap-x-[24px] max-[1366px]:text-[20px]">
+        <ul className="text-[30px] flex gap-x-[24px] max-[1366px]:text-[24px]">
           <li
             className={`cursor-pointer hover:cursor-pointer ${isGroupActive(groupName1)}`}
             onClick={() => handleGroupClick(groupName1)}

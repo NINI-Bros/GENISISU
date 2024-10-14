@@ -13,7 +13,7 @@ export default function Section4Exterior({ exterior }: Section4Exterior) {
   const source = SERVER + exterior.images[0].path;
 
   return (
-    <section className="bg-black grid grid-cols-2 auto-rows-[minmax(400px_,auto)] max-[1366px]:grid-cols-1 max-[1366px]:auto-rows-min">
+    <section className="bg-black grid grid-cols-2 auto-rows-[minmax(400px_,auto)] max-[1366px]:grid-cols-1 max-[1366px]:auto-rows-min relative z-[5]">
       <div>
         <figure className="aspect-[1.667/1] relative">
           <Image
