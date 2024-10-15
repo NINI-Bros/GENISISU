@@ -40,7 +40,7 @@ export default function ModelGnb({ params }: { params: { model: string } }) {
   };
 
   return (
-    <nav className="flex items-end absolute top-[40px] left-[80px] z-5 w-[calc(100vw-_100px)] h-[70px] overflow-hidden max-[1366px]:hidden">
+    <nav className="flex items-end absolute top-[40px] left-[80px] z-[6] w-[calc(100vw-_100px)] h-[70px] overflow-hidden max-[1366px]:hidden">
       <button
         className="grid col-auto font-Hyundai-sans w-[330px] h-full pt-[8px] px-[10px] gap-x-[3rem] bg-black absolute top-0 left-0 z-[4]"
         onClick={handleButtonClick}

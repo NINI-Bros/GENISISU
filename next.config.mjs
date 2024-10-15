@@ -17,17 +17,17 @@ const nextConfig = {
         hostname: '*.githubusercontent.com',
         pathname: '**',
       },
-    ],
-  },
-  // eslint-disable-next-line require-await
-  async redirects() {
-    return [
       {
-        source: '/api/proxy/:path*',
-        destination: 'https://accounts.genesis.com/api/authorize/ccsp/oauth/:path*',
-        permanent: true,
+        protocol: 'https',
+        hostname: '*.googleusercontent.com',
+        pathname: '**',
       },
-    ];
+      {
+        protocol: 'https',
+        hostname: '*.kakaousercontent.com',
+        pathname: '**',
+      },
+    ],
   },
 };
 

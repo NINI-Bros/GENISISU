@@ -77,7 +77,8 @@ export async function updatePost(postForm: PostForm): Promise<ApiRes<SingleItem<
 }
 
 // 게시물 삭제
-export async function deletePost(formData: FormData): Promise<CoreRes> {
+// export async function deletePost(formData: FormData): Promise<CoreRes> {
+export async function deletePost(formData: FormData): Promise<void> {
   const session = await auth();
   const boardName = formData.get('boardName');
   const res = await fetch(`${SERVER}/posts/${formData.get('_id')}`, {
@@ -89,7 +90,7 @@ export async function deletePost(formData: FormData): Promise<CoreRes> {
     },
   });
   setTimeout(redirect(`/${boardName}`), 100);
-  return await res.json();
+  // return await res.json();
 }
 
 // 여기서부터 댓글 영역

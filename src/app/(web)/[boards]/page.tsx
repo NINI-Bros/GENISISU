@@ -168,25 +168,25 @@ export default function Page({ params }: { params: { boards: string } }) {
         <section className="pt-10 px-[360px] max-[1366px]:px-0">
           <table className="border-collapse w-full table-fixed">
             <colgroup>
-              <col className="w-[80%] sm:w-[68%]" />
-              <col className="w-[20%] sm:w-[8%]" />
-              <col className="w-0 sm:w-[8%]" />
-              <col className="w-0 sm:w-[8%]" />
-              <col className="w-0 sm:w-[8%]" />
+              <col className="w-[80%] sm:w-auto" />
+              <col className="w-[20%] sm:w-[10%]" />
+              <col className="w-0 sm:w-[10%]" />
+              <col className="w-0 sm:w-[10%]" />
+              <col className="w-0 sm:w-[10%]"/>
             </colgroup>
             <thead>
               <tr className="border-b border-solid border-gray-600">
                 {/* <th className="p-2 whitespace-nowrap font-medium">번호</th> */}
-                <th className="p-2 ml-20 whitespace-nowrap font-medium max-[1366px]:px-[7%]">
+                <th className="p-2 ml-20 whitespace-nowrap font-medium max-[640px]:px-[7%]">
                   {boardTitle.tableTitle01}
                 </th>
-                <th className="p-2 whitespace-nowrap font-medium max-[1366px]:pl-0 max-[1366px]:pr-[7%] max-[1366px]:text-left">
+                <th className="p-2 whitespace-nowrap font-medium max-[640px]:pl-0 max-[640px]:pr-[7%] max-[640px]:text-left">
                   {boardTitle.tableTitle02}
                 </th>
                 <th className="p-2 whitespace-nowrap font-medium hidden sm:table-cell">조회수</th>
                 <th className="p-2 whitespace-nowrap font-medium hidden sm:table-cell">댓글수</th>
                 <th className="p-2 whitespace-nowrap font-medium hidden sm:table-cell">
-                  {boardTitle.tableTitle02}
+                  {boardTitle.tableTitle03}
                 </th>
               </tr>
             </thead>

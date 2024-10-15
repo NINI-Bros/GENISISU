@@ -1,29 +1,34 @@
-export declare module '@auth/core/types' {
+import { AuthBase as Base } from 'next-auth';
 
-  /*
-  export interface User {
-    id?: string
-    name?: string | null
-    email?: string | null
-    image?: string | null
-  } 
-  */
-
-  interface User {
-    type: string,
-    accessToken: string,
-    refreshToken: string,
+declare module 'next-auth' {
+  interface ExtraInfo {
+    gender: string;
+    age: number;
   }
 
-  interface Session {
-    accessToken: string,
-    refreshToken: string,
+  interface AuthBase extends Base {
+    _id: number;
+    type: string;
+    email?: string;
+    name?: string;
+    profileImage?: string;
+    accessToken: string;
+    refreshToken: string;
+    createdAt?: string;
+    updatedAt?: string;
+    extra?: ExtraInfo;
+  }
+
+  interface User extends AuthBase {}
+
+  interface Session extends AuthBase {
+    user: User;
   }
 }
 
-export declare module '@auth/core/jwt' {
+export declare module 'next-auth/jwt' {
   interface JWT {
-    accessToken: string,
-    refreshToken: string,
+    accessToken: string;
+    refreshToken: string;
   }
 }
