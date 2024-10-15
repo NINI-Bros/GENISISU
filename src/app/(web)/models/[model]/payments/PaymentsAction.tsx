@@ -7,7 +7,7 @@ import { PaymentsActionProps, TaxOptions } from '@/types/payments';
 import { Cart, OptionItem } from '@/types/product';
 import PortOne from '@portone/browser-sdk/v2';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import Script from 'next/script';
 import { useEffect, useState } from 'react';
 
@@ -43,14 +43,15 @@ const taxOptions: TaxOptions = {
   },
 };
 
-const initialCart = {
-  model: '',
-  price: 0,
-};
-
 export default function PaymentsAction({ vehicleInfo, optionData, params }: PaymentsActionProps) {
-  const [storedValue, setValue] = useState<Cart>(initialCart);
+  const param = useParams();
+  const paramModelIndex = Number(param.model)
+  const initialCart = {
+    model: vehicleInfo[paramModelIndex-1].name || '',
+    price: vehicleInfo[paramModelIndex-1].price || 0,
+  };
 
+  const [storedValue, setValue] = useState<Cart>(initialCart);
   const route = useRouter();
   const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
   const STOREID = process.env.NEXT_PUBLIC_PORTONE_STOREID;
@@ -72,7 +73,6 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
   const title = storedValue.model && storedValue.model?.split('-').join(' ').toUpperCase();
   const price = Number(storedValue.price);
   const originMatch = vehicleInfo.filter((item) => item.name === storedValue.model)[0];
-  // const inputAddrRef = useRef<HTMLInputElement | undefined>([])
   const [optionPrice, setOptionPrice] = useState(0);
   const [tax, setTax] = useState({
     selValue: 'normal', // 등록비용 - 장애여부
@@ -111,44 +111,17 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
       switch (tax.selValue) {
         case 'normal':
           setTax((prev) => {
-            return { ...prev, tax01Value: 1000000 };
-          });
-          setTax((prev) => {
-            return { ...prev, tax02Value: price * 0.07 };
-          });
-          setTax((prev) => {
-            return { ...prev, tax03Value: price * 0.025 };
-          });
-          setTax((prev) => {
-            return { ...prev, isAble: false };
+            return { ...prev, tax01Value: 1000000, tax02Value: price * 0.07, tax03Value: price * 0.025, isAble: false };
           });
           break;
         case 'disabled':
           setTax((prev) => {
-            return { ...prev, tax01Value: 0 };
-          });
-          setTax((prev) => {
-            return { ...prev, tax02Value: 0 };
-          });
-          setTax((prev) => {
-            return { ...prev, tax03Value: 0 };
-          });
-          setTax((prev) => {
-            return { ...prev, isAble: true };
+            return { ...prev, tax01Value: 0, tax02Value: 0, tax03Value: 0, isAble: true };
           });
           break;
         default:
           setTax((prev) => {
-            return { ...prev, tax01Value: 1000000 };
-          });
-          setTax((prev) => {
-            return { ...prev, tax02Value: price * 0.07 };
-          });
-          setTax((prev) => {
-            return { ...prev, tax03Value: price * 0.025 };
-          });
-          setTax((prev) => {
-            return { ...prev, isAble: false };
+            return { ...prev, tax01Value: 1000000, tax02Value: price * 0.07, tax03Value: price * 0.025, isAble: false };
           });
           break;
       }
@@ -283,9 +256,9 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
   // 우편주소 지역 구분에 따른 세금 부과
   useEffect(() => {
     setOptionPrice(price - originMatch?.price);
-    const item = window.localStorage.getItem('cart');
+    const item = window.localStorage?.getItem('cart');
     item && setValue((prev) => ({ ...prev, ...JSON.parse(item) }));
-
+    
     if (addrTax.detailAddr.split(' ')[0] === '서울') {
       // setNumCardTax(taxOptions.seoulNumcardCharge)
       setAddrTax((prev) => {
