@@ -88,7 +88,7 @@ body {
   margin: 0px auto;
   overflow-x:hidden;
   display: grid;
-  grid-template-rows: 65px minmax(calc(100vh - 410px),auto) 250px;
+  grid-template-rows: 65px minmax(calc(100vh - 315px),auto) 250px;
   padding-bottom: 0;
 }
 body.otherPage header::after {
@@ -701,6 +701,7 @@ footer {
   grid-auto-rows: minmax(190px, auto);
   column-gap:100px;
   grid-row: 3 / -1;
+  z-index:5;
 }
 footer .f_logo {
   position:relative;

@@ -547,6 +547,8 @@
     row-gap: 5px;
     grid-row: 3 / 5;
     justify-self: center;
+    width: 100%;
+    justify-content: center;
   }
   footer .f_logo {
     left: 50%;

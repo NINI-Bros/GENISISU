@@ -1,29 +1,15 @@
 'use client';
 
 import useLocalStorage from '@/hook/useLocalStorage';
-import { Cart, Option, Product } from '@/types/product';
+import { Cart } from '@/types/product';
 import { useModelStore } from '@/zustand/useModel';
 import { useSelectUpdate } from '@/zustand/useSelectStore';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ReactNode, useRef, useState } from 'react';
-
-interface HorizontalLayoutProps {
-  params: {
-    model: string;
-    option: string;
-  };
-  modelData: Product | null;
-  optionData: Option[];
-}
-
-interface OptionEventParams {
-  optionGroup: string;
-  optionItem: string;
-  optionImage: string;
-  optionText: string;
-  optionPrice: number;
-}
+import MobileTitleLayout from './MobileTitleLayout';
+import { HorizontalLayoutProps, OptionEventParams, OptionList } from '@/types/optionLayout';
+import MobilePriceLayout from './MobilePriceLayout';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
@@ -98,11 +84,11 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
     return (
       <tr
         key={groupName + i}
-        className={`flex flex-col items-left text-[18px] gap-x-[86px] border-t-[1px] border-[#a4a4a4] py-[15px] pl-[15px]`}
+        className={`flex flex-col items-left text-[18px] gap-x-[86px] border-t-[1px] border-[#a4a4a4] py-[15px] pl-[15px] max-[1366px]:text-base max-[1366px]:pl-0 max-[1366px]:py-[5px]`}
       >
         <td
           onClick={() => handleOptionClick(optionEventParams)}
-          className={`font-Hyundai-sans flex gap-x-3 items-center font-bold ${isGroupActive(
+          className={`flex gap-x-3 items-center font-bold ${isGroupActive(
             groupName
           )} `}
         >
@@ -110,7 +96,7 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
             onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
               handleOptionCheck(e, optionEventParams)
             }
-            className="w-[30px] h-[30px] relative hover:cursor-pointer"
+            className="w-[30px] h-[30px] relative hover:cursor-pointer max-[1366px]:w-[20px] max-[1366px]:h-[20px]"
           >
             <Image src={checkIcon} fill sizes="100%" alt="check icon" />
           </figure>
@@ -119,7 +105,7 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
         <td className="font-Hyundai-sans text-[16px] text-[#666666] px-11">
           + {price.toLocaleString('ko-KR')} 원
         </td>
-        <td className={`font-Hyundai-sans mt-2`}>
+        <td className={`mt-2`}>
           <ul className="list-disc px-[60px] text-[16px]">
             {textItems.map((item, j) => {
               const itemName = item.name;
@@ -270,10 +256,20 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
 
   return (
     <>
-      <section className="h-screen relative grid grid-cols-[400px_auto] gap-x-[4rem]">
+      <section className="h-screen relative grid grid-cols-[400px_auto] gap-x-[4rem] 
+                        max-[1366px]:grid-cols-1 max-[1366px]:grid-rows-[max-content_auto] max-[1366px]:h-max max-[1366px]:mb-[50px]">
+        {/* 모바일에서만 보여질 상단바 */}
+        <MobileTitleLayout 
+          optionName={optionName} 
+          modelName={modelName}
+          clickBtn={clickButton}
+        />
+        
         {/* 옵션명 */}
-        <article className="col-start-2 grid grid-cols-2 justify-center items-top max-w-[90vw] mt-[120px] mr-[100px]">
-          <div className="flex flex-col mr-[40px]">
+        <article className="col-start-2 grid grid-cols-2 justify-center items-top max-w-[90vw] mt-[120px] mr-[100px] 
+                            max-[1366px]:col-start-1 max-[1366px]:mr-0 max-[1366px]:justify-self-center max-[1366px]:mt-[50px] max-[1366px]:grid-cols-1 max-[1366px]:min-h-full max-[1366px]:self-start
+                            max-[1366px]:max-w-full max-[1366px]:px-[7%] max-[1366px]:w-full">
+          <div className="flex flex-col mr-[40px] max-[1366px]:mr-0">
             {/* <figure className="w-[650px] h-[325px] relative"> */}
             <figure className="aspect-[16/9] relative">
               <Image
@@ -288,14 +284,14 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
             </figure>
             {/* <h4 className="w-[650px] mb-[20px] self-center mt-[20px] text-[16px]"> */}
             <h4 className="w-full mb-[20px] self-center mt-[20px] text-[16px]">
-              <pre className="font-Hyundai-sans whitespace-pre-wrap">{mainText}</pre>
+              <pre className="font-Hyundai-sans whitespace-pre-wrap max-[1366px]:break-keep">{mainText}</pre>
               <pre className="font-Hyundai-sans whitespace-pre-wrap text-[#666666]">
                 {annotation}
               </pre>
             </h4>
           </div>
 
-          <article className="w-full h-[550px] overflow-scroll border-t-[1px] border-b-[1px]  border-[#a4a4a4]">
+          <article className="w-full h-[550px] overflow-scroll border-t-[1px] border-b-[1px] border-[#a4a4a4] max-[1366px]:h-full max-[1366px]:overflow-visible">
             <table className="w-full">
               <tbody>{list}</tbody>
             </table>
@@ -303,7 +299,7 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
         </article>
 
         {/* 화살표 이동 버튼 */}
-        <div className="grid grid-cols-[60px_60px] grid-rows-[50px] gap-x-[20px] absolute top-[620px] left-[80px]">
+        <div className="grid grid-cols-[60px_60px] grid-rows-[50px] gap-x-[20px] absolute top-[620px] left-[80px] max-[1366px]:hidden">
           <button
             className="bg-black border-[0.5px] border-white w-full h-full"
             onClick={(e) => clickButton(e, 'prev')}
@@ -334,16 +330,20 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
         </div>
 
         {/* 예상가격 */}
-        <div className="h-full w-[280px] absolute bottom-0 right-[3rem]">
-          <aside className="sticky top-[calc(100vh_-120px)] bg-black font-Hyundai-sans border-[1px] border-[#666] flex flex-col pl-[35px] pt-[10px]">
-            <p className="text-[15px] text-[#a4a4a4]">예상 가격</p>
-            <span className="text-[30px] font-bold mt-[-10px]">
+        <div className="h-full w-[280px] absolute bottom-0 right-[3rem] max-[1366px]:hidden">
+          <aside className="sticky top-[calc(100vh_-120px)] bg-black font-Hyundai-sans border-[1px] border-[#666] flex flex-col pl-[35px] pt-[10px]
+                            max-[1366px]:flex-row max-[1366px]:pl-0 max-[1366px]:pt-0 max-[1366px]:items-center max-[1366px]:justify-center">
+            <p className="text-[15px] text-[#a4a4a4] max-[1366px]:text-xl">예상 가격</p>
+            <span className="text-[30px] font-bold mt-[-10px] max-[1366px]:text-xl max-[1366px]:mt-0">
               {optionState.newPrice.toLocaleString('ko-KR')}
               <span className="text-[20px] align-middle"> 원</span>
             </span>
           </aside>
         </div>
       </section>
+
+      {/* 모바일 예상가격 */}
+      <MobilePriceLayout mobilePrice={optionState.newPrice}/>
     </>
   );
 }

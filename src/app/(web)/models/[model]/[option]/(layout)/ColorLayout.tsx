@@ -4,18 +4,14 @@ import useLocalStorage from '@/hook/useLocalStorage';
 import { Cart, Option, OptionDetail, OptionItem, Product } from '@/types/product';
 import { useModelStore } from '@/zustand/useModel';
 import { useSelectUpdate } from '@/zustand/useSelectStore';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ReactNode, useRef, useState } from 'react';
-
-interface ColorLayoutProps {
-  params: {
-    model: string;
-    option: string;
-  };
-  modelData: Product | null;
-  optionData: Option[];
-}
+import MobileTitleLayout from './MobileTitleLayout';
+import { ColorLayoutProps, OptionList } from '@/types/optionLayout';
+import MobilePriceLayout from './MobilePriceLayout';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
@@ -163,10 +159,11 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
         <tbody>
           {/* 그룹 타이틀 */}
           <tr>
-            <td className={`pl-[15px] text-[22px] ${isOptionActive(groupName)}`}>{groupName}</td>
+            <td className={`pl-[15px] text-[22px] ${isOptionActive(groupName)} max-[1366px]:text-xl max-[1366px]:pl-0`}>{groupName}</td>
           </tr>
           {/* 옵션 텍스트 */}
-          <tr className="grid grid-cols-[250px_1fr] auto-rows-[minmax(60px,_auto)] items-center text-[18px] gap-x-[86px] border-t-[1px] border-[#a4a4a4] pt-[30px] pl-[15px]">
+          <tr className="grid grid-cols-[250px_1fr] auto-rows-[minmax(60px,_auto)] items-center text-[18px] gap-x-[86px] border-t-[1px] border-[#a4a4a4] pt-[30px] pl-[15px]
+                        max-[1366px]:grid-cols-1 max-[1366px]:text-base max-[1366px]:gap-x-0 max-[1366px]:pl-0 max-[1366px]:pt-0">
             <td
               className={`font-Hyundai-sans ${isOptionActive(
                 groupName + itemName
@@ -174,9 +171,9 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
             >
               {itemName}
             </td>
-            <td className=" col-start-2">
+            <td className=" col-start-2 max-[1366px]:col-start-1">
               {/* 옵션 버튼 생성 */}
-              <ul className="flex gap-[20px] flex-wrap">{optionData}</ul>
+              <ul className="flex gap-[20px] flex-wrap max-[1366px]:justify-start">{optionData}</ul>
             </td>
           </tr>
         </tbody>
@@ -213,28 +210,36 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
 
   return (
     <>
-      <section className="min-h-screen relative grid grid-cols-[400px_auto_280px] gap-x-[4rem] pr-[3rem] box-border items-center">
+      <section className="min-h-screen relative grid grid-cols-[400px_auto_280px] gap-x-[4rem] pr-[3rem] box-border items-center 
+                        max-[1366px]:grid-cols-1 max-[1366px]:grid-rows-[max-content_auto] max-[1366px]:pr-0 max-[1366px]:min-h-0">
+        {/* 모바일에서만 보여질 상단바 */}
+        <MobileTitleLayout 
+          optionName={optionName} 
+          modelName={modelName}
+          clickBtn={clickButton}
+        />
+
         {/* 옵션명 */}
-        <article className="col-start-2 flex flex-col items-center w-full py-[80px]">
-          <figure className="w-full max-h-[500px] aspect-[2.4/1] relative">
+        <article className="col-start-2 flex flex-col items-center w-full py-[80px] max-[1366px]:col-start-1 max-[1366px]:px-[7%] max-[1366px]:py-[0px] max-[1366px]:self-start max-[1366px]:mt-[50px]">
+          <figure className="w-full max-h-[500px] aspect-[2.4/1] relative overflow-hidden">
             <Image
               src={optionState.imageSource}
               fill
               sizes="100%"
               alt=""
-              className="absolute"
+              className="absolute scale-150"
               style={{ objectFit: 'contain' }}
               priority
             />
           </figure>
-          <h4 className="text-[16px] mt-[20px]">
+          <h4 className="text-base mt-[20px] max-[1366px]:text-sm max-[1366px]:mb-[40px] max-[1366px]:text-[#666]">
             상기 이미지는 차량의 대표 이미지로 적용되어 있습니다.
           </h4>
-          <div className="tableWrap mt-[50px] w-full">{list}</div>
+          <div className="tableWrap mt-[50px] w-full max-[1366px]:mt-[10px]">{list}</div>
         </article>
 
         {/* 화살표 이동 버튼 */}
-        <div className="grid grid-cols-[60px_60px] grid-rows-[50px] gap-x-[20px] absolute top-[620px] left-[80px]">
+        <div className="grid grid-cols-[60px_60px] grid-rows-[50px] gap-x-[20px] absolute top-[620px] left-[80px] max-[1366px]:hidden">
           <button
             className="bg-black border-[0.5px] border-white w-full h-full"
             onClick={(e) => clickButton(e, 'prev')}
@@ -264,17 +269,21 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
           </button>
         </div>
 
-        {/* 예상가격 */}
-        <div className="h-full">
-          <aside className="sticky right-[100px] top-[calc(100vh_-120px)] bg-black font-Hyundai-sans border-[1px] border-[#666] flex flex-col pl-[35px] pt-[10px]">
-            <p className="text-[15px] text-[#a4a4a4]">예상 가격</p>
-            <span className="text-[30px] font-bold mt-[-10px]">
+        {/* 웹 예상가격 */}
+        <div className="h-full max-[1366px]:hidden">
+          <aside className="sticky right-[100px] top-[calc(100vh_-120px)] bg-black font-Hyundai-sans border-[1px] border-[#666] flex flex-col pl-[35px] pt-[10px]
+                            justify-center">
+            <p className="text-[15px] text-[#a4a4a4] max-[1366px]:text-xl">예상 가격</p>
+            <span className="text-[30px] font-bold mt-[-10px] max-[1366px]:text-xl max-[1366px]:mt-0">
               {optionState.newPrice.toLocaleString('ko-KR')}
-              <span className="text-[20px] align-middle"> 원</span>
+              <span className="text-[20px] align-middle max-[1366px]:text-xl"> 원</span>
             </span>
           </aside>
         </div>
       </section>
+
+      {/* 모바일 예상가격 */}
+      <MobilePriceLayout mobilePrice={optionState.newPrice}/>
     </>
   );
 }
