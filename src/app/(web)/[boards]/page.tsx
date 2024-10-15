@@ -185,7 +185,7 @@ export default function Page({ params }: { params: { boards: string } }) {
                 </th>
                 <th className="p-2 whitespace-nowrap font-medium hidden sm:table-cell">조회수</th>
                 <th className="p-2 whitespace-nowrap font-medium hidden sm:table-cell">댓글수</th>
-                <th className="p-2 whitespace-nowrap font-medium hidden xl:table-cell sm:table-cell">
+                <th className="p-2 whitespace-nowrap font-medium hidden sm:table-cell">
                   {boardTitle.tableTitle03}
                 </th>
               </tr>
