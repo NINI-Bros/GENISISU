@@ -115,7 +115,8 @@ export async function addComment(replyForm: PostComment): Promise<SingleItem<Pos
   return await res.json();
 }
 
-export async function deleteComment(formData: FormData): Promise<CoreRes> {
+// export async function deleteComment(formData: FormData): Promise<CoreRes> {
+export async function deleteComment(formData: FormData): Promise<void> {
   const session = await auth();
   const postId = formData.get('postId');
   const commentId = formData.get('commentId');
@@ -130,5 +131,5 @@ export async function deleteComment(formData: FormData): Promise<CoreRes> {
   });
   // console.log(res);
   setTimeout(redirect(`/${boardName}/${postId}`), 100);
-  return await res.json();
+  // return await res.json();
 }
