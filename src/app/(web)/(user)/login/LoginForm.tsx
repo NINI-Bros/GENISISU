@@ -2,20 +2,13 @@
 
 import InputError from '@/components/InputError';
 import Submit from '@/components/Submit';
-import {
-  signInWithCredentials,
-  signInWithGithub,
-  signInWithGoogle,
-  signInWithGenesis,
-  signInWithNaver,
-  signInWithHyundai,
-  signInWithKakao,
-} from '@/data/actions/userAction';
+import { signInWithCredentials } from '@/data/actions/userAction';
 import { callGenesisLogin } from '@/data/fetch/genesis';
 import { UserForm, UserLoginForm } from '@/types';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import React from 'react';
+import SnsButton from './SnsButton';
 
 export default function LoginForm() {
   const {
@@ -96,7 +89,7 @@ export default function LoginForm() {
           비밀번호를 잊으셨나요?
         </Link>
       </div>
-      <div className="flex gap-x-[10px] mt-10 mb-5 justify-center items-center">
+      <div className="flex gap-x-[17px] mt-10 justify-center items-center">
         <Submit
           className="btnBasic px-[5%] py-[1%] hover:underline cursor:pointer"
           onClick={handleSubmit(login)}
@@ -107,45 +100,12 @@ export default function LoginForm() {
           회원가입
         </Link>
       </div>
-      <div className="flex gap-x-[10px] justify-center items-center">
-        <Submit
-          className="btnBasic px-[5%] py-[1%] hover:underline cursor:pointer"
-          formAction={signInWithGoogle}
-        >
-          구글
-        </Submit>
-        <Submit
-          className="btnBasic px-[5%] py-[1%] hover:underline cursor:pointer"
-          formAction={signInWithGithub}
-        >
-          깃허브
-        </Submit>
-        <Submit
-          className="btnBasic px-[5%] py-[1%] hover:underline cursor:pointer"
-          formAction={signInWithNaver}
-        >
-          네이버
-        </Submit>
-        <Submit
-          className="btnBasic px-[5%] py-[1%] hover:underline cursor:pointer"
-          formAction={signInWithKakao}
-        >
-          카카오
-        </Submit>
-        <Submit
-          className="btnBasic px-[5%] py-[1%] hover:underline cursor:pointer"
-          formAction={signInWithHyundai}
-        >
-          현대멤버스
-        </Submit>
-        <Submit
-          className="btnBasic px-[5%] py-[1%] hover:underline cursor:pointer"
-          formAction={signInWithGenesis}
-          // onClick={handleGenesisLoginClick}
-        >
-          제네시스
-        </Submit>
+      <div className="flex items-center mt-8 mb-5">
+        <div className="flex-grow border-t border-gray-400"></div>
+        <span className="mx-4 text-gray-500 text-sm">간편 로그인</span>
+        <div className="flex-grow border-t border-gray-400"></div>
       </div>
+      <SnsButton />
     </form>
   );
 }
