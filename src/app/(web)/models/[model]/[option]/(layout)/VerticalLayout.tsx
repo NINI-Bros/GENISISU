@@ -130,26 +130,12 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
     });
   };
 
-  const optionList: OptionList = {
-    detail: '모델 상세',
-    engine: '엔진 타입',
-    drivetrain: '구동 타입',
-    passenger: `${storedValue.model === 'g80' ? '스포츠 패키지' : '시트구성'}`,
-    exterior: '외장 컬러',
-    interior: '내장디자인 & 컬러',
-    garnish: '내장가니쉬',
-    wheel: '휠 & 타이어',
-    add: '선택 품목',
-    payments: '결제',
-  };
-
   return (
     <>
       <section className="h-screen grid grid-cols-[400px_auto_280px] gap-x-[4rem] pr-[3rem] relative items-center
                         max-[1366px]:grid-cols-1 max-[1366px]:pr-0 max-[1366px]:grid-rows-[max-content_auto] max-[1366px]:min-h-0 max-[1366px]:h-min">
         {/* 모바일에서만 보여질 상단바 */}
         <MobileTitleLayout 
-          optionList={optionList} 
           optionName={optionName} 
           modelName={modelName}
           clickBtn={clickButton}
