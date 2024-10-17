@@ -29,12 +29,11 @@
 
 ## 3. 기술 스택
 
-
 | Field         | SKILL                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Frontend      | <img height="25" src="https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white"/> <img height="25" src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white"/> <img height="25" src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white"> <img height="25" src="https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white"/> <img height="25" src="https://img.shields.io/badge/Zustand-000000?style=for-the-badge&logo=Zustand&logoColor=white"> |
 | Backend       | <img height="25" src="https://img.shields.io/badge/Node.js-5FA04E?style=for-the-badge&logo=Node.js&logoColor=white"> <img height="25" src="https://img.shields.io/badge/express.js-000000.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB" /> <img height="25" src="https://img.shields.io/badge/mongodb-47A248.svg?style=for-the-badge&logo=mongodb&logoColor=white"/> <img height="25" src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=Python&logoColor=white"/>                                                                                                                                  |
-| Config        | <img height="25" src="https://img.shields.io/badge/NPM-CB3837.svg?style=for-the-badge&logo=npm&logoColor=white" />                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| Config        | <img height="25" src="https://img.shields.io/badge/pnpm-%234a4a4a.svg?style=for-the-badge&logo=pnpm&logoColor=f69220" />                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | Environment   | <img height="25" src="https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white" /> <img height="25" src="https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white"/>                                                                                                                                                                                                                                                                                                                                                                                    |
 | Communication | <img height="25" src="https://img.shields.io/badge/Notion-000000.svg?style=for-the-badge&logo=notion&logoColor=white" /> <img height="25" src="https://img.shields.io/badge/figma-F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white" /> <img height="25" src="https://img.shields.io/badge/Discord-5865F2.svg?style=for-the-badge&logo=Discord&logoColor=white" />                                                                                                                                                                                                                                                            |
 
@@ -62,10 +61,10 @@
 핵심 개발 기능으로는 **자동차 구매**와 **다양한 옵션 선택** 그리고 **전시시승 신청 및 게시판** 기능입니다. 현대모건스 제니시수연은 Next.js 프레임워크를 사용하여 웹 사이트의 로딩 시간을 최소화하여 사용자 경험 향상에 주력했습니다.
 </br>
 
-
 ## 5. 화면 구성
 
 ### 🕶️ 세부 화면 구성
+
 |                                              메인                                              |                                             메인\_캐러셀                                              |
 | :--------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------: |
 | ![메인페이지](https://github.com/user-attachments/assets/1ac9aff4-547a-4a5f-b3f7-7718b97e0b28) | ![메인페이지_캐로셀](https://github.com/user-attachments/assets/28a8147b-3ef4-4891-b740-1bb93412924d) |
@@ -111,7 +110,6 @@
 
 페이지플로우, 와이어프레임, 디자인 시안작업을 위한 협업UI툴로 Figma를 선택하여 쉽고 빠르게 화면 관련 작업을 진행할 수 있도록 진행하였습니다.
 
-
 ## 6. 이슈 관리
 
 - feature / dev / main 세가지 브랜치를 이용한 Github-Flow 전략을 이용한 이슈관리를 진행했습니다. 이슈 및 PR생성시 Label 관리로 가독성을 살리게 되었고 Milestone, Project 단계로 이어지는 큰 단위의 프로젝트 관리를 진행했습니다. 각자 생성한 이슈의 번호를 가지고 와서 feature/#{이슈번호} 브랜치를 생성 후 최종적으로 upstream의 dev 브랜치와 main에 개발, 프로덕션 환경의 파일을 병합하는 협업의 방식으로 진행했습니다.
@@ -155,7 +153,6 @@
 
 </br>
 
-
 ## 8. 팀 소개
 
 **끈질기게 도전하는 3명의 프론트엔드 개발자로 이루어진 “현대모건스 - 제니시수연”팀입니다.**
@@ -181,19 +178,19 @@
   <summary>기능 개발</summary>
   <div markdown="1">
 
-  - **1주차** | 메인 페이지 퍼블리싱, 메인 페이지 디자인, 기획 및 개발환경 세팅, 데이터 DB화
+- **1주차** | 메인 페이지 퍼블리싱, 메인 페이지 디자인, 기획 및 개발환경 세팅, 데이터 DB화
 
-  - **2주차** | 메인 페이지 퍼블리싱, 핵심 페이지 퍼블리싱, 데이터 DB화, 상품 목록
+- **2주차** | 메인 페이지 퍼블리싱, 핵심 페이지 퍼블리싱, 데이터 DB화, 상품 목록
 
-  - **3주차** | 기술면접, 연휴, 메인 페이지 인터렉션, 결제, 주문,
-전시시승 게시판, 상세 및 댓글, 게시판, 게시글 작성
+- **3주차** | 기술면접, 연휴, 메인 페이지 인터렉션, 결제, 주문,
+  전시시승 게시판, 상세 및 댓글, 게시판, 게시글 작성
 
-  - **4주차** | 404, 페이지별 스타일 통일,
-QnA 게시판 상세 및 댓글, 게시판, 게시글 작성,
-이벤트 게시판 상세 및 댓글, 게시판, 게시글 작성,
-각 페이지 최적화 작업
+- **4주차** | 404, 페이지별 스타일 통일,
+  QnA 게시판 상세 및 댓글, 게시판, 게시글 작성,
+  이벤트 게시판 상세 및 댓글, 게시판, 게시글 작성,
+  각 페이지 최적화 작업
 
-  - **5주차** | README 작성하고 꾸미기, 발표 자료 만들기, 발표
+- **5주차** | README 작성하고 꾸미기, 발표 자료 만들기, 발표
 
   </div>
 </details>
