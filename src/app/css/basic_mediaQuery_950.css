@@ -132,7 +132,7 @@
   }
   .mobileSideBar .mobileMenu {
     width: 70vw;
-    max-width: 650px;
+    max-width: 400px;
     height: 100vh;
     background:#000;
     color:#fff;

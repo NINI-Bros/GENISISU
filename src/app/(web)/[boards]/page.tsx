@@ -165,14 +165,14 @@ export default function Page({ params }: { params: { boards: string } }) {
           <ApplyBtn />
         </div>
 
-        <section className="pt-10 px-[360px] max-[1366px]:px-0">
+        <section className="pt-10 px-[300px] max-[1366px]:px-0">
           <table className="border-collapse w-full table-fixed">
             <colgroup>
               <col className="w-[80%] sm:w-auto" />
               <col className="w-[20%] sm:w-[10%]" />
-              <col className="w-0 sm:w-[10%]" />
-              <col className="w-0 sm:w-[10%]" />
-              <col className="w-0 sm:w-[10%]"/>
+              <col className="w-0 sm:w-[8%]" />
+              <col className="w-0 sm:w-[8%]" />
+              <col className="w-0 sm:w-[12%]"/>
             </colgroup>
             <thead>
               <tr className="border-b border-solid border-gray-600">
