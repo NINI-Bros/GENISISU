@@ -1,4 +1,5 @@
 @media screen and (max-width: 950px) {
+  /* 241017 기준 Header만 950px에서 변경 */
   body {
     grid-template-rows: 100px minmax(calc(100vh - 410px),auto) auto;
     padding-bottom: 60px;
@@ -19,14 +20,14 @@
   }
   header .gnb {
     padding: 0 20px;
-    grid-template-columns: 1fr;
+    
     column-gap: 0%;
   }
   header .gnb > .navWrap:nth-child(1) {
     max-width: 100%;
   }
   header .gnb > .navWrap:nth-child(2) {
-    min-width: auto;
+    display:none;
   }
 
 
@@ -37,6 +38,10 @@
   header .gnb > .navWrap .firstGnb,
   header .gnb > .navWrap .secondGnb {
     display: none;
+  }
+  header .gnb > .navWrap > ul.mobileView li {
+    display: flex;
+    justify-content: center ;
   }
   header .gnb > .navWrap > ul.firstGnb.mobileView {
     column-gap: 7px;
@@ -127,6 +132,7 @@
   }
   .mobileSideBar .mobileMenu {
     width: 70vw;
+    max-width: 650px;
     height: 100vh;
     background:#000;
     color:#fff;

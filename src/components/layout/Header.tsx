@@ -152,7 +152,7 @@ export default function Header({ isMain }: { isMain: string }) {
         </div>
         <div className="navWrap">
           <ul className="secondGnb">
-            <li className="flex justify-end items-center w-full gap-2">
+            <li className="flex items-center justify-end gap-x-[20px] mr-[30px] ">
               {session ? (
                 <span className="text-[18px] cursor-pointer p-3" onClick={handleSignOut}>
                   로그아웃

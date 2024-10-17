@@ -1,13 +1,16 @@
 body::-webkit-scrollbar,
-article::-webkit-scrollbar {
+article::-webkit-scrollbar,
+.mobileMenuWrap::-webkit-scrollbar {
   width:5px;
 }
 body::-webkit-scrollbar-thumb,
-article::-webkit-scrollbar-thumb {
+article::-webkit-scrollbar-thumb,
+.mobileMenuWrap::-webkit-scrollbar-thumb {
   background:#555;
   border-radius:3px;
 }
-article::-webkit-scrollbar-corner {
+article::-webkit-scrollbar-corner,
+.mobileMenuWrap::-webkit-scrollbar-corner {
   background:transparent;
 }
 
@@ -128,9 +131,8 @@ header .gnb {
   top: 50%;
   left:50%;
   padding: 0 3rem;
-  display: grid;
-  grid-template-columns: 4fr 1fr 2fr;
-  column-gap: 100px;
+  display: flex;
+  justify-content: space-between;
   width: 100vw;
 }
 header .gnb > .navWrap {
@@ -142,33 +144,33 @@ header .gnb > .navWrap:nth-child(1) {
   grid-row: 1/ 2;
 }
 header .gnb > .navWrap:nth-child(2) {
-  max-width: 300px;
-  min-width: 215px;
-  grid-column: 3 / -1;
+  grid-column: 2 / -1;
   grid-row: 1/ 2;
-  justify-self: end;
 }
 header .gnb > .navWrap > ul {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   height: 100%;
 }
 header .gnb > .navWrap > ul.mobileView {
   display: none;
 }
+header .gnb > .navWrap > ul li {
+  width: 100%; 
+  text-align: center  ;
+}
 header .gnb > .navWrap > ul li a {
   font-size: 18px;
-  padding: 12px;
 }
 header .gnb > .navWrap > .firstGnb .gnbLogo {
-  width: 130px;
   display:block;
   padding: 0px;
 }
 header .gnb > .navWrap > .firstGnb .gnbLogo figure {
   position:relative;
   aspect-ratio: 2 / 1;
+  max-width: 130px;
 }
 header .gnb > .navWrap .firstGnb .gnbLogo figure img {
   object-fit: contain;
@@ -176,14 +178,10 @@ header .gnb > .navWrap .firstGnb .gnbLogo figure img {
 }
 header .gnb > .navWrap .secondGnb {
   font-size: 16px;
-  column-gap: 30px;
 }
-header .gnb > .navWrap .secondGnb a {
-  padding: 12px;
-}
+
 header .gnb > .navWrap .secondGnb > li.sitemapBtn {
-  display:flex;
-  justify-content: end;
+  width:fit-content;
 }
 header .gnb > .navWrap .secondGnb > li.sitemapBtn figure {
   width: 20px;

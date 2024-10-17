@@ -1,5 +1,10 @@
 @media screen and (max-width: 1366px) {
 
+  /* 사이트맵 */
+  header .modal section .siteItemWrap article div a {
+    font-size:1rem;
+  }
+
   /* 모바일 버튼컴포넌트 */
   button {
     font: 500 16px/1 'Hyundai Sans Head Office';
@@ -8,7 +13,7 @@
     max-width: 120px;
     height: 40px;
     font: 500 16px/1 'Hyundai Sans Head Office';
-    padding: 0 3%;
+    padding: 0 10px;
   }
   .mainBtn.kr {
     font:500 16px/1 'Pretendard'
@@ -29,8 +34,6 @@
   .swiper .swiper-button-next {
     display: none;
   }
-
-  
 
   /* main - 첫번째 박스 */
   main.mainPage {
