@@ -1,8 +1,9 @@
-import extractTitle from "@/data/extractTitle";
 import { fetchVehicles } from "@/data/fetch/productFetch";
-import { VehicleInfo } from "@/types/payments";
+import { useSession } from "@/hook/session";
+import useModalOpenBgFix from "@/hook/useModalOpenBgFix";
 import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
@@ -10,11 +11,18 @@ import { useEffect, useRef, useState } from "react"
 export default function SideBar () {
   const route = useRouter();
   const path = usePathname();
+  const session = useSession();
   const mobileSideBarRef = useRef<HTMLDivElement | null>(null)
   const toggleModelRef = useRef<HTMLDivElement | null>(null)
   const toggleBbsRef = useRef<HTMLDivElement | null>(null)
   const arrowBtnRef = useRef<HTMLElement | null>(null)
   const arrowBtnRef_2 = useRef<HTMLElement | null>(null)
+  const [modalOn, setModalOn] = useState(false);
+
+  const handleSignOut = (e: React.MouseEvent) => {
+    e.preventDefault();
+    signOut({ callbackUrl: '/' });
+  };
 
   const handleToggleClick = (e: React.MouseEvent<HTMLElement>, type : string) => {
     switch (type) {
@@ -24,6 +32,7 @@ export default function SideBar () {
         break;
       case "hamBtn" :
         mobileSideBarRef.current?.classList.toggle('on')
+        setModalOn(prev => !prev);
         break;
       case "bbs" :
         toggleBbsRef.current?.classList.toggle('on')
@@ -36,6 +45,9 @@ export default function SideBar () {
         break;
     }
   }
+
+    // 모달호출 시 배경 고정 커스텀 훅
+    useModalOpenBgFix(modalOn)
 
   // 모델이름 불러오기 위한 서버액션
   const [titdata,setTitData] = useState<String[]>([]);
@@ -58,7 +70,15 @@ export default function SideBar () {
       <>
         {titdata.map((item,i) => (
           item !== "NEOLUN CONCEPT" ? (
-            <Link key={'model_' + (i + 1)} href={'/models/' + (i + 1)} >{item}</Link>
+            <>
+              <Link key={'model_' + (i + 1)} href={'/models/' + (i + 1)} >
+                {item}
+                <h4>1</h4>
+                <h4>2</h4>
+                <h4>3</h4>
+                <h4>4</h4>
+              </Link>
+            </>
           ) : (
             <Link key={'model_' + 13 } href='#' onClick={(e) => {
               e.preventDefault();
@@ -91,9 +111,15 @@ export default function SideBar () {
       {/* 모바일 메뉴 */}
       <section className="mobileMenu">
         <article className="signSet">
-          <Link href="/login">로그인</Link>
-          <span className="text-[10px]">|</span>
-          <Link href="/signup">회원가입</Link>
+          {session ? (
+            <span onClick={handleSignOut} className="cursor-pointer">로그아웃</span>
+          ) : (
+            <>
+              <Link href="/login">로그인</Link>
+              <span className="text-[10px]">|</span>
+              <Link href="/signup">회원가입</Link>
+            </>
+          )}
         </article>
         <div className="mobileMenuWrap">
           <article>
