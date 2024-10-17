@@ -73,9 +73,8 @@ export default function SideBar () {
   // 화면이동시마다 클래스값 제거 
   useEffect(()=> {
     mobileSideBarRef.current?.classList.remove('on')
-    const onClassese = Array.from(mobileSideBarRef.current?.querySelectorAll<HTMLElement>('.on') || [])
-    onClassese.map(item => item.classList.remove('on'))
-    const thisWindow = window.innerHeight
+    // const onClassese = Array.from(mobileSideBarRef.current?.querySelectorAll<HTMLElement>('.on') || [])
+    // onClassese.map(item => item.classList.remove('on'))
   },[path])
 
 
@@ -105,7 +104,7 @@ export default function SideBar () {
               </figure>
             </h3>
             {/* 모델명 호출 */}
-            <div className="toggleWrap" ref={toggleModelRef}>
+            <div className="toggleWrap on" ref={toggleModelRef}>
               <MenuList/>
             </div>
           </article>
@@ -117,7 +116,7 @@ export default function SideBar () {
                 <FontAwesomeIcon icon={faCaretUp} />
               </figure>
             </h3>
-            <div className="toggleWrap" ref={toggleBbsRef}>
+            <div className="toggleWrap on" ref={toggleBbsRef}>
               <Link href='/drive'>전시시승</Link>
               <Link href='/qna'>고객지원</Link>
               <Link href='/info'>공지사항</Link>     
