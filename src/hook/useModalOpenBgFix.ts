@@ -5,7 +5,7 @@ import { useEffect } from "react";
 export default function useModalOpenBgFix<T> (state:boolean) {
 
   useEffect(() => { 
-    if (state) {
+    if (state === true) {
       const scrollY = window.scrollY;
       document.body.style.top = `-${scrollY}px`;
       document.body.style.position = 'fixed';

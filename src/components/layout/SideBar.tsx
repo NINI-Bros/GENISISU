@@ -1,6 +1,6 @@
 "use client";
 
-import { fetchOption, fetchVehicles } from "@/data/fetch/productFetch";
+import { fetchVehicles } from "@/data/fetch/productFetch";
 import { useSession } from "@/hook/session";
 import useModalOpenBgFix from "@/hook/useModalOpenBgFix";
 import { OptionList } from "@/types/optionLayout";
@@ -8,11 +8,10 @@ import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
-import { useParams, usePathname, useRouter } from "next/navigation"
+import { useParams, usePathname } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
 
 export default function SideBar () {
-  const route = useRouter();
   const path = usePathname();
   console.log("패스확인",path.split('/'))
   const param = useParams();
@@ -36,7 +35,6 @@ export default function SideBar () {
     add: '선택 품목',
     payments: '결제',
   };
-  type OptionKey = keyof typeof optionList;
 
   const handleSignOut = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -65,8 +63,8 @@ export default function SideBar () {
     }
   }
 
-    // 모달호출 시 배경 고정 커스텀 훅
-    useModalOpenBgFix(modalOn)
+  // 모달호출 시 배경 고정 커스텀 훅
+  useModalOpenBgFix(modalOn)
 
   // 모델이름 불러오기 위한 서버액션
   const [titdata,setTitData] = useState<String[]>([]);
@@ -86,14 +84,12 @@ export default function SideBar () {
 
   // 모델별 옵션내용 표기 함수
   const optionViewNames = () => {
-    
     const removeClassOn = () => {mobileSideBarRef.current?.classList.remove('on')}
-    
     if (param?.model !== undefined) {
       return Object.keys(optionList).map((optionName) => (
         <>
           <Link 
-            key={optionName + '_key'} 
+            key={optionName + '_key'}
             href={`/models/${param.model}/${optionName === 'detail' ? '' : optionName}`}
             onClick={removeClassOn}
             className={optionName === param.option ? 'text-white' : 'text-[#666]'}
@@ -113,7 +109,7 @@ export default function SideBar () {
       <>
         {titdata.map((item,i) => (
           item !== "NEOLUN CONCEPT" ? (
-            <section key={'model_' + (i + 1)} >
+            <section key={'model_' + (i + 1) + '_normal'} >
               <Link href={'/models/' + (i + 1)}>
                 {item}
               </Link>
@@ -122,10 +118,12 @@ export default function SideBar () {
               </div>
             </section>
           ) : (
-            <Link key={'model_' + 13 } href='#' onClick={(e) => {
-              e.preventDefault();
-              alert('준비중입니다')
-            }} >{item}</Link>
+            <section key={'model_' + 13 + '_concept' }>
+              <Link href='#' onClick={(e) => {
+                e.preventDefault();
+                alert('준비중입니다')
+              }} >{item}</Link>
+            </section>
           )
         ))}
       </>
