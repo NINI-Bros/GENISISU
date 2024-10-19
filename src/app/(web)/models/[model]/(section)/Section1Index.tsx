@@ -10,6 +10,7 @@ import extractTitle from '@/data/extractTitle';
 import { useEffect } from 'react';
 import { useSelectReset } from '@/zustand/useSelectStore';
 import Image from 'next/image';
+import ScrollToTop from '@/components/ScrollToTop';
 
 interface Section1IndexProps {
   modelIndex: string;
@@ -18,7 +19,7 @@ interface Section1IndexProps {
 }
 
 export default function Section1Index({ modelIndex, modelData, imageArray }: Section1IndexProps) {
-  const isOneImage = (arr: string[]) => arr.length === 1 ? 'max-[1366px]:scale-150' : '';
+  const isOneImage = (arr: string[]) => (arr.length === 1 ? 'max-[1366px]:scale-150' : '');
   const resetCartItem = useSelectReset();
   const { steps } = useModelStore();
   const initialValue = {
@@ -50,24 +51,37 @@ export default function Section1Index({ modelIndex, modelData, imageArray }: Sec
   };
 
   return (
-    <section className="w-screen h-[calc(100vh-100px)] grid grid-cols-[450px_auto] gap-x-[4rem] bg-black relative z-[5] 
-                        max-[1366px]:grid-cols-1 max-[1366px]:gap-x-0 max-[1366px]:h-[calc(100vh-60px)] max-[1366px]:justify-items-center max-[1366px]:overflow-hidden">
-      <article className="w-[90%] max-h-full col-start-2 grid-cols-1 flex flex-col justify-items-center mt-[40px] pb-[100px] gap-y-[20px] justify-between 
+    <section
+      className="w-screen h-[calc(100vh-100px)] grid grid-cols-[450px_auto] gap-x-[4rem] bg-black relative z-[5] 
+                        max-[1366px]:grid-cols-1 max-[1366px]:gap-x-0 max-[1366px]:h-[calc(100vh-60px)] max-[1366px]:justify-items-center max-[1366px]:overflow-hidden"
+    >
+      <ScrollToTop />
+      <article
+        className="w-[90%] max-h-full col-start-2 grid-cols-1 flex flex-col justify-items-center mt-[40px] pb-[100px] gap-y-[20px] justify-between 
                           max-[1366px]:col-start-1 max-[1366px]:pb-0 max-[1366px]:h-[80%] max-[1366px]:mt-0
-                          max-[1366px]:grid max-[1366px]:grid-rows-[250px_auto] max-[1366px]:w-full max-[1366px]:px-[7%]">
+                          max-[1366px]:grid max-[1366px]:grid-rows-[250px_auto] max-[1366px]:w-full max-[1366px]:px-[7%]"
+      >
         {/* 이미지 영역 */}
-        <figure className={`relative max-w-full aspect-[2/1] overflow-hidden max-[1366px]:row-start-2 max-[1366px]:z-[5] ${isOneImage(imageArray)}`}>
+        <figure
+          className={`relative max-w-full aspect-[2/1] overflow-hidden max-[1366px]:row-start-2 max-[1366px]:z-[5] ${isOneImage(
+            imageArray
+          )}`}
+        >
           {modelData && <ImageViewer images={imageArray} />}
         </figure>
 
         {/* 가격 표시 */}
-        <div className="grid grid-cols-[auto_1fr_1fr] gap-y-[10px] gap-x-[3rem] self-center 
+        <div
+          className="grid grid-cols-[auto_1fr_1fr] gap-y-[10px] gap-x-[3rem] self-center 
                         max-[1366px]:grid-cols-1 max-[1366px]:gap-x-0 max-[1366px]:gap-y-0 max-[1366px]:justify-items-center max-[1366px]:row-start-1 max-[1366px]:w-full
                         max-[1366px]:relative max-[1366px]:z-10
-                        ">
-          <h2 className="text-[50px] text-center font-Hyundai-sans self-center justify-self-center px-[10px] font-black flex flex-col items-center
+                        "
+        >
+          <h2
+            className="text-[50px] text-center font-Hyundai-sans self-center justify-self-center px-[10px] font-black flex flex-col items-center
                         max-[1366px]:text-[28px] max-[1366px]:max-w-full max-[1366px]:leading-none max-[1366px]:w-[95%] max-[1366px]:border-b-[1px] max-[1366px]:border-[#666]
-                        max-[1366px]:pb-[1%] max-[1366px]:mt-[4%] max-[1366px]:px-0 ">
+                        max-[1366px]:pb-[1%] max-[1366px]:mt-[4%] max-[1366px]:px-0 "
+          >
             {modelName && uppercaseName}
           </h2>
           <h3 className="text-[30px] text-[#a4a4a4] col-span-2 self-center max-[1366px]:text-[20px] max-[1366px]:mt-[1%]">

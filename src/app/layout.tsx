@@ -9,6 +9,7 @@ import SideBar from '@/components/layout/SideBar';
 import { SessionProvider } from '@/hook/session';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import ButtonTop from '@/components/ButtonTop';
 
 export default function RootLayout({
   children,
@@ -47,6 +48,7 @@ export default function RootLayout({
             {/* <SpeedInsights /> */}
           </div>
           <Footer />
+          <ButtonTop />
         </SessionProvider>
       </body>
     </html>

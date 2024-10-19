@@ -21,13 +21,11 @@ export default async function OrderPage({ params }: { params: { model: string } 
   const spec = modelData!.extra.detail.spec;
 
   // const res = await fetchOptionExterior('exterior');
-  const res = await fetchOption('exterior') || [];
+  const res = (await fetchOption('exterior')) || [];
   const optionData = res[0].extra.option.exterior[modelName];
 
   return (
     <>
-      <ScrollToTop />
-      
       {/* 첫번째 섹션 : 360도 이미지 */}
       <Section1Index modelIndex={modelIndex} modelData={modelData} imageArray={imageArray} />
 
