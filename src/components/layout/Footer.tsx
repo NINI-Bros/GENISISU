@@ -51,7 +51,7 @@ export default function Footer() {
           </ul>
         </li>
         <li className="f_copy">
-          <span>© COPYRIGHT 2024 HYUNDAI MOGANS GENISISUYEON. ALL RIGHTS RESERVED.</span>
+          <span>© COPYRIGHT 2024 HYUNDAI MORGANS GENISISU. ALL RIGHTS RESERVED.</span>
         </li>
       </ul>
       <aside className="f_readBtn">
