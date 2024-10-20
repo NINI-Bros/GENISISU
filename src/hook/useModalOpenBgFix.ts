@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-export default function useModalOpenBgFix<T> (state:boolean) {
+export default function useModalOpenBgFix (state:boolean) {
 
   useEffect(() => { 
     if (state === true) {

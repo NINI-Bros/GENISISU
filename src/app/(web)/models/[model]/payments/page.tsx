@@ -12,7 +12,7 @@ export default async function Payments ({params}:{params: {
   const data = await fetchOptions();
 
   // 데이터 세팅
-  const vehicleInfo : VehicleInfo[] = vehicleData.map(item => ({
+  const vehicleInfo : (VehicleInfo)[] = vehicleData.map(item => ({
     name:item.name,
     image:item.mainImages[2].path,
     price:item.price,

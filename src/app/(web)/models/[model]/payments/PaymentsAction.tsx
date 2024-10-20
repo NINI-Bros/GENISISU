@@ -2,6 +2,7 @@
 
 import Button from '@/components/Button';
 import { useSession } from '@/hook/session';
+import { useRefreshEvent } from '@/hook/useRefreshDefence';
 import { AddrType } from '@/types/address';
 import { PaymentsActionProps, TaxOptions } from '@/types/payments';
 import { Cart, OptionItem } from '@/types/product';
@@ -96,6 +97,9 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
     addrTax.numCardTax +
     taxOptions.tax06;
   let totalSum = price + addrTax.sidoTax + taxSum + taxOptions.insuranceTax;
+
+  // 새로고침 key event 막음
+  useRefreshEvent()
 
   // 장애여부 확인 onChange Event
   const handleValueChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -507,26 +511,6 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
   // session값 적용
   const session = useSession();
   const userName = session?.user?.name !== undefined ? session?.user?.name : "익명"
-
-  // 새로고침 key event 막음
-  useEffect(()=>{
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if(e.key === 'F5') {
-        const confirmText = confirm("새로고침을 할 경우 데이터가 초기화 됩니다.\n그대로 진행하시겠습니까?")
-        if (confirmText) {
-          return
-        } else {
-          e.preventDefault();
-        }
-      }
-    }
-
-    window.addEventListener('keydown',handleKeyDown)
-
-    return () => {
-      window.removeEventListener('keydown',handleKeyDown)
-    }
-  },[])
 
   return (
     <>
