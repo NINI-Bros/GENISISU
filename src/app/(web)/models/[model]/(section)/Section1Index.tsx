@@ -30,7 +30,6 @@ export default function Section1Index({ modelIndex, modelData, imageArray }: Sec
   useEffect(() => {
     resetCartItem();
     window.localStorage.setItem('cart', JSON.stringify(initialValue));
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const router = useRouter();

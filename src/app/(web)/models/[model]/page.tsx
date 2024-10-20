@@ -5,7 +5,6 @@ import Section3Color from './(section)/Section3Color';
 import Section4Exterior from './(section)/Section4Exterior';
 import Section5Interior from './(section)/Section5Interior';
 import Section6Spec from './(section)/Section6Spec';
-import ScrollToTop from '@/components/ScrollToTop';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 

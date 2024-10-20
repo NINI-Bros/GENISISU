@@ -8,27 +8,12 @@ import { Cart } from '@/types/product';
 import useLocalStorage from '@/hook/useLocalStorage';
 import { useEffect, useState } from 'react';
 import { fetchProduct } from '@/data/fetch/productFetch';
+import { OptionList } from '@/types/optionLayout';
 
-interface OptionList {
-  [key: string]: string;
-}
-
-const optionList: OptionList = {
-  detail: '모델 상세',
-  engine: '엔진 타입',
-  drivetrain: '구동 타입',
-  passenger: '시트 구성',
-  exterior: '외장 컬러',
-  interior: '내장디자인 & 컬러',
-  garnish: '내장가니쉬',
-  wheel: '휠 & 타이어',
-  add: '선택 품목',
-  payments: '결제',
-};
-
-type OptionKey = keyof typeof optionList;
+type OptionKey = keyof OptionList;
 
 export default function ModelLnb({ params }: { params: { model: string } }) {
+  const optionList = useModelStore((state) => state.optionList);
   const cartItem = useSelectState();
   const resetCartItem = useSelectReset();
   const router = useRouter();
