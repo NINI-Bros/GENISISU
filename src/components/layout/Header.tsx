@@ -21,6 +21,8 @@ export default function Header({ isMain }: { isMain: string }) {
   const session = useSession();
   const [modalOn, setModalOn] = useState(false);
   const mobileGnbRef = useRef<HTMLUListElement | null>(null);
+  const webGnbRef = useRef<HTMLUListElement | null>(null);
+  const webGnbSecRef = useRef<HTMLUListElement | null>(null);
   const pathName = usePathname();
 
   // 모달호출 시 배경 고정 커스텀 훅
@@ -35,13 +37,27 @@ export default function Header({ isMain }: { isMain: string }) {
     setModalOn((prev) => !prev);
   };
 
-  // 모바일 GNB 이동시 유지되게끔 하는 동작
   useEffect(() => {
-    let thisPath = pathName.split('/')[1] === '' ? 'main' : pathName.split('/')[1];
-    const thisGnbOrigin = mobileGnbRef.current?.querySelectorAll<HTMLAnchorElement>('li a');
-    const thisGnb: HTMLAnchorElement[] = thisGnbOrigin ? [...thisGnbOrigin] : [];
-    thisGnb.map((item) => {
-      if (item.className.split('_')[1].includes(thisPath)) {
+    let thisPath = pathName.split('/')[1];
+    // Path에 따른 Header GNB 활성화
+    const webGnbOrigin = webGnbRef.current?.querySelectorAll<HTMLAnchorElement>('li a');
+    const webGnbSecOrigin = webGnbSecRef.current?.querySelectorAll<HTMLAnchorElement>('li a');
+    const webGnb: HTMLAnchorElement[] =
+      webGnbOrigin && webGnbSecOrigin ? [...webGnbOrigin, ...webGnbSecOrigin] : [];
+    webGnb.map((item) => {
+      if (item.getAttribute('href')?.split('/')[1] === thisPath) {
+        item?.classList.add('on');
+      } else {
+        item?.classList.remove('on');
+      }
+    });
+
+    // 모바일 GNB 이동시 유지되게끔 하는 동작
+    const mobileGnbOrigin = mobileGnbRef.current?.querySelectorAll<HTMLAnchorElement>('li a');
+    const mobileGnb: HTMLAnchorElement[] = mobileGnbOrigin ? [...mobileGnbOrigin] : [];
+
+    mobileGnb.map((item) => {
+      if (item.getAttribute('href')?.split('/')[1] === thisPath) {
         item?.classList.add('on');
       } else {
         item?.classList.remove('on');
@@ -53,7 +69,7 @@ export default function Header({ isMain }: { isMain: string }) {
     <header className={isMain}>
       <nav className="gnb gnb_web">
         <div className="navWrap">
-          <ul className="firstGnb">
+          <ul className="firstGnb webView" ref={webGnbRef}>
             <li>
               <Link href="/" className="gnbLogo">
                 <figure>
@@ -86,7 +102,7 @@ export default function Header({ isMain }: { isMain: string }) {
 
           <ul className="firstGnb mobileView" ref={mobileGnbRef}>
             <li>
-              <Link href="/models" className="mbGnb_models">
+              <Link href="/models">
                 <figure>
                   <FontAwesomeIcon icon={faCar} />
                 </figure>
@@ -94,7 +110,7 @@ export default function Header({ isMain }: { isMain: string }) {
               </Link>
             </li>
             <li>
-              <Link href="/drive" className="mbGnb_drive">
+              <Link href="/drive">
                 <figure>
                   <FontAwesomeIcon icon={faRightToBracket} />
                 </figure>
@@ -102,7 +118,7 @@ export default function Header({ isMain }: { isMain: string }) {
               </Link>
             </li>
             <li>
-              <Link href="/" className="mbGnb_main">
+              <Link href="/">
                 <figure>
                   <FontAwesomeIcon icon={faHouseChimney} />
                 </figure>
@@ -110,7 +126,7 @@ export default function Header({ isMain }: { isMain: string }) {
               </Link>
             </li>
             <li>
-              <Link href="/qna" className="mbGnb_qna">
+              <Link href="/qna">
                 <figure>
                   <FontAwesomeIcon icon={faHeadphones} />
                 </figure>
@@ -118,7 +134,7 @@ export default function Header({ isMain }: { isMain: string }) {
               </Link>
             </li>
             <li>
-              <Link href="/info" className="mbGnb_info">
+              <Link href="/info">
                 <figure>
                   <FontAwesomeIcon icon={faFileLines} />
                 </figure>
@@ -128,7 +144,7 @@ export default function Header({ isMain }: { isMain: string }) {
           </ul>
         </div>
         <div className="navWrap">
-          <ul className="secondGnb">
+          <ul className="secondGnb" ref={webGnbSecRef}>
             <li className="flex items-center justify-end gap-x-[20px] mr-[30px] ">
               {session ? (
                 <span className="text-[18px] cursor-pointer p-3" onClick={handleSignOut}>

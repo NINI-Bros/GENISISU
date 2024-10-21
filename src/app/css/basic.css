@@ -155,6 +155,11 @@ header .gnb > .navWrap > ul {
   align-items: center;
   height: 100%;
 }
+header .gnb > .navWrap > ul.webView li a.on,
+header .gnb > .navWrap > ul.secondGnb li a.on {
+  color: #fff;
+  font-weight: 500;
+}
 header .gnb > .navWrap > ul.mobileView {
   display: none;
 }
