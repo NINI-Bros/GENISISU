@@ -23,6 +23,7 @@ export default function Header({ isMain }: { isMain: string }) {
   const mobileGnbRef = useRef<HTMLUListElement | null>(null);
   const webGnbRef = useRef<HTMLUListElement | null>(null);
   const webGnbSecRef = useRef<HTMLUListElement | null>(null);
+  const headerRef = useRef<HTMLHeadElement | null>(null);
   const pathName = usePathname();
 
   // 모달호출 시 배경 고정 커스텀 훅
@@ -63,10 +64,24 @@ export default function Header({ isMain }: { isMain: string }) {
         item?.classList.remove('on');
       }
     });
+
+    //
+    const thisHeight = () => {
+      let height = window.innerHeight;
+      let outHeight = window.outerHeight * 0.6;
+      if (height < outHeight) {
+        headerRef.current?.classList.add('remove');
+      } else {
+        headerRef.current?.classList.remove('remove');
+      }
+    };
+    window.addEventListener('resize', thisHeight);
+
+    return () => window.removeEventListener('resize', thisHeight);
   }, [pathName]);
 
   return (
-    <header className={isMain}>
+    <header className={isMain} ref={headerRef}>
       <nav className="gnb gnb_web">
         <div className="navWrap">
           <ul className="firstGnb webView" ref={webGnbRef}>
