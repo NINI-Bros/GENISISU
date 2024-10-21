@@ -1,16 +1,19 @@
 body::-webkit-scrollbar,
 article::-webkit-scrollbar,
-.mobileMenuWrap::-webkit-scrollbar {
+.mobileMenuWrap::-webkit-scrollbar,
+.toggleWrap::-webkit-scrollbar {
   width:5px;
 }
 body::-webkit-scrollbar-thumb,
 article::-webkit-scrollbar-thumb,
-.mobileMenuWrap::-webkit-scrollbar-thumb {
+.mobileMenuWrap::-webkit-scrollbar-thumb,
+.toggleWrap::-webkit-scrollbar-thumb {
   background:#555;
   border-radius:3px;
 }
 article::-webkit-scrollbar-corner,
-.mobileMenuWrap::-webkit-scrollbar-corner {
+.mobileMenuWrap::-webkit-scrollbar-corner,
+.toggleWrap::-webkit-scrollbar-corner {
   background:transparent;
 }
 
