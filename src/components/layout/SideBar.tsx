@@ -44,8 +44,8 @@ export default function SideBar () {
   };
 
 
-   // 모델이름 불러오기 위한 서버액션
-   useEffect(()=>{
+  // 모델이름 불러오기 위한 서버액션
+  useEffect(()=>{
     const vehicleData = async () => {
       try {
         const originData = await fetchVehicles();
@@ -77,6 +77,7 @@ export default function SideBar () {
   useEffect(()=> {
     mobileSideBarRef.current?.classList.remove('on')
     mobileSideBarRef.current?.querySelector('.dimmedBg')?.classList.remove('on')
+    setModalOn(false)
   },[path])
 
   // 모달호출 시 배경 고정 커스텀 훅 호출
@@ -168,21 +169,21 @@ export default function SideBar () {
       const paramCheck = (optionType : string) => {
         let queryParam = path.split('/')[3]
         if (optionType === queryParam) {
-           return 'text-white'
+          return 'text-white'
         } else if (optionType === 'detail' && queryParam === undefined) {
-           return 'text-white'
+          return 'text-white'
         } else {
-           return 'text-[#555]'
+          return 'text-[#555]'
         }
       }
       const component = Object.keys(optionList).map((optionName, i) => (
-          <Link 
-            key={`${upperName}_${optionName}_${i}`}
-            href={`/models/${param.model}/${optionName === 'detail' ? '' : optionName}`}
-            onClick={removeClassOn}
-            className={`${paramCheck(optionName)}`}
-            >{optionList[optionName]}
-          </Link>
+        <Link 
+          key={`${upperName}_${optionName}_${i}`}
+          href={`/models/${param.model}/${optionName === 'detail' ? '' : optionName}`}
+          onClick={removeClassOn}
+          className={`${paramCheck(optionName)}`}
+        >{optionList[optionName]}
+        </Link>
       ))
       return component
     } else {
