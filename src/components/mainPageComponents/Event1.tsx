@@ -1,17 +1,17 @@
-'use client'
+'use client';
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef } from 'react';
 
-export default function Event1 () {
-  const titleRef = useRef<HTMLElement | null>(null)
-  useEffect(()=>{
-    const yeon = titleRef.current?.querySelector('.suyeon') as HTMLElement | null
-    setTimeout(()=>{
-      yeon && yeon.classList.add('on')
-    },3500)
-  }, [])
+export default function Event1() {
+  const titleRef = useRef<HTMLElement | null>(null);
+  useEffect(() => {
+    const yeon = titleRef.current?.querySelector('.suyeon') as HTMLElement | null;
+    setTimeout(() => {
+      yeon && yeon.classList.add('on');
+    }, 3500);
+  }, []);
 
-  return(
+  return (
     <section id="event1">
       <article>
         <h2>Hyundai Morgans</h2>
@@ -40,6 +40,5 @@ export default function Event1 () {
         <span>CONCEPT CAR</span>
       </aside>
     </section>
-
-  )
+  );
 }

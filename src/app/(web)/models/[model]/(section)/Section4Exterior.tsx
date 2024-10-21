@@ -27,8 +27,12 @@ export default function Section4Exterior({ exterior }: Section4Exterior) {
         </figure>
       </div>
       <article className="flex flex-col self-center px-[10%] max-[1366px]:py-[15%]">
-        <h3 className="text-[40px] mb-[35px] break-keep max-[1366px]:text-2xl max-[1366px]:text-center">{title}</h3>
-        <p className="text-[20px] text-[#888] break-keep leading-[1.2] max-[1366px]:text-base max-[1366px]:text-center">{content}</p>
+        <h3 className="text-[40px] mb-[35px] break-keep max-[1366px]:text-2xl max-[1366px]:text-center">
+          {title}
+        </h3>
+        <p className="text-[20px] text-[#888] break-keep leading-[1.2] max-[1366px]:text-base max-[1366px]:text-center">
+          {content}
+        </p>
       </article>
     </section>
   );

@@ -9,7 +9,10 @@ export default function Section6Spec({ spec }: { spec: Spec }) {
     .filter((item) => item !== 'engine' && item !== 'images')
     .map((item, idx) => {
       return (
-        <tr key={idx} className="grid grid-cols-2 gap-x-[120px] max-[1366px]:gap-x-[50px] items-center">
+        <tr
+          key={idx}
+          className="grid grid-cols-2 gap-x-[120px] max-[1366px]:gap-x-[50px] items-center"
+        >
           <th className="text-left">{item}</th>
           <td className="text-center">{spec[item]}</td>
         </tr>
@@ -19,7 +22,10 @@ export default function Section6Spec({ spec }: { spec: Spec }) {
     .filter((item) => item !== 'image' && item !== 'title')
     .map((item, idx) => {
       return (
-        <tr key={idx} className="grid grid-cols-2 gap-x-[120px] max-[1366px]:gap-x-[50px] items-center">
+        <tr
+          key={idx}
+          className="grid grid-cols-2 gap-x-[120px] max-[1366px]:gap-x-[50px] items-center"
+        >
           <th className="text-left">{item}</th>
           <td className="text-center">{spec.engine[0][item]}</td>
         </tr>
@@ -49,7 +55,9 @@ export default function Section6Spec({ spec }: { spec: Spec }) {
                     alt=""
                   />
                 </figure>
-                <h3 className="text-[30px] mb-[120px] text-center max-[1366px]:text-xl max-[1366px]:mb-[30px]">{spec.engine[0].title}</h3>
+                <h3 className="text-[30px] mb-[120px] text-center max-[1366px]:text-xl max-[1366px]:mb-[30px]">
+                  {spec.engine[0].title}
+                </h3>
               </td>
 
               {/* 엔진이 1개일 때 써주세요 */}
@@ -87,19 +95,38 @@ export default function Section6Spec({ spec }: { spec: Spec }) {
         </table>
       </article>
       <article className="flex flex-col items-center">
-        <h2 className="text-[50px] mb-[120px] max-[1366px]:text-2xl max-[1366px]:mb-[50px]">제품 외장 스펙</h2>
+        <h2 className="text-[50px] mb-[120px] max-[1366px]:text-2xl max-[1366px]:mb-[50px]">
+          제품 외장 스펙
+        </h2>
         <div className="grid grid-cols-[repeat(3,400px)] auto-rows-auto max-[1366px]:grid-cols-[minmax(auto_,400px)]">
           {/* 엔진 갯수가 추가될때마다 img 태그 복사해서 경로붙여넣어주세요 */}
           <figure className="relative aspect-[1/1]">
-            <Image src={SERVER + spec.images[0].path} alt="" fill sizes="100%" style={{objectFit:"contain"}}/>
+            <Image
+              src={SERVER + spec.images[0].path}
+              alt=""
+              fill
+              sizes="100%"
+              style={{ objectFit: 'contain' }}
+            />
           </figure>
           <figure className="relative aspect-[1/1]">
-            <Image src={SERVER + spec.images[1].path} alt="" fill sizes="100%" style={{objectFit:"contain"}}/>
+            <Image
+              src={SERVER + spec.images[1].path}
+              alt=""
+              fill
+              sizes="100%"
+              style={{ objectFit: 'contain' }}
+            />
           </figure>
           <figure className="relative aspect-[1/1]">
-            <Image src={SERVER + spec.images[2].path} alt="" fill sizes="100%" style={{objectFit:"contain"}}/>
+            <Image
+              src={SERVER + spec.images[2].path}
+              alt=""
+              fill
+              sizes="100%"
+              style={{ objectFit: 'contain' }}
+            />
           </figure>
-          
         </div>
       </article>
     </section>

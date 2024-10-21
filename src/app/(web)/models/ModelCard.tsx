@@ -25,12 +25,19 @@ export default function ModelCard({ model }: { model: Product }) {
 
   useEffect(() => {
     window.localStorage.removeItem('cart');
-  }, [])
+  }, []);
 
   return (
     <li className="grid grid-cols-1 auto-rows-min gap-y-10 justify-center px-6 py-8 bg-item-background">
       {!model.mainImages ? (
-        <Image src='/images/genesis-kr-gv70-facelift-sport-glossy-colors-uyuni-white-large.png' width={500} height={500} alt="" priority className="col-span-full" />
+        <Image
+          src="/images/genesis-kr-gv70-facelift-sport-glossy-colors-uyuni-white-large.png"
+          width={500}
+          height={500}
+          alt=""
+          priority
+          className="col-span-full"
+        />
       ) : (
         <Image
           src={SERVER + model.mainImages[0].path}
@@ -41,7 +48,7 @@ export default function ModelCard({ model }: { model: Product }) {
           priority
         />
       )}
-      <div className='grid grid-cols-2'>
+      <div className="grid grid-cols-2">
         <div className="col-span-full flex items-end gap-x-2">
           <h2 className="text-3xl font-Hyundai-sans leading-none">{title.toUpperCase()}</h2>
           <h3 className="">{subtitle.toUpperCase()}</h3>
@@ -49,7 +56,11 @@ export default function ModelCard({ model }: { model: Product }) {
 
         <h3 className="col-span-full mt-[2.5%] mb-[5.5%] self-center">{content}</h3>
 
-        <button className="justify-self-start text-l px-4 py-2 max-h-[40px]" type="button" onClick={handleClick}>
+        <button
+          className="justify-self-start text-l px-4 py-2 max-h-[40px]"
+          type="button"
+          onClick={handleClick}
+        >
           전시시승
         </button>
         {title !== 'neolun' ? (

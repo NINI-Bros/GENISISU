@@ -1,11 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("./fonts.css");
-@import url("./basic.css");
-@import url("./basic_mediaQuery.css");
-@import url("./basic_mediaQuery_950.css");
-
+@import url('./fonts.css');
+@import url('./basic.css');
+@import url('./basic_mediaQuery.css');
+@import url('./basic_mediaQuery_950.css');
 
 @layer components {
   .cs-active {
@@ -14,5 +13,5 @@
 }
 
 img {
-    object-fit: cover;
+  object-fit: cover;
 }

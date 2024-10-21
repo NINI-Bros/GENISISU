@@ -37,7 +37,9 @@ export default function PaymentsComplete() {
           <h1 className="text-[60px] text-center text-white border-b-[1px] border-white max-[1366px]:text-[32px]">
             {title || ''}{' '}
           </h1>
-          <h2 className="text-[40px] text-center mt-[0px] max-[1366px]:text-[30px]">결제에 성공했습니다!</h2>
+          <h2 className="text-[40px] text-center mt-[0px] max-[1366px]:text-[30px]">
+            결제에 성공했습니다!
+          </h2>
         </div>
         <div>
           <h3 className="text-[20px] mb-2 text-right ">
@@ -45,7 +47,10 @@ export default function PaymentsComplete() {
             {price.toLocaleString() || ''}원
           </h3>
         </div>
-        <Link href="/" className="btnBasic border-[white] px-[40px] py-[15px] mt-[40px] hover:bg-white hover:text-black">
+        <Link
+          href="/"
+          className="btnBasic border-[white] px-[40px] py-[15px] mt-[40px] hover:bg-white hover:text-black"
+        >
           홈으로 돌아가기
         </Link>
       </div>
