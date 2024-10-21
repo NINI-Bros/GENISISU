@@ -356,9 +356,46 @@ header .modal .closeBtn .cl-line:last-child {
 .mobileSideBar {
   display:none;
 }
-.mobileSideBar .mobiledDimmedBg {
+
+/* 모달 및 팝업 호출시 배경 dimmed */
+.dimmedBg {
   display: none;
 }
+.dimmedBg.on {
+  display: block;
+  position:fixed;
+  width: 100vw;
+  height: 100vh;
+  background:#000;
+  opacity: 0%;
+  top: 0;
+  left: -100%;
+  z-index:5;
+}
+.dimmedBg.on {
+  left:0;
+  opacity: 60%;
+}
+
+/* 커스텀 모달창 샘플 */
+.comfirmPop {
+  position:absolute;
+  inset: 0;
+  z-index:20;
+  transition:0.3s all;
+}
+.comfirmPop article {
+  position:absolute;
+  color:#fff;
+  z-index:20;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background:blue;
+  width: 50vw;
+  height: 30vw;
+}
+
 
 /* main */
 /* main - 첫번째 박스 */

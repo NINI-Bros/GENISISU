@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { signOut } from 'next-auth/react';
 import { useSession } from '@/hook/session';
 import Sitemap from './Sitemap';
@@ -13,41 +13,18 @@ import {
   faCar,
   faRightToBracket,
   faHeadphones,
-  faKey,
 } from '@fortawesome/free-solid-svg-icons';
 import { faFileLines } from '@fortawesome/free-regular-svg-icons';
-import SideBar from './SideBar';
-import { threadId } from 'worker_threads';
+import useModalOpenBgFix from '@/hook/useModalOpenBgFix';
 
 export default function Header({ isMain }: { isMain: string }) {
   const session = useSession();
-  // console.log('session', session);
   const [modalOn, setModalOn] = useState(false);
-  const [mobileState, setMobileState] = useState({
-    mobileView: false,
-    thisWidth: 0,
-  });
-  const router = useRouter();
   const mobileGnbRef = useRef<HTMLUListElement | null>(null);
   const pathName = usePathname();
 
-  // console.log("모바일 상태 확인",mobileState.mobileView)
-
-  useEffect(() => {
-    setMobileState((prev) => ({ ...prev, thisWidth: window.innerWidth }));
-    // sitemap 호출
-    if (modalOn) {
-      const scrollY = window.scrollY;
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.position = 'fixed';
-    } else {
-      const scrollY = document.body.style.top;
-      document.body.style.top = '';
-      document.body.style.position = '';
-
-      window.scrollTo(0, parseInt(scrollY || '0') * -1);
-    }
-  }, [modalOn]);
+  // 모달호출 시 배경 고정 커스텀 훅
+  useModalOpenBgFix(modalOn)
 
   const handleSignOut = (e: React.MouseEvent) => {
     e.preventDefault();
