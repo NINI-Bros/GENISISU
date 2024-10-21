@@ -17,18 +17,9 @@ export function useRefreshEvent () {
         }
       }
     }
-  
-    const handleBeforeUnload = (e:BeforeUnloadEvent) => {
-      e.preventDefault();
-      e.returnValue = '';
-    }
-  
     window.addEventListener('keydown',handleKeyDown)
-    window.addEventListener('beforeunload', handleBeforeUnload);
-  
     return () => {
       window.removeEventListener('keydown',handleKeyDown)
-      window.removeEventListener('beforeunload', handleBeforeUnload);
     }
   },[])
 }
@@ -42,8 +33,6 @@ export function useRefreshModal () {
     setShowModal(false)
   }
 
-
-
   useEffect(()=>{
     const handleKeyDown = (e: KeyboardEvent) => {
       if(e.key === 'F5') {
@@ -51,22 +40,10 @@ export function useRefreshModal () {
         setShowModal(true)
       }
     }
-    
-    const handleBeforeUnload = (e:BeforeUnloadEvent) => {
-      e.preventDefault();
-      setShowModal(true)
-      e.returnValue = '';
-    }
-  
     window.addEventListener('keydown',handleKeyDown)
-    window.addEventListener('beforeunload', handleBeforeUnload);
-  
     return () => {
       window.removeEventListener('keydown',handleKeyDown)
-      window.removeEventListener('beforeunload', handleBeforeUnload);
     }
   },[])
-
-  
   return {showModal,closeModal}
 }
