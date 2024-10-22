@@ -1,3 +1,4 @@
+import { OptionList } from '@/types/optionLayout';
 import { create } from 'zustand';
 
 interface ModelStore {
@@ -8,7 +9,10 @@ interface ModelStore {
     address: string;
     telephone: string;
   }[];
-  [key: number]: string; // 인덱스 스그니처 추가
+  optionList: OptionList;
+  updateItems: (newItems: ModelStore['items']) => void;
+  updateSteps: (newStems: ModelStore['steps']) => void;
+  updatePlaces: (newPlaces: ModelStore['places']) => void;
 }
 
 export const useModelStore = create<ModelStore>((set) => ({
@@ -27,6 +31,7 @@ export const useModelStore = create<ModelStore>((set) => ({
     'gv60',
     'neolun-concept',
   ],
+  updateItems: (newItems: ModelStore['items']) => set({ items: newItems }),
   steps: [
     'detail',
     'engine',
@@ -39,6 +44,7 @@ export const useModelStore = create<ModelStore>((set) => ({
     'add',
     'payments',
   ],
+  updateSteps: (newSteps: ModelStore['steps']) => set({ steps: newSteps }),
   places: [
     {
       name: '제니시수 강남',
@@ -71,4 +77,17 @@ export const useModelStore = create<ModelStore>((set) => ({
       telephone: '1899-6611',
     },
   ],
+  updatePlaces: (newPlaces: ModelStore['places']) => set({ places: newPlaces }),
+  optionList: {
+    detail: '모델 상세',
+    engine: '엔진 타입',
+    drivetrain: '구동 타입',
+    passenger: '시트 구성',
+    exterior: '외장 컬러',
+    interior: '내장디자인 & 컬러',
+    garnish: '내장가니쉬',
+    wheel: '휠 & 타이어',
+    add: '선택 품목',
+    payments: '결제',
+  },
 }));

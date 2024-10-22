@@ -1,6 +1,5 @@
-import ButtonTop from '@/components/ButtonTop';
-import ModelGnb from '../../../../components/navigation/ModelGnb';
-import ModelLnb from '../../../../components/navigation/ModelLnb';
+import ModelGnb from '@/components/navigation/ModelGnb';
+import ModelLnb from '@/components/navigation/ModelLnb';
 
 export default function modelLayout({
   params,
