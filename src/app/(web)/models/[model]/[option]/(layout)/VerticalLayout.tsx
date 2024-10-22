@@ -140,6 +140,7 @@ export default function VerticalLayout({ params, modelData, optionData }: Layout
       >
         {/* 모바일에서만 보여질 상단바 */}
         <MobileTitleLayout optionName={optionName} modelName={modelName} clickBtn={clickButton} />
+
         {/* 옵션명 */}
         <article className="w-full col-start-2 flex flex-col gap-y-[30px] items-center mt-[-80px] max-[1366px]:col-start-1 max-[1366px]:px-[7%] max-[1366px]:gap-y-0 max-[1366px]:my-[50px]">
           {/* RESET 버튼 */}
@@ -176,7 +177,7 @@ export default function VerticalLayout({ params, modelData, optionData }: Layout
         {/* 예상가격 */}
         <div className="h-full max-[1366px]:hidden">
           <aside
-            className="sticky top-[calc(100vh_-110px)] bg-black font-Hyundai-sans border-[1px] border-[#666] flex flex-col pl-[35px] pt-[10px] 
+            className="sticky top-[calc(100vh_-120px)] bg-black font-Hyundai-sans border-[1px] border-[#666] flex flex-col pl-[35px] pt-[10px] 
                 max-[1366px]:pl-0 max-[1366px]:flex-row max-[1366px]:py-0 max-[1366px]:items-center justify-center max-[1366px]:gap-x-[20px] max-[1366px]:h-full"
           >
             <p className="text-[15px] text-[#a4a4a4] max-[1366px]:text-xl">예상 가격</p>

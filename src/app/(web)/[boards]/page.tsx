@@ -43,7 +43,7 @@ export default function Page({ params }: { params: { boards: string } }) {
     tableTitle01: '제목',
     tableTitle02: '작성자',
     tableTitle03: '작성일',
-    btnTitle:''
+    btnTitle: '',
   });
 
   // 서버액션 함수 (페이지네이션, 검색)
@@ -79,10 +79,10 @@ export default function Page({ params }: { params: { boards: string } }) {
         }));
         break;
       case 'qna':
-        setBoardTitle((prev) => ({ ...prev, title: '고객지원' , btnTitle: '문의하기', }));
+        setBoardTitle((prev) => ({ ...prev, title: '고객지원', btnTitle: '문의하기' }));
         break;
       case 'info':
-        setBoardTitle((prev) => ({ ...prev, title: '공지사항', btnTitle: '작성하기', }));
+        setBoardTitle((prev) => ({ ...prev, title: '공지사항', btnTitle: '작성하기' }));
         break;
       default:
         setBoardTitle((prev) => ({ ...prev }));
@@ -172,7 +172,7 @@ export default function Page({ params }: { params: { boards: string } }) {
               <col className="w-[20%] sm:w-[10%]" />
               <col className="w-0 sm:w-[8%]" />
               <col className="w-0 sm:w-[8%]" />
-              <col className="w-0 sm:w-[12%]"/>
+              <col className="w-0 sm:w-[12%]" />
             </colgroup>
             <thead>
               <tr className="border-b border-solid border-gray-600">

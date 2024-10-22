@@ -1,10 +1,9 @@
-'use client'
+'use client';
 
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-export default function useModalOpenBgFix (state:boolean) {
-
-  useEffect(() => { 
+export default function useModalOpenBgFix(state: boolean) {
+  useEffect(() => {
     if (state === true) {
       const scrollY = window.scrollY;
       document.body.style.top = `-${scrollY}px`;

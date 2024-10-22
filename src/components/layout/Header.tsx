@@ -24,7 +24,7 @@ export default function Header({ isMain }: { isMain: string }) {
   const pathName = usePathname();
 
   // 모달호출 시 배경 고정 커스텀 훅
-  useModalOpenBgFix(modalOn)
+  useModalOpenBgFix(modalOn);
 
   const handleSignOut = (e: React.MouseEvent) => {
     e.preventDefault();

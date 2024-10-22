@@ -265,15 +265,10 @@ export default function HorizontalLayout({ params, modelData, optionData }: Layo
 
         {/* 옵션명 */}
         <article
-          className="col-start-2 grid grid-cols-2 justify-center items-top max-w-[100vw] mt-[120px] mr-[3rem] 
+          className="col-start-2 grid grid-cols-2 justify-center items-top max-w-[90vw] mt-[120px] mr-[100px] 
                             max-[1366px]:col-start-1 max-[1366px]:mr-0 max-[1366px]:justify-self-center max-[1366px]:mt-[50px] max-[1366px]:grid-cols-1 max-[1366px]:min-h-full max-[1366px]:self-start
                             max-[1366px]:max-w-full max-[1366px]:px-[7%] max-[1366px]:w-full"
         >
-          {/* RESET 버튼 */}
-          <div className="hidden absolute top-4 right-8 max-[1366px]:flex max-[1366px]:z-[6]">
-            <ButtonReset model={modelName} price={initialPrice} />
-          </div>
-          {/* Main 콘텐츠 */}
           <div className="flex flex-col mr-[40px] max-[1366px]:mr-0">
             {/* <figure className="w-[650px] h-[325px] relative"> */}
             <figure className="aspect-[16/9] relative">
