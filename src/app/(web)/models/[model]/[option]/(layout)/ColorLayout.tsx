@@ -1,30 +1,30 @@
 'use client';
 
 import useLocalStorage from '@/hook/useLocalStorage';
-import { Cart, Option, OptionDetail, OptionItem, Product } from '@/types/product';
+import { Cart, OptionDetail, OptionItem } from '@/types/product';
 import { useModelStore } from '@/zustand/useModel';
 import { useSelectUpdate } from '@/zustand/useSelectStore';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ReactNode, useRef, useState } from 'react';
 import MobileTitleLayout from './MobileTitleLayout';
-import { ColorLayoutProps, OptionList } from '@/types/optionLayout';
+import { LayoutProps } from '@/types/optionLayout';
 import MobilePriceLayout from './MobilePriceLayout';
+import ButtonOption from '@/components/ButtonOption';
+import ButtonReset from '@/components/ButtonReset';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
 // 2번레이아웃_컬러칩 옵션
-export default function ColorLayout({ params, modelData, optionData }: ColorLayoutProps) {
+export default function ColorLayout({ params, modelData, optionData }: LayoutProps) {
   const updateCartItem = useSelectUpdate();
   const router = useRouter();
   const optionName = params.option;
-  const modelName = modelData?.name || '';
-  const initialPrice = modelData?.price || 0;
+  const modelName = modelData.name;
+  const initialPrice = modelData.price;
   const modelOptionData = optionData[0].extra.option[optionName][modelName];
 
-  const [storedValue, setValue] = useLocalStorage<Cart>('cart', {
+  const [storedValue, setValue] = useLocalStorage<Cart>(modelName, {
     model: modelName,
     price: initialPrice,
   });
@@ -159,11 +159,19 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
         <tbody>
           {/* 그룹 타이틀 */}
           <tr>
-            <td className={`pl-[15px] text-[22px] ${isOptionActive(groupName)} max-[1366px]:text-xl max-[1366px]:pl-0`}>{groupName}</td>
+            <td
+              className={`pl-[15px] text-[22px] ${isOptionActive(
+                groupName
+              )} max-[1366px]:text-xl max-[1366px]:pl-0`}
+            >
+              {groupName}
+            </td>
           </tr>
           {/* 옵션 텍스트 */}
-          <tr className="grid grid-cols-[250px_1fr] auto-rows-[minmax(60px,_auto)] items-center text-[18px] gap-x-[86px] border-t-[1px] border-[#a4a4a4] pt-[30px] pl-[15px]
-                        max-[1366px]:grid-cols-1 max-[1366px]:text-base max-[1366px]:gap-x-0 max-[1366px]:pl-0 max-[1366px]:pt-0">
+          <tr
+            className="grid grid-cols-[250px_1fr] auto-rows-[minmax(60px,_auto)] items-center text-[18px] gap-x-[86px] border-t-[1px] border-[#a4a4a4] pt-[30px] pl-[15px]
+                        max-[1366px]:grid-cols-1 max-[1366px]:text-base max-[1366px]:gap-x-0 max-[1366px]:pl-0 max-[1366px]:pt-0"
+          >
             <td
               className={`font-Hyundai-sans ${isOptionActive(
                 groupName + itemName
@@ -210,17 +218,19 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
 
   return (
     <>
-      <section className="min-h-screen relative grid grid-cols-[400px_auto_280px] gap-x-[4rem] pr-[3rem] box-border items-center 
-                        max-[1366px]:grid-cols-1 max-[1366px]:grid-rows-[max-content_auto] max-[1366px]:pr-0 max-[1366px]:min-h-0">
+      <section
+        className="min-h-screen relative grid grid-cols-[400px_auto_280px] gap-x-[4rem] pr-[3rem] box-border items-center 
+                        max-[1366px]:grid-cols-1 max-[1366px]:grid-rows-[max-content_auto] max-[1366px]:pr-0 max-[1366px]:min-h-0"
+      >
         {/* 모바일에서만 보여질 상단바 */}
-        <MobileTitleLayout 
-          optionName={optionName} 
-          modelName={modelName}
-          clickBtn={clickButton}
-        />
+        <MobileTitleLayout optionName={optionName} modelName={modelName} clickBtn={clickButton} />
 
         {/* 옵션명 */}
         <article className="col-start-2 flex flex-col items-center w-full py-[80px] max-[1366px]:col-start-1 max-[1366px]:px-[7%] max-[1366px]:py-[0px] max-[1366px]:self-start max-[1366px]:mt-[50px]">
+          {/* RESET 버튼 */}
+          <div className="hidden absolute top-4 right-8 max-[1366px]:flex max-[1366px]:z-[6]">
+            <ButtonReset model={modelName} price={initialPrice} />
+          </div>
           <figure className="w-full max-h-[500px] aspect-[2.4/1] relative overflow-hidden">
             <Image
               src={optionState.imageSource}
@@ -237,42 +247,14 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
           </h4>
           <div className="tableWrap mt-[50px] w-full max-[1366px]:mt-[10px]">{list}</div>
         </article>
-
         {/* 화살표 이동 버튼 */}
-        <div className="grid grid-cols-[60px_60px] grid-rows-[50px] gap-x-[20px] absolute top-[620px] left-[80px] max-[1366px]:hidden">
-          <button
-            className="bg-black border-[0.5px] border-white w-full h-full"
-            onClick={(e) => clickButton(e, 'prev')}
-          >
-            <figure className="relative w-full h-[75%]">
-              <Image
-                className="absolute top-0 left-0"
-                fill
-                sizes="100%"
-                src="/images/btn_prev.png"
-                alt="버튼 좌측 이미지"
-                style={{ objectFit: 'contain' }}
-              />
-            </figure>
-          </button>
-          <button className="bg-white w-full h-full" onClick={clickButton}>
-            <figure className="relative w-full h-[75%]">
-              <Image
-                className="absolute top-0 left-0"
-                fill
-                sizes="100%"
-                src="/images/btn_next_b.png"
-                alt="버튼 좌측 이미지"
-                style={{ objectFit: 'contain' }}
-              />
-            </figure>
-          </button>
-        </div>
-
+        <ButtonOption clickHandler={clickButton} model={modelName} price={initialPrice} />
         {/* 웹 예상가격 */}
         <div className="h-full max-[1366px]:hidden">
-          <aside className="sticky right-[100px] top-[calc(100vh_-120px)] bg-black font-Hyundai-sans border-[1px] border-[#666] flex flex-col pl-[35px] pt-[10px]
-                            justify-center">
+          <aside
+            className="sticky right-[100px] top-[calc(100vh_-120px)] bg-black font-Hyundai-sans border-[1px] border-[#666] flex flex-col pl-[35px] pt-[10px]
+                            justify-center"
+          >
             <p className="text-[15px] text-[#a4a4a4] max-[1366px]:text-xl">예상 가격</p>
             <span className="text-[30px] font-bold mt-[-10px] max-[1366px]:text-xl max-[1366px]:mt-0">
               {optionState.newPrice.toLocaleString('ko-KR')}
@@ -283,7 +265,7 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
       </section>
 
       {/* 모바일 예상가격 */}
-      <MobilePriceLayout mobilePrice={optionState.newPrice}/>
+      <MobilePriceLayout mobilePrice={optionState.newPrice} />
     </>
   );
 }

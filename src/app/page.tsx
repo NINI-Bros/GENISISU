@@ -1,10 +1,10 @@
-import MainPagination from '../components/mainPageComponents/MainPagination';
+import MainPagination from '../components/home/MainPagination';
 import { fetchVehicles } from '@/data/fetch/productFetch';
-import Event1 from '@/components/mainPageComponents/Event1';
-import Event2 from '@/components/mainPageComponents/Event2';
-import Event3 from '@/components/mainPageComponents/Event3';
-import Event4 from '@/components/mainPageComponents/Event4';
-import Event5 from '@/components/mainPageComponents/Event5';
+import Video from '@/components/home/Video';
+import Vehicles from '@/components/home/Vehicles';
+import Events from '@/components/home/Events';
+import Awards from '@/components/home/Awards';
+import TestDriveApplication from '@/components/home/TestDriveApplication';
 
 export default async function RootPage() {
   const modelData = await fetchVehicles();
@@ -12,11 +12,11 @@ export default async function RootPage() {
     <>
       <MainPagination />
       <main className="mainPage">
-        <Event1 />
-        <Event2 data={modelData} />
-        <Event3 />
-        <Event4 />
-        <Event5 boardName={'drive'} />
+        <Video />
+        <Vehicles data={modelData} />
+        <Events />
+        <Awards />
+        <TestDriveApplication boardName={'drive'} />
       </main>
     </>
   );

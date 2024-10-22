@@ -3,15 +3,24 @@ import { Product } from '@/types/product';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { useModelStore } from '@/zustand/useModel';
 
-export default function Event2({ data }: { data: Product[] }) {
-  const SERVER: string = process.env.NEXT_PUBLIC_API_SERVER;
+const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
+
+export default function Vehicles({ data }: { data: Product[] }) {
+  const updateItems = useModelStore((state) => state.updateItems);
+
+  useEffect(() => {
+    updateItems(data.map((item) => item.name));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+
   const router = useRouter();
   const titleRef = useRef<HTMLHeadingElement | null>(null);
   const regex = /gv?\d{2}/g; // 정규표현식
@@ -46,6 +55,7 @@ export default function Event2({ data }: { data: Product[] }) {
       router.push(`/models/${index + 1}`);
     }
   };
+
   return (
     <section id="event2">
       <article className="ev2_tit">

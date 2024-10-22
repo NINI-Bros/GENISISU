@@ -6,22 +6,24 @@ import { useModelStore } from '@/zustand/useModel';
 import { useSelectUpdate } from '@/zustand/useSelectStore';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { ReactNode, useRef, useState } from 'react';
+import { ReactElement, ReactNode, useRef, useState } from 'react';
 import MobileTitleLayout from './MobileTitleLayout';
-import { OptionList, VerticalLayoutProps } from '@/types/optionLayout';
+import { LayoutProps } from '@/types/optionLayout';
 import MobilePriceLayout from './MobilePriceLayout';
+import ButtonOption from '@/components/ButtonOption';
+import ButtonReset from '@/components/ButtonReset';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
 // 1번레이아웃_중앙 정렬 옵션
-export default function VerticalLayout({ params, modelData, optionData }: VerticalLayoutProps) {
+export default function VerticalLayout({ params, modelData, optionData }: LayoutProps) {
   const updateCartItem = useSelectUpdate();
   const router = useRouter();
   const optionName = params.option;
-  const modelName = modelData?.name || '';
-  const initialPrice = modelData?.price || 0;
+  const modelName = modelData.name;
+  const initialPrice = modelData.price;
   const modelOptionData = optionData[0].extra.option[optionName][modelName];
-  const [storedValue, setValue] = useLocalStorage<Cart>('cart', {
+  const [storedValue, setValue] = useLocalStorage<Cart>(modelName, {
     model: modelName,
     price: initialPrice,
   });
@@ -132,17 +134,18 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
 
   return (
     <>
-      <section className="h-screen grid grid-cols-[400px_auto_280px] gap-x-[4rem] pr-[3rem] relative items-center
-                        max-[1366px]:grid-cols-1 max-[1366px]:pr-0 max-[1366px]:grid-rows-[max-content_auto] max-[1366px]:min-h-0 max-[1366px]:h-min">
+      <section
+        className="h-screen grid grid-cols-[400px_auto_280px] gap-x-[4rem] pr-[3rem] relative items-center
+                        max-[1366px]:grid-cols-1 max-[1366px]:pr-0 max-[1366px]:grid-rows-[max-content_auto] max-[1366px]:min-h-0 max-[1366px]:h-min"
+      >
         {/* 모바일에서만 보여질 상단바 */}
-        <MobileTitleLayout 
-          optionName={optionName} 
-          modelName={modelName}
-          clickBtn={clickButton}
-        />
-        
+        <MobileTitleLayout optionName={optionName} modelName={modelName} clickBtn={clickButton} />
         {/* 옵션명 */}
         <article className="w-full col-start-2 flex flex-col gap-y-[30px] items-center mt-[-80px] max-[1366px]:col-start-1 max-[1366px]:px-[7%] max-[1366px]:gap-y-0 max-[1366px]:my-[50px]">
+          {/* RESET 버튼 */}
+          <div className="hidden absolute top-4 right-8 max-[1366px]:flex max-[1366px]:z-[6]">
+            <ButtonReset model={modelName} price={initialPrice} />
+          </div>
           <figure className="aspect-[16/9] w-full max-h-[500px] relative max-[1366px]:h-min ">
             <Image
               src={optionState.imageSource}
@@ -168,40 +171,14 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
         </article>
 
         {/* 화살표 이동 버튼 */}
-        <div className="grid grid-cols-[60px_60px] grid-rows-[50px] gap-x-[20px] absolute top-[620px] left-[80px] max-[1366px]:hidden">
-          <button
-            className="bg-black border-[0.5px] border-white w-full h-full"
-            onClick={(e) => clickButton(e, 'prev')}
-          >
-            <figure className="relative w-full h-[75%]">
-              <Image
-                className="absolute top-0 left-0"
-                fill
-                sizes="100%"
-                src="/images/btn_prev.png"
-                alt="버튼 좌측 이미지"
-                style={{ objectFit: 'contain' }}
-              />
-            </figure>
-          </button>
-          <button className="bg-white w-full h-full" onClick={clickButton}>
-            <figure className="relative w-full h-[75%]">
-              <Image
-                className="absolute top-0 left-0"
-                fill
-                sizes="100%"
-                src="/images/btn_next_b.png"
-                alt="버튼 좌측 이미지"
-                style={{ objectFit: 'contain' }}
-              />
-            </figure>
-          </button>
-        </div>
+        <ButtonOption clickHandler={clickButton} model={modelName} price={initialPrice} />
 
         {/* 예상가격 */}
         <div className="h-full max-[1366px]:hidden">
-          <aside className="sticky top-[calc(100vh_-120px)] bg-black font-Hyundai-sans border-[1px] border-[#666] flex flex-col pl-[35px] pt-[10px] 
-                max-[1366px]:pl-0 max-[1366px]:flex-row max-[1366px]:py-0 max-[1366px]:items-center justify-center max-[1366px]:gap-x-[20px] max-[1366px]:h-full">
+          <aside
+            className="sticky top-[calc(100vh_-110px)] bg-black font-Hyundai-sans border-[1px] border-[#666] flex flex-col pl-[35px] pt-[10px] 
+                max-[1366px]:pl-0 max-[1366px]:flex-row max-[1366px]:py-0 max-[1366px]:items-center justify-center max-[1366px]:gap-x-[20px] max-[1366px]:h-full"
+          >
             <p className="text-[15px] text-[#a4a4a4] max-[1366px]:text-xl">예상 가격</p>
             <span className="text-[30px] font-bold mt-[-10px] max-[1366px]:text-xl max-[1366px]:mt-0">
               {optionState.newPrice.toLocaleString('ko-KR')}
@@ -209,10 +186,9 @@ export default function VerticalLayout({ params, modelData, optionData }: Vertic
             </span>
           </aside>
         </div>
-
       </section>
       {/* 모바일 예상가격 */}
-      <MobilePriceLayout mobilePrice={optionState.newPrice}/>
+      <MobilePriceLayout mobilePrice={optionState.newPrice} />
     </>
   );
 }
