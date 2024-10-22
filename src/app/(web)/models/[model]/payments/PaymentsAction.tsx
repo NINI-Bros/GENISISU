@@ -7,7 +7,7 @@ import { PaymentsActionProps, TaxOptions } from '@/types/payments';
 import { Cart, OptionItem } from '@/types/product';
 import PortOne from '@portone/browser-sdk/v2';
 import Image from 'next/image';
-import { useParams, useRouter } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 import Script from 'next/script';
 import { useEffect, useState } from 'react';
 
@@ -44,15 +44,17 @@ const taxOptions: TaxOptions = {
 };
 
 export default function PaymentsAction({ vehicleInfo, optionData, params }: PaymentsActionProps) {
-  const param = useParams();
-  const paramModelIndex = Number(param.model)
+  const router = useRouter();
+  const modelIndex = Number(params.model);
+  if (!(modelIndex >= 1 && modelIndex <= 13)) {
+    notFound();
+  }
   const initialCart = {
-    model: vehicleInfo[paramModelIndex-1].name || '',
-    price: vehicleInfo[paramModelIndex-1].price || 0,
+    model: vehicleInfo[modelIndex - 1].name,
+    price: vehicleInfo[modelIndex - 1].price,
   };
 
   const [storedValue, setValue] = useState<Cart>(initialCart);
-  const route = useRouter();
   const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
   const STOREID = process.env.NEXT_PUBLIC_PORTONE_STOREID;
   const CHANNELKEY = process.env.NEXT_PUBLIC_PORTONE_CHANNELKEY;
@@ -107,11 +109,17 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
 
   // 장애여부 세금 부과
   useEffect(() => {
-    if (price !== null ) {
+    if (price !== null) {
       switch (tax.selValue) {
         case 'normal':
           setTax((prev) => {
-            return { ...prev, tax01Value: 1000000, tax02Value: price * 0.07, tax03Value: price * 0.025, isAble: false };
+            return {
+              ...prev,
+              tax01Value: 1000000,
+              tax02Value: price * 0.07,
+              tax03Value: price * 0.025,
+              isAble: false,
+            };
           });
           break;
         case 'disabled':
@@ -121,7 +129,13 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
           break;
         default:
           setTax((prev) => {
-            return { ...prev, tax01Value: 1000000, tax02Value: price * 0.07, tax03Value: price * 0.025, isAble: false };
+            return {
+              ...prev,
+              tax01Value: 1000000,
+              tax02Value: price * 0.07,
+              tax03Value: price * 0.025,
+              isAble: false,
+            };
           });
           break;
       }
@@ -152,11 +166,11 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
       totalAmount: totalSum,
       currency: 'CURRENCY_KRW',
       payMethod: 'CARD',
-      windowType : { 
-        pc : 'IFRAME',
-        mobile : 'REDIRECTION'
+      windowType: {
+        pc: 'IFRAME',
+        mobile: 'REDIRECTION',
       },
-      redirectUrl:'https://genisisu.vercel.app/models/paymentsComplete',
+      redirectUrl: 'https://genisisu.vercel.app/models/paymentsComplete',
     });
 
     if (response?.code !== undefined) {
@@ -174,8 +188,8 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
           // 주문 정보...
         }),
       });
-      // 모바일이 아닌 pc버전으로 결제요청 들어갈 경우 이 route.push로 리다이렉트 됌
-      route.push('/models/paymentsComplete');
+      // 모바일이 아닌 pc버전으로 결제요청 들어갈 경우 이 router.push로 리다이렉트 됌
+      router.push(`/models/paymentsComplete?model=${initialCart.model}&price=${totalSum}`);
       return alert('결제가 완료되었습니다');
     }
   };
@@ -256,9 +270,9 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
   // 우편주소 지역 구분에 따른 세금 부과
   useEffect(() => {
     setOptionPrice(price - originMatch?.price);
-    const item = window.localStorage?.getItem('cart');
+    const item = window.localStorage?.getItem(initialCart.model);
     item && setValue((prev) => ({ ...prev, ...JSON.parse(item) }));
-    
+
     if (addrTax.detailAddr.split(' ')[0] === '서울') {
       // setNumCardTax(taxOptions.seoulNumcardCharge)
       setAddrTax((prev) => {
@@ -429,7 +443,9 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
                     className="absolute top-0 left-0"
                   ></Image>
                 </figure>
-                <span className="whitespace-break-spaces">{storedValue.option?.[type].name.split('-')[1]}</span>
+                <span className="whitespace-break-spaces">
+                  {storedValue.option?.[type].name.split('-')[1]}
+                </span>
               </td>
               <td className="text-right">{storedValue.option?.[type].price?.toLocaleString()}원</td>
             </>
@@ -501,32 +517,34 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
 
   const clickButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    route.push(`/models/${params.model}/add`);
+    router.push(`/models/${params.model}/add`);
   };
 
   // session값 적용
   const session = useSession();
-  const userName = session?.user?.name !== undefined ? session?.user?.name : "익명"
+  const userName = session?.user?.name !== undefined ? session?.user?.name : '익명';
 
   // 새로고침 key event 막음
-  useEffect(()=>{
+  useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if(e.key === 'F5') {
-        const confirmText = confirm("새로고침을 할 경우 데이터가 초기화 됩니다.\n그대로 진행하시겠습니까?")
+      if (e.key === 'F5') {
+        const confirmText = confirm(
+          '새로고침을 할 경우 데이터가 초기화 됩니다.\n그대로 진행하시겠습니까?'
+        );
         if (confirmText) {
-          return
+          return;
         } else {
           e.preventDefault();
         }
       }
-    }
+    };
 
-    window.addEventListener('keydown',handleKeyDown)
+    window.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      window.removeEventListener('keydown',handleKeyDown)
-    }
-  },[])
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 
   return (
     <>
@@ -555,7 +573,9 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
                     <th className="text-right max-[1366px]:col-span-3 max-[1366px]:text-left max-[1366px]:ml-[-5%]">
                       모델명
                     </th>
-                    <td className="text-gray-400 max-[1366px]:row-start-2 max-[1366px]:col-span-2">{title}</td>
+                    <td className="text-gray-400 max-[1366px]:row-start-2 max-[1366px]:col-span-2">
+                      {title}
+                    </td>
                     <td className="text-right text-gray-400 max-[1366px]:row-start-2 max-[1366px]:col-span-2   ">
                       {originMatch?.price.toLocaleString() + ' 원'}
                     </td>
@@ -710,7 +730,7 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
               <div className="flex gap-x-[10px] justify-end mt-[30px] text-[20px] font-bold">
                 <span>배송비 (b)</span>
                 <span>
-                  {addrTax.sidoTax === 0 ? '- 원' : addrTax.sidoTax.toLocaleString() +  ' 원'}
+                  {addrTax.sidoTax === 0 ? '- 원' : addrTax.sidoTax.toLocaleString() + ' 원'}
                 </span>
               </div>
             </article>
@@ -719,7 +739,6 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
             <article className="border-t-[1px] border-[#e5e7eb]">
               <div className="flex justify-between items-center mt-[20px] max-[1366px]:mt-[15px]">
                 <h3 className="text-[25px] font-bold  max-[1366px]:text-[20px]">등록비용</h3>
-            
               </div>
 
               <table className="mt-[27px] w-full max-[1366px]:text-[12px]">
@@ -748,7 +767,7 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
                         ) : (
                           '- '
                         )}
-                        {tax.tax01Value.toLocaleString() +  ' 원'}
+                        {tax.tax01Value.toLocaleString() + ' 원'}
                       </span>
                     </td>
                   </tr>
@@ -757,7 +776,7 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
                     <td className="flex gap-x-[10px] text-gray-400">
                       <span>
                         {tax.isAble ? <span className="mr-[10px] text-gray-400">(면제)</span> : ''}
-                        {tax.tax02Value.toLocaleString() +  ' 원'}
+                        {tax.tax02Value.toLocaleString() + ' 원'}
                       </span>
                     </td>
                   </tr>
@@ -766,14 +785,14 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
                     <td className="flex gap-x-[10px] text-gray-400">
                       <span>
                         {tax.isAble ? <span className="mr-[10px] text-gray-400">(면제)</span> : ''}
-                        {tax.tax03Value.toLocaleString() +  ' 원'}
+                        {tax.tax03Value.toLocaleString() + ' 원'}
                       </span>
                     </td>
                   </tr>
                   <tr className="flex justify-between items-center min-h-[42px] gap-x-[140px] ml-[20px] max-[1366px]:ml-0">
                     <th className="text-right">증지대</th>
                     <td className="flex gap-x-[10px] text-gray-400">
-                      <span>{taxOptions.tax04.toLocaleString() +  ' 원'}</span>
+                      <span>{taxOptions.tax04.toLocaleString() + ' 원'}</span>
                     </td>
                   </tr>
                   <tr className="flex justify-between items-center min-h-[42px] gap-x-[140px] ml-[20px] max-[1366px]:ml-0">
@@ -782,21 +801,21 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
                       <span>
                         {addrTax.numCardTax === 0
                           ? '(배송지 미지정)'
-                          : addrTax.numCardTax.toLocaleString() +  ' 원'}
+                          : addrTax.numCardTax.toLocaleString() + ' 원'}
                       </span>
                     </td>
                   </tr>
                   <tr className="flex justify-between items-center min-h-[42px] gap-x-[140px] ml-[20px] max-[1366px]:ml-0">
                     <th className="text-right">등록대행 수수료</th>
                     <td className="flex gap-x-[10px] text-gray-400">
-                      <span>{taxOptions.tax06.toLocaleString() +  ' 원'}</span>
+                      <span>{taxOptions.tax06.toLocaleString() + ' 원'}</span>
                     </td>
                   </tr>
                 </tbody>
               </table>
               <div className="flex gap-x-[10px] justify-end mt-[30px] text-[20px] font-bold">
                 <span>등록비용 총합 (c)</span>
-                <span>{taxSum.toLocaleString() +  ' 원'}</span>
+                <span>{taxSum.toLocaleString() + ' 원'}</span>
               </div>
             </article>
 
@@ -830,7 +849,7 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
                     <span className="text-right">
                       {addrTax.sidoTax === 0
                         ? '(배송비 미지정)'
-                        : addrTax.sidoTax.toLocaleString() +  ' 원'}
+                        : addrTax.sidoTax.toLocaleString() + ' 원'}
                     </span>
                   </div>
                   <div className="grid grid-cols-[3fr_1fr] justify-end max-[1366px]:grid-cols-[1fr_minmax(auto,_100px)]">
@@ -839,7 +858,9 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
                   </div>
                   <div className="grid grid-cols-[3fr_1fr] justify-end max-[1366px]:grid-cols-[1fr_minmax(auto,_100px)]">
                     <span className="text-right">임시 운행 의무보험료 (b)</span>
-                    <span className="text-right">{taxOptions.insuranceTax.toLocaleString() + ' 원'}</span>
+                    <span className="text-right">
+                      {taxOptions.insuranceTax.toLocaleString() + ' 원'}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -848,7 +869,9 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
                   총 차량 구매금액 <span className="text-gray-400">(a + b + c + d)</span>
                 </span>
                 <div className="text-[30px] max-[1366px]:self-end max-[1366px]:text-[20px]">
-                  <span className="max-[1366px]:font-bold">{totalSum.toLocaleString() + ' 원'}</span>
+                  <span className="max-[1366px]:font-bold">
+                    {totalSum.toLocaleString() + ' 원'}
+                  </span>
                 </div>
               </div>
             </article>
@@ -919,7 +942,11 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
                         <tr className="flex w-full">
                           <th className="font-light basis-1/4">옵션 금액</th>
                           <td className="basis-3/4 text-right">
-                            <span>{optionPrice !== 0 ? optionPrice && optionPrice.toLocaleString() + ' 원' : '0 원'}</span>
+                            <span>
+                              {optionPrice !== 0
+                                ? optionPrice && optionPrice.toLocaleString() + ' 원'
+                                : '0 원'}
+                            </span>
                           </td>
                         </tr>
                         <tr className="flex w-full">

@@ -2,39 +2,28 @@
 
 import Link from 'next/link';
 import { ImageViewer } from '../ImageViewer';
-import { Cart, Product } from '@/types/product';
 import { useModelStore } from '@/zustand/useModel';
 import { useRouter } from 'next/navigation';
-import useLocalStorage from '@/hook/useLocalStorage';
 import extractTitle from '@/data/extractTitle';
-import { useEffect } from 'react';
-import { useSelectReset } from '@/zustand/useSelectStore';
 import Image from 'next/image';
 import ScrollToTop from '@/components/ScrollToTop';
+import ButtonReset from '@/components/ButtonReset';
+import { Product } from '@/types/product';
 
-interface Section1IndexProps {
+export default function Section1Index({
+  modelIndex,
+  modelData,
+  imageArray,
+}: {
   modelIndex: string;
-  modelData: Product | null;
+  modelData: Product;
   imageArray: string[];
-}
-
-export default function Section1Index({ modelIndex, modelData, imageArray }: Section1IndexProps) {
+}) {
   const isOneImage = (arr: string[]) => (arr.length === 1 ? 'max-[1366px]:scale-150' : '');
-  const resetCartItem = useSelectReset();
   const { steps } = useModelStore();
-  const initialValue = {
-    model: modelData?.name || '',
-    price: modelData?.price || 0,
-  };
-  const [storedValue, setValue] = useLocalStorage<Cart>('cart', initialValue);
-  useEffect(() => {
-    resetCartItem();
-    window.localStorage.setItem('cart', JSON.stringify(initialValue));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const modelName = modelData.name;
+  const initialPrice = modelData ? Number(modelData?.price) : 0;
   const router = useRouter();
-  const modelName = modelData ? modelData.name : storedValue.model;
-  const modelPrice = modelData ? Number(modelData.price) : storedValue.price;
 
   const [title, subtitle] = extractTitle(modelName);
   const uppercaseName = title.toUpperCase() + ' ' + subtitle.toUpperCase();
@@ -42,10 +31,6 @@ export default function Section1Index({ modelIndex, modelData, imageArray }: Sec
   const clickNext = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const nextStep = `/models/${modelIndex}/${steps[1]}`; // 'engine'
-    setValue({
-      model: modelName,
-      price: modelPrice,
-    });
     router.push(nextStep);
   };
 
@@ -60,6 +45,10 @@ export default function Section1Index({ modelIndex, modelData, imageArray }: Sec
                           max-[1366px]:col-start-1 max-[1366px]:pb-0 max-[1366px]:h-[80%] max-[1366px]:mt-0
                           max-[1366px]:grid max-[1366px]:grid-rows-[250px_auto] max-[1366px]:w-full max-[1366px]:px-[7%]"
       >
+        {/* RESET 버튼 */}
+        <div className="hidden absolute top-4 right-8 max-[1366px]:flex max-[1366px]:z-[6]">
+          <ButtonReset model={modelName} price={initialPrice} />
+        </div>
         {/* 이미지 영역 */}
         <figure
           className={`relative max-w-full aspect-[2/1] overflow-hidden max-[1366px]:row-start-2 max-[1366px]:z-[5] ${isOneImage(
@@ -68,25 +57,24 @@ export default function Section1Index({ modelIndex, modelData, imageArray }: Sec
         >
           {modelData && <ImageViewer images={imageArray} />}
         </figure>
-
         {/* 가격 표시 */}
         <div
           className="grid grid-cols-[auto_1fr_1fr] gap-y-[10px] gap-x-[3rem] self-center 
                         max-[1366px]:grid-cols-1 max-[1366px]:gap-x-0 max-[1366px]:gap-y-0 max-[1366px]:justify-items-center max-[1366px]:row-start-1 max-[1366px]:w-full
-                        max-[1366px]:relative max-[1366px]:z-10
+                        max-[1366px]:relative max-[1366px]:z-10 mt-9
                         "
         >
           <h2
-            className="text-[50px] text-center font-Hyundai-sans self-center justify-self-center px-[10px] font-black flex flex-col items-center
+            className="relative text-[50px] text-center font-Hyundai-sans self-center justify-self-center px-[10px] font-black flex flex-col items-center
                         max-[1366px]:text-[28px] max-[1366px]:max-w-full max-[1366px]:leading-none max-[1366px]:w-[95%] max-[1366px]:border-b-[1px] max-[1366px]:border-[#666]
-                        max-[1366px]:pb-[1%] max-[1366px]:mt-[4%] max-[1366px]:px-0 "
+                        max-[1366px]:pb-[1%] max-[1366px]:mt-[3%] max-[1366px]:px-0 "
           >
             {modelName && uppercaseName}
           </h2>
           <h3 className="text-[30px] text-[#a4a4a4] col-span-2 self-center max-[1366px]:text-[20px] max-[1366px]:mt-[1%]">
             시작가격{' '}
             <span className="text-white font-Hyundai-sans">
-              {modelPrice.toLocaleString('ko-KR')}
+              {initialPrice.toLocaleString('ko-KR')}
             </span>
             <span className="text-[20px] text-white max-[1366px]:text-base"> 원</span>
           </h3>
@@ -98,6 +86,7 @@ export default function Section1Index({ modelIndex, modelData, imageArray }: Sec
               시승신청
             </Link>
             <button
+              type="button"
               className="mainBtn w-[100px] h-[37px] font-normal border-2 border-white bg-white text-black text-[16px]"
               style={{ fontFamily: 'Pretendard' }}
               onClick={clickNext}
@@ -105,7 +94,6 @@ export default function Section1Index({ modelIndex, modelData, imageArray }: Sec
               다음
             </button>
           </div>
-
           <div className="flex justify-self-center col-span-3 mt-[0px] items-end gap-x-[10px] max-[1366px]:absolute max-[1366px]:top-[calc(100vh_-200px)]">
             <figure className="w-[30px] h-[30px] relative top-[4px]">
               <Image
@@ -135,6 +123,7 @@ export default function Section1Index({ modelIndex, modelData, imageArray }: Sec
           >
             다음
           </button>
+          <ButtonReset model={modelName} price={initialPrice} />
         </div>
       </article>
     </section>

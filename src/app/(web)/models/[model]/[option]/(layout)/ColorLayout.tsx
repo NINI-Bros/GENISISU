@@ -8,21 +8,23 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ReactNode, useRef, useState } from 'react';
 import MobileTitleLayout from './MobileTitleLayout';
-import { ColorLayoutProps } from '@/types/optionLayout';
+import { LayoutProps } from '@/types/optionLayout';
 import MobilePriceLayout from './MobilePriceLayout';
+import ButtonOption from '@/components/ButtonOption';
+import ButtonReset from '@/components/ButtonReset';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
 // 2번레이아웃_컬러칩 옵션
-export default function ColorLayout({ params, modelData, optionData }: ColorLayoutProps) {
+export default function ColorLayout({ params, modelData, optionData }: LayoutProps) {
   const updateCartItem = useSelectUpdate();
   const router = useRouter();
   const optionName = params.option;
-  const modelName = modelData?.name || '';
-  const initialPrice = modelData?.price || 0;
+  const modelName = modelData.name;
+  const initialPrice = modelData.price;
   const modelOptionData = optionData[0].extra.option[optionName][modelName];
 
-  const [storedValue, setValue] = useLocalStorage<Cart>('cart', {
+  const [storedValue, setValue] = useLocalStorage<Cart>(modelName, {
     model: modelName,
     price: initialPrice,
   });
@@ -225,6 +227,10 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
 
         {/* 옵션명 */}
         <article className="col-start-2 flex flex-col items-center w-full py-[80px] max-[1366px]:col-start-1 max-[1366px]:px-[7%] max-[1366px]:py-[0px] max-[1366px]:self-start max-[1366px]:mt-[50px]">
+          {/* RESET 버튼 */}
+          <div className="hidden absolute top-4 right-8 max-[1366px]:flex max-[1366px]:z-[6]">
+            <ButtonReset model={modelName} price={initialPrice} />
+          </div>
           <figure className="w-full max-h-[500px] aspect-[2.4/1] relative overflow-hidden">
             <Image
               src={optionState.imageSource}
@@ -241,38 +247,8 @@ export default function ColorLayout({ params, modelData, optionData }: ColorLayo
           </h4>
           <div className="tableWrap mt-[50px] w-full max-[1366px]:mt-[10px]">{list}</div>
         </article>
-
         {/* 화살표 이동 버튼 */}
-        <div className="grid grid-cols-[60px_60px] grid-rows-[50px] gap-x-[20px] absolute top-[620px] left-[80px] max-[1366px]:hidden">
-          <button
-            className="bg-black border-[0.5px] border-white w-full h-full"
-            onClick={(e) => clickButton(e, 'prev')}
-          >
-            <figure className="relative w-full h-[75%]">
-              <Image
-                className="absolute top-0 left-0"
-                fill
-                sizes="100%"
-                src="/images/btn_prev.png"
-                alt="버튼 좌측 이미지"
-                style={{ objectFit: 'contain' }}
-              />
-            </figure>
-          </button>
-          <button className="bg-white w-full h-full" onClick={clickButton}>
-            <figure className="relative w-full h-[75%]">
-              <Image
-                className="absolute top-0 left-0"
-                fill
-                sizes="100%"
-                src="/images/btn_next_b.png"
-                alt="버튼 좌측 이미지"
-                style={{ objectFit: 'contain' }}
-              />
-            </figure>
-          </button>
-        </div>
-
+        <ButtonOption clickHandler={clickButton} model={modelName} price={initialPrice} />
         {/* 웹 예상가격 */}
         <div className="h-full max-[1366px]:hidden">
           <aside

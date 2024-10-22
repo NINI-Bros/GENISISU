@@ -8,21 +8,23 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ReactNode, useRef, useState } from 'react';
 import MobileTitleLayout from './MobileTitleLayout';
-import { HorizontalLayoutProps, OptionEventParams, OptionList } from '@/types/optionLayout';
+import { LayoutProps, OptionEventParams } from '@/types/optionLayout';
 import MobilePriceLayout from './MobilePriceLayout';
+import ButtonArrow from '../../../../../../components/ButtonOption';
+import ButtonReset from '@/components/ButtonReset';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
 // 3번레이아웃_기본 default 옵션 사진 가로
-export default function HorizontalLayout({ params, modelData, optionData }: HorizontalLayoutProps) {
+export default function HorizontalLayout({ params, modelData, optionData }: LayoutProps) {
   const updateCartItem = useSelectUpdate();
   const router = useRouter();
   const optionName = params.option;
-  const modelName = modelData?.name || '';
-  const initialPrice = modelData?.price || 0;
+  const modelName = modelData.name;
+  const initialPrice = modelData.price;
   const modelOptionData = optionData[0].extra.option[optionName][modelName];
 
-  const [storedValue, setValue] = useLocalStorage<Cart>('cart', {
+  const [storedValue, setValue] = useLocalStorage<Cart>(modelName, {
     model: modelName,
     price: initialPrice,
   });
@@ -88,9 +90,7 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
       >
         <td
           onClick={() => handleOptionClick(optionEventParams)}
-          className={`flex gap-x-3 items-center font-bold ${isGroupActive(
-            groupName
-          )} `}
+          className={`flex gap-x-3 items-center font-bold ${isGroupActive(groupName)} `}
         >
           <figure
             onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
@@ -256,19 +256,24 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
 
   return (
     <>
-      <section className="h-screen relative grid grid-cols-[400px_auto] gap-x-[4rem] 
-                        max-[1366px]:grid-cols-1 max-[1366px]:grid-rows-[max-content_auto] max-[1366px]:h-max max-[1366px]:mb-[50px]">
+      <section
+        className="h-screen relative grid grid-cols-[400px_auto] gap-x-[4rem] 
+                        max-[1366px]:grid-cols-1 max-[1366px]:grid-rows-[max-content_auto] max-[1366px]:h-max max-[1366px]:mb-[50px]"
+      >
         {/* 모바일에서만 보여질 상단바 */}
-        <MobileTitleLayout 
-          optionName={optionName} 
-          modelName={modelName}
-          clickBtn={clickButton}
-        />
-        
+        <MobileTitleLayout optionName={optionName} modelName={modelName} clickBtn={clickButton} />
+
         {/* 옵션명 */}
-        <article className="col-start-2 grid grid-cols-2 justify-center items-top max-w-[90vw] mt-[120px] mr-[100px] 
+        <article
+          className="col-start-2 grid grid-cols-2 justify-center items-top max-w-[100vw] mt-[120px] mr-[3rem] 
                             max-[1366px]:col-start-1 max-[1366px]:mr-0 max-[1366px]:justify-self-center max-[1366px]:mt-[50px] max-[1366px]:grid-cols-1 max-[1366px]:min-h-full max-[1366px]:self-start
-                            max-[1366px]:max-w-full max-[1366px]:px-[7%] max-[1366px]:w-full">
+                            max-[1366px]:max-w-full max-[1366px]:px-[7%] max-[1366px]:w-full"
+        >
+          {/* RESET 버튼 */}
+          <div className="hidden absolute top-4 right-8 max-[1366px]:flex max-[1366px]:z-[6]">
+            <ButtonReset model={modelName} price={initialPrice} />
+          </div>
+          {/* Main 콘텐츠 */}
           <div className="flex flex-col mr-[40px] max-[1366px]:mr-0">
             {/* <figure className="w-[650px] h-[325px] relative"> */}
             <figure className="aspect-[16/9] relative">
@@ -284,14 +289,16 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
             </figure>
             {/* <h4 className="w-[650px] mb-[20px] self-center mt-[20px] text-[16px]"> */}
             <h4 className="w-full mb-[20px] self-center mt-[20px] text-[16px]">
-              <pre className="font-Hyundai-sans whitespace-pre-wrap max-[1366px]:break-keep">{mainText}</pre>
+              <pre className="font-Hyundai-sans whitespace-pre-wrap max-[1366px]:break-keep">
+                {mainText}
+              </pre>
               <pre className="font-Hyundai-sans whitespace-pre-wrap text-[#666666]">
                 {annotation}
               </pre>
             </h4>
           </div>
-
-          <article className="w-full h-[550px] overflow-scroll border-t-[1px] border-b-[1px] border-[#a4a4a4] max-[1366px]:h-full max-[1366px]:overflow-visible">
+          {/* 선택 옵션 항목 */}
+          <article className="w-full h-[550px] overflow-scroll border-t-[1px] border-b-[1px] border-[#a4a4a4] max-[1366px]:h-full max-[1366px]:overflow-visible z-5">
             <table className="w-full">
               <tbody>{list}</tbody>
             </table>
@@ -299,40 +306,14 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
         </article>
 
         {/* 화살표 이동 버튼 */}
-        <div className="grid grid-cols-[60px_60px] grid-rows-[50px] gap-x-[20px] absolute top-[620px] left-[80px] max-[1366px]:hidden">
-          <button
-            className="bg-black border-[0.5px] border-white w-full h-full"
-            onClick={(e) => clickButton(e, 'prev')}
-          >
-            <figure className="relative w-full h-[75%]">
-              <Image
-                className="absolute top-0 left-0"
-                src="/images/btn_prev.png"
-                alt="버튼 좌측 이미지"
-                fill
-                sizes="100%"
-                style={{ objectFit: 'contain' }}
-              />
-            </figure>
-          </button>
-          <button className="bg-white w-full h-full" onClick={clickButton}>
-            <figure className="relative w-full h-[75%]">
-              <Image
-                className="absolute top-0 left-0"
-                src="/images/btn_next_b.png"
-                alt="버튼 좌측 이미지"
-                fill
-                sizes="100%"
-                style={{ objectFit: 'contain' }}
-              />
-            </figure>
-          </button>
-        </div>
+        <ButtonArrow clickHandler={clickButton} model={modelName} price={initialPrice} />
 
         {/* 예상가격 */}
         <div className="h-full w-[280px] absolute bottom-0 right-[3rem] max-[1366px]:hidden">
-          <aside className="sticky top-[calc(100vh_-120px)] bg-black font-Hyundai-sans border-[1px] border-[#666] flex flex-col pl-[35px] pt-[10px]
-                            max-[1366px]:flex-row max-[1366px]:pl-0 max-[1366px]:pt-0 max-[1366px]:items-center max-[1366px]:justify-center">
+          <aside
+            className="sticky top-[calc(100vh_-120px)] bg-black font-Hyundai-sans border-[1px] border-[#666] flex flex-col pl-[35px] pt-[10px]
+                            max-[1366px]:flex-row max-[1366px]:pl-0 max-[1366px]:pt-0 max-[1366px]:items-center max-[1366px]:justify-center"
+          >
             <p className="text-[15px] text-[#a4a4a4] max-[1366px]:text-xl">예상 가격</p>
             <span className="text-[30px] font-bold mt-[-10px] max-[1366px]:text-xl max-[1366px]:mt-0">
               {optionState.newPrice.toLocaleString('ko-KR')}
@@ -343,7 +324,7 @@ export default function HorizontalLayout({ params, modelData, optionData }: Hori
       </section>
 
       {/* 모바일 예상가격 */}
-      <MobilePriceLayout mobilePrice={optionState.newPrice}/>
+      <MobilePriceLayout mobilePrice={optionState.newPrice} />
     </>
   );
 }
