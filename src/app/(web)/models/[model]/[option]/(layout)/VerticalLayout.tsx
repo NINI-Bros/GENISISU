@@ -6,7 +6,7 @@ import { useModelStore } from '@/zustand/useModel';
 import { useSelectUpdate } from '@/zustand/useSelectStore';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { ReactElement, ReactNode, useRef, useState } from 'react';
+import { ReactNode, useRef, useState } from 'react';
 import MobileTitleLayout from './MobileTitleLayout';
 import { LayoutProps } from '@/types/optionLayout';
 import MobilePriceLayout from './MobilePriceLayout';

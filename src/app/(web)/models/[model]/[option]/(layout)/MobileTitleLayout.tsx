@@ -1,4 +1,3 @@
-import ButtonReset from '@/components/ButtonReset';
 import { useModelStore } from '@/zustand/useModel';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
