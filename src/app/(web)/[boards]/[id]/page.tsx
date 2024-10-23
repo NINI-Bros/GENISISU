@@ -93,7 +93,7 @@ export default async function Page({ params }: { params: { boards: string; id: s
   }
   const profileImage = item.user.image
     ? SERVER + item.user.image
-    : `${SERVER}/files/${CLIENT}/user-jayg.webp`;
+    : `${SERVER}/files/${CLIENT}/profile-image-user.jpg`;
 
   return (
     <main className="bg-white px-[360px] py-20 max-[1366px]:px-4 max-[1366px]:py-8">

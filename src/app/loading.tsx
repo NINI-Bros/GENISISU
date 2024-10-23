@@ -1,4 +1,4 @@
-import { FullScreen } from "@/components/Spinner";
+import { FullScreen } from '@/components/Spinner';
 
 export default function Loading() {
   return <FullScreen />;

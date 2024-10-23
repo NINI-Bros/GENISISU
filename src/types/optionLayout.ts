@@ -1,26 +1,16 @@
-import { Option, Product } from '@/types/product';
+import { Option, OptionItem, Product, Subject } from '@/types/product';
 
-
-export interface VerticalLayoutProps {
+export interface LayoutProps {
   params: {
     model: string;
     option: string;
   };
-  modelData: Product | null;
+  modelData: Product;
   optionData: Option[];
 }
 
 export interface OptionList {
   [key: string]: string;
-}
-
-export interface HorizontalLayoutProps {
-  params: {
-    model: string;
-    option: string;
-  };
-  modelData: Product | null;
-  optionData: Option[];
 }
 
 export interface OptionEventParams {
@@ -29,13 +19,4 @@ export interface OptionEventParams {
   optionImage: string;
   optionText: string;
   optionPrice: number;
-}
-
-export interface ColorLayoutProps {
-  params: {
-    model: string;
-    option: string;
-  };
-  modelData: Product | null;
-  optionData: Option[];
 }

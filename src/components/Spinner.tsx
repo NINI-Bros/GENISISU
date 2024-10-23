@@ -1,6 +1,6 @@
 'use client';
 
-import { FadeLoader, HashLoader, ScaleLoader } from 'react-spinners';
+import { FadeLoader, ScaleLoader } from 'react-spinners';
 
 export function FullScreen() {
   return (

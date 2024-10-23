@@ -133,7 +133,7 @@ export const {
               loginType: account.provider,
               name: user.name || '',
               email: user.email || `${Date.now()}@genisisu.com`,
-              image: user.image || `${SERVER}/files/${CLIENT}/user-jayg.webp`,
+              image: user.image || `${SERVER}/files/${CLIENT}/profile-image-user.jpg`,
               extra: { ...profile, providerAccountId: account.providerAccountId },
             };
 

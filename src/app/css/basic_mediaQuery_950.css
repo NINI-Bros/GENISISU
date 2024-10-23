@@ -1,0 +1,224 @@
+@media screen and (max-width: 950px) {
+  /* 241017 기준 Header만 950px에서 변경 */
+  body {
+    grid-template-rows: 100px minmax(calc(100vh - 410px), auto) auto;
+    padding-bottom: 60px;
+  }
+  /* Header 모바일 */
+  header {
+    top: calc(100vh - 60px);
+    height: 60px;
+    font-size: 20px;
+  }
+  header::after {
+    opacity: 100%;
+    box-shadow: 0px -0.1px 14px 0px #3f3f3f;
+  }
+  header.mainHd::after {
+    opacity: 100%;
+  }
+  header .gnb {
+    padding: 0 20px;
+
+    column-gap: 0%;
+  }
+  header .gnb > .navWrap:nth-child(1) {
+    max-width: 100%;
+  }
+  header .gnb > .navWrap:nth-child(2) {
+    display: none;
+  }
+
+  header .gnb > .navWrap > ul.mobileView {
+    display: flex;
+  }
+  header .gnb > .navWrap .firstGnb,
+  header .gnb > .navWrap .secondGnb {
+    display: none;
+  }
+  header .gnb > .navWrap > ul.mobileView li {
+    display: flex;
+    justify-content: center;
+  }
+  header .gnb > .navWrap > ul.firstGnb.mobileView {
+    column-gap: 7px;
+  }
+  header .gnb > .navWrap > ul.mobileView li a {
+    width: fit-content;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 20px 15px;
+  }
+  header .gnb > .navWrap > ul.mobileView li a figure {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  header .gnb > .navWrap > ul.mobileView li a figure svg {
+    color: #888;
+    height: 100%;
+  }
+  header .gnb > .navWrap > ul.mobileView li a.on figure svg {
+    color: #fff;
+  }
+  header .gnb > .navWrap > ul.mobileView li a span {
+    font-size: 10px;
+    text-align: center;
+    color: #888;
+  }
+  header .gnb > .navWrap > ul.mobileView li a.on span {
+    color: #fff;
+  }
+
+  header .gnb > .navWrap .secondGnb > li.sitemapBtn {
+    display: none;
+  }
+  .childrenWrap {
+    grid-row: 1 / 3;
+    width: 100%;
+  }
+
+  /* 메인페이지 페이지네이션 모바일 */
+  .main_pagination {
+    display: none;
+  }
+
+  /* 모바일 햄버거버튼 */
+  .mobileSideBar .mobileHamBtn {
+    width: 45px;
+    height: 45px;
+    position: fixed;
+    top: 10px;
+    left: 2%;
+    cursor: pointer;
+    z-index: 10;
+    box-sizing: border-box;
+  }
+  .mobileSideBar .mobileHamBtn > div {
+    width: 50%;
+    height: 2px;
+    background: #999;
+    position: absolute;
+    transform: rotate(0deg) translateX(-50%);
+    left: 50%;
+    transition: 0.3s all;
+  }
+  .mobileSideBar .mobileHamBtn > div:first-child {
+    top: 35%;
+  }
+  .mobileSideBar .mobileHamBtn > div:last-child {
+    top: 65%;
+  }
+  .mobileSideBar.on .mobileHamBtn > div:first-child {
+    transform: rotate(-45deg);
+    left: 20%;
+    top: 50%;
+  }
+  .mobileSideBar.on .mobileHamBtn > div:last-child {
+    transform: rotate(45deg);
+    left: 20%;
+    top: 50%;
+  }
+
+  /* 모바일 사이드바 */
+  .mobileSideBar {
+    display: block;
+  }
+  .mobileSideBar .mobileMenu {
+    width: 70vw;
+    max-width: 400px;
+    height: 100vh;
+    background: #000;
+    color: #fff;
+    position: fixed;
+    left: -100%;
+    top: 0%;
+    bottom: 0;
+    opacity: 100%;
+    transition: 0.3s all;
+    z-index: 9;
+    padding: 30px 7% 10%;
+  }
+  .mobileSideBar.on .mobileMenu {
+    left: 0;
+  }
+  .mobileSideBar .mobileMenu .signSet {
+    margin-bottom: 10%;
+    display: flex;
+    column-gap: 5%;
+    justify-content: end;
+    align-items: center;
+  }
+  .mobileSideBar .mobileMenu .signSet a,
+  .mobileSideBar .mobileMenu .signSet span {
+    line-height: 1;
+  }
+  .mobileSideBar .mobileMenu .mobileMenuWrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    max-height: calc(100dvh - 180px);
+    overflow: scroll;
+  }
+
+  .mobileSideBar .mobileMenu .mobileMenuWrap h3 {
+    cursor: pointer;
+    position: relative;
+    font-size: 20px;
+  }
+  .mobileSideBar .mobileMenu .mobileMenuWrap h3 .arrowBtn {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s all;
+  }
+  .mobileSideBar .mobileMenu .mobileMenuWrap h3 .arrowBtn svg {
+    transition: 0.3s all;
+  }
+  .mobileSideBar .mobileMenu .mobileMenuWrap h3 .arrowBtn.on svg {
+    transform: rotate(180deg);
+  }
+
+  .mobileSideBar .mobileMenu .mobileMenuWrap h3::after {
+    position: absolute;
+    content: '';
+    display: block;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: #999;
+  }
+  .mobileSideBar .mobileMenu .mobileMenuWrap article .toggleWrap {
+    max-height: 0;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    overflow-y: hidden;
+    transition: 0.3s all;
+    padding: 0% 5%;
+  }
+  .mobileSideBar .mobileMenu .mobileMenuWrap article:first-child .toggleWrap.on {
+    max-height: 45vh;
+    padding: 3% 5%;
+    overflow: scroll;
+  }
+  .mobileSideBar .mobileMenu .mobileMenuWrap article:last-child .toggleWrap.on {
+    max-height: 50vh;
+    padding: 3% 5%;
+  }
+
+  .toggleModelOptions {
+    display: flex;
+    flex-direction: column;
+    padding: 5% 0 5% 2rem;
+    background: #212121a5;
+  }
+}

@@ -26,7 +26,7 @@ export default function CommentItem({
   const userType = session?.user?.type;
   const image = item.user.image
     ? SERVER + item.user?.image
-    : `${SERVER}/files/${CLIENT}/user-jayg.webp`;
+    : `${SERVER}/files/${CLIENT}/profile-image-user.jpg`;
 
   return (
     <div className="border-b-[1px] border-gray-400 border-solid p-2 mb-4">

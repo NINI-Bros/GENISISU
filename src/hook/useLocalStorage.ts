@@ -18,21 +18,19 @@ export default function useLocalStorage<T>(key: string, initialValue?: T) {
     }
   };
 
-  useEffect(() => {
-    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-      event.preventDefault();
-      event.returnValue = ''; // 일부 브라우저에서는 이 설정이 필요함
-    };
-
-    const storage = window.localStorage.getItem(key);
-    if (storage) {
-      window.addEventListener('beforeunload', handleBeforeUnload);
-    }
-
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, [key]);
+  // useEffect(() => {
+  //   const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+  //     event.preventDefault();
+  //     event.returnValue = ''; // 일부 브라우저에서는 이 설정이 필요함
+  //   };
+  //   const storage = window.localStorage.getItem(key);
+  //   if (storage) {
+  //     window.addEventListener('beforeunload', handleBeforeUnload);
+  //   }
+  //   return () => {
+  //     window.removeEventListener('beforeunload', handleBeforeUnload);
+  //   };
+  // }, [key]);
 
   return [storedValue, setValue] as const;
 }

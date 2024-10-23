@@ -27,7 +27,7 @@ export async function signup(
     name: formData.get('name'),
     email: formData.get('email'),
     password: formData.get('password'),
-    image: '',
+    image: `/files/${CLIENT}/profile-image-user.jpg`, // default 이미지
   };
 
   // 이미지 먼저 업로드

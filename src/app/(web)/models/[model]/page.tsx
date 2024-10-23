@@ -5,29 +5,27 @@ import Section3Color from './(section)/Section3Color';
 import Section4Exterior from './(section)/Section4Exterior';
 import Section5Interior from './(section)/Section5Interior';
 import Section6Spec from './(section)/Section6Spec';
-import ScrollToTop from '@/components/ScrollToTop';
+import { notFound } from 'next/navigation';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
 export default async function OrderPage({ params }: { params: { model: string } }) {
   const modelIndex: string = params.model;
   const modelData = await fetchProduct(params.model);
-  const imageArray =
-    modelData?.extra.detail.view360Images.map((image) => SERVER + image.path) || [];
-  const modelName = modelData!.name;
-  const abstract = modelData!.extra.detail.abstract;
-  const exterior = modelData!.extra.detail.exterior;
-  const interior = modelData!.extra.detail.interior;
-  const spec = modelData!.extra.detail.spec;
-
-  // const res = await fetchOptionExterior('exterior');
-  const res = await fetchOption('exterior') || [];
+  if (!modelData || Number(params.model) > 13) {
+    notFound();
+  }
+  const imageArray = modelData.extra.detail.view360Images.map((image) => SERVER + image.path) || [];
+  const modelName = modelData.name;
+  const abstract = modelData.extra.detail.abstract;
+  const exterior = modelData.extra.detail.exterior;
+  const interior = modelData.extra.detail.interior;
+  const spec = modelData.extra.detail.spec;
+  const res = (await fetchOption('exterior')) || [];
   const optionData = res[0].extra.option.exterior[modelName];
 
   return (
     <>
-      <ScrollToTop />
-      
       {/* 첫번째 섹션 : 360도 이미지 */}
       <Section1Index modelIndex={modelIndex} modelData={modelData} imageArray={imageArray} />
 

@@ -1,5 +1,5 @@
 export interface FileRes {
-  originalname: string,
-  name: string,
-  path: string,
+  originalname: string;
+  name: string;
+  path: string;
 }

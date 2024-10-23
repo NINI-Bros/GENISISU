@@ -25,11 +25,13 @@ const ModelColor: React.FC<ModelColorProps> = ({ exterior }) => {
   const handleColorClick = (colorName: string, groupName: string, colorIndex: number) => {
     clickedColorRef.current.clear();
     clickedColorRef.current.add(colorName);
-    
+
     const groupIndex = groupName === '글로시 (유광)' ? 0 : 1;
     const groupObject = exterior[groupIndex];
     const colorArray = groupObject.items || [];
-    const newImage = colorArray[colorIndex].images?.[1].path ? SERVER + colorArray[colorIndex].images?.[1].path : '';
+    const newImage = colorArray[colorIndex].images?.[1].path
+      ? SERVER + colorArray[colorIndex].images?.[1].path
+      : '';
     setColorState(() => ({
       node: generateColorButton(groupObject),
       imageSource: newImage,
@@ -38,7 +40,7 @@ const ModelColor: React.FC<ModelColorProps> = ({ exterior }) => {
 
   const generateColorButton = (group: OptionItem): ReactNode => {
     const groupName = group.topText;
-    return (group.items!.map((color: OptionDetail, colorIndex: number) => {
+    return group.items!.map((color: OptionDetail, colorIndex: number) => {
       const text = color.name;
       const colorName = text.substring(0, text.indexOf('[')); // 우유니 화이트
       return (
@@ -50,7 +52,7 @@ const ModelColor: React.FC<ModelColorProps> = ({ exterior }) => {
           {colorName}
         </li>
       );
-    }));
+    });
   };
 
   const [colorState, setColorState] = useState<{ node: ReactNode; imageSource: string }>({
@@ -65,13 +67,13 @@ const ModelColor: React.FC<ModelColorProps> = ({ exterior }) => {
   } else if ('매트 (무광)' === groupName1) {
     groupKR1 = '매트';
     groupKR2 = '';
-  } 
+  }
 
   const handleGroupClick = (groupName: string) => {
     // 클릭한 버튼에 text-white 클래스 추가
     clickedGroupRef.current.clear();
     clickedGroupRef.current.add(groupName);
-    
+
     const groupIndex = groupName === '글로시 (유광)' ? 0 : 1;
     const colorArray = exterior[groupIndex].items || [];
     const newImage = colorArray[0].images?.[1].path ? SERVER + colorArray[0].images?.[1].path : '';
@@ -116,11 +118,20 @@ const ModelColor: React.FC<ModelColorProps> = ({ exterior }) => {
             </li>
           ) : null}
         </ul>
-        <ul className="text-[24px] text-[#666666] flex flex-col gap-y-[10px] max-[1366px]:text-[16px] max-[1366px]:gap-y-[5px]">{colorState.node}</ul>
+        <ul className="text-[24px] text-[#666666] flex flex-col gap-y-[10px] max-[1366px]:text-[16px] max-[1366px]:gap-y-[5px]">
+          {colorState.node}
+        </ul>
       </nav>
       <figure className="absolute aspect-[16/9] w-[1900px] left-[50%] translate-x-[-50%] bottom-[-100px] z-[4] max-[1366px]:w-[130%] max-[1366px]:bottom-[4vh]">
         {colorState.imageSource !== '' ? (
-          <Image className="w-full absolute z-1" fill sizes="100%" style={{objectFit:"contain"}} src={colorState.imageSource} alt="" />
+          <Image
+            className="w-full absolute z-1"
+            fill
+            sizes="100%"
+            style={{ objectFit: 'contain' }}
+            src={colorState.imageSource}
+            alt=""
+          />
         ) : null}
       </figure>
       <div className="absolute bottom-0 left-0 w-full h-[300px] bg-gradient-to-b from-[#6A6C72] to-[#303135] opacity-30 blur z-[1] max-[1366px]:h-[18vh]"></div>

@@ -12,7 +12,7 @@ export default function ListItem({ item, params }: { item: Post; params: { board
     if (session?.user?.type !== 'admin' && params.boards === 'drive') {
       let confirmText = confirm('관리자 권한이 필요합니다.\n관리자로 로그인 하시겠습니까?');
       if (confirmText) {
-        route.push('/login')
+        route.push('/login');
       } else {
         return;
       }
