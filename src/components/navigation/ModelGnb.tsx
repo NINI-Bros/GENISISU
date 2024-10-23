@@ -9,7 +9,7 @@ import Image from 'next/image';
 
 export default function ModelGnb({ params }: { params: { model: string } }) {
   const { items } = useModelStore();
-  const modelName = items[Number(params.model) - 1].split('-').join(' ').toUpperCase();
+  const modelName = items[Number(params.model) - 1]?.split('-').join(' ').toUpperCase();
   const swipeWrapRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
   const [tf, setTf] = useState(false);

@@ -3,11 +3,7 @@ import Image from 'next/image';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
-interface Section4Exterior {
-  exterior: Subject;
-}
-
-export default function Section4Exterior({ exterior }: Section4Exterior) {
+export default function Section4Exterior({ exterior }: { exterior: Subject }) {
   const title = exterior.title;
   const content = exterior.content;
   const source = SERVER + exterior.images[0].path;

@@ -7,7 +7,8 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-export default function Event4() {
+
+export default function Awards() {
   const [index, setIndex] = useState(0);
   const swiperRef = useRef(null);
 

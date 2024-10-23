@@ -8,7 +8,7 @@ import PostPagination from '@/components/PostPagination';
 import Button from '@/components/Button';
 import Link from 'next/link';
 import ListItem from './ListItem';
-import ScrollToTop from '../../../components/ScrollToTop';
+import ScrollToTop from '@/components/ScrollToTop';
 import { useSession } from '@/hook/session';
 
 // export function generateMetadata({ params }: { params: { boards: string } }): Metadata {

@@ -14,7 +14,7 @@
 
 ## 1. 프로젝트 개요
 
-<p>🗒️ <strong>주제</strong> : 프리미엄 차량 브랜드 제네시스의 온라인 매장</p>
+<p>🗒️ <strong>주제</strong> : 프리미엄 차량 브랜드 제네시스의 오토커머스 서비스</p>
 <p>🎯 <strong>목적</strong> : 제네시스 공식 사이트 보다 빠른 국내 오토 커머스(Auto-commerce) 웹사이트 개발</p>
 <p>👥 <strong>팀명</strong> : Hyundai-morgans Genisisuyeon (현대모건스 제니시수연)</p>
 <p>🗓️ <strong>개발기간</strong> : 7/29 ~ 10/27</p>
@@ -23,18 +23,18 @@
 ## 2. 배포 주소
 
 <p>🔗 <strong>실행 링크</strong>: https://genisisu.vercel.app/</p>
-<p>🔒 <strong>테스트 계정(ID)</strong>: guest@genisisu.com</p>
+<p>🔒 <strong>테스트 계정(ID)</strong>: hyundai-morgans@genisisu.com</p>
 <p>🔑 <strong>테스트 계정(PW)</strong>: 11111111</p>
+<p>* 로그인을 하지 않아도 익명의 유저로 서비스 이용가능</p> 
 </br>
 
 ## 3. 기술 스택
-
 
 | Field         | SKILL                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Frontend      | <img height="25" src="https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white"/> <img height="25" src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white"/> <img height="25" src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white"> <img height="25" src="https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white"/> <img height="25" src="https://img.shields.io/badge/Zustand-000000?style=for-the-badge&logo=Zustand&logoColor=white"> |
 | Backend       | <img height="25" src="https://img.shields.io/badge/Node.js-5FA04E?style=for-the-badge&logo=Node.js&logoColor=white"> <img height="25" src="https://img.shields.io/badge/express.js-000000.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB" /> <img height="25" src="https://img.shields.io/badge/mongodb-47A248.svg?style=for-the-badge&logo=mongodb&logoColor=white"/> <img height="25" src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=Python&logoColor=white"/>                                                                                                                                  |
-| Config        | <img height="25" src="https://img.shields.io/badge/NPM-CB3837.svg?style=for-the-badge&logo=npm&logoColor=white" />                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| Config        | <img height="25" src="https://img.shields.io/badge/pnpm-%234a4a4a.svg?style=for-the-badge&logo=pnpm&logoColor=f69220" />                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | Environment   | <img height="25" src="https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white" /> <img height="25" src="https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white"/>                                                                                                                                                                                                                                                                                                                                                                                    |
 | Communication | <img height="25" src="https://img.shields.io/badge/Notion-000000.svg?style=for-the-badge&logo=notion&logoColor=white" /> <img height="25" src="https://img.shields.io/badge/figma-F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white" /> <img height="25" src="https://img.shields.io/badge/Discord-5865F2.svg?style=for-the-badge&logo=Discord&logoColor=white" />                                                                                                                                                                                                                                                            |
 
@@ -62,25 +62,25 @@
 핵심 개발 기능으로는 **자동차 구매**와 **다양한 옵션 선택** 그리고 **전시시승 신청 및 게시판** 기능입니다. 현대모건스 제니시수연은 Next.js 프레임워크를 사용하여 웹 사이트의 로딩 시간을 최소화하여 사용자 경험 향상에 주력했습니다.
 </br>
 
-
 ## 5. 화면 구성
 
 ### 🕶️ 세부 화면 구성
-|                                              메인                                              |                                             메인\_캐러셀                                              |
-| :--------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------: |
-| ![메인페이지](https://github.com/user-attachments/assets/1ac9aff4-547a-4a5f-b3f7-7718b97e0b28) | ![메인페이지_캐로셀](https://github.com/user-attachments/assets/28a8147b-3ef4-4891-b740-1bb93412924d) |
 
-|                                          상품 목록                                           |                                      상품 상세\_360View                                      |
+|                                              메인                                              |                                              메인 캐러셀                                              |
+| :--------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------: |
+| ![메인페이지](https://github.com/user-attachments/assets/1ac9aff4-547a-4a5f-b3f7-7718b97e0b28) | ![메인페이지_캐러셀](https://github.com/user-attachments/assets/28a8147b-3ef4-4891-b740-1bb93412924d) |
+
+|                                          상품 목록                                           |                                          상품 보기                                           |
 | :------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------: |
 | ![상품목록](https://github.com/user-attachments/assets/62ea59c1-cba1-4c5e-bdeb-7b1796c99ec4) | ![상품상세](https://github.com/user-attachments/assets/144e5c0c-1d87-4ae9-9aa9-0f5f66aa666d) |
 
-|                                        상품 상세\_미리보기                                        |                                          옵션 선택                                           |
+|                                             상품 상세                                             |                                          옵션 선택                                           |
 | :-----------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------: |
 | ![상품상세_컬러](https://github.com/user-attachments/assets/04feff7e-6150-4c76-9e3a-cd6ba4530d27) | ![옵션선택](https://github.com/user-attachments/assets/c1b4a4f4-ef0c-430e-bd97-358a662f08dc) |
 
-|                                                결제                                                 |                                       전시시승 신청                                       |
-| :-------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------: |
-| ![결제페이지_토스](https://github.com/user-attachments/assets/2b8859cb-65c0-4af2-a15a-cce42ff358a7) | ![image](https://github.com/user-attachments/assets/27472e7b-e4b6-4a34-a67a-83de36d63499) |
+|                                                결제                                                 |                                           전시시승 신청                                           |
+| :-------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------: |
+| ![결제페이지_토스](https://github.com/user-attachments/assets/2b8859cb-65c0-4af2-a15a-cce42ff358a7) | ![전시시승 신청](https://github.com/user-attachments/assets/27472e7b-e4b6-4a34-a67a-83de36d63499) |
 
 |                                           고객지원 게시판                                           |                                           공지사항 상세                                           |
 | :-------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------: |
@@ -92,7 +92,7 @@
 
 |                                          사이트 맵                                           |                                           에러                                           |
 | :------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------: |
-| ![사이트맵](https://github.com/user-attachments/assets/8d7e51c3-4abf-489c-a148-7fafea6abd72) | ![에레](https://github.com/user-attachments/assets/a751be5c-e932-436e-9035-e23b7c0a382e) |
+| ![사이트맵](https://github.com/user-attachments/assets/8d7e51c3-4abf-489c-a148-7fafea6abd72) | ![에러](https://github.com/user-attachments/assets/a751be5c-e932-436e-9035-e23b7c0a382e) |
 
 ### 📂 페이지 플로우
 
@@ -110,7 +110,6 @@
 | https://weniv.link/C_rKwn                                                                 |
 
 페이지플로우, 와이어프레임, 디자인 시안작업을 위한 협업UI툴로 Figma를 선택하여 쉽고 빠르게 화면 관련 작업을 진행할 수 있도록 진행하였습니다.
-
 
 ## 6. 이슈 관리
 
@@ -155,7 +154,6 @@
 
 </br>
 
-
 ## 8. 팀 소개
 
 **끈질기게 도전하는 3명의 프론트엔드 개발자로 이루어진 “현대모건스 - 제니시수연”팀입니다.**
@@ -181,19 +179,19 @@
   <summary>기능 개발</summary>
   <div markdown="1">
 
-  - **1주차** | 메인 페이지 퍼블리싱, 메인 페이지 디자인, 기획 및 개발환경 세팅, 데이터 DB화
+- **1주차** | 메인 페이지 퍼블리싱, 메인 페이지 디자인, 기획 및 개발환경 세팅, 데이터 DB화
 
-  - **2주차** | 메인 페이지 퍼블리싱, 핵심 페이지 퍼블리싱, 데이터 DB화, 상품 목록
+- **2주차** | 메인 페이지 퍼블리싱, 핵심 페이지 퍼블리싱, 데이터 DB화, 상품 목록
 
-  - **3주차** | 기술면접, 연휴, 메인 페이지 인터렉션, 결제, 주문,
-전시시승 게시판, 상세 및 댓글, 게시판, 게시글 작성
+- **3주차** | 기술면접, 연휴, 메인 페이지 인터렉션, 결제, 주문,
+  전시시승 게시판, 상세 및 댓글, 게시판, 게시글 작성
 
-  - **4주차** | 404, 페이지별 스타일 통일,
-QnA 게시판 상세 및 댓글, 게시판, 게시글 작성,
-이벤트 게시판 상세 및 댓글, 게시판, 게시글 작성,
-각 페이지 최적화 작업
+- **4주차** | 404, 페이지별 스타일 통일,
+  QnA 게시판 상세 및 댓글, 게시판, 게시글 작성,
+  이벤트 게시판 상세 및 댓글, 게시판, 게시글 작성,
+  각 페이지 최적화 작업
 
-  - **5주차** | README 작성하고 꾸미기, 발표 자료 만들기, 발표
+- **5주차** | README 작성하고 꾸미기, 발표 자료 만들기, 발표
 
   </div>
 </details>

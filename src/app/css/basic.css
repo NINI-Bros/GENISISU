@@ -851,3 +851,46 @@ iframe {
   font-weight: bold;
   color: #111;
 }
+
+/* tooltip */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 160px;
+  color: white;
+  background-color: rgb(105, 105, 105);
+  text-align: center;
+  padding: 10px 0;
+  border-radius: 2px;
+  position: absolute;
+  z-index: 1;
+  bottom: 160%;
+  left: 50%;
+  margin-left: -80px;
+  transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* 말풍선 꼬리 추가 */
+.tooltip .tooltip-arrow {
+  visibility: hidden;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 8px solid rgb(105, 105, 105);
+  position: absolute;
+  bottom: 138%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltip-arrow {
+  visibility: visible;
+  opacity: 1;
+}

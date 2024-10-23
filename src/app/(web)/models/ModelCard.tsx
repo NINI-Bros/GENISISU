@@ -23,10 +23,6 @@ export default function ModelCard({ model }: { model: Product }) {
     router.push('/drive/new');
   };
 
-  useEffect(() => {
-    window.localStorage.removeItem('cart');
-  }, []);
-
   return (
     <li className="grid grid-cols-1 auto-rows-min gap-y-10 justify-center px-6 py-8 bg-item-background">
       {!model.mainImages ? (

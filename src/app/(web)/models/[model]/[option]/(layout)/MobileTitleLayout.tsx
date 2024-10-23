@@ -1,4 +1,4 @@
-import { OptionList } from '@/types/optionLayout';
+import { useModelStore } from '@/zustand/useModel';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -11,18 +11,8 @@ export default function MobileTitleLayout({
   modelName: string;
   clickBtn: (e: React.MouseEvent<HTMLButtonElement>, direction?: string) => void;
 }) {
-  const optionList: OptionList = {
-    detail: '모델 상세',
-    engine: '엔진 타입',
-    drivetrain: '구동 타입',
-    passenger: `${modelName === 'g80' ? '스포츠 패키지' : '시트 구성'}`,
-    exterior: '외장 컬러',
-    interior: '내장디자인 & 컬러',
-    garnish: '내장가니쉬',
-    wheel: '휠 & 타이어',
-    add: '선택 품목',
-    payments: '결제',
-  };
+  const optionList = useModelStore((state) => state.optionList);
+  optionList.passenger = `${modelName === 'g80' ? '스포츠 패키지' : '시트 구성'}`;
 
   return (
     <>

@@ -2,11 +2,7 @@ import { Subject } from '@/types/product';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
-interface Section2IntroProps {
-  abstract: Subject;
-}
-
-export default function Section2Intro({ abstract }: Section2IntroProps) {
+export default function Section2Intro({ abstract }: { abstract: Subject }) {
   const title = abstract.title;
   const content = abstract.content;
   const source = SERVER + abstract.images[0].path;

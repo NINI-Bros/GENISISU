@@ -1,6 +1,6 @@
 import AddBoard from '../drive/AddBoard';
 
-export default function Event5({ boardName }: { boardName: string }) {
+export default function TestDriveApplication({ boardName }: { boardName: string }) {
   return (
     <section id="event5">
       <div className="ev5_wrap">
