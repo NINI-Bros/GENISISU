@@ -10,7 +10,7 @@ import { ReactNode, useRef, useState } from 'react';
 import MobileTitleLayout from './MobileTitleLayout';
 import { LayoutProps, OptionEventParams } from '@/types/optionLayout';
 import MobilePriceLayout from './MobilePriceLayout';
-import ButtonArrow from '../../../../../../components/ButtonOption';
+import ButtonOption from '@/components/ButtonOption';
 import ButtonReset from '@/components/ButtonReset';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
@@ -306,7 +306,7 @@ export default function HorizontalLayout({ params, modelData, optionData }: Layo
         </article>
 
         {/* 화살표 이동 버튼 */}
-        <ButtonArrow clickHandler={clickButton} model={modelName} price={initialPrice} />
+        <ButtonOption clickHandler={clickButton} model={modelName} price={initialPrice} />
 
         {/* 예상가격 */}
         <div className="h-full w-[280px] absolute bottom-0 right-[3rem] max-[1366px]:hidden">
