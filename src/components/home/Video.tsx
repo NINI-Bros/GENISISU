@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 
-export default function Event1() {
+export default function Video() {
   const titleRef = useRef<HTMLElement | null>(null);
   useEffect(() => {
     const yeon = titleRef.current?.querySelector('.suyeon') as HTMLElement | null;

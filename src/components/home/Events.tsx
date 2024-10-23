@@ -1,6 +1,6 @@
 'use client';
 
-export default function Event3() {
+export default function Events() {
   return (
     <section id="event3">
       <article>

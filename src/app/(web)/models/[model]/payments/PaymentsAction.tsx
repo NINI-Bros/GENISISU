@@ -2,13 +2,12 @@
 
 import Button from '@/components/Button';
 import { useSession } from '@/hook/session';
-import { useRefreshEvent } from '@/hook/useRefreshDefence';
 import { AddrType } from '@/types/address';
 import { PaymentsActionProps, TaxOptions } from '@/types/payments';
 import { Cart, OptionItem } from '@/types/product';
 import PortOne from '@portone/browser-sdk/v2';
 import Image from 'next/image';
-import { useParams, useRouter } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 import Script from 'next/script';
 import { useEffect, useState } from 'react';
 
@@ -45,15 +44,17 @@ const taxOptions: TaxOptions = {
 };
 
 export default function PaymentsAction({ vehicleInfo, optionData, params }: PaymentsActionProps) {
-  const param = useParams();
-  const paramModelIndex = Number(param.model);
+  const router = useRouter();
+  const modelIndex = Number(params.model);
+  if (!(modelIndex >= 1 && modelIndex <= 13)) {
+    notFound();
+  }
   const initialCart = {
-    model: vehicleInfo[paramModelIndex - 1].name || '',
-    price: vehicleInfo[paramModelIndex - 1].price || 0,
+    model: vehicleInfo[modelIndex - 1].name,
+    price: vehicleInfo[modelIndex - 1].price,
   };
 
   const [storedValue, setValue] = useState<Cart>(initialCart);
-  const route = useRouter();
   const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
   const STOREID = process.env.NEXT_PUBLIC_PORTONE_STOREID;
   const CHANNELKEY = process.env.NEXT_PUBLIC_PORTONE_CHANNELKEY;
@@ -97,9 +98,6 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
     addrTax.numCardTax +
     taxOptions.tax06;
   let totalSum = price + addrTax.sidoTax + taxSum + taxOptions.insuranceTax;
-
-  // 새로고침 key event 막음
-  useRefreshEvent();
 
   // 장애여부 확인 onChange Event
   const handleValueChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -190,8 +188,8 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
           // 주문 정보...
         }),
       });
-      // 모바일이 아닌 pc버전으로 결제요청 들어갈 경우 이 route.push로 리다이렉트 됌
-      route.push('/models/paymentsComplete');
+      // 모바일이 아닌 pc버전으로 결제요청 들어갈 경우 이 router.push로 리다이렉트 됌
+      router.push(`/models/paymentsComplete?model=${initialCart.model}&price=${totalSum}`);
       return alert('결제가 완료되었습니다');
     }
   };
@@ -272,7 +270,7 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
   // 우편주소 지역 구분에 따른 세금 부과
   useEffect(() => {
     setOptionPrice(price - originMatch?.price);
-    const item = window.localStorage?.getItem('cart');
+    const item = window.localStorage?.getItem(initialCart.model);
     item && setValue((prev) => ({ ...prev, ...JSON.parse(item) }));
 
     if (addrTax.detailAddr.split(' ')[0] === '서울') {
@@ -519,7 +517,7 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
 
   const clickButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    route.push(`/models/${params.model}/add`);
+    router.push(`/models/${params.model}/add`);
   };
 
   // session값 적용

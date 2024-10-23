@@ -1,10 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { UNDERSCORE_NOT_FOUND_ROUTE_ENTRY } from '../../../node_modules/next/dist/shared/lib/constants';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import Button from '../Button';
 
 export default function Footer() {
   const route = useRouter();
