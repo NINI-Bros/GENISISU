@@ -4,6 +4,7 @@ import { fetchVehicles } from '@/data/fetch/productFetch';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
+import useModalOpenBgFix from '@/hook/useModalOpenBgFix';
 
 export default function Sitemap({
   modalState,
@@ -16,6 +17,9 @@ export default function Sitemap({
   const modelRef = useRef(null);
   const handleCloseBtn = () => modalToggleFn((prev) => !prev);
   const path = usePathname();
+
+  // 모달호출 시 배경 고정 커스텀 훅
+  useModalOpenBgFix(modalState);
 
   // 모델이름 불러오기 위한 서버액션
   const [titdata, setTitData] = useState<String[]>([]);
