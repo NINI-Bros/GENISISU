@@ -27,7 +27,7 @@ export const useGnbStore = create<GnbStore>((set) => ({
     },
     {
       route: 'models',
-      text: '모델12',
+      text: '모델',
       icon: faCar,
       device: ['web', 'mobile'],
     },
