@@ -10,7 +10,7 @@ import { ReactNode, useRef, useState } from 'react';
 import MobileTitleLayout from './MobileTitleLayout';
 import { LayoutProps, OptionEventParams } from '@/types/optionLayout';
 import MobilePriceLayout from './MobilePriceLayout';
-import ButtonArrow from '../../../../../../components/ButtonOption';
+import ButtonOption from '@/components/ButtonOption';
 import ButtonReset from '@/components/ButtonReset';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
@@ -269,6 +269,10 @@ export default function HorizontalLayout({ params, modelData, optionData }: Layo
                             max-[1366px]:col-start-1 max-[1366px]:mr-0 max-[1366px]:justify-self-center max-[1366px]:mt-[50px] max-[1366px]:grid-cols-1 max-[1366px]:min-h-full max-[1366px]:self-start
                             max-[1366px]:max-w-full max-[1366px]:px-[7%] max-[1366px]:w-full"
         >
+          {/* RESET 버튼 */}
+          <div className="hidden absolute top-4 right-8 max-[1366px]:flex max-[1366px]:z-[6]">
+            <ButtonReset model={modelName} price={initialPrice} />
+          </div>
           <div className="flex flex-col mr-[40px] max-[1366px]:mr-0">
             {/* <figure className="w-[650px] h-[325px] relative"> */}
             <figure className="aspect-[16/9] relative">
@@ -301,7 +305,7 @@ export default function HorizontalLayout({ params, modelData, optionData }: Layo
         </article>
 
         {/* 화살표 이동 버튼 */}
-        <ButtonArrow clickHandler={clickButton} model={modelName} price={initialPrice} />
+        <ButtonOption clickHandler={clickButton} model={modelName} price={initialPrice} />
 
         {/* 예상가격 */}
         <div className="h-full w-[280px] absolute bottom-0 right-[3rem] max-[1366px]:hidden">
