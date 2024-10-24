@@ -3,7 +3,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Sitemap from './Sitemap';
-import MainGnb from '../MainGnb';
+import GnbSignSet from '../mainGnb/GnbSignSet';
+import GnbMobile from '../mainGnb/GnbMobile';
+import GnbWeb from '../mainGnb/GnbWeb';
 
 export default function Header({ isMain }: { isMain: string }) {
   const [modalOn, setModalOn] = useState(false);
@@ -30,11 +32,11 @@ export default function Header({ isMain }: { isMain: string }) {
     <header className={isMain} ref={headerRef}>
       <nav className="gnb gnb_web">
         <div className="navWrap">
-          <MainGnb deviceType={'web'} />
-          <MainGnb deviceType={'mobile'} />
+          <GnbWeb />
+          <GnbMobile />
         </div>
         <div className="navWrap">
-          <MainGnb deviceType={'signSet'} modalToggleFn={setModalOn} />
+          <GnbSignSet modalToggleFn={setModalOn} />
         </div>
       </nav>
 
