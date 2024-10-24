@@ -20,12 +20,6 @@ interface GnbStore {
 export const useGnbStore = create<GnbStore>((set) => ({
   gnb: [
     {
-      route: '',
-      text: '홈',
-      icon: faHouseChimney,
-      device: ['mobile'],
-    },
-    {
       route: 'models',
       text: '모델',
       icon: faCar,
@@ -36,6 +30,12 @@ export const useGnbStore = create<GnbStore>((set) => ({
       text: '전시시승',
       icon: faRightToBracket,
       device: ['web', 'mobile'],
+    },
+    {
+      route: '',
+      text: '홈',
+      icon: faHouseChimney,
+      device: ['mobile'],
     },
     {
       route: 'qna',
