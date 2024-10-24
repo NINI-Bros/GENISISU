@@ -102,7 +102,7 @@ body.otherPage header::after {
 /* Header */
 header {
   position: fixed;
-  top: 0;
+  bottom: calc(100vh - 65px);
   left: 0;
   z-index: 10;
   width: 100vw;

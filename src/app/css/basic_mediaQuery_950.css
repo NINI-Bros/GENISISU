@@ -1,12 +1,13 @@
 @media screen and (max-width: 950px) {
   /* 241017 기준 Header만 950px에서 변경 */
   body {
-    grid-template-rows: 0px minmax(calc(100dvh - 410px), auto) auto;
+    grid-template-rows: 0px minmax(calc(100dvh - 315px), auto) auto;
     padding-bottom: 60px;
   }
+
   /* Header 모바일 */
   header {
-    top: calc(100dvh - 60px);
+    bottom: 0;
     height: 60px;
     font-size: 20px;
     background: #000;
