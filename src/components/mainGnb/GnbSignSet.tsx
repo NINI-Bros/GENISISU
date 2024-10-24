@@ -32,7 +32,7 @@ export default function GnbSignSet({
   const signSetFn = () => {
     if (session) {
       return (
-        <span className="text-[18px] cursor-pointer p-3" onClick={handleSignOut}>
+        <span className="signOut" onClick={handleSignOut}>
           로그아웃
         </span>
       );
@@ -53,11 +53,11 @@ export default function GnbSignSet({
 
   return (
     <ul className="secondGnb">
-      <li className="flex items-center justify-end gap-x-[20px] mr-[30px] ">{signSetFn()}</li>
+      <li className="signSetList">{signSetFn()}</li>
       <li className="sitemapBtn">
-        <div className="p-3 cursor-pointer" onClick={handleSiteMapOpen}>
-          <figure className="relative w-[20px] h-[10px]">
-            <Image src="/images/menu_ham.png" fill sizes="100%" alt="" />
+        <div className="sitemapWrap" onClick={handleSiteMapOpen}>
+          <figure>
+            <Image src="/images/menu_ham.png" fill sizes="100%" alt="사이트맵 클릭 버튼입니다." />
           </figure>
         </div>
       </li>
