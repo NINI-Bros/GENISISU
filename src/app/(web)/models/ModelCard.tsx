@@ -7,7 +7,6 @@ import { useModelStore } from '@/zustand/useModel';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/Button';
 import extractTitle from '@/data/extractTitle';
-import { useEffect } from 'react';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 
@@ -29,7 +28,7 @@ export default function ModelCard({ model }: { model: Product }) {
       className="relative px-6 py-8 bg-item-background aspect-[32/35] overflow-hidden"
     >
       <div className="absolute top-8 left-6 flex flex-col gap-x-2">
-        <h2 className="text-[3vw] mb-[5%] max-[1366px]:text-4xl font-[600] font-Hyundai-sans leading-none">
+        <h2 className="text-[2vw] mb-[4%] max-[1366px]:text-4xl font-[600] font-Hyundai-sans leading-none">
           {title.toUpperCase()}
         </h2>
         <h3 className="text-[1vw] max-[1366px]:text-base">{subtitle.toUpperCase()}</h3>
@@ -91,60 +90,5 @@ export default function ModelCard({ model }: { model: Product }) {
         </div>
       </section>
     </li>
-
-    // <li className="grid grid-cols-1 auto-rows-min gap-y-10 justify-center px-6 py-8 bg-item-background">
-    //   {!model.mainImages ? (
-    //     <Image
-    //       src="/images/genesis-kr-gv70-facelift-sport-glossy-colors-uyuni-white-large.png"
-    //       width={500}
-    //       height={500}
-    //       alt=""
-    //       priority
-    //       className="col-span-full"
-    //     />
-    //   ) : (
-    //     <Image
-    //       src={SERVER + model.mainImages[0].path}
-    //       width={500}
-    //       height={500}
-    //       alt=""
-    //       className="col-span-full"
-    //       priority
-    //     />
-    //   )}
-    //   <div className="grid grid-cols-2">
-    //     <div className="col-span-full flex items-end gap-x-2">
-    //       <h2 className="text-3xl font-Hyundai-sans leading-none">{title.toUpperCase()}</h2>
-    //       <h3 className="">{subtitle.toUpperCase()}</h3>
-    //     </div>
-
-    //     <h3 className="col-span-full mt-[2.5%] mb-[5.5%] self-center">{content}</h3>
-
-    //     <button
-    //       className="justify-self-start text-l px-4 py-2 max-h-[40px]"
-    //       type="button"
-    //       onClick={handleClick}
-    //     >
-    //       전시시승
-    //     </button>
-    //     {title !== 'neolun' ? (
-    //       <Link
-    //         href={`/models/${index}`}
-    //         className="justify-self-end self-center flex items-center gap-3"
-    //       >
-    //         구매하기
-    //         <span className="bg-next-btn block bg-no-repeat w-2.5 h-4 bg-contain"></span>
-    //       </Link>
-    //     ) : (
-    //       <Button
-    //         className="justify-self-end self-center flex items-center gap-3 border-none"
-    //         onClick={() => alert('NEOLUN 차량은 준비 중 입니다.\n기대해주세요!')}
-    //       >
-    //         구매하기
-    //         <span className="bg-next-btn block bg-no-repeat w-2.5 h-4 bg-contain"></span>
-    //       </Button>
-    //     )}
-    //   </div>
-    // </li>
   );
 }

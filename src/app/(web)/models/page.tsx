@@ -1,9 +1,7 @@
 import { fetchVehicles } from '@/data/fetch/productFetch';
 
-import ModelCard from './ModelCard';
 import ScrollToTop from '@/components/ScrollToTop';
-import Button from '@/components/Button';
-import ViewModelResult from './ViewModalCard';
+import ViewModelResult from './ViewModelResult';
 
 export function generateMetadata() {
   const metadataBase = new URL('https://genisisu.vercel.app');
@@ -24,8 +22,9 @@ export function generateMetadata() {
 
 export default async function ListPage() {
   const data = await fetchVehicles();
+
   return (
-    <main className="bg-black pt-40 px-28 max-[1366px]:px-[7%] max-[1366px]:pt-20">
+    <main className="bg-black pt-20 px-28 max-[1366px]:px-[7%]">
       <ScrollToTop />
       <ViewModelResult data={data} />
     </main>
