@@ -63,10 +63,10 @@ export default function ModelCard({ model }: { model: Product }) {
       </h3>
 
       {/* 호버시 작동하는 레이어 */}
-      <section className="modelHoverLayer absolute bg-black opacity-80 w-full h-full top-0 right-[-120%]">
-        <div className="absolute w-full flex gap-x-[10%] justify-center  top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
+      <section className="modelHoverLayer absolute w-full h-full top-0 right-[-120%]">
+        <div className="absolute w-[50%] flex flex-col gap-y-[20px] justify-center top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-[2]">
           <button
-            className="justify-self-start text-l px-4 py-2 max-h-[40px] hover:bg-white hover:text-black transition-all"
+            className="text-xl flex items-center justify-center px-4 py-7 max-h-[40px]  hover:bg-white hover:text-black transition-all"
             type="button"
             onClick={handleClick}
           >
@@ -75,13 +75,13 @@ export default function ModelCard({ model }: { model: Product }) {
           {title !== 'neolun' ? (
             <Link
               href={`/models/${index}`}
-              className="justify-self-end self-center flex items-center gap-3"
+              className="text-xl flex items-center justify-center px-4 py-7 max-h-[40px] border-[#666] border-[1px] hover:bg-white hover:text-black transition-all"
             >
               구매하기
             </Link>
           ) : (
             <Button
-              className="justify-self-end self-center flex items-center gap-3 border-none"
+              className="text-xl flex items-center justify-center px-4 py-7 max-h-[40px] hover:bg-white hover:text-black transition-all"
               onClick={() => alert('NEOLUN 차량은 준비 중 입니다.\n기대해주세요!')}
             >
               구매하기

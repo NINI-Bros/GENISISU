@@ -922,6 +922,15 @@ iframe {
 #modelComponent .modelHoverLayer {
   transition: 0.3s all;
 }
+#modelComponent .modelHoverLayer::after {
+  position: absolute;
+  inset: 0;
+  background: black;
+  opacity: 80%;
+  display: block;
+  content: '';
+  z-index: 1;
+}
 #modelComponent:hover .modelHoverLayer {
   right: 0;
 }

@@ -3,14 +3,22 @@
 import Button from '@/components/Button';
 import ModelCard from './ModelCard';
 import { Product } from '@/types/product';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function ViewModelResult({ data }: { data: Product[] }) {
   const [value, setValue] = useState({
     inputValue: '', // 초기 input값 세팅
     searchActiveValue: '', // 검색 input값
     modelLength: data.length,
+    test1: [] as React.JSX.Element[],
+    test2: 0,
   });
+
+  // useEffect(() => {
+  //   const { resultData, length } = productComponent(value.searchActiveValue);
+  //   setValue((prev) => ({ ...prev, test1: resultData, test2: length }));
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [value.searchActiveValue]);
 
   // 검색input 작성후 엔터값 지정
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -31,13 +39,15 @@ export default function ViewModelResult({ data }: { data: Product[] }) {
       .map((model, index) => {
         return <ModelCard key={index} model={model} />;
       });
-    // setValue((prev) => ({ ...prev, modelLength: resultData.length }));
-    return resultData;
+    setValue((prev) => ({ ...prev, modelLength: resultData.length }));
+    return { resultData, length: resultData.length };
   };
+
   return (
     <>
       <div className="flex justify-between mb-[20px] items-center max-[600px]:flex-col max-[600px]:gap-y-[20px]">
-        <span className="text-white max-[600px]:self-end">총 {value.modelLength}개 모델</span>
+        {/* <span className="text-white max-[600px]:self-end">총 {value.modelLength}개 모델</span> */}
+        <span className="text-white max-[600px]:self-end">총 {value.test2}개 모델</span>
         <div className="flex justify-end min-h-[45px] max-[600px]:w-full">
           <input
             type="text"
@@ -56,7 +66,8 @@ export default function ViewModelResult({ data }: { data: Product[] }) {
         </div>
       </div>
       <ul className="grid grid-cols-5 max-[1920px]:grid-cols-4 max-[1366px]:grid-cols-3 max-[890px]:grid-cols-2 max-[600px]:grid-cols-1 gap-6 text-white">
-        {productComponent(value.searchActiveValue)}
+        {/* {productComponent(value.searchActiveValue)} */}
+        {value.test1}
       </ul>
     </>
   );
