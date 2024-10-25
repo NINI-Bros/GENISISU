@@ -24,7 +24,7 @@ export default async function ListPage() {
   const data = await fetchVehicles();
 
   return (
-    <main className="bg-black pt-20 px-28 max-[1366px]:px-[7%]">
+    <main className="bg-black flex flex-col py-10 px-28 max-[1366px]:px-[7%]">
       <ScrollToTop />
       <ViewModelResult data={data} />
     </main>

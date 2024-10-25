@@ -310,7 +310,7 @@
     grid-auto-rows: auto;
     column-gap: 0px;
     row-gap: 5px;
-    grid-row: 3 / 5;
+    grid-row: 3 / -1;
     justify-self: center;
     width: 100%;
     justify-content: center;
