@@ -909,3 +909,28 @@ iframe {
   visibility: visible;
   opacity: 1;
 }
+
+/* 모델 호버됬을경우 이벤트 작업 */
+
+#modelComponent figure {
+  transition: 0.3s all;
+}
+#modelComponent:hover figure {
+  right: -25%;
+}
+
+#modelComponent .modelHoverLayer {
+  transition: 0.3s all;
+}
+#modelComponent .modelHoverLayer::after {
+  position: absolute;
+  inset: 0;
+  background: black;
+  opacity: 80%;
+  display: block;
+  content: '';
+  z-index: 1;
+}
+#modelComponent:hover .modelHoverLayer {
+  right: 0;
+}

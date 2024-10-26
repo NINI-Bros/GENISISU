@@ -163,3 +163,8 @@ export interface Cart {
 //         models: Thumbnail[]
 //     }
 // }
+export interface ViewModelCards {
+  inputValue: string;
+  searchActiveValue: string;
+  modelJsx: React.JSX.Element[];
+}
