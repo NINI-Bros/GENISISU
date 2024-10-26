@@ -166,7 +166,5 @@ export interface Cart {
 export interface ViewModelCards {
   inputValue: string;
   searchActiveValue: string;
-  modelInitLength: number;
   modelJsx: React.JSX.Element[];
-  modelResultLength: number;
 }

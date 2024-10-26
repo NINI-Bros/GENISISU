@@ -9,14 +9,15 @@ export default function ViewModelResult({ data }: { data: Product[] }) {
   const [value, setValue] = useState<ViewModelCards>({
     inputValue: '', // 초기 input값 세팅
     searchActiveValue: '', // 검색 input값
-    modelInitLength: data.length,
-    modelJsx: [] as React.JSX.Element[],
-    modelResultLength: 0,
+    modelJsx: [],
   });
 
   useEffect(() => {
-    const { resultData, length } = productComponent(value.searchActiveValue);
-    setValue((prev) => ({ ...prev, modelJsx: resultData, modelResultLength: length }));
+    const { resultData } = productComponent(value.searchActiveValue);
+    setValue((prev) => ({
+      ...prev,
+      modelJsx: resultData,
+    }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value.searchActiveValue]);
 
@@ -43,15 +44,14 @@ export default function ViewModelResult({ data }: { data: Product[] }) {
       .map((model, index) => {
         return <ModelCard key={index} model={model} />;
       });
-    setValue((prev) => ({ ...prev, modelInitLength: resultData.length }));
-    return { resultData, length: resultData.length };
+    return { resultData };
   };
 
   return (
     <>
       <div className="flex justify-between mb-[20px] items-center max-[600px]:flex-col max-[600px]:gap-y-[20px]">
         <span className="text-white max-[600px]:self-end">
-          {value.modelResultLength > 0 ? `총 ${value.modelResultLength}개 모델` : ''}
+          {value.modelJsx.length > 0 ? `총 ${value.modelJsx.length}개 모델` : ''}
         </span>
         <div className="flex justify-end min-h-[45px] max-[600px]:w-full">
           <input
@@ -78,7 +78,7 @@ export default function ViewModelResult({ data }: { data: Product[] }) {
           </Button>
         </div>
       </div>
-      {value?.modelResultLength > 0 ? (
+      {value.modelJsx.length > 0 ? (
         <ul className="grid grid-cols-5 max-[1920px]:grid-cols-4 max-[1366px]:grid-cols-3 max-[890px]:grid-cols-2 max-[600px]:grid-cols-1 gap-6 text-white">
           {value.modelJsx}
         </ul>
