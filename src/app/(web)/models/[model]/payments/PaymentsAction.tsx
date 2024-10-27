@@ -521,7 +521,7 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
   };
 
   // session값 적용
-  const session = useSession();
+  const { session } = useSession();
   const userName = session?.user?.name !== undefined ? session?.user?.name : '익명';
 
   return (

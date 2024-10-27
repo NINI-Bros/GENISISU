@@ -18,7 +18,7 @@ import { faFileLines } from '@fortawesome/free-regular-svg-icons';
 import useModalOpenBgFix from '@/hook/useModalOpenBgFix';
 
 export default function Header({ isMain }: { isMain: string }) {
-  const session = useSession();
+  const { session } = useSession();
   const [modalOn, setModalOn] = useState(false);
   const mobileGnbRef = useRef<HTMLUListElement | null>(null);
   const pathName = usePathname();

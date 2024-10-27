@@ -3,7 +3,6 @@
 import InputError from '@/components/InputError';
 import Submit from '@/components/Submit';
 import { signInWithCredentials } from '@/data/actions/userAction';
-import { callGenesisLogin } from '@/data/fetch/genesis';
 import { UserForm, UserLoginForm } from '@/types';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
@@ -38,11 +37,6 @@ export default function LoginForm() {
         alert(resData.message);
       }
     }
-  };
-
-  const handleGenesisLoginClick = async (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    await callGenesisLogin();
   };
 
   return (

@@ -19,7 +19,7 @@ import { useSelectState } from '@/zustand/useSelectStore';
 export default function SideBar() {
   const path = usePathname();
   const param = useParams();
-  const session = useSession();
+  const { session } = useSession();
   const mobileSideBarRef = useRef<HTMLDivElement | null>(null);
   const toggleModelRef = useRef<HTMLDivElement | null>(null);
   const toggleBbsRef = useRef<HTMLDivElement | null>(null);

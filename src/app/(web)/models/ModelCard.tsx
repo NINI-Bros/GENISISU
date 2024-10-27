@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useModelStore } from '@/zustand/useModel';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/Button';
-import extractTitle from '@/data/extractTitle';
+import extractTitle from '@/app/util/extractTitle';
 import { useEffect } from 'react';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;

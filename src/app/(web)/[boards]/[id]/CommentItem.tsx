@@ -21,7 +21,7 @@ export default function CommentItem({
   authorId: number;
   boardName: string;
 }) {
-  const session = useSession();
+  const { session } = useSession();
   const userId = session?.user?.id;
   const userType = session?.user?.type;
   const image = item.user.image

@@ -9,8 +9,10 @@ declare namespace NodeJS {
     DB_NAME: string;
     NEXT_PUBLIC_PORTONE_STOREID: string;
     NEXT_PUBLIC_PORTONE_CHANNELKEY: string;
-    NEXT_PUBLIC_GENESIS_CLIENT_ID: string;
-    NEXT_PUBLIC_GENESIS_CLIENT_SECRET: string;
+    GENESIS_CLIENT_ID: string;
+    GENESIS_CLIENT_SECRET: string;
+    HYUNDAI_CLIENT_ID: string;
+    HYUNDAI_CLIENT_SECRET: string;
     GITHUB_CLIENT_ID: string;
     GITHUB_CLIENT_SECRET: string;
     GOOGLE_CLIENT_ID: string;
@@ -19,5 +21,7 @@ declare namespace NodeJS {
     NAVER_CLIENT_SECRET: string;
     KAKAO_CLIENT_ID: string;
     KAKAO_CLIENT_SECRET: string;
+    SSL_KEY_PATH: string;
+    SSL_CERT_PATH: string;
   }
 }

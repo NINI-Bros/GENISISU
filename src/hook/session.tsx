@@ -3,19 +3,28 @@
 import { Session } from 'next-auth';
 import { getSession } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
-import { Children, createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
-const SessionContent = createContext<Session | null>(null);
+interface UseSessionResult {
+  session: Session | null;
+  status: 'loading' | 'authenticated' | 'unauthenticated';
+}
+
+const SessionContent = createContext<UseSessionResult>({ session: null, status: 'loading' });
+// const SessionContent = createContext<Session | null>(null);
 
 export const SessionProvider = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const [session, setSession] = useState<Session | null>(null);
+  const [status, setStatus] = useState<'loading' | 'authenticated' | 'unauthenticated'>('loading');
   useEffect(() => {
+    setStatus('loading');
     getSession().then((res) => {
       setSession(res);
+      setStatus(res ? 'authenticated' : 'unauthenticated');
     });
   }, [pathname]); // 페이지를 이동할 때마다 세션을 갱신
-  return <SessionContent.Provider value={session}>{children}</SessionContent.Provider>;
+  return <SessionContent.Provider value={{ session, status }}>{children}</SessionContent.Provider>;
 };
 
 // 클라이언트 컴포넌트용 커스텀 훅

@@ -27,6 +27,16 @@ const nextConfig = {
         hostname: '*.kakaousercontent.com',
         pathname: '**',
       },
+      {
+        protocol: 'https',
+        hostname: '*.genesis.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.hyundai.com',
+        pathname: '**',
+      },
     ],
   },
 };
