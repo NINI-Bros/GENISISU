@@ -46,6 +46,9 @@ export default function GnbSignSet({
           <Link href="/signup" className={`${isOnActive('signup')}`}>
             회원가입
           </Link>
+          <Link href="/signWrap" className={`${isOnActive('signWrap')}`}>
+            통합 회원가입
+          </Link>
         </>
       );
     }

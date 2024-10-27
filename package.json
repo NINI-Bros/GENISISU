@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "https": "next dev -H localhost -p 3000 --experimental-https"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
