@@ -1,5 +1,5 @@
 'use client';
-import { useSession } from '@/hook/session';
+import { useSession } from '@/hook/useSession';
 import { Post } from '@/types';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';

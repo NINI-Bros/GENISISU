@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { signOut } from 'next-auth/react';
-import { useSession } from '@/hook/session';
+import { useSession } from '@/hook/useSession';
 import Sitemap from './Sitemap';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

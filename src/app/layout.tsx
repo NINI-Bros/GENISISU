@@ -6,7 +6,7 @@ import Footer from '@/components/layout/Footer';
 import { usePathname } from 'next/navigation';
 import { Session } from 'next-auth';
 import SideBar from '@/components/layout/SideBar';
-import { SessionProvider } from '@/hook/session';
+import { SessionProvider } from '@/hook/useSession';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import ButtonTop from '@/components/ButtonTop';

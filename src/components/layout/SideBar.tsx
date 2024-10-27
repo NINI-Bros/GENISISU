@@ -1,7 +1,7 @@
 'use client';
 
 import { fetchVehicles } from '@/data/fetch/productFetch';
-import { useSession } from '@/hook/session';
+import { useSession } from '@/hook/useSession';
 import useModalOpenBgFix from '@/hook/useModalOpenBgFix';
 import { useRefreshModal } from '@/hook/useRefreshDefence';
 import { OptionList } from '@/types/optionLayout';

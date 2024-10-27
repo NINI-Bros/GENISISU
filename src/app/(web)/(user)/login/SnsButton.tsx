@@ -13,13 +13,13 @@ import {
 } from '@/data/actions/userAction';
 import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useSession } from '@/hook/session';
+import { useSession } from '@/hook/useSession';
 
 export default function SnsButton() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const { session, status } = useSession();
-  console.log(status, 'session: ', session);
+  // console.log(status, 'session: ', session);
 
   useEffect(() => {
     const code = searchParams.get('code');

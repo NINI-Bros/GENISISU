@@ -1,7 +1,7 @@
 'use client';
 
 import Button from '@/components/Button';
-import { useSession } from '@/hook/session';
+import { useSession } from '@/hook/useSession';
 import { AddrType } from '@/types/address';
 import { PaymentsActionProps, TaxOptions } from '@/types/payments';
 import { Cart, OptionItem } from '@/types/product';
