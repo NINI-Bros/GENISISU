@@ -12,24 +12,24 @@ export default function SignWrapSet() {
   const [moveLayer, setMoveLayer] = useState(false);
   return (
     <>
-      <div className="bg-white w-full flex items-center justify-center ">
-        <section className="relative grid grid-cols-2 justify-center w-full aspect-[5/3] max-w-[1200px] border border-[#efefef] drop-shadow-2xl">
-          <article className="">
-            <JoinLoginForm />
+      <div className="bg-white w-full h-[calc(100vh-60px)] flex items-center justify-center ">
+        <section className="relative justify-center w-full aspect-[5/3] max-w-[1200px] border border-[#efefef] bg-white drop-shadow-2xl">
+          <article className="absolute w-[50%] top-0 left-0 h-full overflow-hidden">
+            <JoinLoginForm moveState={moveLayer} moveSetFn={setMoveLayer} />
           </article>
-          <article className="bg-green-200">
-            <JoinSignupForm />
+          <article className="absolute w-[50%] top-0 right-0 h-full overflow-hidden">
+            <JoinSignupForm moveState={moveLayer} />
           </article>
 
           {/* 움직이는 레이어 */}
           <aside
-            className={`bg-black aspect-[5/6] w-full max-w-[580px] absolute top-[50%] translate-y-[-50%] rounded-[2%] transition-all flex justify-center items-center ${
+            className={` bg-black aspect-[5/6] w-full max-w-[580px] absolute top-[50%] translate-y-[-50%] transition-all duration-500 flex justify-center items-center ${
               moveLayer ? 'left-[10px]' : 'left-[calc(50%+10px)]'
             }`}
           >
             <div
-              className={`flex flex-col gap-y-[10px] absolute top-[5%] transition-all ${
-                moveLayer ? 'left-[5%]' : 'right-[5%]'
+              className={`flex flex-col gap-y-[10px] absolute top-[5%] transition-all duration-500 ${
+                moveLayer ? 'left-[5%]' : 'left-[50%]'
               }`}
             >
               <h2 className="font-[Hyundai] text-white tracking-[5px] text-4xl">
@@ -38,8 +38,8 @@ export default function SignWrapSet() {
                 SU
               </h2>
               <span
-                className={`max-w-[max-content] text-white border-none cursor-pointer text-2xl font-bold ${
-                  moveLayer ? 'self-start' : 'self-end'
+                className={`max-w-[max-content] text-white border-none cursor-pointer text-2xl font-bold transition-all duration-500 absolute top-[40px] ${
+                  moveLayer ? 'left-0' : 'left-[50%]'
                 }`}
                 onClick={() => setMoveLayer(!moveLayer)}
               >

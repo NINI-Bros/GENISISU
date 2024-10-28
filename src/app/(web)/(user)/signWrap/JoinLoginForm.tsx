@@ -11,7 +11,13 @@ import React from 'react';
 import SnsButton from './JoinSnsButton';
 import Image from 'next/image';
 
-export default function JoinLoginForm() {
+export default function JoinLoginForm({
+  moveState,
+  moveSetFn,
+}: {
+  moveState: boolean;
+  moveSetFn: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const {
     register,
     handleSubmit,
@@ -47,9 +53,13 @@ export default function JoinLoginForm() {
   };
 
   return (
-    <div className="p-[10%] h-full flex flex-col justify-center gap-y-[10%] bg-white">
+    <div
+      className={`absolute transition-all duration-500 ${
+        moveState ? 'left-[100%]' : 'left-0'
+      } top-0 p-[10%] w-full h-full flex flex-col justify-center gap-y-[10%] bg-white`}
+    >
       <div className="flex justify-center">
-        <figure className="relative aspect-[24/7] w-full max-w-[200px]">
+        {/* <figure className="relative aspect-[24/7] w-full max-w-[200px]">
           <Image
             src="/images/genisisu_logo_b_sm.png"
             fill
@@ -58,7 +68,8 @@ export default function JoinLoginForm() {
             alt=""
             className="absolute"
           />
-        </figure>
+        </figure> */}
+        <h2>로그인</h2>
       </div>
       <form>
         <div className="mb-4">
@@ -69,7 +80,7 @@ export default function JoinLoginForm() {
             id="login_email"
             type="email"
             placeholder="이메일을 입력하세요"
-            className="w-full px-3 py-2 border-b focus:outline-none focus:border-b-gray-700"
+            className="w-full px-3 py-2 border-b bg-[#f0f0f0] focus:outline-none focus:border-b-gray-700"
             // name="email"
             {...register('email', {
               required: '이메일을 입력하세요.',
@@ -89,7 +100,7 @@ export default function JoinLoginForm() {
             id="login_password"
             type="password"
             placeholder="비밀번호를 입력하세요"
-            className="w-full px-3 py-2 border-b focus:outline-none focus:border-b-gray-700"
+            className="w-full px-3 py-2 border-b bg-[#f0f0f0] focus:outline-none focus:border-b-gray-700"
             // name="password"
             {...register('password', {
               required: '비밀번호를 입력하세요.',
@@ -98,9 +109,13 @@ export default function JoinLoginForm() {
           <InputError target={errors.password} />
           <Link
             href="#"
-            className="inline-block mt-6 ml-auto text-gray-500 text-sm dark:text-gray-300 hover:underline"
+            className="inline-block mt-6 ml-auto text-gray-500 text-sm dark:text-gray-300 underline"
+            onClick={(e) => {
+              e.preventDefault();
+              moveSetFn(true);
+            }}
           >
-            비밀번호를 잊으셨나요?
+            GENISISU 회원가입
           </Link>
         </div>
         <div className="flex gap-x-[17px] mt-10 justify-center items-center">

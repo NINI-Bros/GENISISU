@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
-export default function JoinSignupForm() {
+export default function JoinSignupForm({ moveState }: { moveState: boolean }) {
   const router = useRouter();
 
   const {
@@ -47,7 +47,11 @@ export default function JoinSignupForm() {
   };
 
   return (
-    <div className="p-[10%] h-full flex flex-col justify-center gap-y-[10%] bg-white signUpForm">
+    <div
+      className={`absolute transition-all duration-500 ${
+        moveState ? 'right-0' : 'right-[100%]'
+      } top-0 p-[10%] w-full h-full flex flex-col justify-center gap-y-[10%] bg-white signUpForm`}
+    >
       <form onSubmit={handleSubmit(addUser)}>
         <div className="mb-4 inputWrap">
           <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="email">
