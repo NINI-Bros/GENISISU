@@ -1,7 +1,7 @@
 'use client';
 
 import { fetchVehicles } from '@/data/fetch/productFetch';
-import { useSession } from '@/hook/session';
+import { useSession } from '@/hook/useSession';
 import useModalOpenBgFix from '@/hook/useModalOpenBgFix';
 import { useRefreshModal } from '@/hook/useRefreshDefence';
 import { OptionList } from '@/types/optionLayout';
@@ -19,7 +19,7 @@ import { useSelectState } from '@/zustand/useSelectStore';
 export default function SideBar() {
   const path = usePathname();
   const param = useParams();
-  const session = useSession();
+  const { session } = useSession();
   const mobileSideBarRef = useRef<HTMLDivElement | null>(null);
   const toggleModelRef = useRef<HTMLDivElement | null>(null);
   const toggleBbsRef = useRef<HTMLDivElement | null>(null);

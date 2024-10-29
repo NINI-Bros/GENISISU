@@ -1,15 +1,34 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 
 export default function Video() {
   const titleRef = useRef<HTMLElement | null>(null);
+  const searchParams = useSearchParams(); // add
+
   useEffect(() => {
     const yeon = titleRef.current?.querySelector('.suyeon') as HTMLElement | null;
     setTimeout(() => {
       yeon && yeon.classList.add('on');
     }, 3500);
-  }, []);
+
+    // add
+    const code = searchParams.get('code');
+    const state = searchParams.get('state');
+
+    if (code) {
+      fetch(`/api/auth/callback?code=${code}&state=${state}`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log('Access token: ', data.accessToken);
+          // 토큰을 저장하고 추가 작업 수행
+        })
+        .catch((error) => {
+          console.error('Error handling auth callback: ', error);
+        });
+    }
+  }, [searchParams]);
 
   return (
     <section id="event1">

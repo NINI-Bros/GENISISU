@@ -3,6 +3,7 @@ import { auth } from './auth';
 
 export default async function middleware(request: NextRequest) {
   console.log('미들웨어 호출', request.nextUrl.href);
+
   const session = await auth();
 
   // 로그인 되지 않은 경우
