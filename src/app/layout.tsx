@@ -10,7 +10,6 @@ import { SessionProvider } from '@/hook/useSession';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import ButtonTop from '@/components/ButtonTop';
-import ReactDOM from 'react-dom';
 
 export default function RootLayout({
   children,
