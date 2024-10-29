@@ -3,13 +3,13 @@
 import InputError from '@/components/InputError';
 import Submit from '@/components/Submit';
 import { signInWithCredentials } from '@/data/actions/userAction';
-import { callGenesisLogin } from '@/data/fetch/genesis';
 import { UserForm, UserLoginForm } from '@/types';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import React from 'react';
 import SnsButton from './JoinSnsButton';
-import Image from 'next/image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAnglesRight } from '@fortawesome/free-solid-svg-icons';
 
 export default function JoinLoginForm({
   moveState,
@@ -47,16 +47,11 @@ export default function JoinLoginForm({
     }
   };
 
-  const handleGenesisLoginClick = async (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    await callGenesisLogin();
-  };
-
   return (
     <div
       className={`absolute transition-all duration-500 ${
         moveState ? 'left-[100%]' : 'left-0'
-      } top-0 p-[10%] w-full h-full flex flex-col justify-center gap-y-[10%] bg-white`}
+      } top-0 p-[10%] w-full h-full flex flex-col justify-between bg-white`}
     >
       <div className="flex justify-center">
         {/* <figure className="relative aspect-[24/7] w-full max-w-[200px]">
@@ -69,7 +64,7 @@ export default function JoinLoginForm({
             className="absolute"
           />
         </figure> */}
-        <h2>로그인</h2>
+        <h2 className="text-[30px] font-bold">로그인</h2>
       </div>
       <form>
         <div className="mb-4">
@@ -107,32 +102,41 @@ export default function JoinLoginForm({
             })}
           />
           <InputError target={errors.password} />
-          <Link
-            href="#"
-            className="inline-block mt-6 ml-auto text-gray-500 text-sm dark:text-gray-300 underline"
-            onClick={(e) => {
-              e.preventDefault();
-              moveSetFn(true);
-            }}
-          >
-            GENISISU 회원가입
-          </Link>
         </div>
         <div className="flex gap-x-[17px] mt-10 justify-center items-center">
           <Submit
-            className="btnBasic w-full h-[50px] px-[5%] py-[1%] hover:underline cursor:pointer rounded-[5px]"
+            className="btnBasic w-full h-[50px] px-[5%] py-[1%] hover:underline cursor:pointer"
             onClick={handleSubmit(login)}
           >
             로그인
           </Submit>
         </div>
+      </form>
+
+      <article>
         <div className="flex items-center mt-8 mb-5">
           <div className="flex-grow border-t border-gray-400"></div>
           <span className="mx-4 text-gray-500 text-sm">간편 로그인</span>
           <div className="flex-grow border-t border-gray-400"></div>
         </div>
         <SnsButton />
-      </form>
+      </article>
+
+      <div className="text-center flex justify-center gap-x-1 text-gray-500 text-sm">
+        <Link
+          href="#"
+          className="underline "
+          onClick={(e) => {
+            e.preventDefault();
+            moveSetFn(true);
+          }}
+        >
+          GENISISU 회원가입
+        </Link>
+        <figure>
+          <FontAwesomeIcon icon={faAnglesRight} />
+        </figure>
+      </div>
     </div>
   );
 }
