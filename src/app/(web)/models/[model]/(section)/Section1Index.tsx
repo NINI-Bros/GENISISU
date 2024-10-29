@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ImageViewer } from '../ImageViewer';
 import { useModelStore } from '@/zustand/useModel';
 import { useRouter } from 'next/navigation';
-import extractTitle from '@/data/extractTitle';
+import extractTitle from '@/app/util/extractTitle';
 import Image from 'next/image';
 import ScrollToTop from '@/components/ScrollToTop';
 import ButtonReset from '@/components/ButtonReset';

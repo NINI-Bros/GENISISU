@@ -31,7 +31,6 @@ export const {
       async authorize(credentials) {
         // credentials: 서버 액션에서 호출한 signIn('credentials', 사용자 정보) 메서드의 두번째 인수
         const resJson = await login(credentials as UserLoginForm);
-
         if (resJson.ok) {
           const user = resJson.item;
           return {
@@ -64,10 +63,6 @@ export const {
       clientId: process.env.KAKAO_CLIENT_ID,
       clientSecret: process.env.KAKAO_CLIENT_SECRET,
     }),
-    // genesis({
-    //   clientId: process.env.GENESIS_CLIENT_ID,
-    //   clientSecret: process.env.GENESIS_CLIENT_SECRET,
-    // }),
   ],
   session: {
     strategy: 'jwt', // JSON Web Token 사용(기본값)
@@ -89,7 +84,7 @@ export const {
     async signIn({ user, account, profile, credentials }) {
       // user에 들어 있는 사용자 정보를 이용해서 최초에 한번은 회원 DB에 저장(회원가입)
       // 가입된 회원일 경우 자동으로 로그인 처리
-      console.log('callbacks.signIn', user, account, profile, credentials);
+      // console.log('callbacks.signIn', user, account, profile, credentials);
       switch (account?.provider) {
         // email(id/pwd) 로그인
         case 'credentials':
@@ -112,8 +107,6 @@ export const {
         case 'google':
         case 'kakao':
         case 'naver':
-        case 'hyundai':
-        case 'genesis':
           console.log('OAuth 로그인', user);
           /*
             OAuth 로그인 {
@@ -133,7 +126,7 @@ export const {
               loginType: account.provider,
               name: user.name || '',
               email: user.email || `${Date.now()}@genisisu.com`,
-              image: user.image || `${SERVER}/files/${CLIENT}/profile-image-user.jpg`,
+              image: user.image || `/files/${CLIENT}/profile-image-user.jpg`,
               extra: { ...profile, providerAccountId: account.providerAccountId },
             };
 
@@ -145,7 +138,7 @@ export const {
             const resData = await loginOAuth(account.providerAccountId);
             if (resData.ok) {
               userInfo = resData.item;
-              console.log(userInfo);
+              // console.log(userInfo);
             } else {
               // API 서버의 에러 메시지 처리
               throw new Error(resData.message);
