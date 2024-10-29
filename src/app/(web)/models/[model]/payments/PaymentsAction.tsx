@@ -1,7 +1,7 @@
 'use client';
 
 import Button from '@/components/Button';
-import { useSession } from '@/hook/session';
+import { useSession } from '@/hook/useSession';
 import { AddrType } from '@/types/address';
 import { PaymentsActionProps, TaxOptions } from '@/types/payments';
 import { Cart, OptionItem } from '@/types/product';
@@ -521,7 +521,7 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
   };
 
   // session값 적용
-  const session = useSession();
+  const { session } = useSession();
   const userName = session?.user?.name !== undefined ? session?.user?.name : '익명';
 
   return (

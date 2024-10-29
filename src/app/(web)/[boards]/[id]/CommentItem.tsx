@@ -2,7 +2,7 @@
 
 import Submit from '@/components/Submit';
 import { deleteComment } from '@/data/actions/postAction';
-import { useSession } from '@/hook/session';
+import { useSession } from '@/hook/useSession';
 import { PostComment } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -21,7 +21,7 @@ export default function CommentItem({
   authorId: number;
   boardName: string;
 }) {
-  const session = useSession();
+  const { session } = useSession();
   const userId = session?.user?.id;
   const userType = session?.user?.type;
   const image = item.user.image
