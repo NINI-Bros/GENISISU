@@ -2,13 +2,23 @@
 
 import JoinLoginForm from './JoinLoginForm';
 import JoinSignupForm from './JoinSignupForm';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { useSearchParams } from 'next/navigation';
 
 export default function SignWrapSet() {
+  const searchParams = useSearchParams();
   const [moveLayer, setMoveLayer] = useState(false);
+  useEffect(() => {
+    const type = searchParams.get('type');
+    if (type === 'login') {
+      setMoveLayer(false);
+    } else if (type === 'signup') {
+      setMoveLayer(true);
+    }
+  }, [searchParams]);
   return (
     <>
       <div className="bg-white w-full h-[calc(100vh-60px)] flex items-center justify-center ">
@@ -54,12 +64,12 @@ export default function SignWrapSet() {
                 보세요.
               </p>
               <div className="grid grid-cols-1 items-center gap-y-2 px-[10%]">
-                <p className="text-[#888] flex gap-x-3">
+                <div className="text-[#888] flex gap-x-3">
                   {moveLayer ? '제니시수 로그인' : '제니시수 계정 만들기'}
                   <figure>
                     <FontAwesomeIcon icon={faChevronDown} />
                   </figure>
-                </p>
+                </div>
                 <span
                   className={`w-full py-2 text-center text-white border border-white cursor-pointer text-2xl font-bold ${
                     moveLayer ? 'left-0' : 'left-[65%]'

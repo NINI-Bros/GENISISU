@@ -101,16 +101,15 @@ export default function JoinLoginForm({
             로그인
           </Submit>
         </div>
+        <article>
+          <div className="flex items-center mt-8 mb-5">
+            <div className="flex-grow border-t border-gray-400"></div>
+            <span className="mx-4 text-gray-500 text-sm">간편 로그인</span>
+            <div className="flex-grow border-t border-gray-400"></div>
+          </div>
+          <JoinSnsButton />
+        </article>
       </form>
-
-      <article>
-        <div className="flex items-center mt-8 mb-5">
-          <div className="flex-grow border-t border-gray-400"></div>
-          <span className="mx-4 text-gray-500 text-sm">간편 로그인</span>
-          <div className="flex-grow border-t border-gray-400"></div>
-        </div>
-        <JoinSnsButton />
-      </article>
 
       <div className="text-center flex justify-center gap-x-1 text-gray-500 text-sm">
         <Link
