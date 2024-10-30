@@ -5,7 +5,7 @@ import JoinSignupForm from './JoinSignupForm';
 import { useState } from 'react';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 export default function SignWrapSet() {
   const [moveLayer, setMoveLayer] = useState(false);
@@ -22,12 +22,12 @@ export default function SignWrapSet() {
 
           {/* 움직이는 레이어 */}
           <aside
-            className={` bg-black aspect-[5/6] w-full max-w-[50%] absolute top-[50%] translate-y-[-50%] transition-all duration-500 flex justify-center items-center ${
+            className={`bg-black aspect-[5/6] w-full max-w-[50%] absolute top-[50%] translate-y-[-50%] transition-all duration-500 flex justify-center items-center ${
               moveLayer ? 'left-0' : 'left-[50%]'
             }`}
           >
             <div
-              className={`text-white flex flex-col w-[50%] gap-y-12 absolute top-[5%] transition-all duration-500  ${
+              className={`z-[1] text-white flex flex-col w-[50%] gap-y-12 absolute top-[5%] transition-all duration-500  ${
                 moveLayer ? 'left-[5%] items-start' : 'left-[45%] items-end'
               }`}
             >
@@ -51,14 +51,15 @@ export default function SignWrapSet() {
               </div>
               <p className={`text-white ${moveLayer ? 'text-left' : 'text-right'}`}>
                 제니시수와 함께 새로운 드라이브를 시작하고, 프리미엄 세단의 모든 가능성을 발견해
-                보세요. 제니시수는 당신의 프라이드와 함께합니다. 이제 열정을 가득 채우고 달릴 준비가
-                되셨나요?
+                보세요.
               </p>
-              <div className="flex flex-col items-center gap-y-1">
-                <p>제니시수 계정이 없으시다면?</p>
-                <figure>
-                  <FontAwesomeIcon icon={faChevronDown} />
-                </figure>
+              <div className="grid grid-cols-1 items-center gap-y-2 px-[10%]">
+                <p className="text-[#888] flex gap-x-3">
+                  {moveLayer ? '제니시수 로그인' : '제니시수 계정 만들기'}
+                  <figure>
+                    <FontAwesomeIcon icon={faChevronDown} />
+                  </figure>
+                </p>
                 <span
                   className={`w-full py-2 text-center text-white border border-white cursor-pointer text-2xl font-bold ${
                     moveLayer ? 'left-0' : 'left-[65%]'
@@ -69,16 +70,23 @@ export default function SignWrapSet() {
                 </span>
               </div>
             </div>
-            <article className="absolute bottom-[5%] right-[5%] aspect-[11/5] w-full max-w-[450px]">
+
+            <article
+              className={`z-[1] absolute bottom-[-10%] transition-all duration-[1s] ${
+                moveLayer ? 'right-[20%]' : 'right-[-20%]'
+              } aspect-[2/1] w-full max-w-[650px]`}
+            >
               <Image
-                src="/images/g90-black-45deg.png"
+                src="/images/gv70_croped.png"
                 fill
                 priority
                 sizes="100%"
                 alt="로그인 레이어 이미지"
-                className="absolute top-0 left-0 opacity-90"
+                className="absolute top-0 left-0"
               ></Image>
             </article>
+
+            <div className="bg-login-bg bg-center w-full h-full opacity-20 z-0"></div>
           </aside>
         </section>
       </div>

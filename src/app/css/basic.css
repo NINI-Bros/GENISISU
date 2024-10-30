@@ -934,10 +934,10 @@ iframe {
 #modelComponent:hover .modelHoverLayer {
   right: 0;
 }
-.signUpForm form > .inputWrap {
+form > .signInputWrap {
   display: grid;
   grid-template-rows: min-content min-content 20px;
 }
-.signUpForm form > .inputWrap p {
+form > .signInputWrap p {
   grid-row: 3 / -1;
 }

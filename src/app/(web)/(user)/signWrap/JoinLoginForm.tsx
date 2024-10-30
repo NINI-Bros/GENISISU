@@ -7,7 +7,7 @@ import { UserForm, UserLoginForm } from '@/types';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import React from 'react';
-import SnsButton from './JoinSnsButton';
+import JoinSnsButton from './JoinSnsButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAnglesRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -54,20 +54,10 @@ export default function JoinLoginForm({
       } top-0 p-[10%] w-full h-full flex flex-col justify-between bg-white`}
     >
       <div className="flex justify-center">
-        {/* <figure className="relative aspect-[24/7] w-full max-w-[200px]">
-          <Image
-            src="/images/genisisu_logo_b_sm.png"
-            fill
-            priority
-            sizes="100%"
-            alt=""
-            className="absolute"
-          />
-        </figure> */}
         <h2 className="text-[30px] font-bold">로그인</h2>
       </div>
       <form>
-        <div className="mb-4">
+        <div className="mb-4 signInputWrap">
           <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="email">
             이메일
           </label>
@@ -87,7 +77,7 @@ export default function JoinLoginForm({
           />
           <InputError target={errors.email} />
         </div>
-        <div className="mb-4">
+        <div className="mb-4 signInputWrap">
           <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="password">
             비밀번호
           </label>
@@ -103,7 +93,7 @@ export default function JoinLoginForm({
           />
           <InputError target={errors.password} />
         </div>
-        <div className="flex gap-x-[17px] mt-10 justify-center items-center">
+        <div className="flex gap-x-[17px] mt-14 justify-center items-center">
           <Submit
             className="btnBasic w-full h-[50px] px-[5%] py-[1%] hover:underline cursor:pointer"
             onClick={handleSubmit(login)}
@@ -119,7 +109,7 @@ export default function JoinLoginForm({
           <span className="mx-4 text-gray-500 text-sm">간편 로그인</span>
           <div className="flex-grow border-t border-gray-400"></div>
         </div>
-        <SnsButton />
+        <JoinSnsButton />
       </article>
 
       <div className="text-center flex justify-center gap-x-1 text-gray-500 text-sm">

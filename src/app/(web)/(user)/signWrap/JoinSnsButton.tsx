@@ -12,6 +12,18 @@ import Image from 'next/image';
 export default function JoinSnsButton() {
   const snsIcons = [
     {
+      name: 'genesis',
+      alt: '제네시스 로그인 아이콘',
+      image: '/images/sns_icon/genesis.png',
+      action: signInWithKakao,
+    },
+    {
+      name: 'hyundai',
+      alt: '카카오 로그인 아이콘',
+      image: '/images/sns_icon/hyundai.png',
+      action: signInWithKakao,
+    },
+    {
       name: 'google',
       alt: '구글 로그인 아이콘',
       image: '/images/sns_icon/google.png',
@@ -37,14 +49,11 @@ export default function JoinSnsButton() {
     },
   ];
 
-  const handleMouseEnter = () => {
-    console.log('마우스 들어옴');
-  };
   return (
-    <div className="flex gap-x-[10px] justify-between items-center">
+    <div className="flex gap-x-[10px] justify-between items-center px-[5%]">
       {snsIcons.map((item) => (
         <Submit
-          className="border-none px-[5%] hover:underline cursor:pointer"
+          className="border-none hover:underline cursor:pointer"
           formAction={item.action}
           key={item.name}
         >

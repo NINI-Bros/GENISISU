@@ -64,7 +64,7 @@ export default function JoinSignupForm({
         <h2 className="text-[30px] font-bold">회원가입</h2>
       </div>
       <form onSubmit={handleSubmit(addUser)}>
-        <div className="mb-4 inputWrap">
+        <div className="mb-4 signInputWrap">
           <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="email">
             이메일
           </label>
@@ -83,7 +83,7 @@ export default function JoinSignupForm({
           />
           <InputError target={errors.email} />
         </div>
-        <div className="mb-4 inputWrap">
+        <div className="mb-4 signInputWrap">
           <label className="block text-gray-700 mb-2" htmlFor="password">
             비밀번호
           </label>
@@ -98,7 +98,7 @@ export default function JoinSignupForm({
           />
           <InputError target={errors.password} />
         </div>
-        <div className="mb-4 inputWrap">
+        <div className="mb-4 signInputWrap">
           <label className="block text-gray-700 mb-2" htmlFor="name">
             이름
           </label>
@@ -126,7 +126,7 @@ export default function JoinSignupForm({
             id="attach"
             accept="image/*"
             placeholder="이미지를 선택하세요"
-            className="w-full px-3 py-2 border-b focus:outline-none focus:border-b-gray-700"
+            className="w-full px-3 py-2 bg-[#f0f0f0] border-b focus:outline-none focus:border-b-gray-700"
             {...register('attach')}
           />
         </div>
