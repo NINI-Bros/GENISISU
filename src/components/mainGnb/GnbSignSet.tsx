@@ -12,7 +12,6 @@ export default function GnbSignSet({
   const pathName = usePathname();
   const thisPath = pathName.split('/')[1];
   const { session, status } = useSession();
-  console.log(session);
 
   // 패스네임 기준 클래스 활성화 함수
   const isOnActive = (routeName: string) => (thisPath === routeName ? 'on' : '');
