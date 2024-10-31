@@ -10,13 +10,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
-export default function JoinSignupForm({
-  moveState,
-  moveSetFn,
-}: {
-  moveState: boolean;
-  moveSetFn: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+export default function JoinSignupForm({ moveState }: { moveState: boolean }) {
   const router = useRouter();
 
   const {
@@ -149,14 +143,7 @@ export default function JoinSignupForm({
         <figure>
           <FontAwesomeIcon icon={faAnglesLeft} />
         </figure>
-        <Link
-          href="#"
-          className=" underline "
-          onClick={(e) => {
-            e.preventDefault();
-            moveSetFn(false);
-          }}
-        >
+        <Link href="/accept?type=login" className=" underline ">
           GENISISU 로그인
         </Link>
       </div>

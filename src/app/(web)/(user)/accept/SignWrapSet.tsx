@@ -7,10 +7,13 @@ import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
 export default function SignWrapSet() {
   const searchParams = useSearchParams();
   const [moveLayer, setMoveLayer] = useState(false);
+
+  // 라우팅이 변경될때마다 (=모든 변경 버튼 클릭시) 동작하게끔 함. 하위 컴포넌트 버튼에서도 Link로 쿼리스트링 이용해서 상태 변화주고 있음
   useEffect(() => {
     const type = searchParams.get('type');
     if (type === 'login') {
@@ -24,10 +27,10 @@ export default function SignWrapSet() {
       <div className="bg-white w-full h-[calc(100vh-60px)] flex items-center justify-center ">
         <section className="relative justify-center w-full m-[3%] aspect-[5/3] max-w-[1200px] border border-[#efefef] bg-white drop-shadow-2xl">
           <article className="absolute w-[50%] top-0 left-0 h-full overflow-hidden">
-            <JoinLoginForm moveState={moveLayer} moveSetFn={setMoveLayer} />
+            <JoinLoginForm moveState={moveLayer} />
           </article>
           <article className="absolute w-[50%] top-0 right-0 h-full overflow-hidden">
-            <JoinSignupForm moveState={moveLayer} moveSetFn={setMoveLayer} />
+            <JoinSignupForm moveState={moveLayer} />
           </article>
 
           {/* 움직이는 레이어 */}
@@ -70,14 +73,14 @@ export default function SignWrapSet() {
                     <FontAwesomeIcon icon={faChevronDown} />
                   </figure>
                 </div>
-                <span
-                  className={`w-full py-2 text-center text-white border border-white cursor-pointer text-2xl font-bold ${
+                <Link
+                  href={moveLayer ? '/accept?type=login' : '/accept?type=signup'}
+                  className={`w-full py-2 text-center text-white border border-white cursor-pointer text-base font-bold transition-colors hover:bg-white hover:text-black ${
                     moveLayer ? 'left-0' : 'left-[65%]'
                   }`}
-                  onClick={() => setMoveLayer(!moveLayer)}
                 >
                   {moveLayer ? '로그인' : '회원가입'}
-                </span>
+                </Link>
               </div>
             </div>
 

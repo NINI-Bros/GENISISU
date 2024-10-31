@@ -11,13 +11,7 @@ import JoinSnsButton from './JoinSnsButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAnglesRight } from '@fortawesome/free-solid-svg-icons';
 
-export default function JoinLoginForm({
-  moveState,
-  moveSetFn,
-}: {
-  moveState: boolean;
-  moveSetFn: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+export default function JoinLoginForm({ moveState }: { moveState: boolean }) {
   const {
     register,
     handleSubmit,
@@ -66,7 +60,6 @@ export default function JoinLoginForm({
             type="email"
             placeholder="이메일을 입력하세요"
             className="w-full px-3 py-2 border-b bg-[#f0f0f0] focus:outline-none focus:border-b-gray-700"
-            // name="email"
             {...register('email', {
               required: '이메일을 입력하세요.',
               pattern: {
@@ -86,7 +79,6 @@ export default function JoinLoginForm({
             type="password"
             placeholder="비밀번호를 입력하세요"
             className="w-full px-3 py-2 border-b bg-[#f0f0f0] focus:outline-none focus:border-b-gray-700"
-            // name="password"
             {...register('password', {
               required: '비밀번호를 입력하세요.',
             })}
@@ -112,14 +104,7 @@ export default function JoinLoginForm({
       </form>
 
       <div className="text-center flex justify-center gap-x-1 text-gray-500 text-sm">
-        <Link
-          href="#"
-          className="underline "
-          onClick={(e) => {
-            e.preventDefault();
-            moveSetFn(true);
-          }}
-        >
+        <Link href="/accept?type=signup" className="underline ">
           GENISISU 회원가입
         </Link>
         <figure>
