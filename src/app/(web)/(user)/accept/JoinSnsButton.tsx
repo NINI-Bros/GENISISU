@@ -91,11 +91,11 @@ export default function JoinSnsButton() {
       if (item.type === 'hyundai-sns') {
         return (
           <Submit
-            className="border-none hover:underline cursor:pointer"
+            className="snsWrap relative border-none hover:underline cursor:pointer"
             onClick={item.onclick}
             key={item.name}
           >
-            <article className="snsWrap relative aspect-[1/1] w-[30px] ">
+            <article className="relative aspect-[1/1] w-[30px] ">
               <Image
                 src={item.image}
                 fill
@@ -103,20 +103,20 @@ export default function JoinSnsButton() {
                 className="grayscale hover:grayscale-0 hover:scale-105 absolute top-0 left-0 object-contain transition-all"
                 alt={item.alt}
               ></Image>
-              <div className="snsToolTips">
-                <span>{item.alt}</span>
-              </div>
             </article>
+            <div className="snsToolTips">
+              <span>{item.alt}</span>
+            </div>
           </Submit>
         );
       } else {
         return (
           <Submit
-            className="border-none hover:underline cursor:pointer"
+            className="snsWrap relative border-none hover:underline cursor:pointer"
             formAction={item.action}
             key={item.name}
           >
-            <article className="snsWrap relative aspect-[1/1] w-[30px]">
+            <article className=" relative aspect-[1/1] w-[30px]">
               <Image
                 src={item.image}
                 fill
@@ -124,10 +124,10 @@ export default function JoinSnsButton() {
                 className="grayscale hover:grayscale-0 hover:scale-105 absolute top-0 left-0 object-contain transition-all"
                 alt={item.alt}
               ></Image>
-              <div className="snsToolTips">
-                <span>{item.alt}</span>
-              </div>
             </article>
+            <div className="snsToolTips">
+              <span>{item.alt}</span>
+            </div>
           </Submit>
         );
       }

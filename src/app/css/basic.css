@@ -952,6 +952,7 @@ form > .signInputWrap p {
   left: 50%;
   transform: translateX(-50%);
   width: 100px;
+  padding: 7px 0;
   height: min-content;
   font-size: 0.8rem;
   background: #ddd;
