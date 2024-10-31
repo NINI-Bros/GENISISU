@@ -43,43 +43,43 @@ export default function JoinSnsButton() {
   };
   const snsIcons = [
     {
-      name: 'genesis',
-      alt: '제네시스 로그인 아이콘',
-      image: '/images/sns_icon/genesis.png',
-      onclick: handleSignInGenesis,
-      type: 'hyundai-sns',
-    },
-    {
-      name: 'hyundai',
-      alt: '현대 로그인 아이콘',
-      image: '/images/sns_icon/hyundai.png',
-      onclick: handleSignInHyundai,
-      type: 'hyundai-sns',
-    },
-    {
       name: 'google',
-      alt: '구글 로그인 아이콘',
+      alt: '구글 로그인',
       image: '/images/sns_icon/google.png',
       action: signInWithGoogle,
       type: 'basic_sns',
     },
     {
       name: 'github',
-      alt: '깃허브 로그인 아이콘',
+      alt: '깃허브 로그인',
       image: '/images/sns_icon/Github.png',
       action: signInWithGithub,
       type: 'basic_sns',
     },
     {
+      name: 'genesis',
+      alt: '제네시스 로그인',
+      image: '/images/sns_icon/genesis.png',
+      onclick: handleSignInGenesis,
+      type: 'hyundai-sns',
+    },
+    {
+      name: 'hyundai',
+      alt: '현대 로그인',
+      image: '/images/sns_icon/hyundai.png',
+      onclick: handleSignInHyundai,
+      type: 'hyundai-sns',
+    },
+    {
       name: 'naver',
-      alt: '네이버 로그인 아이콘',
+      alt: '네이버 로그인',
       image: '/images/sns_icon/naver.png',
       action: signInWithNaver,
       type: 'basic_sns',
     },
     {
       name: 'kakao',
-      alt: '카카오 로그인 아이콘',
+      alt: '카카오 로그인',
       image: '/images/sns_icon/Kakaotalk.png',
       action: signInWithKakao,
       type: 'basic_sns',
@@ -95,7 +95,7 @@ export default function JoinSnsButton() {
             onClick={item.onclick}
             key={item.name}
           >
-            <article className="relative aspect-[1/1] w-[30px]">
+            <article className="snsWrap relative aspect-[1/1] w-[30px] ">
               <Image
                 src={item.image}
                 fill
@@ -103,6 +103,9 @@ export default function JoinSnsButton() {
                 className="grayscale hover:grayscale-0 hover:scale-105 absolute top-0 left-0 object-contain transition-all"
                 alt={item.alt}
               ></Image>
+              <div className="snsToolTips">
+                <span>{item.alt}</span>
+              </div>
             </article>
           </Submit>
         );
@@ -113,7 +116,7 @@ export default function JoinSnsButton() {
             formAction={item.action}
             key={item.name}
           >
-            <article className="relative aspect-[1/1] w-[30px]">
+            <article className="snsWrap relative aspect-[1/1] w-[30px]">
               <Image
                 src={item.image}
                 fill
@@ -121,6 +124,9 @@ export default function JoinSnsButton() {
                 className="grayscale hover:grayscale-0 hover:scale-105 absolute top-0 left-0 object-contain transition-all"
                 alt={item.alt}
               ></Image>
+              <div className="snsToolTips">
+                <span>{item.alt}</span>
+              </div>
             </article>
           </Submit>
         );

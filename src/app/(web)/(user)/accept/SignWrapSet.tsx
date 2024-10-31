@@ -25,7 +25,7 @@ export default function SignWrapSet() {
   return (
     <>
       <div className="bg-white w-full h-[calc(100vh-60px)] flex items-center justify-center ">
-        <section className="relative justify-center w-full m-[3%] aspect-[5/3] max-w-[1200px] border border-[#efefef] bg-white drop-shadow-2xl">
+        <section className="relative justify-center w-full m-[3%_3%_6%_3%] aspect-[5/3] max-w-[1200px] border border-[#efefef] bg-white drop-shadow-2xl">
           <article className="absolute w-[50%] top-0 left-0 h-full overflow-hidden">
             <JoinLoginForm moveState={moveLayer} />
           </article>
@@ -62,9 +62,23 @@ export default function SignWrapSet() {
                   )}
                 </span>
               </div>
-              <p className={`text-white ${moveLayer ? 'text-left' : 'text-right'}`}>
-                제니시수와 함께 새로운 드라이브를 시작하고, 프리미엄 세단의 모든 가능성을 발견해
-                보세요.
+              <p
+                className={`text-white ${
+                  moveLayer ? 'text-left' : 'text-right'
+                } break-keep w-[450px]`}
+              >
+                {moveLayer ? (
+                  <span>
+                    지금 제니시수에 가입하고 프리미엄 세단의 가능성을 발견해보세요.
+                    <br />
+                    고급스러움과 혁신이 어우러진 특별한 여정이 시작됩니다.
+                  </span>
+                ) : (
+                  <span>
+                    프리미엄 세단의 새로운 세계로 첫발을 내딛어보세요.
+                    <br />한 차원 높은 드라이빙 경험이 기다리고 있습니다.
+                  </span>
+                )}
               </p>
               <div className="grid grid-cols-1 items-center gap-y-2 px-[10%]">
                 <div className="text-[#888] flex gap-x-3">
@@ -85,9 +99,9 @@ export default function SignWrapSet() {
             </div>
 
             <article
-              className={`z-[1] absolute bottom-[-10%] transition-all duration-[1s] ${
-                moveLayer ? 'right-[20%]' : 'right-[-20%]'
-              } aspect-[2/1] w-full max-w-[650px]`}
+              className={`z-[1] absolute bottom-[-7%] transition-all duration-[1s] ${
+                moveLayer ? 'right-[35%]' : 'right-[-10%]'
+              } aspect-[2/1] w-full max-w-[450px]`}
             >
               <Image
                 src="/images/gv70_croped.png"

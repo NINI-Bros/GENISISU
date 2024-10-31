@@ -52,7 +52,7 @@ export default function JoinSignupForm({ moveState }: { moveState: boolean }) {
     <div
       className={`absolute transition-all duration-500 ${
         moveState ? 'right-0' : 'right-[100%]'
-      } top-0 p-[10%] w-full h-full flex flex-col justify-between bg-white signUpForm`}
+      } top-0 px-[10%] py-[5%] w-full h-full flex flex-col justify-between bg-white signUpForm`}
     >
       <div className="flex justify-center ">
         <h2 className="text-[30px] font-bold">회원가입</h2>
@@ -111,7 +111,7 @@ export default function JoinSignupForm({ moveState }: { moveState: boolean }) {
           />
           <InputError target={errors.name} />
         </div>
-        <div className="mb-4">
+        <div className="mb-14">
           <label className="block text-gray-700 mb-2" htmlFor="attach">
             프로필 이미지
           </label>
@@ -139,6 +139,7 @@ export default function JoinSignupForm({ moveState }: { moveState: boolean }) {
           </Link>
         </div>
       </form>
+
       <div className="text-center flex justify-center gap-x-1 text-gray-500 text-sm">
         <figure>
           <FontAwesomeIcon icon={faAnglesLeft} />

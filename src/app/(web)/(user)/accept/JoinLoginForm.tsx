@@ -45,7 +45,7 @@ export default function JoinLoginForm({ moveState }: { moveState: boolean }) {
     <div
       className={`absolute transition-all duration-500 ${
         moveState ? 'left-[100%]' : 'left-0'
-      } top-0 p-[10%] w-full h-full flex flex-col justify-between bg-white`}
+      } top-0 px-[10%] py-[5%] w-full h-full flex flex-col justify-between bg-white`}
     >
       <div className="flex justify-center">
         <h2 className="text-[30px] font-bold">로그인</h2>
@@ -85,7 +85,7 @@ export default function JoinLoginForm({ moveState }: { moveState: boolean }) {
           />
           <InputError target={errors.password} />
         </div>
-        <div className="flex gap-x-[17px] mt-14 justify-center items-center">
+        <div className="flex gap-x-[17px] mt-8 justify-center items-center">
           <Submit
             className="btnBasic w-full h-[50px] px-[5%] py-[1%] hover:underline cursor:pointer"
             onClick={handleSubmit(login)}
@@ -93,7 +93,7 @@ export default function JoinLoginForm({ moveState }: { moveState: boolean }) {
             로그인
           </Submit>
         </div>
-        <article>
+        <article className="mt-20">
           <div className="flex items-center mt-8 mb-5">
             <div className="flex-grow border-t border-gray-400"></div>
             <span className="mx-4 text-gray-500 text-sm">간편 로그인</span>
@@ -103,6 +103,7 @@ export default function JoinLoginForm({ moveState }: { moveState: boolean }) {
         </article>
       </form>
 
+      {/* <div className="text-center flex justify-center gap-x-1 text-gray-500 text-sm"> */}
       <div className="text-center flex justify-center gap-x-1 text-gray-500 text-sm">
         <Link href="/accept?type=signup" className="underline ">
           GENISISU 회원가입
