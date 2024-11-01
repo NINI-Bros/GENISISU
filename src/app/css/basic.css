@@ -911,7 +911,6 @@ iframe {
 }
 
 /* 모델 호버됬을경우 이벤트 작업 */
-
 #modelComponent figure {
   transition: 0.3s all;
 }
@@ -933,4 +932,39 @@ iframe {
 }
 #modelComponent:hover .modelHoverLayer {
   right: 0;
+}
+form > .signInputWrap {
+  display: grid;
+  grid-template-rows: min-content min-content 20px;
+}
+form > .signInputWrap p {
+  grid-row: 3 / -1;
+}
+
+/* SNS 모델 툴팁 옵션 */
+.snsWrap .snsToolTips {
+  display: none;
+}
+.snsWrap:hover .snsToolTips {
+  display: block;
+  position: absolute;
+  top: 150%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  padding: 7px 0;
+  height: min-content;
+  font-size: 0.8rem;
+  background: #ddd;
+}
+.snsWrap .snsToolTips::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: rotate(45deg) translateX(-50%);
+  background: #ddd;
+  width: 10px;
+  height: 10px;
+  z-index: -1;
 }

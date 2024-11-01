@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import React from 'react';
 import SnsButton from './SnsButton';
+import JoinSnsButton from '../accept/JoinSnsButton';
 
 export default function LoginForm() {
   const {
@@ -99,7 +100,7 @@ export default function LoginForm() {
         <span className="mx-4 text-gray-500 text-sm">간편 로그인</span>
         <div className="flex-grow border-t border-gray-400"></div>
       </div>
-      <SnsButton />
+      <JoinSnsButton />
     </form>
   );
 }

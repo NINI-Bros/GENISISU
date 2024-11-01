@@ -1,4 +1,4 @@
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useSession } from '@/hook/useSession';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
@@ -9,13 +9,11 @@ export default function GnbSignSet({
 }: {
   modalToggleFn: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const pathName = usePathname();
-  const thisPath = pathName.split('/')[1];
+  const searchParams = useSearchParams();
   const { session, status } = useSession();
-  console.log(session);
 
   // 패스네임 기준 클래스 활성화 함수
-  const isOnActive = (routeName: string) => (thisPath === routeName ? 'on' : '');
+  const isOnActive = (routeName: string) => (searchParams.get('type') === routeName ? 'on' : '');
 
   // 로그아웃 함수
   const handleSignOut = (e: React.MouseEvent) => {
@@ -40,11 +38,11 @@ export default function GnbSignSet({
     } else {
       return (
         <>
-          <Link href="/login" className={`${isOnActive('login')}`}>
+          <Link href="/accept?type=login" className={`${isOnActive('login')}`}>
             로그인
           </Link>
           <span>|</span>
-          <Link href="/signup" className={`${isOnActive('signup')}`}>
+          <Link href="/accept?type=signup" className={`${isOnActive('signup')}`}>
             회원가입
           </Link>
         </>
