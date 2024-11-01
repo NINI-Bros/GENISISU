@@ -11,8 +11,9 @@ import {
   signInWithKakao,
   signInWithNaver,
 } from '@/data/actions/userAction';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { TargetArea } from '@/components/Spinner';
 
 export default function SnsButton() {
   const searchParams = useSearchParams();
@@ -44,44 +45,46 @@ export default function SnsButton() {
   };
 
   return (
-    <div className="flex flex-wrap gap-x-[10px] gap-y-[10px] justify-center items-center">
-      <Submit
-        className="w-1/5 btnBasic px-[4%] py-[1%] hover:underline cursor:pointer"
-        formAction={signInWithGoogle}
-      >
-        구글
-      </Submit>
-      <Submit
-        className="w-1/5 btnBasic px-[4%] py-[1%] hover:underline cursor:pointer"
-        formAction={signInWithGithub}
-      >
-        깃허브
-      </Submit>
-      <Submit
-        className="w-1/5 btnBasic px-[4%] py-[1%] hover:underline cursor:pointer"
-        formAction={signInWithNaver}
-      >
-        네이버
-      </Submit>
-      <Submit
-        className="w-1/5 btnBasic px-[4%] py-[1%] hover:underline cursor:pointer"
-        formAction={signInWithKakao}
-      >
-        카카오
-      </Submit>
-      <Submit
-        className="flex-grow-0 flex-shrink-0 basis-1/3 btnBasic px-[4%] py-[1%] hover:underline cursor:pointer"
-        // formAction={handleFormSubmit}
-        onClick={handleSignInGenesis}
-      >
-        제네시스
-      </Submit>
-      <Submit
-        className="flex-grow-0 flex-shrink-0 basis-1/3 btnBasic px-[5%] py-[1%] hover:underline cursor:pointer"
-        onClick={handleSignInHyundai}
-      >
-        현대멤버스
-      </Submit>
-    </div>
+    <Suspense fallback={<TargetArea />}>
+      <div className="flex flex-wrap gap-x-[10px] gap-y-[10px] justify-center items-center">
+        <Submit
+          className="w-1/5 btnBasic px-[4%] py-[1%] hover:underline cursor:pointer"
+          formAction={signInWithGoogle}
+        >
+          구글
+        </Submit>
+        <Submit
+          className="w-1/5 btnBasic px-[4%] py-[1%] hover:underline cursor:pointer"
+          formAction={signInWithGithub}
+        >
+          깃허브
+        </Submit>
+        <Submit
+          className="w-1/5 btnBasic px-[4%] py-[1%] hover:underline cursor:pointer"
+          formAction={signInWithNaver}
+        >
+          네이버
+        </Submit>
+        <Submit
+          className="w-1/5 btnBasic px-[4%] py-[1%] hover:underline cursor:pointer"
+          formAction={signInWithKakao}
+        >
+          카카오
+        </Submit>
+        <Submit
+          className="flex-grow-0 flex-shrink-0 basis-1/3 btnBasic px-[4%] py-[1%] hover:underline cursor:pointer"
+          // formAction={handleFormSubmit}
+          onClick={handleSignInGenesis}
+        >
+          제네시스
+        </Submit>
+        <Submit
+          className="flex-grow-0 flex-shrink-0 basis-1/3 btnBasic px-[5%] py-[1%] hover:underline cursor:pointer"
+          onClick={handleSignInHyundai}
+        >
+          현대멤버스
+        </Submit>
+      </div>
+    </Suspense>
   );
 }

@@ -1,8 +1,10 @@
-import { usePathname, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useSession } from '@/hook/useSession';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Suspense } from 'react';
+import { TargetArea } from '../Spinner';
 
 export default function GnbSignSet({
   modalToggleFn,
@@ -52,7 +54,9 @@ export default function GnbSignSet({
 
   return (
     <ul className="secondGnb">
-      <li className="signSetList">{signSetFn()}</li>
+      <Suspense fallback={<TargetArea />}>
+        <li className="signSetList">{signSetFn()}</li>
+      </Suspense>
       <li className="sitemapBtn">
         <div className="sitemapWrap" onClick={handleSiteMapOpen}>
           <figure>

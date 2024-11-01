@@ -30,7 +30,7 @@ import { useSession } from '@/hook/useSession';
 // }
 
 export default function Page({ params }: { params: { boards: string } }) {
-  const session = useSession();
+  const { session } = useSession();
   const [list, setList] = useState<ListState>({
     listJsx: null,
     pagination: null,

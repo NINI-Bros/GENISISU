@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import { useParams, useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
+import { TargetArea } from './Spinner';
 
 interface PaginationProps {
   page: number;
@@ -29,7 +31,9 @@ const Pagination: React.FC<PaginationProps> = ({ page, totalPages }) => {
 
   return (
     <div>
-      <ul className="flex justify-center gap-3 m-4">{pageList}</ul>
+      <Suspense fallback={<TargetArea />}>
+        <ul className="flex justify-center gap-3 m-4">{pageList}</ul>
+      </Suspense>
     </div>
   );
 };

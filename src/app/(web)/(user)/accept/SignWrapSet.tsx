@@ -2,12 +2,13 @@
 
 import JoinLoginForm from './JoinLoginForm';
 import JoinSignupForm from './JoinSignupForm';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { FullScreen } from '@/components/Spinner';
 
 export default function SignWrapSet() {
   const searchParams = useSearchParams();
@@ -23,7 +24,7 @@ export default function SignWrapSet() {
     }
   }, [searchParams]);
   return (
-    <>
+    <Suspense fallback={<FullScreen />}>
       <div className="bg-white w-full h-[calc(100vh-60px)] flex items-center justify-center ">
         <section className="relative justify-center w-full m-[3%_3%_6%_3%] aspect-[5/3] max-w-[1200px] border border-[#efefef] bg-white drop-shadow-2xl">
           <article className="absolute w-[50%] top-0 left-0 h-full overflow-hidden">
@@ -117,6 +118,6 @@ export default function SignWrapSet() {
           </aside>
         </section>
       </div>
-    </>
+    </Suspense>
   );
 }
