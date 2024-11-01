@@ -29,7 +29,8 @@
     ".next/types/**/*.ts",
     "src/components/BodyClassCheck.js",
     "server.ms",
-    "server.mjs"
+    "server.mjs",
+    "src/app/(web)/(user)/accept/snsIconJson.js"
   ],
   "exclude": ["node_modules"]
 }
