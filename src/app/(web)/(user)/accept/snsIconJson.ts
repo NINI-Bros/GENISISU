@@ -8,12 +8,12 @@ import {
 } from '@/data/actions/userAction';
 
 export function getSnsIcons() {
-  const handleSignInGenesis = async (e) => {
+  const handleSignInGenesis = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     await fetchGenesisAuth();
   };
 
-  const handleSignInHyundai = async (e) => {
+  const handleSignInHyundai = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     await fetchHyundaiAuth();
   };
