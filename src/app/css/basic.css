@@ -505,9 +505,13 @@ main.mainPage > section#event1 figure video {
   height: 100%;
   background: #fff;
 }
-.progress_bar span:last-child {
+.progress_bar span {
   opacity: 50%;
   font-weight: 100;
+}
+.progress_bar span.on {
+  opacity: 100%;
+  font-weight: 500;
 }
 
 /* main - 두번째박스 */
