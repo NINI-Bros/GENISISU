@@ -18,7 +18,7 @@ export async function fetchProducts(): Promise<Product[]> {
       'Content-Type': 'application/json',
       'client-Id': CLIENT,
     },
-    next: { revalidate: 60 }, // Revalidate every 60 seconds
+    // next: { revalidate: 60 }, // Revalidate every 60 seconds
   });
   const resJson: ApiRes<MultiItem<Product>> = await res.json();
   if (!resJson.ok) {
@@ -43,7 +43,7 @@ export async function fetchVehicles(): Promise<Product[]> {
       'Content-Type': 'application/json',
       'client-Id': CLIENT,
     },
-    next: { revalidate: 60 }, // Revalidate every 60 seconds
+    // next: { revalidate: 60 }, // Revalidate every 60 seconds
   });
   const resJson: ApiRes<MultiItem<Product>> = await res.json();
   if (!resJson.ok) {
@@ -60,7 +60,7 @@ export async function fetchProduct(_id: string) {
       'Content-Type': 'application/json',
       'client-Id': CLIENT,
     },
-    next: { revalidate: 60 }, // Revalidate every 60 seconds
+    // next: { revalidate: 60 }, // Revalidate every 60 seconds
   });
   const resJson: ApiRes<SingleItem<Product>> = await res.json();
   if (!resJson.ok) {
@@ -85,7 +85,7 @@ export async function fetchOptions(): Promise<Option[]> {
       'Content-Type': 'application/json',
       'client-Id': CLIENT,
     },
-    next: { revalidate: 60 }, // Revalidate every 60 seconds
+    // next: { revalidate: 60 }, // Revalidate every 60 seconds
   });
   const resJson: ApiRes<MultiItem<Option>> = await res.json();
   if (!resJson.ok) {
@@ -110,7 +110,7 @@ export async function fetchOption(category: string) {
       'Content-Type': 'application/json',
       'client-Id': CLIENT,
     },
-    next: { revalidate: 60 }, // Revalidate every 60 seconds
+    // next: { revalidate: 60 }, // Revalidate every 60 seconds
   });
   const resJson: ApiRes<SingleItem<Option[]>> = await res.json();
   if (!resJson.ok) {

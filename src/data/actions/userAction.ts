@@ -205,7 +205,7 @@ export async function signInWithGenesis(code: string) {
 export async function fetchGenesisAuth() {
   const params = new URLSearchParams();
   params.set('clientId', process.env.GENESIS_CLIENT_ID);
-  params.set('host', 'https://localhost:3000'); // 제네시스 디벨로퍼스에 등록한 계정 API Redirect URL 도메인
+  params.set('host', SERVER); // 제네시스 디벨로퍼스에 등록한 계정 API Redirect URL 도메인
   params.set('state', 'GENESIS' + generateState(9)); // 16자리의 랜덤 문자열 생성
 
   const url = `https://accounts.genesis.com/api/authorize/ccsp/oauth?${params.toString()}`;
@@ -236,7 +236,7 @@ export async function fetchGenesisToken(code: string) {
   const params = new URLSearchParams();
   params.set('grant_type', 'authorization_code'); // 'refresh_token', 'delete'
   params.set('code', code);
-  params.set('redirect_uri', 'https://localhost:3000/login');
+  params.set('redirect_uri', SERVER + '/login');
 
   const url = 'https://accounts.genesis.com/api/account/ccsp/user/oauth2/token';
   const decoded_data = process.env.GENESIS_CLIENT_ID + ':' + process.env.GENESIS_CLIENT_SECRET;
@@ -321,7 +321,7 @@ export async function fetchHyundaiAuth() {
   const params = new URLSearchParams();
   params.set('response_type', 'code');
   params.set('client_id', process.env.HYUNDAI_CLIENT_ID);
-  params.set('redirect_uri', 'https://localhost:3000/login');
+  params.set('redirect_uri', SERVER + '/login');
   params.set('state', 'HYUNDAI' + generateState(9)); // 16자리의 랜덤 문자열 생성
 
   const url = `https://prd.kr-ccapi.hyundai.com/api/v1/user/oauth2/authorize?${params.toString()}`;
@@ -351,7 +351,7 @@ export async function fetchHyundaiToken(code: string) {
   const params = new URLSearchParams();
   params.set('grant_type', 'authorization_code'); // 'refresh_token', 'delete'
   params.set('code', code);
-  params.set('redirect_uri', 'https://localhost:3000/login');
+  params.set('redirect_uri', SERVER + 'login'); // 배포용
 
   const url = 'https://prd.kr-ccapi.hyundai.com/api/v1/user/oauth2/token';
   const decoded_data = process.env.HYUNDAI_CLIENT_ID + ':' + process.env.HYUNDAI_CLIENT_SECRET;
