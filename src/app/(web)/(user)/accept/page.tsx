@@ -1,6 +1,8 @@
 import { Metadata } from 'next';
 
 import SignWrapSet from './SignWrapSet';
+import { Suspense } from 'react';
+import { FullScreen } from '@/components/Spinner';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://genisisu.vercel.app'),
@@ -17,5 +19,9 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <SignWrapSet />;
+  return (
+    <Suspense fallback={<FullScreen />}>
+      <SignWrapSet />
+    </Suspense>
+  );
 }

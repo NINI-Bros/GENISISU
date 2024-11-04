@@ -6,10 +6,11 @@ import { signInWithCredentials } from '@/data/actions/userAction';
 import { UserForm, UserLoginForm } from '@/types';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
-import React from 'react';
+import React, { Suspense } from 'react';
 import JoinSnsButton from './JoinSnsButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAnglesRight } from '@fortawesome/free-solid-svg-icons';
+import { TargetArea } from '@/components/Spinner';
 
 export default function JoinLoginForm({ moveState }: { moveState: boolean }) {
   const {
@@ -99,7 +100,9 @@ export default function JoinLoginForm({ moveState }: { moveState: boolean }) {
             <span className="mx-4 text-gray-500 text-sm">간편 로그인</span>
             <div className="flex-grow border-t border-gray-400"></div>
           </div>
-          <JoinSnsButton />
+          <Suspense fallback={<TargetArea />}>
+            <JoinSnsButton />
+          </Suspense>
         </article>
       </form>
 
