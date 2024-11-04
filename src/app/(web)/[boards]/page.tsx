@@ -3,13 +3,13 @@
 import { BoardTitle, ListState } from '@/types';
 import { fetchPagination, fetchPosts } from '@/data/fetch/postFetch';
 import { useEffect, useState } from 'react';
-// import { Metadata } from 'next';
 import PostPagination from '@/components/PostPagination';
 import Button from '@/components/Button';
 import Link from 'next/link';
 import ListItem from './ListItem';
 import ScrollToTop from '@/components/ScrollToTop';
 import { useSession } from '@/hook/useSession';
+// import { Metadata } from 'next';
 
 // export function generateMetadata({ params }: { params: { boards: string } }): Metadata {
 //   const boardName = params.boards;

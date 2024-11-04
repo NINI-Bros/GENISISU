@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Sitemap from './Sitemap';
 import GnbSignSet from '../mainGnb/GnbSignSet';
 import GnbMobile from '../mainGnb/GnbMobile';
 import GnbWeb from '../mainGnb/GnbWeb';
+import { TargetArea } from '../Spinner';
 
 export default function Header({ isMain }: { isMain: string }) {
   const [modalOn, setModalOn] = useState(false);
@@ -36,7 +37,9 @@ export default function Header({ isMain }: { isMain: string }) {
           <GnbMobile />
         </div>
         <div className="navWrap">
-          <GnbSignSet modalToggleFn={setModalOn} />
+          <Suspense fallback={<TargetArea />}>
+            <GnbSignSet modalToggleFn={setModalOn} />
+          </Suspense>
         </div>
       </nav>
 

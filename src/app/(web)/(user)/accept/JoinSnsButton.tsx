@@ -1,10 +1,9 @@
 import Submit from '@/components/Submit';
 import { signInWithGenesis, signInWithHyundai } from '@/data/actions/userAction';
 import Image from 'next/image';
-import { Suspense, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { getSnsIcons } from './snsIconJson';
-import { TargetArea } from '@/components/Spinner';
 
 export default function JoinSnsButton() {
   const searchParams = useSearchParams();
@@ -50,9 +49,5 @@ export default function JoinSnsButton() {
     ));
   };
 
-  return (
-    <Suspense fallback={<TargetArea />}>
-      <div className="flex gap-x-[10px] justify-between items-center px-[5%]">{snsList()}</div>
-    </Suspense>
-  );
+  return <div className="flex gap-x-[10px] justify-between items-center px-[5%]">{snsList()}</div>;
 }
