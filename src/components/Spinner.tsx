@@ -21,7 +21,7 @@ export function FullScreen() {
 export function TargetArea() {
   return (
     <div className="flex justify-center">
-      <ScaleLoader color="#F97316" />
+      <ScaleLoader color="#000000" />
     </div>
   );
 }

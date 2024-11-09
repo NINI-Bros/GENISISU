@@ -26,7 +26,6 @@ export default function Page() {
             로그인
           </h2>
         </div>
-
         <LoginForm />
       </div>
     </main>

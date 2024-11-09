@@ -2,7 +2,7 @@
 
 import { fetchVehicles } from '@/data/fetch/productFetch';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import useModalOpenBgFix from '@/hook/useModalOpenBgFix';
 
@@ -13,7 +13,6 @@ export default function Sitemap({
   modalState: boolean;
   modalToggleFn: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const route = useRouter();
   const modelRef = useRef(null);
   const handleCloseBtn = () => modalToggleFn((prev) => !prev);
   const path = usePathname();

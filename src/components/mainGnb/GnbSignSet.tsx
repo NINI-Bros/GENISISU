@@ -1,4 +1,4 @@
-import { usePathname, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useSession } from '@/hook/useSession';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';

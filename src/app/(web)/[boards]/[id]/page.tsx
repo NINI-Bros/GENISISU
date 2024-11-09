@@ -149,7 +149,6 @@ export default async function Page({ params }: { params: { boards: string; id: s
           )}
         </div>
       </form>
-
       <CommentList params={params} />
     </main>
   );
