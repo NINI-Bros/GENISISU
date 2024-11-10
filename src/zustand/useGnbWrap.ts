@@ -49,11 +49,11 @@ export const useGnbStore = create<GnbStore>((set) => ({
       icon: faFileLines,
       device: ['web', 'mobile'],
     },
-    {
-      route: 'none',
-      text: '제니시수',
-      icon: faFileLines,
-      device: ['web'],
-    },
+    // {
+    //   route: 'none',
+    //   text: '제니시수',
+    //   icon: faFileLines,
+    //   device: ['web'],
+    // },
   ],
 }));
