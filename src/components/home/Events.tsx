@@ -5,9 +5,9 @@ import Link from 'next/link';
 
 export default function Events({ data }: { data: Post[] }) {
   const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
-  const { title, _id } = data[0];
+  const { title, _id, content } = data[0];
   return (
-    <section id="event3" style={{ backgroundImage: `url(${SERVER + data[0].content})` }}>
+    <section id="event3" style={{ backgroundImage: `url(${SERVER + content})` }}>
       <article>
         <h2>
           GENISISU <span>EVENTS</span>

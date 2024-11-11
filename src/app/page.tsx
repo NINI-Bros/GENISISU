@@ -5,14 +5,14 @@ import Vehicles from '@/components/home/Vehicles';
 import Events from '@/components/home/Events';
 import Awards from '@/components/home/Awards';
 import TestDriveApplication from '@/components/home/TestDriveApplication';
-import { fetchPost, fetchPosts } from '@/data/fetch/postFetch';
+import { fetchPosts } from '@/data/fetch/postFetch';
 
 export default async function RootPage() {
   const promotionData = await fetchPromotions();
   const modelData = await fetchVehicles();
-  const eventData = (await fetchPosts('info')).filter(
-    (item) => item.extra?.contentType === 'event'
-  );
+  const postEventOriginData = await fetchPosts('info');
+  const eventData = postEventOriginData.filter((item) => item.extra?.contentType === 'event');
+  const awardData = postEventOriginData.filter((item) => item.extra?.contentType === 'award');
 
   return (
     <>
@@ -21,7 +21,7 @@ export default async function RootPage() {
         <Video data={promotionData} />
         <Vehicles data={modelData} />
         <Events data={eventData} />
-        <Awards />
+        <Awards data={awardData} />
         <TestDriveApplication boardName={'drive'} />
       </main>
     </>
