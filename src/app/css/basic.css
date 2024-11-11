@@ -725,7 +725,7 @@ main.mainPage .ev5_wrap form select option {
   font-size: 20px;
 }
 main.mainPage section#event5 .bgImg {
-  background: url('/images/ev5_bg.png') center/cover no-repeat;
+  background: url('/images/ev5_bg.jpg') center/cover no-repeat;
   position: absolute;
   top: 0;
   left: 0;
