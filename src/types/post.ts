@@ -16,10 +16,10 @@ export interface Post {
   _id: number;
   type?: string;
   title: string;
-  phone: string;
+  phone?: string;
   model: string;
   name: string;
-  address: string;
+  address?: string;
   content: string;
   user: Pick<UserData, '_id' | 'name' | 'image'>;
   views: number;
@@ -27,6 +27,10 @@ export interface Post {
   replies?: PostComment[];
   createdAt: string;
   updatedAt: string;
+  extra?: {
+    subContent: string;
+    contentType: 'event' | 'award';
+  };
 }
 
 export interface BoardTitle {

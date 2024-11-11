@@ -597,7 +597,9 @@ main.mainPage section#event2 .ev2_bg a {
 
 /* main - 세번째 박스 */
 main.mainPage section#event3 {
-  background: url('/images/ev3_bg.png') no-repeat center/cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   color: #fff;
 }
 main.mainPage section#event3 article {

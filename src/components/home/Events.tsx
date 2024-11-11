@@ -1,22 +1,21 @@
 'use client';
 
-export default function Events() {
+import { Post } from '@/types';
+import Link from 'next/link';
+
+export default function Events({ data }: { data: Post[] }) {
+  const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
+  const { title, _id } = data[0];
   return (
-    <section id="event3">
+    <section id="event3" style={{ backgroundImage: `url(${SERVER + data[0].content})` }}>
       <article>
         <h2>
           GENISISU <span>EVENTS</span>
         </h2>
-        <h3>제니시수에서 진행중인 다양한 이벤트를 소개합니다.</h3>
-        <button
-          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-            e.preventDefault();
-            alert('준비중 입니다.');
-          }}
-          className="mainBtn"
-        >
+        <h3>{title}</h3>
+        <Link href={`/info/${_id}`} className="mainBtn">
           VIEW MORE
-        </button>
+        </Link>
       </article>
     </section>
   );
