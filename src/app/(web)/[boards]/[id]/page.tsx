@@ -7,6 +7,7 @@ import { notFound } from 'next/navigation';
 import { auth } from '@/auth';
 import Image from 'next/image';
 import { deletePost } from '@/data/actions/postAction';
+import FoldingText from '../FoldingText';
 
 export async function generateMetadata({
   params,
@@ -62,6 +63,11 @@ export function generateStaticParams() {
     { boards: 'info', id: '36' },
     { boards: 'info', id: '35' },
     { boards: 'info', id: '34' },
+    { boards: 'info', id: '44' },
+    { boards: 'info', id: '45' },
+    { boards: 'info', id: '46' },
+    { boards: 'info', id: '47' },
+    { boards: 'info', id: '48' },
     { boards: 'qna', id: '28' },
     { boards: 'qna', id: '27' },
     { boards: 'qna', id: '26' },
@@ -79,7 +85,6 @@ const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 const CLIENT = process.env.NEXT_PUBLIC_CLIENT_ID;
 
 export default async function Page({ params }: { params: { boards: string; id: string } }) {
-  // const item = await model.post.detail(Number(params.id));
   const session = await auth();
   const item = await fetchPost(params.id);
   if (item === null) notFound();
@@ -103,17 +108,17 @@ export default async function Page({ params }: { params: { boards: string; id: s
         <h2 className="inline-block text-sm mb-2 p-2 border border-gray-[#aaa] bg-transparent">
           {board}
         </h2>
-        <div className="font-normal text-[42px] max-[1366px]:text-[25px] mb-2">{item.title}</div>
+        <div className="font-normal text-[42px] max-[1366px]:text-[25px] mb-2">
+          <FoldingText fetchPostData={item} viewType="detail" />
+          {item.title}
+        </div>
         {/* 프로필 */}
-        <div className="flex gap-2 justify-start items-center mb-6">
+        <div className="flex gap-2 justify-start items-center pb-6 mb-12 border-b-[1px] border-gray-400 border-solid">
           <figure className="relative w-[34px] h-[34px] aspect-auto">
             <Image fill sizes="100%" src={profileImage} alt="작성자 프로필 사진" />
           </figure>
           <div>
-            <span className="block text-black text-sm">
-              {/* {item.user.name} */}
-              {item.name || '익명'}
-            </span>
+            <span className="block text-black text-sm">{item.name || '익명'}</span>
             <time
               className="block text-[#aaa] text-sm font-normal"
               style={{ fontFamily: 'Hyundai-sans' }}
@@ -122,14 +127,32 @@ export default async function Page({ params }: { params: { boards: string; id: s
             </time>
           </div>
         </div>
-        <span className="block mb-12 border-b-[1px] border-gray-400 border-solid"></span>
-        <div className="text-black text-lg mb-2 font-light">
-          {params.boards === 'drive' ? '희망 플레이스 : ' : ''}
-          {item.address}
-        </div>
-        <div className="text-black text-lg mb-12 font-light">연락처 : {item.phone}</div>
-        <div className="text-black text-lg mb-20 font-light"> {item.content}</div>
 
+        {/* event, award에 따른 게시판 내용 분류 표기 & 옵셔널로 구분하여 DOM 랜더링 조건분기 진행 */}
+        {item.extra?.contentType !== undefined ? (
+          <section className="m-[0_auto] flex justify-center w-full max-w-[800px]">
+            <figure className="w-full min-h-[800px] relative">
+              <Image
+                src={`${SERVER + item.extra.subContent}`}
+                fill
+                sizes="100%"
+                alt={item.title}
+                className="object-contain"
+              ></Image>
+            </figure>
+          </section>
+        ) : (
+          <section>
+            <div className="text-black text-lg mb-2 font-light">
+              {params.boards === 'drive' ? '희망 플레이스 : ' : ''}
+              {item.address}
+            </div>
+            <div className="text-black text-lg mb-12 font-light">연락처 : {item.phone}</div>
+            <div className="text-black text-lg mb-20 font-light"> {item.content}</div>
+          </section>
+        )}
+
+        {/* 하단 버튼 및 덧글 */}
         <div className="flex justify-end my-4">
           <Link href={`/${params.boards}`} className="bg-black py-1 px-4 text-base text-white ml-2">
             목록

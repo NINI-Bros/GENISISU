@@ -27,6 +27,12 @@ export interface Post {
   replies?: PostComment[];
   createdAt: string;
   updatedAt: string;
+  extra?: {
+    subTitle: string;
+    subContent: string;
+    contentType: 'event' | 'award';
+    awardTitle: string;
+  };
 }
 
 export interface BoardTitle {
