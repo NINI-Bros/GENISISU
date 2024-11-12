@@ -135,7 +135,7 @@ export async function fetchPromotions(): Promise<Product[]> {
       'Content-Type': 'application/json',
       'client-Id': CLIENT,
     },
-    next: { revalidate: 0 }, // Revalidate every 60 seconds
+    next: { revalidate: 180 }, // Revalidate every 60 seconds
   });
   const resJson: ApiRes<MultiItem<Product>> = await res.json();
   if (!resJson.ok) {

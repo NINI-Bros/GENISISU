@@ -7,6 +7,7 @@ import { notFound } from 'next/navigation';
 import { auth } from '@/auth';
 import Image from 'next/image';
 import { deletePost } from '@/data/actions/postAction';
+import FoldingText from '../FoldingText';
 
 export async function generateMetadata({
   params,
@@ -95,6 +96,7 @@ export default async function Page({ params }: { params: { boards: string; id: s
   } else {
     board = '고객지원 게시글';
   }
+  console.log('확인:::', item);
   const profileImage = item.user.image
     ? SERVER + item.user.image
     : `${SERVER}/files/${CLIENT}/profile-image-user.jpg`;
@@ -107,7 +109,10 @@ export default async function Page({ params }: { params: { boards: string; id: s
         <h2 className="inline-block text-sm mb-2 p-2 border border-gray-[#aaa] bg-transparent">
           {board}
         </h2>
-        <div className="font-normal text-[42px] max-[1366px]:text-[25px] mb-2">{item.title}</div>
+        <div className="font-normal text-[42px] max-[1366px]:text-[25px] mb-2">
+          <FoldingText fetchPostData={item} viewType="detail" />
+          {item.title}
+        </div>
         {/* 프로필 */}
         <div className="flex gap-2 justify-start items-center pb-6 mb-12 border-b-[1px] border-gray-400 border-solid">
           <figure className="relative w-[34px] h-[34px] aspect-auto">
