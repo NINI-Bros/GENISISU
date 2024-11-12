@@ -505,9 +505,13 @@ main.mainPage > section#event1 figure video {
   height: 100%;
   background: #fff;
 }
-.progress_bar span:last-child {
+.progress_bar span {
   opacity: 50%;
   font-weight: 100;
+}
+.progress_bar span.on {
+  opacity: 100%;
+  font-weight: 500;
 }
 
 /* main - 두번째박스 */
@@ -593,7 +597,9 @@ main.mainPage section#event2 .ev2_bg a {
 
 /* main - 세번째 박스 */
 main.mainPage section#event3 {
-  background: url('/images/ev3_bg.png') no-repeat center/cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   color: #fff;
 }
 main.mainPage section#event3 article {
@@ -638,37 +644,27 @@ main.mainPage section#event4 > article {
 }
 main.mainPage section#event4 .ev4_slide {
   width: 100%;
+  padding-bottom: 100px;
 }
 main.mainPage section#event4 .ev4_wrap {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  padding: 0 10%;
+  padding: 7% 10%;
   column-gap: 70px;
   align-items: center;
 }
 main.mainPage section#event4 .ev4_wrap > article {
   width: 100%;
 }
-main.mainPage section#event4 .ev4_wrap:nth-child(1) figure {
+main.mainPage section#event4 .ev4_wrap figure {
+  position: relative;
   width: 100%;
-  padding-top: 100%;
-  background: url('/images/ev4_bg.png') center/contain no-repeat;
+  aspect-ratio: 85/61;
 }
-main.mainPage section#event4 .ev4_wrap:nth-child(2) figure {
-  width: 100%;
-  padding-top: 100%;
-  background: url('/images/ev4_bg_02.jpg') center/contain no-repeat;
+main.mainPage section#event4 .ev4_wrap figure img {
+  object-fit: contain;
 }
-main.mainPage section#event4 .ev4_wrap:nth-child(3) figure {
-  width: 100%;
-  padding-top: 100%;
-  background: url('/images/ev4_bg_03.jpg') center/contain no-repeat;
-}
-main.mainPage section#event4 .ev4_wrap:nth-child(4) figure {
-  width: 100%;
-  padding-top: 100%;
-  background: url('/images/ev4_bg_02.jpg') center/contain no-repeat;
-}
+
 main.mainPage section#event4 .ev4_wrap article h2 {
   font: 100 60px/1 'Hyundai Sans Head Office';
 }
@@ -681,6 +677,7 @@ main.mainPage section#event4 .ev4_wrap h3 {
   font-weight: 100;
   font-size: 20px;
   margin: 20px 0 80px 0;
+  word-break: keep-all;
 }
 main.mainPage section#event4 .bgImg {
   transition: cubic-bezier(0.17, 0.67, 0.83, 0.67), 0.5s;
@@ -728,7 +725,7 @@ main.mainPage .ev5_wrap form select option {
   font-size: 20px;
 }
 main.mainPage section#event5 .bgImg {
-  background: url('/images/ev5_bg.png') center/cover no-repeat;
+  background: url('/images/ev5_bg.jpg') center/cover no-repeat;
   position: absolute;
   top: 0;
   left: 0;

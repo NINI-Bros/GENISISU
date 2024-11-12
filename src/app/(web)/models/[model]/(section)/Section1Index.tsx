@@ -22,7 +22,7 @@ export default function Section1Index({
   const isOneImage = (arr: string[]) => (arr.length === 1 ? 'max-[1366px]:scale-150' : '');
   const { steps } = useModelStore();
   const modelName = modelData.name;
-  const initialPrice = modelData ? Number(modelData?.price) : 0;
+  const initialPrice = Number(modelData?.price);
   const router = useRouter();
 
   const [title, subtitle] = extractTitle(modelName);

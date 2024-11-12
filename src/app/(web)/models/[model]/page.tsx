@@ -1,22 +1,29 @@
-import { fetchOption, fetchProduct } from '@/data/fetch/productFetch';
+import { fetchOption, fetchProduct, fetchVehicles } from '@/data/fetch/productFetch';
 import Section1Index from './(section)/Section1Index';
 import Section2Intro from './(section)/Section2Intro';
 import Section3Color from './(section)/Section3Color';
 import Section4Exterior from './(section)/Section4Exterior';
 import Section5Interior from './(section)/Section5Interior';
 import Section6Spec from './(section)/Section6Spec';
-import { notFound } from 'next/navigation';
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
+
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  const vehicles = await fetchVehicles();
+  return vehicles.map(({ _id, name }) => {
+    if (name !== 'neolun-concept') {
+      return { model: _id.toString() };
+    }
+  });
+}
 
 export default async function OrderPage({ params }: { params: { model: string } }) {
   const modelIndex: string = params.model;
   const modelData = await fetchProduct(params.model);
-  if (!modelData || Number(params.model) > 13) {
-    notFound();
-  }
   const imageArray = modelData.extra.detail.view360Images.map((image) => SERVER + image.path) || [];
-  const modelName = modelData.name;
+  const modelName = modelData.name || '';
   const abstract = modelData.extra.detail.abstract;
   const exterior = modelData.extra.detail.exterior;
   const interior = modelData.extra.detail.interior;

@@ -11,14 +11,13 @@ export async function fetchProducts(): Promise<Product[]> {
   params.set('limit', LIMIT!);
   params.set('delay', DELAY!);
   const url = `${SERVER}/products?${params.toString()}`;
-  // const url = `${SERVER}/products`;
   const res = await fetch(url, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       'client-Id': CLIENT,
     },
-    next: { revalidate: 180 }, // Revalidate every 60 seconds
+    cache: 'force-cache',
   });
   const resJson: ApiRes<MultiItem<Product>> = await res.json();
   if (!resJson.ok) {
@@ -43,7 +42,8 @@ export async function fetchVehicles(): Promise<Product[]> {
       'Content-Type': 'application/json',
       'client-Id': CLIENT,
     },
-    next: { revalidate: 180 }, // Revalidate every 60 seconds
+    // next: { revalidate: 180 }, // Revalidate every 180 seconds
+    cache: 'force-cache', // Cache 영구 저장
   });
   const resJson: ApiRes<MultiItem<Product>> = await res.json();
   if (!resJson.ok) {
@@ -60,11 +60,11 @@ export async function fetchProduct(_id: string) {
       'Content-Type': 'application/json',
       'client-Id': CLIENT,
     },
-    next: { revalidate: 180 }, // Revalidate every 60 seconds
+    cache: 'force-cache',
   });
   const resJson: ApiRes<SingleItem<Product>> = await res.json();
   if (!resJson.ok) {
-    return null;
+    throw new Error(`${_id} 차량 조회 실패`);
   }
   return resJson.item;
 }
@@ -78,14 +78,13 @@ export async function fetchOptions(): Promise<Option[]> {
   params.set('limit', LIMIT!);
   params.set('delay', DELAY!);
   const url = `${SERVER}/products?${params.toString()}`;
-  // const url = `${SERVER}/products`;
   const res = await fetch(url, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       'client-Id': CLIENT,
     },
-    next: { revalidate: 180 }, // Revalidate every 60 seconds
+    cache: 'force-cache',
   });
   const resJson: ApiRes<MultiItem<Option>> = await res.json();
   if (!resJson.ok) {
@@ -110,11 +109,35 @@ export async function fetchOption(category: string) {
       'Content-Type': 'application/json',
       'client-Id': CLIENT,
     },
-    next: { revalidate: 180 }, // Revalidate every 60 seconds
+    cache: 'force-cache',
   });
   const resJson: ApiRes<SingleItem<Option[]>> = await res.json();
   if (!resJson.ok) {
-    return null;
+    throw new Error('차량 옵션 조회 실패');
+  }
+  return resJson.item;
+}
+
+export async function fetchPromotions(): Promise<Product[]> {
+  const params = new URLSearchParams();
+  const custom = JSON.stringify({ 'extra.category': 'promotion' });
+  const sort = JSON.stringify({ _id: 1 });
+  params.set('custom', custom);
+  params.set('sort', sort);
+  params.set('limit', LIMIT!);
+  params.set('delay', DELAY!);
+  const url = `${SERVER}/products?${params.toString()}`;
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'client-Id': CLIENT,
+    },
+    cache: 'force-cache',
+  });
+  const resJson: ApiRes<MultiItem<Product>> = await res.json();
+  if (!resJson.ok) {
+    throw new Error('프로모션 상품 목록 조회 실패');
   }
   return resJson.item;
 }

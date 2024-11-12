@@ -3,12 +3,12 @@
 import { useModelStore } from '@/zustand/useModel';
 import { usePathname, useRouter } from 'next/navigation';
 import Button from '@/components/Button';
-import { useSelectReset, useSelectState } from '@/zustand/useSelectStore';
+import { useSelectState } from '@/zustand/useSelectStore';
 import { Cart } from '@/types/product';
 import useLocalStorage from '@/hook/useLocalStorage';
-import { useEffect, useState } from 'react';
-import { fetchProduct } from '@/data/fetch/productFetch';
 import { OptionList } from '@/types/optionLayout';
+import { useEffect } from 'react';
+import { fetchProduct } from '@/data/fetch/productFetch';
 
 type OptionKey = keyof OptionList;
 
@@ -26,21 +26,22 @@ export default function ModelLnb({ params }: { params: { model: string } }) {
     price: 0,
   });
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const modelData = await fetchProduct(params.model);
-  //     setValue({
-  //       model: modelName,
-  //       price: modelData?.price || 0,
-  //     });
-  //   };
-  //   fetchData();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [params.model, isReset]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const vehicle = await fetchProduct(params.model);
+      if (storedValue.price === 0) {
+        setValue({
+          ...storedValue,
+          price: vehicle.price,
+        });
+      }
+    };
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const isActive = (path: string) => (pathname === path ? 'text-white' : '');
   const handleClick = (path: string) => {
-    // 모델 상세 페이지가 아니라면,
     setValue({
       model: modelName,
       price: cartItem.price === 0 ? storedValue.price : cartItem.price,

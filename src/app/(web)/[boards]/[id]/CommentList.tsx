@@ -23,9 +23,8 @@ export default async function CommentList({ params }: { params: { boards: string
       <h4 className="mt-8 mb-4 ml-2 border-b-[1px] border-gray-400 border-solid">
         댓글 {data.replies?.length || 0}개
       </h4>
-
       {list}
-      {params.boards !== 'qna' ? <CommentNew postId={id} boardName={boards} /> : ''}
+      <CommentNew postId={id} boardName={boards} />
     </section>
   );
 }

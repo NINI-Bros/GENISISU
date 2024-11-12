@@ -140,13 +140,14 @@ export default function VerticalLayout({ params, modelData, optionData }: Layout
       >
         {/* 모바일에서만 보여질 상단바 */}
         <MobileTitleLayout optionName={optionName} modelName={modelName} clickBtn={clickButton} />
-
         {/* 옵션명 */}
         <article className="w-full col-start-2 flex flex-col gap-y-[30px] items-center mt-[-80px] max-[1366px]:col-start-1 max-[1366px]:px-[7%] max-[1366px]:gap-y-0 max-[1366px]:my-[50px]">
           {/* RESET 버튼 */}
           <div className="hidden absolute top-4 right-8 max-[1366px]:flex max-[1366px]:z-[6]">
             <ButtonReset model={modelName} price={initialPrice} />
           </div>
+
+          {/* 옵션 메인 컨텐츠 */}
           <figure className="aspect-[16/9] w-full max-h-[500px] relative max-[1366px]:h-min ">
             <Image
               src={optionState.imageSource}

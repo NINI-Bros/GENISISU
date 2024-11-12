@@ -5,6 +5,14 @@ export interface VehicleInfo {
   price: number;
 }
 
+export interface Tax {
+  selValue: 'normal' | 'disabled';
+  tax01Value: number;
+  tax02Value: number;
+  tax03Value: number;
+  isAble: boolean;
+}
+
 export interface TaxOptions {
   tax04: number;
   tax06: number;
