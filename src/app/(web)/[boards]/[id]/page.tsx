@@ -96,7 +96,6 @@ export default async function Page({ params }: { params: { boards: string; id: s
   } else {
     board = '고객지원 게시글';
   }
-  console.log('확인:::', item);
   const profileImage = item.user.image
     ? SERVER + item.user.image
     : `${SERVER}/files/${CLIENT}/profile-image-user.jpg`;
