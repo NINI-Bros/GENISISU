@@ -1,7 +1,7 @@
 @media screen and (max-width: 950px) {
   /* 241017 기준 Header만 950px에서 변경 */
   body {
-    grid-template-rows: 0px minmax(calc(100dvh - 315px), auto) auto;
+    grid-template-rows: 0px minmax(calc(100vh - 170px), auto) auto;
     padding-bottom: 60px;
   }
 

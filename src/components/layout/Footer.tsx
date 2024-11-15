@@ -13,9 +13,6 @@ export default function Footer() {
 
   return (
     <footer>
-      <figure className="f_logo">
-        <Image src="/images/genisisu_logo_w.png" fill priority sizes="100%" alt="" />
-      </figure>
       <ul>
         <li className="f_github">
           <h4>DEVELOPER</h4>
@@ -31,6 +28,8 @@ export default function Footer() {
             </li>
           </ul>
         </li>
+      </ul>
+      <ul>
         <li className="f_skill">
           <h4>SKILL</h4>
           <ul className="f_info">
@@ -48,15 +47,15 @@ export default function Footer() {
             <li>Python</li>
           </ul>
         </li>
-        <li className="f_copy">
-          <span>© COPYRIGHT 2024 HYUNDAI MORGANS GENISISU. ALL RIGHTS RESERVED.</span>
-        </li>
       </ul>
       <aside className="f_readBtn">
         <button onClick={(e) => btnClick(e)}>
           <Link href="#">READ ME</Link>
         </button>
       </aside>
+      <span className="f_copy">
+        © COPYRIGHT 2024 HYUNDAI MORGANS GENISISU. ALL RIGHTS RESERVED.
+      </span>
     </footer>
   );
 }

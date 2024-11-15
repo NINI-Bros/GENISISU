@@ -35,7 +35,7 @@ export default function ButtonTop() {
       onClick={scrollToTop}
       className={`${
         isVisible ? 'block' : 'hidden'
-      } flex flex-col fixed z-50 justify-center items-center bg-black border-[#fff] border-2 text-white cursor-pointer rounded-none hover:bg-gray-500 transition ease-in-out duration-300 bottom-[245px] right-[25px] p-3 sm:py-2 sm:bottom-44 sm:right-20 sm:px-4`}
+      } flex flex-col fixed z-50 justify-center items-center bg-black border-[#fff] border-2 text-white cursor-pointer rounded-none hover:bg-gray-500 transition ease-in-out duration-300 bottom-[125px] right-[25px] p-3 sm:py-2 sm:bottom-44 sm:right-20 sm:px-4`}
     >
       <FontAwesomeIcon icon={faChevronUp} className="transition-colors text-[18px]" />
       <span className="hidden text-[16px] sm:inline-block">Top</span>
