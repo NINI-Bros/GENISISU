@@ -13,47 +13,49 @@ export default function Footer() {
 
   return (
     <footer>
-      <ul>
-        <li className="f_github">
-          <h4>DEVELOPER</h4>
-          <ul className="f_info">
-            <li>
-              <Link href="https://github.com/redcontroller">@redcontroller</Link>
-            </li>
-            <li>
-              <Link href="https://github.com/sylee0102">@sylee0102</Link>
-            </li>
-            <li>
-              <Link href="https://github.com/ryungom">@ryungom</Link>
-            </li>
-          </ul>
-        </li>
-      </ul>
-      <ul>
-        <li className="f_skill">
-          <h4>SKILL</h4>
-          <ul className="f_info">
-            <li>Next.js</li>
-            <li>TypeScript</li>
-            <li>CSS3</li>
-            <li>Tailwind CSS</li>
-            <li>Zustand</li>
-            <li>Vercel</li>
-            <li>Node.js</li>
-            <li>Express.js</li>
-            <li>MongoDB</li>
-            <li>Python</li>
-          </ul>
-        </li>
-      </ul>
+      <section className="f_github">
+        <h4>DEVELOPER</h4>
+        <ul>
+          <li>
+            <Link href="https://github.com/redcontroller" target="_blank">
+              @redcontroller
+            </Link>
+          </li>
+          <li>
+            <Link href="https://github.com/sylee0102" target="_blank">
+              @sylee0102
+            </Link>
+          </li>
+          <li>
+            <Link href="https://github.com/ryungom" target="_blank">
+              @ryungom
+            </Link>
+          </li>
+        </ul>
+      </section>
+      <section className="f_skill">
+        <h4>SKILL</h4>
+        <ul>
+          <li>Next.js</li>
+          <li>TypeScript</li>
+          <li>CSS3</li>
+          <li>Tailwind CSS</li>
+          <li>Zustand</li>
+          <li>Vercel</li>
+          <li>Node.js</li>
+          <li>Express.js</li>
+          <li>MongoDB</li>
+          <li>Python</li>
+        </ul>
+      </section>
       <aside className="f_readBtn">
         <button onClick={(e) => btnClick(e)}>
           <Link href="#">READ ME</Link>
         </button>
       </aside>
-      <span className="f_copy">
-        © COPYRIGHT 2024 HYUNDAI MORGANS GENISISU. ALL RIGHTS RESERVED.
-      </span>
+      <div className="f_copy">
+        <span>© COPYRIGHT 2024 HYUNDAI MORGANS GENISISU. ALL RIGHTS RESERVED.</span>
+      </div>
     </footer>
   );
 }
