@@ -39,8 +39,6 @@ export default function Footer() {
             <li>Tailwind CSS</li>
             <li>Zustand</li>
             <li>Vercel</li>
-          </ul>
-          <ul className="f_info">
             <li>Node.js</li>
             <li>Express.js</li>
             <li>MongoDB</li>

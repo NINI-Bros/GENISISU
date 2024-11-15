@@ -747,8 +747,8 @@ footer {
   box-sizing: border-box;
   color: #999;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  column-gap: 100px;
+  grid-template-columns: minmax(390px, 2fr) minmax(555px, 3fr) 2fr;
+  column-gap: 2%;
   grid-row: 3 / -1;
   z-index: 5;
   font-weight: 100;
@@ -798,6 +798,7 @@ footer h4 {
   font-size: 24px;
   margin-bottom: 8px;
   display: block;
+  font-weight: bold;
 }
 footer .f_info {
   font-size: 18px;
@@ -815,13 +816,16 @@ footer .f_copy {
 footer .f_readBtn {
   align-self: center;
   justify-self: end;
+  width: 100%;
+  max-width: 260px;
 }
 footer aside button {
   background: #232323;
   border: none;
   color: #999;
   cursor: pointer;
-  padding: 1rem 6rem;
+  padding: 1.3rem 0;
+  width: 100%;
   display: block;
 }
 
