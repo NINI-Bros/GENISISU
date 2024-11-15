@@ -3,45 +3,18 @@
 import Button from '@/components/Button';
 import { useSession } from '@/hook/useSession';
 import { AddrType } from '@/types/address';
-import { PaymentsActionProps, TaxOptions } from '@/types/payments';
+import { PaymentsActionProps, Tax, TaxOptions } from '@/types/payments';
 import { Cart, OptionItem } from '@/types/product';
 import PortOne from '@portone/browser-sdk/v2';
 import Image from 'next/image';
 import { notFound, useRouter } from 'next/navigation';
 import Script from 'next/script';
 import { useEffect, useState } from 'react';
+import taxOptions from './taxOptions';
 
-// 세금값 옵션 테이블
-const taxOptions: TaxOptions = {
-  tax04: 3000,
-  tax06: 50000,
-  insuranceTax: 1900,
-  seoulNumcardCharge: 18000,
-  regionNumcardCharge: 15700,
-  defaultNumcard: '주소를 먼저 검색해주세요',
-  shippingTaxGroupCapital: 385000,
-  shippingTaxGroupJeju: 530000,
-  shippingTaxGroupOther: 277000,
-  regionTax: {
-    서울: 353000,
-    인천: 389000,
-    경기: 415000,
-    강원특별자치도: 393000,
-    세종특별자치시: 300000,
-    충남: 319000,
-    대전: 278000,
-    충북: 351000,
-    대구: 176000,
-    경북: 176000,
-    부산: 275000,
-    경남: 336000,
-    울산: 262000,
-    전북특별자치도: 380000,
-    전남: 409000,
-    광주: 326000,
-    제주특별자치도: 530000,
-  },
-};
+const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
+const STOREID = process.env.NEXT_PUBLIC_PORTONE_STOREID;
+const CHANNELKEY = process.env.NEXT_PUBLIC_PORTONE_CHANNELKEY;
 
 export default function PaymentsAction({ vehicleInfo, optionData, params }: PaymentsActionProps) {
   const router = useRouter();
@@ -55,17 +28,12 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
   };
 
   const [storedValue, setValue] = useState<Cart>(initialCart);
-  const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
-  const STOREID = process.env.NEXT_PUBLIC_PORTONE_STOREID;
-  const CHANNELKEY = process.env.NEXT_PUBLIC_PORTONE_CHANNELKEY;
-
   // 선택안했을때 기본 옵션 저장 (각 옵션값의 첫번째) ---
-  const optionExterior = optionData[3].exterior[`${storedValue.model}`]; // 외장 컬러
-  const optionInterior = optionData[4].interior[`${storedValue.model}`]; // 내장 컬러
-
   const optionEngine = optionData[0].engine[`${storedValue.model}`]; // 엔진 타입
   const optionDrivetrain = optionData[1].drivetrain[`${storedValue.model}`]; // 구동 타입
   const optionPassenger = optionData[2].passenger[`${storedValue.model}`]; // 시트 구성
+  const optionExterior = optionData[3].exterior[`${storedValue.model}`]; // 외장 컬러
+  const optionInterior = optionData[4].interior[`${storedValue.model}`]; // 내장 컬러
   const optionGarnish = optionData[5].garnish[`${storedValue.model}`]; // 내장 가니쉬
   const optionWheel = optionData[6].wheel[`${storedValue.model}`]; // 휠 & 타이어
   const optionAdd = optionData[7].add[`${storedValue.model}`]; // 선택 옵션
@@ -76,7 +44,7 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
   const price = Number(storedValue.price);
   const originMatch = vehicleInfo.filter((item) => item.name === storedValue.model)[0];
   const [optionPrice, setOptionPrice] = useState(0);
-  const [tax, setTax] = useState({
+  const [tax, setTax] = useState<Tax>({
     selValue: 'normal', // 등록비용 - 장애여부
     tax01Value: 0, // 등록비용 - 면세
     tax02Value: 0, // 등록비용 - 취득세
@@ -103,7 +71,7 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
   const handleValueChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.currentTarget;
     setTax((prev) => {
-      return { ...prev, selValue: value };
+      return { ...prev, selValue: value as 'normal' | 'disabled' };
     });
   };
 
@@ -111,17 +79,6 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
   useEffect(() => {
     if (price !== null) {
       switch (tax.selValue) {
-        case 'normal':
-          setTax((prev) => {
-            return {
-              ...prev,
-              tax01Value: 1000000,
-              tax02Value: price * 0.07,
-              tax03Value: price * 0.025,
-              isAble: false,
-            };
-          });
-          break;
         case 'disabled':
           setTax((prev) => {
             return { ...prev, tax01Value: 0, tax02Value: 0, tax03Value: 0, isAble: true };
@@ -137,10 +94,8 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
               isAble: false,
             };
           });
-          break;
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [price, tax.selValue]);
 
   // 결제이벤트 전 필수 조건 분기 처리

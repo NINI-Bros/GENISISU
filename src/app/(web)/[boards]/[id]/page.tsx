@@ -2,7 +2,7 @@ import Submit from '@/components/Submit';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import CommentList from './CommentList';
-import { fetchPost } from '@/data/fetch/postFetch';
+import { fetchPost, fetchPosts } from '@/data/fetch/postFetch';
 import { notFound } from 'next/navigation';
 import { auth } from '@/auth';
 import Image from 'next/image';
@@ -41,44 +41,18 @@ export async function generateMetadata({
   };
 }
 
-export function generateStaticParams() {
-  return [
-    { boards: 'drive', id: '13' },
-    { boards: 'drive', id: '12' },
-    { boards: 'drive', id: '11' },
-    { boards: 'drive', id: '10' },
-    { boards: 'drive', id: '9' },
-    { boards: 'drive', id: '8' },
-    { boards: 'drive', id: '7' },
-    { boards: 'drive', id: '5' },
-    { boards: 'drive', id: '4' },
-    { boards: 'drive', id: '3' },
-    { boards: 'info', id: '43' },
-    { boards: 'info', id: '42' },
-    { boards: 'info', id: '41' },
-    { boards: 'info', id: '40' },
-    { boards: 'info', id: '39' },
-    { boards: 'info', id: '38' },
-    { boards: 'info', id: '37' },
-    { boards: 'info', id: '36' },
-    { boards: 'info', id: '35' },
-    { boards: 'info', id: '34' },
-    { boards: 'info', id: '44' },
-    { boards: 'info', id: '45' },
-    { boards: 'info', id: '46' },
-    { boards: 'info', id: '47' },
-    { boards: 'info', id: '48' },
-    { boards: 'qna', id: '28' },
-    { boards: 'qna', id: '27' },
-    { boards: 'qna', id: '26' },
-    { boards: 'qna', id: '25' },
-    { boards: 'qna', id: '24' },
-    { boards: 'qna', id: '23' },
-    { boards: 'qna', id: '22' },
-    { boards: 'qna', id: '21' },
-    { boards: 'qna', id: '20' },
-    { boards: 'qna', id: '19' },
-  ];
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  const [drivePost, qnaPost, infoPost] = await Promise.all([
+    fetchPosts('drive'),
+    fetchPosts('qna'),
+    fetchPosts('info'),
+  ]);
+  const driveParams = drivePost.map(({ type, _id }) => ({ boards: type, id: _id.toString() }));
+  const qnaParams = qnaPost.map(({ type, _id }) => ({ boards: type, id: _id.toString() }));
+  const infoParams = infoPost.map(({ type, _id }) => ({ boards: type, id: _id.toString() }));
+  return [...driveParams, ...qnaParams, ...infoParams];
 }
 
 const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
@@ -87,7 +61,6 @@ const CLIENT = process.env.NEXT_PUBLIC_CLIENT_ID;
 export default async function Page({ params }: { params: { boards: string; id: string } }) {
   const session = await auth();
   const item = await fetchPost(params.id);
-  if (item === null) notFound();
   let board = '';
   if (params.boards === 'drive') {
     board = '전시시승 게시글';

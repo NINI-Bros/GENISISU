@@ -4,7 +4,6 @@ import InputError from '@/components/InputError';
 import Submit from '@/components/Submit';
 import { addComment } from '@/data/actions/postAction';
 import { PostComment } from '@/types';
-import { redirect, useRouter } from 'next/navigation';
 import { FieldError, useForm } from 'react-hook-form';
 
 export default function CommentNew({ boardName, postId }: { postId: string; boardName: string }) {

@@ -13,11 +13,13 @@ export default async function OptionPage({
 }: {
   params: { model: string; option: string };
 }): Promise<ReactElement> {
-  const modelData = await fetchProduct(params.model);
-  if (!modelData || Number(params.model) > 13) {
+  if (Number(params.model) > 12) {
     notFound();
   }
-  const optionData = (await fetchOption(params.option)) || [];
+  const [modelData, optionData] = await Promise.all([
+    fetchProduct(params.model),
+    fetchOption(params.option),
+  ]);
 
   let NoSSRComponent: ComponentType<LayoutProps> | null = null;
   if (verticalArray.includes(params.option)) {

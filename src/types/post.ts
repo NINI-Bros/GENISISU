@@ -14,7 +14,7 @@ export interface PostComment {
 
 export interface Post {
   _id: number;
-  type?: string;
+  type: string;
   title: string;
   phone: string;
   model: string;

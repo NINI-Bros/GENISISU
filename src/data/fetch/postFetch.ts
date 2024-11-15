@@ -6,11 +6,7 @@ const CLIENT = process.env.NEXT_PUBLIC_CLIENT_ID;
 const LIMIT = '10';
 
 // 게시물 목록 전체 조회
-export async function fetchPosts(
-  type: string | undefined,
-  page?: string,
-  keyword?: string
-): Promise<Post[]> {
+export async function fetchPosts(type: string, page?: string, keyword?: string): Promise<Post[]> {
   const params = new URLSearchParams();
   type && params.set('type', type);
   page && params.set('page', page);
@@ -27,6 +23,7 @@ export async function fetchPosts(
       'client-Id': CLIENT,
     },
     next: { revalidate: 15 }, // Revalidate every 15 seconds, 캐시 타임 설정
+    // cache: 'no-cache',
   });
   const resJson: ApiRes<MultiItem<Post>> = await res.json();
   // console.log(resJson);
@@ -45,13 +42,13 @@ export async function fetchPost(_id: string) {
       'client-Id': CLIENT,
     },
     // 댓글 작성하면 바로 보여야하므로 0ms로 설정
-    next: { revalidate: 0 }, // Revalidate every 0 seconds, 캐시 타임 설정
+    next: { revalidate: 2 }, // Revalidate every 0 seconds, 캐시 타임 설정
+    // cache: 'no-cache',
   });
   const resJson: ApiRes<SingleItem<Post>> = await res.json();
   if (!resJson.ok) {
-    return null;
+    throw new Error(`${_id}게시물 조회 실패`);
   }
-  // console.log(resJson.item);
   return resJson.item;
 }
 

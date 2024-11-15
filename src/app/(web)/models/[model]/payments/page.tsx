@@ -11,16 +11,15 @@ export default async function Payments({
   };
 }) {
   // 데이터 호출
-  const vehicleData = await fetchVehicles();
-  const data = await fetchOptions();
+  const [vehicleResponse, optionsResponse] = await Promise.all([fetchVehicles(), fetchOptions()]);
 
   // 데이터 세팅
-  const vehicleInfo: VehicleInfo[] = vehicleData.map((item) => ({
+  const vehicleData: VehicleInfo[] = vehicleResponse.map((item) => ({
     name: item.name,
     image: item.mainImages[2].path,
     price: item.price,
   }));
-  const optionData = data.map((item) => item.extra.option);
+  const optionData = optionsResponse.map((item) => item.extra.option);
 
-  return <PaymentsAction vehicleInfo={vehicleInfo} optionData={optionData} params={params} />;
+  return <PaymentsAction vehicleInfo={vehicleData} optionData={optionData} params={params} />;
 }
