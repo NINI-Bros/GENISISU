@@ -1,34 +1,32 @@
 'use client';
 
 import { Pagination } from '@/types';
-import { useEffect, useRef } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function PostPagination({
-  listData,
-  pagingFn,
+  pagingData,
+  boardType,
 }: {
-  listData: Pagination | null;
-  pagingFn: (page: string) => void;
+  pagingData: Pagination | null;
+  boardType: string;
 }) {
-  const pagingRef = useRef<HTMLLIElement | null>(null);
-  const firstChild = pagingRef.current?.children[0];
-  useEffect(() => {
-    firstChild?.classList.add('on');
-  }, [firstChild]);
+  const route = useRouter();
+  const searchParams = useSearchParams();
+  const getWord = searchParams.get('word');
+  const getPage = searchParams.get('page');
 
+  // 페이지네이션 클릭
   const pagingClick = (e: React.MouseEvent<HTMLSpanElement>, page: string) => {
-    pagingFn(page);
-    (e.target as HTMLElement).classList.add('on');
-    const sibling = Array.from((e.target as HTMLElement).parentNode!.children);
-    const otherSibling = sibling.filter((item) => item !== e.target);
-    otherSibling.map((state) => state.classList.remove('on'));
+    route.push(`/${boardType}?${getWord !== null ? `word=${getWord}&` : ''}page=${page}`);
   };
 
   const viewPagination = (count: number) => {
     return Array.from({ length: count }).map((_, index) => (
       <span
         key={'pagingNum0' + (index + 1)}
-        className="cursor-pointer pagingView"
+        className={`cursor-pointer pagingView ${
+          Number(getPage) === index + 1 || (index === 0 && getPage === null) ? 'on' : ''
+        }`}
         onClick={(e) => pagingClick(e, `${index + 1}`)}
       >
         {index + 1}
@@ -39,8 +37,8 @@ export default function PostPagination({
   return (
     <div>
       <ul>
-        <li className="flex justify-center items-end gap-6 m-4 pagingList" ref={pagingRef}>
-          {viewPagination(Number(listData?.totalPages))}
+        <li className="flex justify-center items-end gap-6 m-4 pagingList">
+          {viewPagination(Number(pagingData?.totalPages))}
         </li>
       </ul>
     </div>

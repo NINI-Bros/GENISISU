@@ -36,19 +36,15 @@ export interface Post {
 }
 
 export interface BoardTitle {
-  title: string;
-  tableTitle01: string;
-  tableTitle02: string;
-  tableTitle03: string;
-  btnTitle: string;
+  mainTitle: string;
+  tableTitle: string;
+  tableAuthor: string;
+  tableDate: string;
+  submitBtnName: string;
 }
 
 export interface ListState {
-  listJsx: JSX.Element[] | null;
-  pagination: Pagination | null;
   typingWord: string;
-  searchWord: string;
-  thisPage: string;
 }
 
 export type PostForm = {
