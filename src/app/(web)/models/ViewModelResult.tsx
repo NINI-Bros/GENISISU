@@ -53,7 +53,7 @@ export default function ViewModelResult({ data }: { data: Product[] }) {
             value={value.inputValue}
             onChange={(e) => setValue((prev) => ({ ...prev, inputValue: e.target.value }))}
             onKeyDown={handleKeyDown}
-            className="w-full"
+            className="w-full pl-[10px]"
           />
           <Button
             className="btnBasic min-w-[80px] border-[1px] border-white"

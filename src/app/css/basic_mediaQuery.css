@@ -305,10 +305,13 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
   }
   footer > section {
     width: 100%;
-    max-width: 325px;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
   }
   footer > section > h4 {
     font-size: 15px;
@@ -317,9 +320,7 @@
   }
   footer > section > ul {
     font-size: 14px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    margin-left: 15px;
+    align-self: center;
   }
   footer .f_github ul li:after,
   footer .f_skill,

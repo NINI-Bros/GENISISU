@@ -59,7 +59,6 @@ export default function BoardView({
     } else {
       return (
         <>
-          <div className="w-[1px] h-full bg-[#aaa] max-[1366px]:w-full max-[1366px]:h-[1px]"></div>
           <Link href={`/${boardTypes}/new`} className="btnBasic max-[1366px]:h-[45px]">
             {submitBtnName}
           </Link>
@@ -75,13 +74,21 @@ export default function BoardView({
         </h2>
       </div>
 
+      {/* 상단 검색바 */}
       <div
-        className="w-full flex justify-end pr-[300px] h-[45px] gap-x-[15px] 
-                  max-[1366px]:justify-between max-[1366px]:mx-0 max-[1366px]:gap-x-[3%] max-[1366px]:px-[7%]
-                  max-[1366px]:flex-col max-[1366px]:h-min max-[1366px]:gap-y-[20px]"
+        className={`w-full flex px-[300px] h-[45px] 
+                    ${
+                      boardTypes === 'info' && session?.user?.type !== 'admin'
+                        ? 'justify-end max-[1366px]:justify-center'
+                        : 'justify-between'
+                    }
+                  max-[1080px]:flex-col-reverse max-[1080px]:w-full max-[1080px]:h-max max-[1080px]:gap-y-[10px] max-[1080px]:px-[7%]`}
       >
-        {/* <Search /> */}
-        <div className="h-full flex gap-x-[10px] max-[1366px]:w-full max-[1366px]:justify-between max-[1366px]:h-[45px]">
+        <ApplyBtn />
+        <div
+          className="h-full grid grid-cols-[auto_80px] gap-x-[10px] 
+                      max-[1080px]:h-[45px]  "
+        >
           <div className="w-full grid grid-cols-[auto_80px]">
             <input
               type="text"
@@ -108,7 +115,6 @@ export default function BoardView({
             초기화
           </Button>
         </div>
-        <ApplyBtn />
       </div>
 
       {postAllData().length !== 0 ? (
