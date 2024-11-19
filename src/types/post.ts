@@ -1,4 +1,3 @@
-import { Pagination } from './response';
 import { UserData } from './user';
 
 export interface PostComment {
@@ -36,15 +35,11 @@ export interface Post {
 }
 
 export interface BoardTitle {
-  mainTitle: string;
+  title: string;
   tableTitle: string;
   tableAuthor: string;
   tableDate: string;
-  submitBtnName: string;
-}
-
-export interface ListState {
-  typingWord: string;
+  btnTitle: string;
 }
 
 export type PostForm = {

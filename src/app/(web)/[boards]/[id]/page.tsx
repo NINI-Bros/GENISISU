@@ -25,7 +25,7 @@ export async function generateMetadata({
   } else {
     board = '고객지원 게시판';
   }
-  const metadataBase = await new URL('https://genisisu.vercel.app');
+  const metadataBase = new URL('https://genisisu.vercel.app');
   return {
     metadataBase,
     title: `${board} - ${item.title}`,

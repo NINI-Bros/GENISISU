@@ -1,12 +1,12 @@
 'use client';
-import { BoardTitle, ListState, Pagination, Post } from '@/types';
-import { useState } from 'react';
+import { BoardTitle, Pagination, Post } from '@/types';
+import { useEffect, useState } from 'react';
 import PostPagination from '@/components/PostPagination';
 import Button from '@/components/Button';
 import Link from 'next/link';
 import ListItem from './ListItem';
 import { useSession } from '@/hook/useSession';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function BoardView({
   boardTypes,
@@ -20,11 +20,10 @@ export default function BoardView({
   paginationData: Pagination;
 }) {
   const route = useRouter();
+  const paramWord = useSearchParams().get('word');
   const { session } = useSession();
-  const { mainTitle, tableTitle, tableAuthor, tableDate, submitBtnName } = postNameData;
-  const [list, setList] = useState<ListState>({
-    typingWord: '',
-  });
+  const { title, tableTitle, tableAuthor, tableDate, btnTitle } = postNameData;
+  const [typingWord, setTypingWord] = useState('');
 
   // 게시판 데이터 매핑
   const postAllData = () => {
@@ -40,15 +39,20 @@ export default function BoardView({
 
   // 검색 버튼
   const handleClickSearchBtn = () => {
-    if (!list.typingWord) return;
-    route.push(`/${boardTypes}?word=${list.typingWord}&page=1`);
+    if (!typingWord || typingWord === paramWord) return;
+    route.push(`/${boardTypes}?word=${typingWord}&page=1`);
   };
+
+  // 검색값 유지
+  useEffect(() => {
+    if (paramWord) {
+      setTypingWord(paramWord);
+    }
+  }, [paramWord]);
 
   // 초기화 버튼
   const handleClickResetBtn = () => {
-    setList((prev) => {
-      return { ...prev, typingWord: '' };
-    });
+    setTypingWord((prev) => (prev = ''));
     route.push(`/${boardTypes}`);
   };
 
@@ -60,7 +64,7 @@ export default function BoardView({
       return (
         <>
           <Link href={`/${boardTypes}/new`} className="btnBasic max-[1366px]:h-[45px]">
-            {submitBtnName}
+            {btnTitle}
           </Link>
         </>
       );
@@ -70,7 +74,7 @@ export default function BoardView({
     <div className="max-w-[1920px] m-[0px_auto] h-full">
       <div className="text-center py-4">
         <h2 className="pb-20 max-[1366px]:pb-5 text-5xl font-medium text-black max-[1366px]:text-[34px]">
-          {mainTitle}
+          {title}
         </h2>
       </div>
 
@@ -93,12 +97,8 @@ export default function BoardView({
             <input
               type="text"
               className="border-[1px] border-black pl-[10px] w-full"
-              value={list.typingWord}
-              onChange={(e) => {
-                setList((prev) => {
-                  return { ...prev, typingWord: e.target.value };
-                });
-              }}
+              value={typingWord}
+              onChange={(e) => setTypingWord(() => e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="게시글 검색"
             />
