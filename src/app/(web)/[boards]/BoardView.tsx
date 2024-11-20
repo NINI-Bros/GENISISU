@@ -22,7 +22,7 @@ export default function BoardView({
   const route = useRouter();
   const paramWord = useSearchParams().get('word');
   const { session } = useSession();
-  const { tableTitle, tableAuthor, tableDate, btnTitle } = postNameData;
+  const { title, tableTitle, tableAuthor, tableDate, btnTitle } = postNameData;
   const [typingWord, setTypingWord] = useState('');
 
   // 게시판 데이터 매핑
@@ -71,7 +71,13 @@ export default function BoardView({
     }
   };
   return (
-    <>
+    <div className="max-w-[1920px] m-[0px_auto] h-full">
+      <div className="text-center py-4">
+        <h2 className="pb-20 max-[1366px]:pb-5 text-5xl font-medium text-black max-[1366px]:text-[34px]">
+          {title}
+        </h2>
+      </div>
+
       {/* 상단 검색바 */}
       <div
         className={`w-full flex px-[300px] h-[45px] 
@@ -146,6 +152,6 @@ export default function BoardView({
           게시물이 존재하지 않습니다.
         </section>
       )}
-    </>
+    </div>
   );
 }

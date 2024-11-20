@@ -4,13 +4,11 @@ import { Metadata } from 'next';
 import { fetchPagination, fetchPosts } from '@/data/fetch/postFetch';
 import { Suspense } from 'react';
 import TableCellData from './TableCellData';
-import SkeletonList from '@/components/skeleton/table/skeleton_list';
 
 export function generateStaticParams() {
   return [{ boards: 'drive' }, { boards: 'qna' }, { boards: 'info' }];
 }
 
-// eslint-disable-next-line require-await
 export async function generateMetadata({
   params,
 }: {
@@ -25,7 +23,7 @@ export async function generateMetadata({
   } else {
     board = '고객지원 게시판';
   }
-  const metadataBase = new URL('https://genisisu.vercel.app');
+  const metadataBase = await new URL('https://genisisu.vercel.app');
   return {
     metadataBase,
     title: `${board}`,
@@ -41,27 +39,6 @@ export async function generateMetadata({
   };
 }
 
-async function DataFetching({
-  boards,
-  page,
-  word,
-}: {
-  boards: string;
-  page: string;
-  word: string;
-}) {
-  const postData = await fetchPosts(boards, page, word);
-  const postPaginationData = await fetchPagination(boards, page, word);
-  return (
-    <BoardView
-      boardTypes={boards}
-      postData={postData}
-      postNameData={TableCellData(boards)}
-      paginationData={postPaginationData}
-    />
-  );
-}
-
 export default async function Page({
   params,
   searchParams,
@@ -71,21 +48,20 @@ export default async function Page({
 }) {
   const { boards } = await params;
   const { word, page } = await searchParams;
-  const { title } = TableCellData(boards);
+  const postData = await fetchPosts(boards, page, word);
+  const postPaginationData = await fetchPagination(boards, page, word);
 
   return (
     <main className="py-16 max-[1366px]:py-8 bg-white">
       <ScrollToTop />
-      <div className="max-w-[1920px] m-[0px_auto] h-full">
-        <div className="text-center py-4">
-          <h2 className="pb-20 max-[1366px]:pb-5 text-5xl font-medium text-black max-[1366px]:text-[34px]">
-            {title}
-          </h2>
-        </div>
-        <Suspense key={word} fallback={<SkeletonList listCount={9} />}>
-          <DataFetching boards={boards} page={page} word={word} />
-        </Suspense>
-      </div>
+      <Suspense fallback={<div>데이터 로딩중. . .</div>}>
+        <BoardView
+          boardTypes={boards}
+          postData={postData}
+          postNameData={TableCellData(boards)}
+          paginationData={postPaginationData}
+        />
+      </Suspense>
     </main>
   );
 }
