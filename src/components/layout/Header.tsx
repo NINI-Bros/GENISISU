@@ -8,10 +8,11 @@ import GnbMobile from '../mainGnb/GnbMobile';
 import GnbWeb from '../mainGnb/GnbWeb';
 import { TargetArea } from '../Spinner';
 
-export default function Header({ isMain }: { isMain: string }) {
+export default function Header() {
   const [modalOn, setModalOn] = useState(false);
   const headerRef = useRef<HTMLHeadElement | null>(null);
   const pathName = usePathname();
+  const isMain = pathName === '/' ? 'mainHd' : '';
 
   // input 실행시 하단 GNB 사라지게 하는 함수
   useEffect(() => {

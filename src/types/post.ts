@@ -1,4 +1,3 @@
-import { Pagination } from './response';
 import { UserData } from './user';
 
 export interface PostComment {
@@ -37,18 +36,10 @@ export interface Post {
 
 export interface BoardTitle {
   title: string;
-  tableTitle01: string;
-  tableTitle02: string;
-  tableTitle03: string;
+  tableTitle: string;
+  tableAuthor: string;
+  tableDate: string;
   btnTitle: string;
-}
-
-export interface ListState {
-  listJsx: JSX.Element[] | null;
-  pagination: Pagination | null;
-  typingWord: string;
-  searchWord: string;
-  thisPage: string;
 }
 
 export type PostForm = {

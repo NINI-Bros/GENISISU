@@ -767,7 +767,7 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
             </article>
 
             {/* 총 결제금액 */}
-            <article className="border-t-[1px] border-[#e5e7eb]">
+            <article className="border-t-[1px] border-b-[1px] border-[#e5e7eb] mb-5">
               <div className="w-full flex justify-between mt-[30px] max-[1366px]:mt-[15px]">
                 <h3 className="text-[25px] font-bold text-nowrap max-[1366px]:text-[20px]">
                   결제금액
@@ -797,7 +797,10 @@ export default function PaymentsAction({ vehicleInfo, optionData, params }: Paym
                   </div>
                 </div>
               </div>
-              <div className="flex gap-x-[10px] justify-end items-center mt-[20px] mb-[30px] max-[1366px]:flex-col max-[1366px]:items-start max-[1366px]:mt-[50px] max-[1366px]:mb-[120px]">
+              <div
+                className="flex gap-x-[10px] justify-end items-center mt-[20px] mb-[30px] 
+                            max-[1366px]:flex-col max-[1366px]:items-start max-[1366px]:my-[30px]"
+              >
                 <span className="text-[20px] self-end">
                   총 차량 구매금액 <span className="text-gray-400">(a + b + c + d)</span>
                 </span>
