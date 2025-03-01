@@ -957,3 +957,13 @@ form > .signInputWrap p {
   height: 10px;
   z-index: -1;
 }
+
+/* 게시판 모달 호출용 스타일 */
+dialog main {
+  padding: 5% 10% !important;
+  width: 100%;
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.7);
+}
