@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { ReactNode, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-export default function BasicModal({ children }: { children: ReactNode }) {
+export default function BoardModal({ children }: { children: ReactNode }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const route = useRouter();
   useEffect(() => {
@@ -26,6 +26,8 @@ export default function BasicModal({ children }: { children: ReactNode }) {
       }}
     >
       {children}
+
+      {/* 모달 닫기버튼 */}
       <div
         className="absolute right-5 top-5 w-[30px] h-[30px] cursor-pointer"
         onClick={() => route.back()}
@@ -34,6 +36,6 @@ export default function BasicModal({ children }: { children: ReactNode }) {
         <span className="absolute w-full h-[3px] bg-black top-[50%] translate-y-[-50%] rotate-[-45deg]"></span>
       </div>
     </dialog>,
-    document.querySelector('#siteMapModal') as HTMLElement
+    document.querySelector('#boardModal') as HTMLElement
   );
 }

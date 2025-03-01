@@ -1,10 +1,10 @@
 import DetailPage from '@/app/(web)/[boards]/[id]/page';
-import BasicModal from '@/components/BasicModal';
+import BoardModal from '@/components/BoardModal';
 
 export default function Page(props: any) {
   return (
-    <BasicModal>
+    <BoardModal>
       <DetailPage {...props} />
-    </BasicModal>
+    </BoardModal>
   );
 }

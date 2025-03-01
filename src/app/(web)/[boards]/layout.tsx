@@ -5,7 +5,7 @@ export default function Layout({ children, modal }: { children: ReactNode; modal
     <>
       {children}
       {modal}
-      <div id="siteMapModal"></div>
+      <div id="boardModal"></div>
     </>
   );
 }
