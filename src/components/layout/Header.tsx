@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import Sitemap from './Sitemap';
 import GnbSignSet from '../mainGnb/GnbSignSet';
@@ -9,7 +9,6 @@ import GnbWeb from '../mainGnb/GnbWeb';
 import { TargetArea } from '../Spinner';
 
 export default function Header() {
-  const [modalOn, setModalOn] = useState(false);
   const headerRef = useRef<HTMLHeadElement | null>(null);
   const pathName = usePathname();
   const isMain = pathName === '/' ? 'mainHd' : '';
@@ -39,13 +38,13 @@ export default function Header() {
         </div>
         <div className="navWrap">
           <Suspense fallback={<TargetArea />}>
-            <GnbSignSet modalToggleFn={setModalOn} />
+            <GnbSignSet />
           </Suspense>
         </div>
       </nav>
 
       {/* 사이트맵 컴포넌트 */}
-      <Sitemap modalState={modalOn} modalToggleFn={setModalOn} />
+      <Sitemap />
     </header>
   );
 }

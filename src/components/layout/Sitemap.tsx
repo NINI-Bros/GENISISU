@@ -5,16 +5,12 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import useModalOpenBgFix from '@/hook/useModalOpenBgFix';
+import { useModalStateStore } from '@/zustand/useModalState';
 
-export default function Sitemap({
-  modalState,
-  modalToggleFn,
-}: {
-  modalState: boolean;
-  modalToggleFn: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+export default function Sitemap() {
   const modelRef = useRef(null);
-  const handleCloseBtn = () => modalToggleFn((prev) => !prev);
+  const modalState = useModalStateStore((state) => state.modalState);
+  const modalSelectFn = useModalStateStore((state) => state.setModalSelectState);
   const path = usePathname();
 
   // 모달호출 시 배경 고정 커스텀 훅
@@ -37,7 +33,7 @@ export default function Sitemap({
 
   // 화면이동시마다 클래스값 제거
   useEffect(() => {
-    modalToggleFn(false);
+    modalSelectFn(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [path]);
 
@@ -68,7 +64,7 @@ export default function Sitemap({
   };
 
   return (
-    <div className={['modal', modalState ? 'on' : ''].join(' ')} ref={modelRef}>
+    <div className={['sitemapModal', 'modal', modalState ? 'on' : ''].join(' ')} ref={modelRef}>
       <section>
         <h2>SITE MAP</h2>
 
@@ -101,7 +97,7 @@ export default function Sitemap({
         </div>
       </section>
 
-      <div className="closeBtn" onClick={handleCloseBtn}>
+      <div className="closeBtn" onClick={() => modalSelectFn(false)}>
         <div className="cl-line"></div>
         <div className="cl-line"></div>
       </div>

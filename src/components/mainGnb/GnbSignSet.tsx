@@ -3,14 +3,12 @@ import { useSession } from '@/hook/useSession';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useModalStateStore } from '@/zustand/useModalState';
 
-export default function GnbSignSet({
-  modalToggleFn,
-}: {
-  modalToggleFn: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+export default function GnbSignSet() {
   const searchParams = useSearchParams();
   const { session, status } = useSession();
+  const modalToggleFn = useModalStateStore((state) => state.setModalToggleState);
 
   // 패스네임 기준 클래스 활성화 함수
   const isOnActive = (routeName: string) => (searchParams.get('type') === routeName ? 'on' : '');
@@ -25,7 +23,7 @@ export default function GnbSignSet({
   const handleSiteMapOpen = (e: React.MouseEvent<HTMLElement>): void => {
     e.preventDefault();
     if (modalToggleFn !== undefined) {
-      modalToggleFn((prev) => !prev);
+      modalToggleFn();
     }
   };
   const signSetFn = () => {

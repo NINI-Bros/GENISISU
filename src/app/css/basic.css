@@ -218,22 +218,24 @@ header .smBtn {
   min-width: 30px;
 }
 
-header .modal {
+/* 사이트맵 모달 CSS */
+.sitemapModal.modal {
   width: 100vw;
   height: 100vh;
   background: #000;
+  color: white;
   position: fixed;
   top: -500%;
   opacity: 0%;
   transition: 0.3s ease-in-out;
   z-index: -1;
 }
-header .modal.on {
+.sitemapModal.modal.on {
   opacity: 95%;
   top: 0;
   z-index: 20;
 }
-header .modal .closeBtn {
+.sitemapModal.modal .closeBtn {
   position: absolute;
   right: 80px;
   top: 40px;
@@ -242,29 +244,29 @@ header .modal .closeBtn {
   cursor: pointer;
 }
 
-header .modal section {
+.sitemapModal.modal section {
   width: 80vw;
   height: 90vh;
   margin: 40px auto;
   position: relative;
 }
-header .modal section .siteItemWrap {
+.sitemapModal.modal section .siteItemWrap {
   display: flex;
   flex-direction: column;
   row-gap: 4rem;
 }
-header .modal section h2 {
+.sitemapModal.modal section h2 {
   font: 50px/1 'Hyundai Sans Head Office';
   color: #fff;
   text-align: center;
   margin-bottom: 100px;
 }
-header .modal section h3 {
+.sitemapModal.modal section h3 {
   font-size: 25px;
   color: #fff;
   position: relative;
 }
-header .modal section h3:after {
+.sitemapModal.modal section h3:after {
   position: absolute;
   right: 0px;
   width: 100%;
@@ -273,33 +275,33 @@ header .modal section h3:after {
   display: block;
   content: '';
 }
-header .modal section .siteItemWrap article div {
+.sitemapModal.modal section .siteItemWrap article div {
   padding-left: 20px;
 }
-header .modal section .siteItemWrap article div a {
+.sitemapModal.modal section .siteItemWrap article div a {
   align-self: center;
   transition: all 0.1s;
 }
-header .modal section .siteItemWrap article div a:hover {
+.sitemapModal.modal section .siteItemWrap article div a:hover {
   color: #fff;
 }
-header .modal section .siteItemWrap article:nth-child(1) div {
+.sitemapModal.modal section .siteItemWrap article:nth-child(1) div {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-auto-rows: 50px;
 }
-header .modal section .siteItemWrap article:nth-child(2) > div {
+.sitemapModal.modal section .siteItemWrap article:nth-child(2) > div {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-auto-rows: 50px;
 }
-header .modal section .siteItemWrap article:nth-child(3) div {
+.sitemapModal.modal section .siteItemWrap article:nth-child(3) div {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-auto-rows: 50px;
 }
 
-header .modal .closeBtn .cl-line {
+.sitemapModal.modal .closeBtn .cl-line {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -309,7 +311,7 @@ header .modal .closeBtn .cl-line {
   transform-origin: center;
   transform: rotate(45deg);
 }
-header .modal .closeBtn .cl-line:last-child {
+.sitemapModal.modal .closeBtn .cl-line:last-child {
   transform: rotate(-45deg);
 }
 
