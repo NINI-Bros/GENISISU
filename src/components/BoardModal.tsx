@@ -17,7 +17,7 @@ export default function BoardModal({ children }: { children: ReactNode }) {
   return createPortal(
     <dialog
       ref={dialogRef}
-      className="relative w-full max-w-[60%]"
+      className="relative w-full max-w-[60%] max-[1366px]:max-w-[85%]"
       onClose={() => route.back()}
       onClick={(e) => {
         if ((e.target as any).nodeName === 'DIALOG') {
