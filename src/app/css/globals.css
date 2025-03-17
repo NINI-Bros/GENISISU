@@ -5,6 +5,7 @@
 @import url('./basic.css');
 @import url('./basic_mediaQuery.css');
 @import url('./basic_mediaQuery_950.css');
+@import url('./skeletonCSS.css');
 
 @layer components {
   .cs-active {
