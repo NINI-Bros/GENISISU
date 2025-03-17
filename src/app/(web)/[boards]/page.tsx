@@ -5,6 +5,7 @@ import { fetchPagination, fetchPosts } from '@/data/fetch/postFetch';
 import { Suspense } from 'react';
 import TableCellData from './TableCellData';
 import SkeletonList from '@/components/skeleton/table/skeleton_list';
+// import { delayTests } from '@/app/util/Delay';
 
 export function generateStaticParams() {
   return [{ boards: 'drive' }, { boards: 'qna' }, { boards: 'info' }];
@@ -50,6 +51,7 @@ async function DataFetching({
   page: string;
   word: string;
 }) {
+  // await delayTests(1500); //스켈레톤 ui 활성화 체크를 위한 딜레이 함수
   const postData = await fetchPosts(boards, page, word);
   const postPaginationData = await fetchPagination(boards, page, word);
   return (
