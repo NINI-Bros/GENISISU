@@ -28,13 +28,13 @@ export default function BoardModal({ children }: { children: ReactNode }) {
       {children}
 
       {/* 모달 닫기버튼 */}
-      <div
-        className="absolute right-5 top-5 w-[30px] h-[30px] cursor-pointer"
+      <button
+        className="absolute right-5 top-5 w-[30px] h-[30px] border-none cursor-pointer"
         onClick={() => route.back()}
       >
-        <span className="absolute w-full h-[3px] bg-black top-[50%] translate-y-[-50%] rotate-45"></span>
-        <span className="absolute w-full h-[3px] bg-black top-[50%] translate-y-[-50%] rotate-[-45deg]"></span>
-      </div>
+        <span className="absolute w-full h-[3px] bg-black top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] rotate-45"></span>
+        <span className="absolute w-full h-[3px] bg-black top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] rotate-[-45deg]"></span>
+      </button>
     </dialog>,
     document.querySelector('#boardModal') as HTMLElement
   );
