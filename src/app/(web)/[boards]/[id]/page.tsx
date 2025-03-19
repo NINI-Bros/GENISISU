@@ -74,7 +74,7 @@ export default async function Page({ params }: { params: { boards: string; id: s
     : `${SERVER}/files/${CLIENT}/profile-image-user.jpg`;
 
   return (
-    <main className="bg-white px-[360px] py-20 max-[1366px]:px-4 max-[1366px]:py-8">
+    <section className="bg-white px-[360px] py-20 max-[1366px]:px-4 max-[1366px]:py-8">
       <form className="mb-8 p-4">
         <input type="hidden" value={params.boards} name="boardName"></input>
         <input type="hidden" value={params.id} name="_id"></input>
@@ -146,6 +146,6 @@ export default async function Page({ params }: { params: { boards: string; id: s
         </div>
       </form>
       <CommentList params={params} />
-    </main>
+    </section>
   );
 }

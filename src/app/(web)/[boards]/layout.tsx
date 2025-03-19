@@ -6,6 +6,8 @@ import TableCellData from './TableCellData';
 export function generateStaticParams() {
   return [{ boards: 'drive' }, { boards: 'qna' }, { boards: 'info' }];
 }
+
+// eslint-disable-next-line require-await
 export async function generateMetadata({
   params,
 }: {
@@ -38,11 +40,9 @@ export async function generateMetadata({
 
 export default async function Layout({
   children,
-  modal,
   params,
 }: {
   children: ReactNode;
-  modal: ReactNode;
   params: { boards: string };
 }) {
   const { boards } = await params;
@@ -59,9 +59,6 @@ export default async function Layout({
         </div>
         {children}
       </div>
-
-      {modal}
-      <div id="boardModal"></div>
     </main>
   );
 }
