@@ -35,6 +35,7 @@ export default function RootLayout({
           <Header />
           <div className="childrenWrap">
             {children}
+
             <SideBar />
             <Analytics />
             <SpeedInsights />
@@ -43,7 +44,7 @@ export default function RootLayout({
           <ButtonTop />
         </SessionProvider>
         {modal}
-        <div id="boardModal"></div>
+        <div id="modal"></div>
       </body>
     </html>
   );

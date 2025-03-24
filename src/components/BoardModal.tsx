@@ -10,7 +10,7 @@ export default function BoardModal({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!dialogRef.current?.open) {
       dialogRef.current?.showModal();
-      dialogRef.current?.scrollTop;
+      dialogRef.current?.scrollTo({ top: 0 });
     }
   }, []);
 
@@ -36,6 +36,6 @@ export default function BoardModal({ children }: { children: ReactNode }) {
         <span className="absolute w-full h-[3px] bg-black top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] rotate-[-45deg]"></span>
       </button>
     </dialog>,
-    document.querySelector('#boardModal') as HTMLElement
+    document.querySelector('#modal') as HTMLElement
   );
 }
