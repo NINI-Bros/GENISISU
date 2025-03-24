@@ -9,5 +9,5 @@ export interface ModalStateType {
 export const useModalStateStore = create<ModalStateType>((set) => ({
   modalState: false,
   setModalToggleState: () => set((state) => ({ modalState: !state.modalState })),
-  setModalSelectState: (newState) => set((newWtate) => ({ modalState: newState })),
+  setModalSelectState: (newState) => set(() => ({ modalState: newState })),
 }));

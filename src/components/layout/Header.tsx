@@ -2,7 +2,6 @@
 
 import { Suspense, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
-import Sitemap from './Sitemap';
 import GnbSignSet from '../mainGnb/GnbSignSet';
 import GnbMobile from '../mainGnb/GnbMobile';
 import GnbWeb from '../mainGnb/GnbWeb';
@@ -42,9 +41,6 @@ export default function Header() {
           </Suspense>
         </div>
       </nav>
-
-      {/* 사이트맵 컴포넌트 */}
-      <Sitemap />
     </header>
   );
 }
