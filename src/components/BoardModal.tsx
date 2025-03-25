@@ -6,12 +6,14 @@ import { ReactNode, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 export default function BoardModal({ children }: { children: ReactNode }) {
+  const [bgFixState, setBgFixState] = useState(true);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const route = useRouter();
-  const [bgFixState, setBgFixState] = useState(true);
 
+  // 모달 오픈시 배경 고정 함수
   useModalOpenBgFix(bgFixState);
 
+  // 첫 진입시 dialog 열리게 하고 스크롤 최상단 이동
   useEffect(() => {
     if (!dialogRef.current?.open) {
       dialogRef.current?.showModal();
