@@ -38,27 +38,11 @@ export async function generateMetadata({
   };
 }
 
-export default async function Layout({
-  children,
-  params,
-}: {
-  children: ReactNode;
-  params: { boards: string };
-}) {
-  const { boards } = await params;
-  const { title } = TableCellData(boards);
-
+export default function Layout({ children }: { children: ReactNode }) {
   return (
     <main className="py-16 max-[1366px]:py-8 bg-white">
       <ScrollToTop />
-      <div className="max-w-[1920px] m-[0px_auto] h-full">
-        <div className="text-center py-4">
-          <h2 className="pb-20 max-[1366px]:pb-5 text-5xl font-medium text-black max-[1366px]:text-[34px]">
-            {title}
-          </h2>
-        </div>
-        {children}
-      </div>
+      <div className="max-w-[1920px] m-[0px_auto] h-full">{children}</div>
     </main>
   );
 }

@@ -37,9 +37,17 @@ export default async function Page({
 }) {
   const { boards } = await params;
   const { word, page } = await searchParams;
+  const { title } = TableCellData(boards);
 
   return (
     <>
+      {/* 게시판 제목 */}
+      <div className="text-center py-4">
+        <h2 className="pb-20 max-[1366px]:pb-5 text-5xl font-medium text-black max-[1366px]:text-[34px]">
+          {title}
+        </h2>
+      </div>
+
       {/* 상단 검색바 */}
       <SearchBar boardTypes={boards} postNameData={TableCellData(boards)} />
 

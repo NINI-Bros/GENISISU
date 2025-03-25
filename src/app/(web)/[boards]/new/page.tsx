@@ -15,10 +15,7 @@ export default function NewPage({ params }: { params: { boards: string } }) {
   }
 
   return (
-    <main
-      id="drivePage"
-      className="min-w-80 py-16 px-40 bg-white max-[1366px]:px-[0%] max-[1366px]:pb-0 max-[1366px]:py-8"
-    >
+    <section className="min-w-80 py-16 px-40 bg-white max-[1366px]:px-[0%] max-[1366px]:pb-0 max-[1366px]:py-8">
       <div className="drive">
         <div className="text-center py-4">
           <h2 className="pb-12 text-5xl font-medium leading-none text-black max-[1366px]:pb-0 max-[1366px]:text-[34px]">
@@ -61,6 +58,6 @@ export default function NewPage({ params }: { params: { boards: string } }) {
           </table>
         </section>
       </div>
-    </main>
+    </section>
   );
 }

@@ -59,12 +59,15 @@ const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 const CLIENT = process.env.NEXT_PUBLIC_CLIENT_ID;
 
 export default async function Page({ params }: { params: { boards: string; id: string } }) {
+  const { boards } = params;
+
   const session = await auth();
   const item = await fetchPost(params.id);
+
   let board = '';
-  if (params.boards === 'drive') {
+  if (boards === 'drive') {
     board = '전시시승 게시글';
-  } else if (params.boards === 'info') {
+  } else if (boards === 'info') {
     board = '공지사항 게시글';
   } else {
     board = '고객지원 게시글';
