@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 import { Metadata } from 'next';
 import ScrollToTop from '@/components/ScrollToTop';
-import TableCellData from './TableCellData';
 
 export function generateStaticParams() {
   return [{ boards: 'drive' }, { boards: 'qna' }, { boards: 'info' }];
