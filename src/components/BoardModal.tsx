@@ -9,6 +9,7 @@ export default function BoardModal({ children }: { children: ReactNode }) {
   const [bgFixState, setBgFixState] = useState(true);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const route = useRouter();
+  const [isActive, setIsActive] = useState(false);
 
   // 모달 오픈시 배경 고정 함수
   useModalOpenBgFix(bgFixState);
@@ -17,15 +18,33 @@ export default function BoardModal({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!dialogRef.current?.open) {
       dialogRef.current?.showModal();
-      dialogRef.current?.scrollTo({ top: 0 });
+      // dialogRef.current?.scrollTop;
     }
   }, []);
+
+  // 모달 오픈시 스타일 적용 함수
+  useEffect(() => {
+    if (bgFixState) {
+      setTimeout(() => {
+        setIsActive(true);
+      }, 10);
+    } else {
+      setTimeout(() => {
+        setIsActive(false);
+      }, 300);
+    }
+  }, [bgFixState]);
 
   return createPortal(
     <dialog
       ref={dialogRef}
-      className="relative w-full max-w-[60%] max-[1366px]:max-w-[85%]"
-      onClose={() => route.back()}
+      className={`${
+        isActive ? 'opacity-100 translate-y-0' : 'opacity-30 translate-y-32'
+      }  ease-linear duration-300 relative w-full max-w-[60%] max-[1366px]:max-w-[85%]`}
+      onClose={() => {
+        route.back();
+        setBgFixState((prop) => !prop);
+      }}
       onClick={(e) => {
         if ((e.target as any).nodeName === 'DIALOG') {
           route.back();

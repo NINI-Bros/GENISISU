@@ -40,7 +40,7 @@ export async function generateMetadata({
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <main className="py-16 max-[1366px]:py-8 bg-white">
-      <ScrollToTop />
+      {/* <ScrollToTop /> */}
       <div className="max-w-[1920px] m-[0px_auto] h-full">{children}</div>
     </main>
   );

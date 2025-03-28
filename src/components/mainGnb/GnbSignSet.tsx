@@ -19,9 +19,23 @@ export default function GnbSignSet() {
   const modalState = useModalStateStore((state) => state.modalState);
   const modalRef = useRef<HTMLDialogElement>(null);
   const path = usePathname();
+  const [isActive, setIsActive] = useState(false);
 
   //모달호출시 배경 고정 커스텀훅 실행
   useModalOpenBgFix(modalState);
+
+  // 모달 오픈시 스타일 적용 함수
+  useEffect(() => {
+    if (modalState) {
+      setTimeout(() => {
+        setIsActive(true);
+      }, 10);
+    } else {
+      setTimeout(() => {
+        setIsActive(false);
+      }, 300);
+    }
+  }, [modalState]);
 
   // 모달 호출 상태에 따라 dialog 태그 활성화
   useEffect(() => {
@@ -90,8 +104,8 @@ export default function GnbSignSet() {
       </li>
       {modalState &&
         createPortal(
-          <dialog ref={modalRef}>
-            <Sitemap />
+          <dialog ref={modalRef} onClose={() => modalSelectFn(false)}>
+            <Sitemap modalActive={isActive} />
           </dialog>,
           document.querySelector('#modal') as HTMLElement
         )}

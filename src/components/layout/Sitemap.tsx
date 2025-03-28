@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { useModalStateStore } from '@/zustand/useModalState';
 
-export default function Sitemap() {
+export default function Sitemap({ modalActive }: { modalActive: boolean }) {
   const modelRef = useRef(null);
   const modalState = useModalStateStore((state) => state.modalState);
   const modalSelectFn = useModalStateStore((state) => state.setModalSelectState);
@@ -54,7 +54,7 @@ export default function Sitemap() {
   };
 
   return (
-    <div className="sitemap" ref={modelRef}>
+    <div className={`sitemap ${modalActive ? 'on' : ''}`} ref={modelRef}>
       <section>
         <h2>SITE MAP</h2>
 

@@ -25,7 +25,7 @@ export default async function ListPage() {
 
   return (
     <main className="bg-black flex flex-col py-10 px-28 max-[1366px]:px-[7%]">
-      <ScrollToTop />
+      {/* <ScrollToTop /> */}
       <ViewModelResult data={data} />
     </main>
   );

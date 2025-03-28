@@ -225,11 +225,15 @@ header .smBtn {
   background: #000;
   color: white;
   position: fixed;
-  top: 0;
+  top: -200px;
   left: 0;
-  opacity: 100%;
+  opacity: 0%;
   transition: 0.3s ease-in-out;
   z-index: 20;
+}
+.sitemap.on {
+  top: 0;
+  opacity: 100%;
 }
 .sitemap .closeBtn {
   position: absolute;
@@ -957,8 +961,12 @@ form > .signInputWrap p {
 }
 
 /* 게시판 모달 호출용 스타일 */
-#modal dialog section {
+#modal dialog > section {
   padding: 5rem;
+}
+
+#modal dialog > section.driveModal {
+  padding: 1rem;
 }
 
 dialog main {
