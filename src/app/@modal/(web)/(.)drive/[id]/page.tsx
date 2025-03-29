@@ -1,10 +1,10 @@
 import DetailPage from '@/app/(web)/[boards]/[id]/page';
 import BoardModal from '@/components/BoardModal';
 
-export default function Page(props: any) {
+export default function Page({ params }: { params: { boards: string; id: string } }) {
   return (
     <BoardModal>
-      <DetailPage {...props} />
+      <DetailPage params={params} />
     </BoardModal>
   );
 }

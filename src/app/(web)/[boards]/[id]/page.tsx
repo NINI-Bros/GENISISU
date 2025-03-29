@@ -59,8 +59,7 @@ const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 const CLIENT = process.env.NEXT_PUBLIC_CLIENT_ID;
 
 export default async function Page({ params }: { params: { boards: string; id: string } }) {
-  const { boards } = params;
-
+  const { boards } = await params;
   const session = await auth();
   const item = await fetchPost(params.id);
 
