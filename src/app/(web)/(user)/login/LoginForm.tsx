@@ -43,14 +43,14 @@ export default function LoginForm() {
   return (
     <form>
       <div className="mb-4">
-        <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="email">
+        <label className="block text-gray-700 mb-2" htmlFor="email">
           이메일
         </label>
         <input
           id="email"
           type="email"
           placeholder="이메일을 입력하세요"
-          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-orange-400 dark:bg-gray-700"
+          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-orange-400"
           // name="email"
           {...register('email', {
             required: '이메일을 입력하세요.',
@@ -63,24 +63,21 @@ export default function LoginForm() {
         <InputError target={errors.email} />
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="password">
+        <label className="block text-gray-700 mb-2" htmlFor="password">
           비밀번호
         </label>
         <input
           id="password"
           type="password"
           placeholder="비밀번호를 입력하세요"
-          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-orange-400 dark:bg-gray-700"
+          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-orange-400"
           // name="password"
           {...register('password', {
             required: '비밀번호를 입력하세요.',
           })}
         />
         <InputError target={errors.password} />
-        <Link
-          href="#"
-          className="block mt-6 ml-auto text-gray-500 text-sm dark:text-gray-300 hover:underline"
-        >
+        <Link href="#" className="block mt-6 ml-auto text-gray-500 text-sm hover:underline">
           비밀번호를 잊으셨나요?
         </Link>
       </div>
