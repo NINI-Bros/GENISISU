@@ -1,18 +1,58 @@
-import { useSearchParams } from 'next/navigation';
+'use client';
+
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useSession } from '@/hook/useSession';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useModalStateStore } from '@/zustand/useModalState';
+import { createPortal } from 'react-dom';
+import Sitemap from '../layout/Sitemap';
+import { useEffect, useRef, useState } from 'react';
+import useModalOpenBgFix from '@/hook/useModalOpenBgFix';
 
-export default function GnbSignSet({
-  modalToggleFn,
-}: {
-  modalToggleFn: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+export default function GnbSignSet() {
   const searchParams = useSearchParams();
   const { session, status } = useSession();
+  const modalToggleFn = useModalStateStore((state) => state.setModalToggleState);
+  const modalSelectFn = useModalStateStore((state) => state.setModalSelectState);
+  const modalState = useModalStateStore((state) => state.modalState);
+  const modalRef = useRef<HTMLDialogElement>(null);
+  const path = usePathname();
+  const [isActive, setIsActive] = useState(false);
 
-  // 패스네임 기준 클래스 활성화 함수
+  //모달호출시 배경 고정 커스텀훅 실행
+  useModalOpenBgFix(modalState);
+
+  // 모달 오픈시 스타일 적용 함수
+  useEffect(() => {
+    if (modalState) {
+      setTimeout(() => {
+        setIsActive(true);
+      }, 10);
+    } else {
+      setTimeout(() => {
+        setIsActive(false);
+      }, 300);
+    }
+  }, [modalState]);
+
+  // 모달 호출 상태에 따라 dialog 태그 활성화
+  useEffect(() => {
+    if (modalState) {
+      modalRef.current?.showModal();
+      modalRef.current?.scrollTop;
+    } else {
+      modalRef.current?.close();
+    }
+  }, [modalState]);
+
+  // 화면이동시마다 (path 변경 시) 모달 닫기 실행
+  useEffect(() => {
+    modalSelectFn(false);
+  }, [path]);
+
+  // 패스네임 기준 로그인 버튼 클래스 활성화 함수
   const isOnActive = (routeName: string) => (searchParams.get('type') === routeName ? 'on' : '');
 
   // 로그아웃 함수
@@ -25,9 +65,11 @@ export default function GnbSignSet({
   const handleSiteMapOpen = (e: React.MouseEvent<HTMLElement>): void => {
     e.preventDefault();
     if (modalToggleFn !== undefined) {
-      modalToggleFn((prev) => !prev);
+      modalToggleFn();
     }
   };
+
+  // 로그인 상태에 따른 DOM 리턴 함수
   const signSetFn = () => {
     if (status === 'authenticated' && session) {
       return (
@@ -60,6 +102,13 @@ export default function GnbSignSet({
           </figure>
         </div>
       </li>
+      {modalState &&
+        createPortal(
+          <dialog ref={modalRef} onClose={() => modalSelectFn(false)}>
+            <Sitemap modalActive={isActive} />
+          </dialog>,
+          document.querySelector('#modal') as HTMLElement
+        )}
     </ul>
   );
 }

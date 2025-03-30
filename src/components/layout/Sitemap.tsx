@@ -4,21 +4,13 @@ import { fetchVehicles } from '@/data/fetch/productFetch';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-import useModalOpenBgFix from '@/hook/useModalOpenBgFix';
+import { useModalStateStore } from '@/zustand/useModalState';
 
-export default function Sitemap({
-  modalState,
-  modalToggleFn,
-}: {
-  modalState: boolean;
-  modalToggleFn: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+export default function Sitemap({ modalActive }: { modalActive: boolean }) {
   const modelRef = useRef(null);
-  const handleCloseBtn = () => modalToggleFn((prev) => !prev);
+  const modalState = useModalStateStore((state) => state.modalState);
+  const modalSelectFn = useModalStateStore((state) => state.setModalSelectState);
   const path = usePathname();
-
-  // 모달호출 시 배경 고정 커스텀 훅
-  useModalOpenBgFix(modalState);
 
   // 모델이름 불러오기 위한 서버액션
   const [titdata, setTitData] = useState<String[]>([]);
@@ -34,12 +26,6 @@ export default function Sitemap({
     };
     vehicleData();
   }, []);
-
-  // 화면이동시마다 클래스값 제거
-  useEffect(() => {
-    modalToggleFn(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [path]);
 
   // 모델명 컴포넌트
   const MenuList = () => {
@@ -68,7 +54,7 @@ export default function Sitemap({
   };
 
   return (
-    <div className={['modal', modalState ? 'on' : ''].join(' ')} ref={modelRef}>
+    <div className={`sitemap ${modalActive ? 'on' : ''}`} ref={modelRef}>
       <section>
         <h2>SITE MAP</h2>
 
@@ -101,7 +87,7 @@ export default function Sitemap({
         </div>
       </section>
 
-      <div className="closeBtn" onClick={handleCloseBtn}>
+      <div className="closeBtn" onClick={() => modalSelectFn(false)}>
         <div className="cl-line"></div>
         <div className="cl-line"></div>
       </div>

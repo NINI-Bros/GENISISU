@@ -7,7 +7,10 @@ import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import ButtonTop from '@/components/ButtonTop';
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children,
+  modal,
+}: Readonly<{ children: React.ReactNode; modal: React.ReactNode }>) {
   return (
     <html lang="ko">
       <head>
@@ -32,6 +35,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <Header />
           <div className="childrenWrap">
             {children}
+
             <SideBar />
             <Analytics />
             <SpeedInsights />
@@ -39,6 +43,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <Footer />
           <ButtonTop />
         </SessionProvider>
+        {modal}
+        <div id="modal"></div>
       </body>
     </html>
   );

@@ -59,12 +59,14 @@ const SERVER = process.env.NEXT_PUBLIC_API_SERVER;
 const CLIENT = process.env.NEXT_PUBLIC_CLIENT_ID;
 
 export default async function Page({ params }: { params: { boards: string; id: string } }) {
+  const { boards } = await params;
   const session = await auth();
   const item = await fetchPost(params.id);
+
   let board = '';
-  if (params.boards === 'drive') {
+  if (boards === 'drive') {
     board = '전시시승 게시글';
-  } else if (params.boards === 'info') {
+  } else if (boards === 'info') {
     board = '공지사항 게시글';
   } else {
     board = '고객지원 게시글';
@@ -74,7 +76,7 @@ export default async function Page({ params }: { params: { boards: string; id: s
     : `${SERVER}/files/${CLIENT}/profile-image-user.jpg`;
 
   return (
-    <main className="bg-white px-[360px] py-20 max-[1366px]:px-4 max-[1366px]:py-8">
+    <section className="bg-white px-[360px] py-20 max-[1366px]:px-4 max-[1366px]:py-8">
       <form className="mb-8 p-4">
         <input type="hidden" value={params.boards} name="boardName"></input>
         <input type="hidden" value={params.id} name="_id"></input>
@@ -146,6 +148,6 @@ export default async function Page({ params }: { params: { boards: string; id: s
         </div>
       </form>
       <CommentList params={params} />
-    </main>
+    </section>
   );
 }

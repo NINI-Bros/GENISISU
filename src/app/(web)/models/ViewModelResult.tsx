@@ -4,7 +4,6 @@ import Button from '@/components/Button';
 import ModelCard from './ModelCard';
 import { Product, ViewModelCards } from '@/types/product';
 import { useState } from 'react';
-import ScrollToTop from '@/components/ScrollToTop';
 
 export default function ViewModelResult({ data }: { data: Product[] }) {
   const [value, setValue] = useState<ViewModelCards>({
@@ -39,7 +38,6 @@ export default function ViewModelResult({ data }: { data: Product[] }) {
 
   return (
     <>
-      <ScrollToTop />
       <div className="flex justify-between mb-[20px] items-center max-[600px]:flex-col max-[600px]:gap-y-[20px]">
         <span className="text-white max-[600px]:self-end">
           {productComponent(value.searchActiveValue).length > 0
