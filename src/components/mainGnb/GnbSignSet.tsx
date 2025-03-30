@@ -50,6 +50,7 @@ export default function GnbSignSet() {
   // 화면이동시마다 (path 변경 시) 모달 닫기 실행
   useEffect(() => {
     modalSelectFn(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [path]);
 
   // 패스네임 기준 로그인 버튼 클래스 활성화 함수
@@ -71,7 +72,13 @@ export default function GnbSignSet() {
 
   // 로그인 상태에 따른 DOM 리턴 함수
   const signSetFn = () => {
-    if (status === 'authenticated' && session) {
+    if (status === 'loading' && session) {
+      return (
+        <span className="signOut" onClick={handleSignOut}>
+          Loading...
+        </span>
+      );
+    } else if (status === 'authenticated' && session) {
       return (
         <span className="signOut" onClick={handleSignOut}>
           로그아웃
