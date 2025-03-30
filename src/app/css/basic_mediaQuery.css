@@ -328,6 +328,11 @@
   footer .f_copy {
     display: none;
   }
+
+  /* 게시판 모달 호출용 스타일 */
+  #modal dialog > section {
+    padding: 1rem 2rem;
+  }
 }
 
 @media (max-width: 1366px) {
