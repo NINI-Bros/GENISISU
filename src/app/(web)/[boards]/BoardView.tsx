@@ -48,7 +48,7 @@ export default function BoardView({
             </thead>
             <tbody>{postAllData()}</tbody>
           </table>
-          <hr />
+          {/* <hr /> */}
           <PostPagination pagingData={paginationData} boardType={boardTypes} />
         </section>
       ) : (
