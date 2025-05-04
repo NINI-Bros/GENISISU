@@ -48,14 +48,14 @@ export default function SignupForm() {
   return (
     <form onSubmit={handleSubmit(addUser)}>
       <div className="mb-4">
-        <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="name">
+        <label className="block text-gray-700 mb-2" htmlFor="name">
           이름
         </label>
         <input
           type="text"
           id="name"
           placeholder="이름을 입력하세요"
-          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-orange-400 dark:bg-gray-700"
+          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-orange-400"
           {...register('name', {
             required: '이름을 입력하세요.',
             minLength: {
@@ -67,14 +67,14 @@ export default function SignupForm() {
         <InputError target={errors.name} />
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="email">
+        <label className="block text-gray-700 mb-2" htmlFor="email">
           이메일
         </label>
         <input
           type="email"
           id="email"
           placeholder="이메일을 입력하세요"
-          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-orange-400 dark:bg-gray-700"
+          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-orange-400"
           {...register('email', {
             required: '이메일을 입력하세요.',
             pattern: {
@@ -86,14 +86,14 @@ export default function SignupForm() {
         <InputError target={errors.email} />
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="password">
+        <label className="block text-gray-700 mb-2" htmlFor="password">
           비밀번호
         </label>
         <input
           type="password"
           id="password"
           placeholder="비밀번호를 입력하세요"
-          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-orange-400 dark:bg-gray-700"
+          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-orange-400"
           {...register('password', {
             required: '비밀번호를 입력하세요.',
           })}
@@ -102,7 +102,7 @@ export default function SignupForm() {
       </div>
 
       <div className="mb-4">
-        <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="attach">
+        <label className="block text-gray-700 mb-2" htmlFor="attach">
           프로필 이미지
         </label>
         <input
@@ -110,7 +110,7 @@ export default function SignupForm() {
           id="attach"
           accept="image/*"
           placeholder="이미지를 선택하세요"
-          className="w-full px-3 py-2 border rounded-lg dark:bg-gray-700"
+          className="w-full px-3 py-2 border rounded-lg"
           {...register('attach')}
         />
       </div>

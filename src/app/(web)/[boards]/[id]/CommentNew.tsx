@@ -28,7 +28,7 @@ export default function CommentNew({ boardName, postId }: { postId: string; boar
           maxLength={1000}
           className={`block ${isWarningMargin(
             errors.content
-          )} p-2 w-full text-sm border border-gray-300 bg-gray-50 focus:outline-gray-400 focus:ring-2 focus:ring-blue-200 dark:bg-gray-200 dark:placeholder-gray-400 dark:text-black resize-none`}
+          )} p-2 w-full text-sm border border-gray-300 bg-gray-50 focus:outline-gray-400 focus:ring-2 focus:ring-blue-200 resize-none`}
           placeholder="내용을 입력하세요."
           {...register('content', { required: '내용은 필수입니다.' })}
         ></textarea>

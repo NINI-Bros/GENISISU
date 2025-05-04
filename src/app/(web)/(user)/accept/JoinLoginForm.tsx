@@ -53,7 +53,7 @@ export default function JoinLoginForm({ moveState }: { moveState: boolean }) {
       </div>
       <form>
         <div className="mb-4 signInputWrap">
-          <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="email">
+          <label className="block text-gray-700 mb-2" htmlFor="email">
             이메일
           </label>
           <input
@@ -72,7 +72,7 @@ export default function JoinLoginForm({ moveState }: { moveState: boolean }) {
           <InputError target={errors.email} />
         </div>
         <div className="mb-4 signInputWrap">
-          <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="password">
+          <label className="block text-gray-700 mb-2" htmlFor="password">
             비밀번호
           </label>
           <input
